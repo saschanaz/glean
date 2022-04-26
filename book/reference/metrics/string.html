@@ -266,9 +266,7 @@ assertEquals(&quot;wikipedia&quot;, SearchDefault.INSTANCE.name.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Does the string metric have the expected value?
+<pre><code class="language-Swift">// Does the string metric have the expected value?
 XCTAssertEqual(&quot;wikipedia&quot;, try SearchDefault.name.testGetValue())
 </code></pre>
 </div>
@@ -337,9 +335,7 @@ assertTrue(SearchDefault.INSTANCE.name.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(SearchDefault.name.testHasValue())
 </code></pre>
 </div>
@@ -381,9 +377,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was the string truncated, and an error reported?
+<pre><code class="language-Swift">// Was the string truncated, and an error reported?
 XCTAssertEqual(1, SearchDefault.name.testGetNumRecordedErrors(.invalidOverflow))
 </code></pre>
 </div>

@@ -264,9 +264,7 @@ assertEquals(3, Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].tes
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Do the counters have the expected values?
+<pre><code class="language-Swift">// Do the counters have the expected values?
 XCTAssertEqual(1, try Stability.crashCount[&quot;uncaught_exception&quot;].testGetValue())
 XCTAssertEqual(3, try Stability.crashCount[&quot;native_code_crash&quot;].testGetValue())
 </code></pre>
@@ -340,9 +338,7 @@ assertTrue(Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].testHasV
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(Stability.crashCount[&quot;uncaught_exception&quot;].testHasValue())
 XCTAssert(Stability.crashCount[&quot;native_code_crash&quot;].testHasValue())
 </code></pre>
@@ -381,9 +377,7 @@ assertEquals(0, Stability.INSTANCE.crashCount.testGetNumRecordedErrors(ErrorType
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Were there any invalid labels?
+<pre><code class="language-Swift">// Were there any invalid labels?
 XCTAssertEqual(0, Stability.crashCount.testGetNumRecordedErrors(.invalidLabel))
 </code></pre>
 </div>

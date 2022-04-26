@@ -590,9 +590,7 @@ assertTrue(Auth.INSTANCE.loginTime.testGetValue() &gt; 0);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(try Auth.loginTime.testGetValue() &gt; 0)
+<pre><code class="language-Swift">XCTAssert(try Auth.loginTime.testGetValue() &gt; 0)
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -650,9 +648,7 @@ assertTrue(Auth.INSTANCE.loginTime.testHasValue() &gt; 0);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(try Auth.loginTime.testHasValue() &gt; 0)
+<pre><code class="language-Swift">XCTAssert(try Auth.loginTime.testHasValue() &gt; 0)
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -699,9 +695,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual(1, Auth.loginTime.testGetNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(1, Auth.loginTime.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">

@@ -255,9 +255,7 @@ assertEquals(6, Controls.INSTANCE.refreshPressed.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual(6, try Controls.refreshPressed.testGetValue())
+<pre><code class="language-Swift">XCTAssertEqual(6, try Controls.refreshPressed.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -315,9 +313,7 @@ assertTrue(Controls.INSTANCE.refreshPressed.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(Controls.refreshPressed.testHasValue())
+<pre><code class="language-Swift">XCTAssert(Controls.refreshPressed.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">

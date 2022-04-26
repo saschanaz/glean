@@ -444,9 +444,7 @@ assertEquals(1L, snapshot.getCount());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Get snapshot.
+<pre><code class="language-Swift">// Get snapshot.
 let snapshot = try! pages.pageLoad.testGetValue()
 
 // Usually you don't know the exact timing values,
@@ -517,9 +515,7 @@ assertTrue(Pages.INSTANCE.pageLoad().testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(pages.pageLoad.testHasValue())
 </code></pre>
 </div>
@@ -561,9 +557,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Assert that no errors were recorded.
+<pre><code class="language-Swift">// Assert that no errors were recorded.
 XCTAssertEqual(0, pages.pageLoad.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>

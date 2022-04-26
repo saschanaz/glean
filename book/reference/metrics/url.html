@@ -268,9 +268,7 @@ assertEquals(&quot;https://mysearchengine.com/&quot;, Search.INSTANCE.template.t
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual(&quot;https://mysearchengine.com/&quot;, try Search.template.testGetValue())
+<pre><code class="language-Swift">XCTAssertEqual(&quot;https://mysearchengine.com/&quot;, try Search.template.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -317,9 +315,7 @@ assertTrue(Search.INSTANCE.template.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(try Search.template.testHasValue())
+<pre><code class="language-Swift">XCTAssert(try Search.template.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -366,9 +362,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual(0, Search.template.testGetNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(0, Search.template.testGetNumRecordedErrors(.invalidValue))
 XCTAssertEqual(0, Search.template.testGetNumRecordedErrors(.invalidOverflow))
 </code></pre>
 </div>

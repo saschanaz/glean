@@ -3525,7 +3525,6 @@ it enables uploading and clears the recorded metrics at the beginning of each te
 <p>Activate it by resetting Glean in your test's setup:</p>
 <pre><code class="language-swift">// All pings and metrics testing APIs are marked as `internal`
 // so you need to import `Glean` explicitly in test mode.
-@testable import Glean
 import XCTest
 
 class GleanUsageTests: XCTestCase {
@@ -4492,9 +4491,7 @@ assertTrue(Flags.INSTANCE.a11yEnabled.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertTrue(try Flags.a11yEnabled.testGetValue())
+<pre><code class="language-Swift">XCTAssertTrue(try Flags.a11yEnabled.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -4546,9 +4543,7 @@ assertTrue(Flags.INSTANCE.a11yEnabled.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertTrue(try Flags.a11yEnabled.testHasValue())
+<pre><code class="language-Swift">XCTAssertTrue(try Flags.a11yEnabled.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -4693,9 +4688,7 @@ assertEquals(False, Acessibility.INSTANCE.features[&quot;high_contrast&quot;].te
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Do the booleans have the expected values?
+<pre><code class="language-Swift">// Do the booleans have the expected values?
 XCTAssertEqual(true, try Accessibility.features[&quot;screen_reader&quot;].testGetValue())
 XCTAssertEqual(false, try Accessibility.features[&quot;high_contrast&quot;].testGetValue())
 </code></pre>
@@ -4768,9 +4761,7 @@ assertEquals(True, Acessibility.INSTANCE.features[&quot;high_contrast&quot;].tes
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(Accessibility.features[&quot;screen_reader&quot;].testHasValue())
 XCTAssert(Accessibility.features[&quot;high_contrast&quot;].testHasValue())
 </code></pre>
@@ -4809,9 +4800,7 @@ assertEquals(0, Acessibility.INSTANCE.features.testGetNumRecordedErrors());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Were there any invalid labels?
+<pre><code class="language-Swift">// Were there any invalid labels?
 XCTAssertEqual(0, Accessibility.features.testGetNumRecordedErrors(.invalidLabel))
 </code></pre>
 </div>
@@ -5020,9 +5009,7 @@ assertEquals(6, Controls.INSTANCE.refreshPressed.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual(6, try Controls.refreshPressed.testGetValue())
+<pre><code class="language-Swift">XCTAssertEqual(6, try Controls.refreshPressed.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -5080,9 +5067,7 @@ assertTrue(Controls.INSTANCE.refreshPressed.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(Controls.refreshPressed.testHasValue())
+<pre><code class="language-Swift">XCTAssert(Controls.refreshPressed.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -5308,9 +5293,7 @@ assertEquals(3, Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].tes
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Do the counters have the expected values?
+<pre><code class="language-Swift">// Do the counters have the expected values?
 XCTAssertEqual(1, try Stability.crashCount[&quot;uncaught_exception&quot;].testGetValue())
 XCTAssertEqual(3, try Stability.crashCount[&quot;native_code_crash&quot;].testGetValue())
 </code></pre>
@@ -5384,9 +5367,7 @@ assertTrue(Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].testHasV
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(Stability.crashCount[&quot;uncaught_exception&quot;].testHasValue())
 XCTAssert(Stability.crashCount[&quot;native_code_crash&quot;].testHasValue())
 </code></pre>
@@ -5425,9 +5406,7 @@ assertEquals(0, Stability.INSTANCE.crashCount.testGetNumRecordedErrors(ErrorType
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Were there any invalid labels?
+<pre><code class="language-Swift">// Were there any invalid labels?
 XCTAssertEqual(0, Stability.crashCount.testGetNumRecordedErrors(.invalidLabel))
 </code></pre>
 </div>
@@ -5648,9 +5627,7 @@ assertEquals(&quot;wikipedia&quot;, SearchDefault.INSTANCE.name.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Does the string metric have the expected value?
+<pre><code class="language-Swift">// Does the string metric have the expected value?
 XCTAssertEqual(&quot;wikipedia&quot;, try SearchDefault.name.testGetValue())
 </code></pre>
 </div>
@@ -5719,9 +5696,7 @@ assertTrue(SearchDefault.INSTANCE.name.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(SearchDefault.name.testHasValue())
 </code></pre>
 </div>
@@ -5763,9 +5738,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was the string truncated, and an error reported?
+<pre><code class="language-Swift">// Was the string truncated, and an error reported?
 XCTAssertEqual(1, SearchDefault.name.testGetNumRecordedErrors(.invalidOverflow))
 </code></pre>
 </div>
@@ -5941,9 +5914,7 @@ assertTrue(Login.INSTANCE.errorsByStage[&quot;server_auth&quot;].testGetValue())
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Does the metric have the expected value?
+<pre><code class="language-Swift">// Does the metric have the expected value?
 XCTAssert(Login.errorsByStage[&quot;server_auth&quot;].testGetValue())
 </code></pre>
 </div>
@@ -6010,9 +5981,7 @@ assertTrue(Login.INSTANCE.errorsByStage[&quot;server_auth&quot;].testHasValue())
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(Login.errorsByStage[&quot;server_auth&quot;].testHasValue())
 </code></pre>
 </div>
@@ -6046,9 +6015,7 @@ assertEquals(0, Login.INSTANCE.errorsByStage.testGetNumRecordedErrors(ErrorType.
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Were there any invalid labels?
+<pre><code class="language-Swift">// Were there any invalid labels?
 XCTAssertEqual(0, Login.errorsByStage.testGetNumRecordedErrors(.invalidLabel))
 </code></pre>
 </div>
@@ -6311,9 +6278,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual([&quot;Google&quot;, &quot;DuckDuckGo&quot;], try Search.engines.testGetValue())
+<pre><code class="language-Swift">XCTAssertEqual([&quot;Google&quot;, &quot;DuckDuckGo&quot;], try Search.engines.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -6375,9 +6340,7 @@ assertTrue(Search.INSTANCE.engines().testHasValue())
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(Search.engines.testHasValue())
+<pre><code class="language-Swift">XCTAssert(Search.engines.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -6412,9 +6375,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Were any of the values too long, and thus an error was recorded?
+<pre><code class="language-Swift">// Were any of the values too long, and thus an error was recorded?
 XCTAssertEqual(1, Search.engines.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
@@ -6911,9 +6872,7 @@ assertTrue(Auth.INSTANCE.loginTime.testGetValue() &gt; 0);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(try Auth.loginTime.testGetValue() &gt; 0)
+<pre><code class="language-Swift">XCTAssert(try Auth.loginTime.testGetValue() &gt; 0)
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -6971,9 +6930,7 @@ assertTrue(Auth.INSTANCE.loginTime.testHasValue() &gt; 0);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(try Auth.loginTime.testHasValue() &gt; 0)
+<pre><code class="language-Swift">XCTAssert(try Auth.loginTime.testHasValue() &gt; 0)
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -7020,9 +6977,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual(1, Auth.loginTime.testGetNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(1, Auth.loginTime.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -7405,9 +7360,7 @@ assertEquals(1L, snapshot.getCount());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Get snapshot.
+<pre><code class="language-Swift">// Get snapshot.
 let snapshot = try! pages.pageLoad.testGetValue()
 
 // Usually you don't know the exact timing values,
@@ -7478,9 +7431,7 @@ assertTrue(Pages.INSTANCE.pageLoad().testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(pages.pageLoad.testHasValue())
 </code></pre>
 </div>
@@ -7522,9 +7473,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Assert that no errors were recorded.
+<pre><code class="language-Swift">// Assert that no errors were recorded.
 XCTAssertEqual(0, pages.pageLoad.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
@@ -7806,9 +7755,7 @@ assertEquals(2L, snapshot.getCount());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Get snapshot
+<pre><code class="language-Swift">// Get snapshot
 let snapshot = try! Memory.heapAllocated.testGetValue()
 
 // Does the sum have the expected value?
@@ -7889,9 +7836,7 @@ assertTrue(Memory.INSTANCE.heapAllocated().testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(Memory.heapAllocated.testHasValue())
 </code></pre>
 </div>
@@ -7936,9 +7881,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Did this record a negative value?
+<pre><code class="language-Swift">// Did this record a negative value?
 XCTAssertEqual(0, Memory.heapAllocated.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
@@ -8236,9 +8179,7 @@ assertEquals(uuid, User.INSTANCE.clientId.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was it the expected value?
+<pre><code class="language-Swift">// Was it the expected value?
 XCTAssertEqual(uuid, try User.clientId.testGetValue())
 </code></pre>
 </div>
@@ -8307,9 +8248,7 @@ assertTrue(User.INSTANCE.clientId.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(User.clientId.testHasValue())
 </code></pre>
 </div>
@@ -8542,9 +8481,7 @@ assertEquals(&quot;https://mysearchengine.com/&quot;, Search.INSTANCE.template.t
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual(&quot;https://mysearchengine.com/&quot;, try Search.template.testGetValue())
+<pre><code class="language-Swift">XCTAssertEqual(&quot;https://mysearchengine.com/&quot;, try Search.template.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -8591,9 +8528,7 @@ assertTrue(Search.INSTANCE.template.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(try Search.template.testHasValue())
+<pre><code class="language-Swift">XCTAssert(try Search.template.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -8640,9 +8575,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual(0, Search.template.testGetNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(0, Search.template.testGetNumRecordedErrors(.invalidValue))
 XCTAssertEqual(0, Search.template.testGetNumRecordedErrors(.invalidOverflow))
 </code></pre>
 </div>
@@ -8836,9 +8769,7 @@ assertEquals(Install.INSTANCE.firstRun.testGetValue(), Date(2019, 3, 25));
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-let expectedDate = DateComponents(
+<pre><code class="language-Swift">let expectedDate = DateComponents(
                       calendar: Calendar.current,
                       year: 2004, month: 12, day: 9, hour: 8, minute: 3, second: 29
                    )
@@ -8913,9 +8844,7 @@ assertEquals(&quot;2019-03-25-05:00&quot;, Install.INSTANCE.firstRun.testGetValu
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-assertEquals(&quot;2019-03-25-05:00&quot;, try Install.firstRun.testGetValueAsString())
+<pre><code class="language-Swift">assertEquals(&quot;2019-03-25-05:00&quot;, try Install.firstRun.testGetValueAsString())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -8953,9 +8882,7 @@ assertTrue(Install.INSTANCE.firstRun.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(Install.firstRun.testHasValue())
+<pre><code class="language-Swift">XCTAssert(Install.firstRun.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -8990,9 +8917,7 @@ assertEquals(0, Install.INSTANCE.firstRun.testGetNumRecordedErrors(ErrorType.Inv
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual(0, Install.firstRun.getNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(0, Install.firstRun.getNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -9235,9 +9160,7 @@ assertEquals(Views.INSTANCE.loginOpened.testGetValue().size)
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-swift">@testable import Glean
-
-val snapshot = try! Views.loginOpened.testGetValue()
+<pre><code class="language-swift">val snapshot = try! Views.loginOpened.testGetValue()
 XCTAssertEqual(2, snapshot.size)
 val first = snapshot[0]
 XCTAssertEqual(&quot;login_opened&quot;, first.name)
@@ -9306,9 +9229,7 @@ assertTrue(Views.INSTANCE.loginOpened.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-swift">@testable import Glean
-
-XCTAssert(Views.loginOpened.testHasValue())
+<pre><code class="language-swift">XCTAssert(Views.loginOpened.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -9343,9 +9264,7 @@ assertEquals(0, Views.INSTANCE.loginOpened.testGetNumRecordedErrors(ErrorType.In
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-swift">@testable import Glean
-
-XCTAssertEqual(0, Views.loginOpened.testGetNumRecordedErrors(.invalidOverflow))
+<pre><code class="language-swift">XCTAssertEqual(0, Views.loginOpened.testGetNumRecordedErrors(.invalidOverflow))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -9787,9 +9706,7 @@ assertEquals(6, Display.INSTANCE.width.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Does the quantity have the expected value?
+<pre><code class="language-Swift">// Does the quantity have the expected value?
 XCTAssertEqual(6, try Display.width.testGetValue())
 </code></pre>
 </div>
@@ -9853,9 +9770,7 @@ assertTrue(Display.INSTANCE.width.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(Display.width.testHasValue())
 </code></pre>
 </div>
@@ -9894,9 +9809,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Did the quantity record a negative value?
+<pre><code class="language-Swift">// Did the quantity record a negative value?
 XCTAssertEqual(1, Display.width.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
@@ -10441,9 +10354,7 @@ assertTrue(validatorRun);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-swift">@testable import Glean
-
-// Record some data.
+<pre><code class="language-swift">// Record some data.
 Search.defaultEngine.add(5)
 
 // Instruct the ping API to validate the ping data.

@@ -312,9 +312,7 @@ assertEquals(Views.INSTANCE.loginOpened.testGetValue().size)
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-swift">@testable import Glean
-
-val snapshot = try! Views.loginOpened.testGetValue()
+<pre><code class="language-swift">val snapshot = try! Views.loginOpened.testGetValue()
 XCTAssertEqual(2, snapshot.size)
 val first = snapshot[0]
 XCTAssertEqual(&quot;login_opened&quot;, first.name)
@@ -383,9 +381,7 @@ assertTrue(Views.INSTANCE.loginOpened.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-swift">@testable import Glean
-
-XCTAssert(Views.loginOpened.testHasValue())
+<pre><code class="language-swift">XCTAssert(Views.loginOpened.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -420,9 +416,7 @@ assertEquals(0, Views.INSTANCE.loginOpened.testGetNumRecordedErrors(ErrorType.In
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-swift">@testable import Glean
-
-XCTAssertEqual(0, Views.loginOpened.testGetNumRecordedErrors(.invalidOverflow))
+<pre><code class="language-swift">XCTAssertEqual(0, Views.loginOpened.testGetNumRecordedErrors(.invalidOverflow))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">

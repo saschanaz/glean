@@ -309,9 +309,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssertEqual([&quot;Google&quot;, &quot;DuckDuckGo&quot;], try Search.engines.testGetValue())
+<pre><code class="language-Swift">XCTAssertEqual([&quot;Google&quot;, &quot;DuckDuckGo&quot;], try Search.engines.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -373,9 +371,7 @@ assertTrue(Search.INSTANCE.engines().testHasValue())
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-XCTAssert(Search.engines.testHasValue())
+<pre><code class="language-Swift">XCTAssert(Search.engines.testHasValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -410,9 +406,7 @@ assertEquals(
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Were any of the values too long, and thus an error was recorded?
+<pre><code class="language-Swift">// Were any of the values too long, and thus an error was recorded?
 XCTAssertEqual(1, Search.engines.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>

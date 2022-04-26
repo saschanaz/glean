@@ -311,9 +311,7 @@ assertEquals(uuid, User.INSTANCE.clientId.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was it the expected value?
+<pre><code class="language-Swift">// Was it the expected value?
 XCTAssertEqual(uuid, try User.clientId.testGetValue())
 </code></pre>
 </div>
@@ -382,9 +380,7 @@ assertTrue(User.INSTANCE.clientId.testHasValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">@testable import Glean
-
-// Was anything recorded?
+<pre><code class="language-Swift">// Was anything recorded?
 XCTAssert(User.clientId.testHasValue())
 </code></pre>
 </div>
