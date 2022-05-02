@@ -8425,7 +8425,16 @@ search::template.set(&quot;https://mysearchengine.com/&quot;);
 search.template.set(&quot;https://mysearchengine.com/&quot;);
 </code></pre>
 </div>
-<div data-lang="Firefox Desktop" class="tab"></div>
+<div data-lang="Firefox Desktop" class="tab">
+<p><strong>C++</strong></p>
+<pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
+
+mozilla::glean::search::template.Set(&quot;https://mysearchengine.com/&quot;_ns);
+</code></pre>
+<p><strong>JavaScript</strong></p>
+<pre><code class="language-js">Glean.search.template.set(&quot;https://mysearchengine.com/&quot;);
+</code></pre>
+</div>
 </div>
 </div>
 <h3 id="seturl"><a class="header" href="#seturl"><code>setUrl</code></a></h3>
@@ -11021,6 +11030,12 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v44.1.1...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>The <code>glean.error.preinit_tasks_overflow</code> metric now reports only the number of overflowing tasks.
+It is marked as version 1 in the definition now. (<a href="https://github.com/mozilla/glean/pull/2026">#2026</a>)</li>
+</ul>
+</li>
 <li>Kotlin
 <ul>
 <li>(Development only) Allow to override the used <code>glean_parser</code> in the Glean Gradle Plugin (<a href="https://github.com/mozilla/glean/pull/2029">#2029</a>)</li>

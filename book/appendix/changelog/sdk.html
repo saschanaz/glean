@@ -152,6 +152,12 @@
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v44.1.1...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>The <code>glean.error.preinit_tasks_overflow</code> metric now reports only the number of overflowing tasks.
+It is marked as version 1 in the definition now. (<a href="https://github.com/mozilla/glean/pull/2026">#2026</a>)</li>
+</ul>
+</li>
 <li>Kotlin
 <ul>
 <li>(Development only) Allow to override the used <code>glean_parser</code> in the Glean Gradle Plugin (<a href="https://github.com/mozilla/glean/pull/2029">#2029</a>)</li>
