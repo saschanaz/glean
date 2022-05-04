@@ -172,8 +172,16 @@ The tag will be applied upon initialization in this case.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import mozilla.telemetry.glean.Glean
+
+Glean.setSourceTags(setOf(&quot;my-tag&quot;, &quot;your-tag&quot;, &quot;our-tag&quot;))
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">Glean.INSTANCE.setSourceTags(setOf(&quot;my-tag&quot;, &quot;your-tag&quot;, &quot;our-tag&quot;))
+</code></pre>
+</div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">import Glean
 

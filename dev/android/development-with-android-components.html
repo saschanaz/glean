@@ -158,11 +158,8 @@
 <li>consume library snapshot in application</li>
 </ol>
 <blockquote>
-<p><strong>Note</strong>: this substitution-based approach will not work for testing updates to the Glean Gradle Plugin.
-For that to work, the library and the plugin need to be published to a local maven and manually imported
-in the consuming projects.
-Please refer to <a href="./locally-published-components-in-fenix.html">Using locally-published Glean in Fenix</a> for
-how to do that.</p>
+<p><strong>Note</strong>: this substitution-based approach will not work for testing updates to <code>glean_parser</code> as shipped in the Glean Gradle Plugin.
+For replacing <code>glean_parser</code> in a local build, see <a href="glean-parser-substitution.html">Substituting <code>glean_parser</code></a>.</p>
 </blockquote>
 <h2 id="preparation"><a class="header" href="#preparation">Preparation</a></h2>
 <p>Clone the Glean SDK and android-components repositories:</p>
@@ -170,8 +167,8 @@ how to do that.</p>
 git clone https://github.com/mozilla-mobile/android-components
 </code></pre>
 <h2 id="cargo-build-targets"><a class="header" href="#cargo-build-targets">Cargo build targets</a></h2>
-<p>By default when building Android Components using gradle, the gradle-cargo plugin will compile Glean for every possible platform,
-which might end up in failures.
+<p>By default when building Android Components using gradle, the rust-android plugin will compile Glean for every possible platform,
+which might end up in build failures.
 You can customize which targets are built in <code>glean/local.properties</code>
 (<a href="https://github.com/ncalexan/rust-android-gradle/blob/HEAD/README.md#specifying-local-targets">more information</a>):</p>
 <pre><code># For physical devices:
@@ -187,34 +184,9 @@ rust.targets=x86
 <p>android-components has custom build logic for dealing with composite builds,
 so you should be able to configure it by simply adding the path to the Glean repository in the correct <code>local.properties</code> file:</p>
 <p>In <code>android-components/local.properties</code>:</p>
-<pre><code class="language-groovy">substitutions.glean.dir=../glean
+<pre><code class="language-groovy">localProperties.autoPublish.glean.dir=../glean
 </code></pre>
-<p>If this doesn't seem to work, or if you need to configure composite builds for a project that does not contain this custom logic,
-add the following to <code>settings.gradle</code>:</p>
-<p>In <code>android-components/settings.gradle</code>:</p>
-<pre><code class="language-groovy">includeBuild('../glean') {
-  dependencySubstitution {
-    substitute module('org.mozilla.telemetry:glean') with project(':glean')
-    substitute module('org.mozilla.telemetry:glean-forUnitTests') with project(':glean')
-  }
-}
-</code></pre>
-<p>Composite builds will ensure the Glean SDK is build as part of tasks inside <code>android-components</code>.</p>
-<h2 id="caveat"><a class="header" href="#caveat">Caveat</a></h2>
-<p>There's a big gotcha with library substitutions: the Gradle build computes lazily, and AARs don't include their transitive dependencies' JNI libraries.
-This means that in <code>android-components</code>, <code>./gradlew :service-glean:assembleDebug</code> <strong>does not</strong> invoke <code>:glean:cargoBuild</code>,
-even though <code>:service-glean</code> depends on the substitution for <code>:glean</code> and even if the inputs to Cargo have changed!
-It's the final consumer of the <code>:service-glean</code> project (or publication) that will incorporate the JNI libraries.</p>
-<p>In practice that means <em>you should always be targeting something that produces an APK</em>: a test or a sample module.
-Then you should find that the <code>cargoBuild</code> tasks are invoked as you expect.</p>
-<p>Inside the <code>android-components</code> repository <code>./gradlew :samples-glean:connectedAndroidTest</code> should work.
-Other tests like <code>:service-glean:testDebugUnitTest</code> or <code>:support-sync-telemetry:testDebugUnitTest</code> will currently fail, because the JNI libraries are not included.</p>
-<h2 id="notes"><a class="header" href="#notes">Notes</a></h2>
-<p>This document is based on the equivalent documentation for application-services:
-<a href="https://github.com/mozilla/application-services/blob/HEAD/docs/howtos/working-with-reference-browser.md">Development with the Reference Browser</a></p>
-<ol>
-<li>Transitive substitutions (as shown above) work but require newer Gradle versions (4.10+).</li>
-</ol>
+<p>This will auto-publish Glean SDK changes to a local repository and consume them in android-components.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/dev/android/development-with-android-components.md">Edit this file on GitHub.</a></footer>
                     </main>
 

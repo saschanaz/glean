@@ -4100,12 +4100,7 @@ The tag will be applied upon initialization in this case.</p>
 <div class="tabcontents">
 <div data-lang="Kotlin" class="tab"></div>
 <div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">import Glean
-
-Glean.shared.setLogPings(true)
-</code></pre>
-</div>
+<div data-lang="Swift" class="tab"></div>
 <div data-lang="Python" class="tab"></div>
 <div data-lang="Rust" class="tab">
 <pre><code class="language-Rust">use glean;
@@ -4175,12 +4170,7 @@ The tag will be applied upon initialization in this case.</p>
 <div class="tabcontents">
 <div data-lang="Kotlin" class="tab"></div>
 <div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">import Glean
-
-Glean.shared.setDebugViewTag(&quot;my-tag&quot;)
-</code></pre>
-</div>
+<div data-lang="Swift" class="tab"></div>
 <div data-lang="Python" class="tab"></div>
 <div data-lang="Rust" class="tab">
 <pre><code class="language-Rust">use glean;
@@ -4252,8 +4242,16 @@ The tag will be applied upon initialization in this case.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import mozilla.telemetry.glean.Glean
+
+Glean.setSourceTags(setOf(&quot;my-tag&quot;, &quot;your-tag&quot;, &quot;our-tag&quot;))
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">Glean.INSTANCE.setSourceTags(setOf(&quot;my-tag&quot;, &quot;your-tag&quot;, &quot;our-tag&quot;))
+</code></pre>
+</div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">import Glean
 
@@ -11039,6 +11037,12 @@ It is marked as version 1 in the definition now. (<a href="https://github.com/mo
 <li>Kotlin
 <ul>
 <li>(Development only) Allow to override the used <code>glean_parser</code> in the Glean Gradle Plugin (<a href="https://github.com/mozilla/glean/pull/2029">#2029</a>)</li>
+<li><code>setSourceTags</code> is now a public API (<a href="https://github.com/mozilla/glean/pull/2035">#2035</a>))</li>
+</ul>
+</li>
+<li>iOS
+<ul>
+<li><code>setSourceTags</code> is now a public API (<a href="https://github.com/mozilla/glean/pull/2035">#2035</a>)</li>
 </ul>
 </li>
 </ul>
@@ -12957,6 +12961,7 @@ This is a major milestone in using a cross-platform implementation of Glean on t
 <li>This bug was preventing pings that contained custom headers from being successfully validated and enqueued on initialize.</li>
 </ul>
 </li>
+<li><a href="https://github.com/mozilla/glean.js/pull/1335">#1335</a>: BUGFIX: Fix uploading gzip-compressed pings in Node.</li>
 </ul>
 <h1 id="v100-2022-03-17"><a class="header" href="#v100-2022-03-17">v1.0.0 (2022-03-17)</a></h1>
 <p><a href="https://github.com/mozilla/glean.js/compare/v0.32.0...v1.0.0">Full changelog</a></p>
