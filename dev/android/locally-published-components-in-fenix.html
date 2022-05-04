@@ -151,109 +151,22 @@
                     <main>
                         <h1 id="using-locally-published-glean-in-fenix"><a class="header" href="#using-locally-published-glean-in-fenix">Using locally-published Glean in Fenix</a></h1>
 <blockquote>
-<p>Note: This is a bit tedious, and you might like to try the substitution-based approach documented in
-<a href="./development-with-android-components.html">Working on unreleased Glean code in android-components</a>.
-That approach is still fairly new, and the local-publishing approach in this document is necessary if it fails.</p>
-</blockquote>
-<blockquote>
-<p>Note: This is Fenix-specific only in that some links on the page go to the <code>mozilla-mobile/fenix</code> repository,
-however these steps should work for e.g. <code>reference-browser</code>, as well.
-(Same goes for Lockwise, or any other consumer of Glean, but they may use a different structure -- Lockwise has no Dependencies.kt, for example)</p>
+<p><strong>Note</strong>: this substitution-based approach will not work for testing updates to <code>glean_parser</code> as shipped in the Glean Gradle Plugin.
+For replacing <code>glean_parser</code> in a local build, see <a href="glean-parser-substitution.html">Substituting <code>glean_parser</code></a>.</p>
 </blockquote>
 <h2 id="preparation"><a class="header" href="#preparation">Preparation</a></h2>
 <p>Clone the Glean SDK, android-components and Fenix repositories:</p>
 <pre><code class="language-sh">git clone https://github.com/mozilla/glean
-git clone https://github.com/mozilla-mobile/android-components
-git clone https://github.com/mozilla-mobile/fenix/
+git clone https://github.com/mozilla-mobile/fenix
 </code></pre>
-<h2 id="local-publishing"><a class="header" href="#local-publishing">Local publishing</a></h2>
-<ol>
-<li>
-<p>Inside the <code>glean</code> repository root:</p>
-<ol>
-<li>
-<p>In <a href="https://github.com/mozilla/glean/blob/main/.buildconfig.yml#L1"><code>.buildconfig.yml</code></a>, change
-<code>libraryVersion</code> to end in <code>-TESTING$N</code><sup class="footnote-reference"><a href="#1">1</a></sup>,
-where <code>$N</code> is some number that you haven't used for this before.</p>
-<p>Example: <code>libraryVersion: 22.0.0-TESTING1</code></p>
-</li>
-<li>
-<p>Check your <code>local.properties</code> file,
-and add <code>rust.targets=x86</code> if you're testing on the emulator,
-<code>rust.targets=arm</code> if you're testing on 32-bit arm (arm64 for 64-bit arm, etc).
-This will make the build that's done in the next step much faster.</p>
-</li>
-<li>
-<p>Run <code>./gradlew publishToMavenLocal</code>. This may take a few minutes.</p>
-</li>
-</ol>
-</li>
-<li>
-<p>Inside the <code>android-components</code> repository root:</p>
-<ol>
-<li>
-<p>In <a href="https://github.com/mozilla-mobile/android-components/blob/HEAD/.buildconfig.yml#L1"><code>.buildconfig.yml</code></a>, change
-<code>componentsVersion</code> to end in <code>-TESTING$N</code><sup class="footnote-reference"><a href="#1">1</a></sup>,
-where <code>$N</code> is some number that you haven't used for this before.</p>
-<p>Example: <code>componentsVersion: 24.0.0-TESTING1</code></p>
-</li>
-<li>
-<p>Inside <a href="https://github.com/mozilla-mobile/android-components/blob/50a2f28027f291bf1c6056d42b55e75ba3c050db/buildSrc/src/main/java/Dependencies.kt#L32"><code>buildSrc/src/main/java/Dependencies.kt</code></a>,
-change <code>mozilla_glean</code> to reference the <code>libraryVersion</code> you published in step 2 part 1.</p>
-<p>Example: <code>const val mozilla_glean = &quot;22.0.0-TESTING1&quot;</code></p>
-</li>
-<li>
-<p>Inside <a href="https://github.com/mozilla-mobile/android-components/blob/b98206cf8de818499bdc87c00de942a41f8aa2fb/build.gradle#L28"><code>build.gradle</code></a>, add
-<code>mavenLocal()</code> inside <code>allprojects { repositories { &lt;here&gt; } }</code>.</p>
-</li>
-<li>
-<p>Add the following block in the <a href="https://github.com/mozilla-mobile/android-components/blob/d67f83af679a2e847e5bd284ea4a30b412403241/settings.gradle#L7"><code>settings.gradle</code></a> file, before any other statement in the script, in order to have the Glean Gradle plugin loaded from the local Maven repository.</p>
-<pre><code>pluginManagement {
-  repositories {
-      mavenLocal()
-      gradlePluginPortal()
-  }
-}
+<h2 id="substituting-projects"><a class="header" href="#substituting-projects">Substituting projects</a></h2>
+<p>android-components has custom build logic for dealing with composite builds,
+so you should be able to configure it by simply adding the path to the Glean repository in the correct <code>local.properties</code> file:</p>
+<p>In <code>fenix/local.properties</code>:</p>
+<pre><code class="language-groovy">localProperties.autoPublish.glean.dir=../glean
 </code></pre>
-</li>
-<li>
-<p>Inside the android-component's <code>local.properties</code> file, ensure
-<code>substitutions.glean.dir</code> is <em>NOT</em> set.</p>
-</li>
-<li>
-<p>Run <code>./gradlew publishToMavenLocal</code>.</p>
-</li>
-</ol>
-</li>
-<li>
-<p>Inside the <code>fenix</code> repository root:</p>
-<ol>
-<li>
-<p>Inside <a href="https://github.com/mozilla-mobile/fenix/blob/c21b41c1b23e6e25e0b5a8392f0c6dcb5ad25473/build.gradle#L5"><code>build.gradle</code></a> you need to add <code>mavenLocal()</code> twice.<br />
-First add <code>mavenLocal()</code> inside <code>buildscript</code> like this:</p>
-<pre><code>buildscript {
-    repositories {
-        mavenLocal()
-        ...
-</code></pre>
-<p>Second add <code>mavenLocal()</code> inside <code>allprojects</code>:</p>
-<pre><code>allprojects {
-    repositories {
-        mavenLocal()
-        ...
-</code></pre>
-</li>
-<li>
-<p>Inside <a href="https://github.com/mozilla-mobile/fenix/blob/c21b41c1b23e6e25e0b5a8392f0c6dcb5ad25473/buildSrc/src/main/java/AndroidComponents.kt#L6"><code>buildSrc/src/main/java/AndroidComponents.kt</code></a>, change
-<code>VERSION</code> to the version you defined in step 3 part 1.</p>
-<p>Example:</p>
-<pre><code>const val VERSION = &quot;24.0.0-TESTING1&quot;
-</code></pre>
-</li>
-</ol>
-</li>
-</ol>
-<p>You should now be able to build and run Fenix (assuming you could before all this).</p>
+<p>This will auto-publish Glean SDK changes to a local repository and consume them in Fenix.
+You should now be able to build and run Fenix (assuming you could before all this).</p>
 <h2 id="caveats"><a class="header" href="#caveats">Caveats</a></h2>
 <ol>
 <li>This assumes you have followed the <a href="setup-android-build-environment.html">Android/Rust build setup</a></li>
@@ -263,17 +176,6 @@ These should be understandable to fix, you usually should be able to find a PR w
 (or, failing that, a description of what to do in the Glean changelog).</li>
 <li>Ask in the <a href="https://chat.mozilla.org/#/room/#glean:mozilla.org">#glean channel on chat.mozilla.org</a>.</li>
 </ol>
-<h2 id="notes"><a class="header" href="#notes">Notes</a></h2>
-<p>This document is based on the equivalent documentation for application-services:
-<a href="https://github.com/mozilla/application-services/blob/HEAD/docs/howtos/locally-published-components-in-fenix.md">Using locally-published components in Fenix</a></p>
-<hr />
-<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
-<p>It doesn't have to end with <code>-TESTING$N</code>, it only needs to have the format <code>-someidentifier</code>.
-<code>-SNAPSHOT$N</code> is also very common to use, however without the numeric suffix, this has specific meaning to gradle,
-so we avoid it.
-Additionally, while the <code>$N</code> we have used in our running example has matched
-(e.g. all of the identifiers ended in <code>-TESTING1</code>, this is not required, so long as you match everything up correctly at the end).</p>
-</div>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/dev/android/locally-published-components-in-fenix.md">Edit this file on GitHub.</a></footer>
                     </main>
 
