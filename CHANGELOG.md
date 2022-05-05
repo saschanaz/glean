@@ -1,6 +1,10 @@
 # Unreleased changes
 
-[Full changelog](https://github.com/mozilla/glean/compare/v44.1.1...main)
+[Full changelog](https://github.com/mozilla/glean/compare/v50.0.0...main)
+
+# v50.0.0 (2022-05-05)
+
+[Full changelog](https://github.com/mozilla/glean/compare/v44.1.1...v50.0.0)
 
 * General
   * The `glean.error.preinit_tasks_overflow` metric now reports only the number of overflowing tasks.
