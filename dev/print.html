@@ -2458,19 +2458,31 @@ extern &quot;C&quot; fn glean_process_ping_upload_response(task: *mut FfiPingUpl
 </tbody></table>
 <h2 id="features-matrix"><a class="header" href="#features-matrix">Features matrix</a></h2>
 <table><thead><tr><th>Feature/Bindings</th><th>Kotlin</th><th>Swift</th><th>Python</th><th>Rust</th></tr></thead><tbody>
-<tr><td>Core metric types</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
-<tr><td>Metrics Testing API</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
-<tr><td><code>baseline</code> ping</td><td>✓</td><td>✓</td><td>X</td><td>X</td></tr>
-<tr><td><code>metrics</code></td><td>✓</td><td>✓</td><td>X</td><td>X</td></tr>
-<tr><td><code>events</code></td><td>✓</td><td>✓</td><td>✓</td><td>X</td></tr>
-<tr><td><code>deletion-request</code> ping</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
-<tr><td>Custom pings</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
-<tr><td>Custom pings testing API</td><td>✓</td><td>✓</td><td>✓</td><td>X</td></tr>
-<tr><td>Debug Ping View support</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+<tr><td>Core metric types</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Metrics Testing API</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td><code>baseline</code> ping</td><td>✅</td><td>✅</td><td>✅<sup class="footnote-reference"><a href="#2">2</a></sup></td><td>✅<sup class="footnote-reference"><a href="#3">3</a></sup></td></tr>
+<tr><td><code>metrics</code></td><td>✅</td><td>✅</td><td>❌</td><td>✅<sup class="footnote-reference"><a href="#4">4</a></sup></td></tr>
+<tr><td><code>events</code></td><td>✅</td><td>✅</td><td>✅</td><td>✅<sup class="footnote-reference"><a href="#5">5</a></sup></td></tr>
+<tr><td><code>deletion-request</code> ping</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Custom pings</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Custom pings testing API</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+<tr><td>Debug Ping View support</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
 </tbody></table>
 <hr />
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p><a href="https://firefox-source-docs.mozilla.org/toolkit/components/glean/index.html">Firefox on Glean (FOG)</a> is the name of the layer that integrates the Glean SDK into Firefox Desktop. It uses the Glean Rust bindings and exposes the same Rust API inside Firefox and extends it with a C++ and JavaScript API.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Not sent automatically. Use the <a href="core/internal/../../../python/glean/#glean.Glean.handle_client_active"><code>handle_client_active</code></a> and <a href="core/internal/../../../python/glean/#glean.Glean.handle_client_inactive"><code>handle_client_inactive</code></a> API.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>Sent automatically on startup if necessary. For active/inactive pings use the <a href="core/internal/../../../docs/glean/fn.handle_client_active.html"><code>handle_client_active</code></a> and <a href="core/internal/../../../docs/glean/fn.handle_client_inactive.html"><code>handle_client_inactive</code></a> API.</p>
+</div>
+<div class="footnote-definition" id="4"><sup class="footnote-definition-label">4</sup>
+<p>Needs to be enabled using <code>use_core_mps</code> in the <a href="core/internal/../../../docs/glean/struct.Configuration.html"><code>Configuration</code></a>.</p>
+</div>
+<div class="footnote-definition" id="5"><sup class="footnote-definition-label">5</sup>
+<p>Sent on startup when pending events are stored and when reaching the limit. Additionally sent when <a href="core/internal/../../../docs/glean/fn.handle_client_inactive.html"><code>handle_client_inactive</code></a> is called.</p>
 </div>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/dev/core/internal/implementations.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><p>The following language-specific API docs are available:</p>
 <ul>
