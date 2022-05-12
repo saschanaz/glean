@@ -4476,7 +4476,7 @@ metrics.flags.a11y_enabled.set(is_accessibility_enabled())
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics;
 
 flags::a11y_enabled.set(system.is_accessibility_enabled());
 </code></pre>
@@ -4533,7 +4533,7 @@ assert True is metrics.flags.a11y_enabled.test_get_value()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics;
 
 assert!(flags::a11y_enabled.test_get_value(None).unwrap());
 </code></pre>
@@ -4585,6 +4585,32 @@ assert True is metrics.flags.a11y_enabled.test_has_value()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab"></div>
+<div data-lang="JavaScript" class="tab"></div>
+<div data-lang="Firefox Desktop" class="tab"></div>
+</div>
+</div>
+<h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
+<p>Gets number of errors recorded for a given boolean metric.</p>
+<div class="tabs">
+<div class="tabbar"></div>
+<div class="tabcontents">
+<div data-lang="Kotlin" class="tab"></div>
+<div data-lang="Java" class="tab"></div>
+<div data-lang="Swift" class="tab"></div>
+<div data-lang="Python" class="tab"></div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean::ErrorType;
+
+use glean_metrics;
+
+assert_eq!(
+  0,
+  flags::a11y_enabled.test_get_num_recorded_errors(
+    ErrorType::InvalidValue
+  )
+);
+</code></pre>
+</div>
 <div data-lang="JavaScript" class="tab"></div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
@@ -4811,7 +4837,7 @@ assert metrics.accessibility.features[&quot;high_contrast&quot;].test_has_value(
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-1"><a class="header" href="#testgetnumrecordederrors-1"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded for a given labeled boolean metric in total.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -5113,7 +5139,7 @@ assert metrics.controls.refresh_pressed.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-1"><a class="header" href="#testgetnumrecordederrors-1"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-2"><a class="header" href="#testgetnumrecordederrors-2"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given counter metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -5417,7 +5443,7 @@ assert metrics.stability.crash_count[&quot;native_code_crash&quot;].test_has_val
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-2"><a class="header" href="#testgetnumrecordederrors-2"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-3"><a class="header" href="#testgetnumrecordederrors-3"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded for a given labeled counter metric in total.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -5744,7 +5770,7 @@ assert metrics.search_default.name.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-3"><a class="header" href="#testgetnumrecordederrors-3"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-4"><a class="header" href="#testgetnumrecordederrors-4"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given string metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -6026,7 +6052,7 @@ assert metrics.login.errors_by_stage[&quot;server_auth&quot;].test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-4"><a class="header" href="#testgetnumrecordederrors-4"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-5"><a class="header" href="#testgetnumrecordederrors-5"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded for a given labeled string metric in total.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -6386,7 +6412,7 @@ assert metrics.search.engines.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-5"><a class="header" href="#testgetnumrecordederrors-5"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-6"><a class="header" href="#testgetnumrecordederrors-6"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given string list metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -6985,7 +7011,7 @@ assert!(metrics::login_time.test_has_value().unwrap() &gt; 0);
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-6"><a class="header" href="#testgetnumrecordederrors-6"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-7"><a class="header" href="#testgetnumrecordederrors-7"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded during operations on this metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -7479,7 +7505,7 @@ assert metrics.pages.page_load.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-7"><a class="header" href="#testgetnumrecordederrors-7"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-8"><a class="header" href="#testgetnumrecordederrors-8"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given timing distribution metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -7884,7 +7910,7 @@ assert metrics.memory.head_allocated.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-8"><a class="header" href="#testgetnumrecordederrors-8"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-9"><a class="header" href="#testgetnumrecordederrors-9"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given memory distribution metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -8296,7 +8322,7 @@ assert metrics.user.client_id.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-9"><a class="header" href="#testgetnumrecordederrors-9"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-10"><a class="header" href="#testgetnumrecordederrors-10"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given UUID metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -8583,7 +8609,7 @@ assert metrics.search.template.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-10"><a class="header" href="#testgetnumrecordederrors-10"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-11"><a class="header" href="#testgetnumrecordederrors-11"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given counter metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -8937,7 +8963,7 @@ assert metrics.install.first_run.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-11"><a class="header" href="#testgetnumrecordederrors-11"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-12"><a class="header" href="#testgetnumrecordederrors-12"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Get number of errors recorded for a given datetime metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -9284,7 +9310,7 @@ assert metrics.views.login_opened.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-12"><a class="header" href="#testgetnumrecordederrors-12"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-13"><a class="header" href="#testgetnumrecordederrors-13"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Get the number of errors recorded for a given event metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -9517,7 +9543,7 @@ assertTrue(Graphics.checkerboardPeak.testHasValue())
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-13"><a class="header" href="#testgetnumrecordederrors-13"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-14"><a class="header" href="#testgetnumrecordederrors-14"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given counter metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -9827,7 +9853,7 @@ assert metrics.display.width.test_has_value()
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-14"><a class="header" href="#testgetnumrecordederrors-14"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-15"><a class="header" href="#testgetnumrecordederrors-15"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given quantity metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -10066,7 +10092,7 @@ Assert.deepEqual(
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-15"><a class="header" href="#testgetnumrecordederrors-15"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-16"><a class="header" href="#testgetnumrecordederrors-16"><code>testGetNumRecordedErrors</code></a></h3>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -10218,7 +10244,7 @@ assert.strictEqual(&quot;some content&quot;, await article.content.testGetValue(
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testgetnumrecordederrors-16"><a class="header" href="#testgetnumrecordederrors-16"><code>testGetNumRecordedErrors</code></a></h3>
+<h3 id="testgetnumrecordederrors-17"><a class="header" href="#testgetnumrecordederrors-17"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets number of errors recorded for a given text metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
