@@ -150,7 +150,9 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
-<p><a href="https://github.com/mozilla/glean/compare/v44.1.1...main">Full changelog</a></p>
+<p><a href="https://github.com/mozilla/glean/compare/v44.2.0...main">Full changelog</a></p>
+<h1 id="v4420-2022-05-16"><a class="header" href="#v4420-2022-05-16">v44.2.0 (2022-05-16)</a></h1>
+<p><a href="https://github.com/mozilla/glean/compare/v44.1.1...v44.2.0">Full changelog</a></p>
 <ul>
 <li>General
 <ul>
@@ -167,6 +169,11 @@ It is marked as version 1 in the definition now. (<a href="https://github.com/mo
 <li>iOS
 <ul>
 <li><code>setSourceTags</code> is now a public API (<a href="https://github.com/mozilla/glean/pull/2035">#2035</a>)</li>
+</ul>
+</li>
+<li>Rust
+<ul>
+<li>Implemented <code>try_get_num_recorded_errors</code> for Boolean in Rust Language Bindings (<a href="https://github.com/mozilla/glean/pull/2049">#2049</a>)</li>
 </ul>
 </li>
 </ul>
@@ -949,6 +956,7 @@ which could lead to deadlocks in multi-threaded code. As RLB uses multiple threa
 <li>General
 <ul>
 <li>Do not require default-features on rkv and downgrade bincode (<a href="https://github.com/mozilla/glean/pull/1317">#1317</a>)</li>
+<li>Do not require default-features on <code>rkv</code> and downgrade <code>bincode</code> (<a href="https://github.com/mozilla/glean/pull/1317">#1317</a>)</li>
 </ul>
 </li>
 <li>Rust
