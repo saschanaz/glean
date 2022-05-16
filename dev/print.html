@@ -338,7 +338,8 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 <li>Hotfix branch: <code>hotfix-X.Y.(Z+1)</code></li>
 </ul>
 <h3 id="create-a-release-branch"><a class="header" href="#create-a-release-branch">Create a release branch</a></h3>
-<ol>
+<ol start="0">
+<li>Announce your intention to create a release in the team chat.</li>
 <li>Create a release branch from the <code>main</code> branch:
 <pre><code>git checkout -b release-v25.0.0 main
 </code></pre>
@@ -359,10 +360,10 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 <pre><code>git push upstream release-v25.0.0
 </code></pre>
 </li>
-<li>Wait for CI to finish on that branch and ensure it's green:
+<li>Open a pull request to merge back the specific release branch to the development branch: <a href="https://github.com/mozilla/glean/compare/main...release-v25.0.0?expand=1">https://github.com/mozilla/glean/compare/main...release-v25.0.0?expand=1</a>
 <ul>
-<li><a href="https://circleci.com/gh/mozilla/glean/tree/release-v25.0.0">https://circleci.com/gh/mozilla/glean/tree/release-v25.0.0</a></li>
-<li>You can find the TaskCluster task on the corresponding commit. See <a href="ci.html#how-to-find-taskcluster-tasks">How to find TaskCluster tasks</a> for details.</li>
+<li>Wait for CI to finish on that branch and ensure it's green.</li>
+<li>Do not merge this PR yet!</li>
 </ul>
 </li>
 <li>Apply additional commits for bug fixes to this branch.
@@ -379,7 +380,7 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 </code></pre>
 </li>
 <li>Merge the specific release branch:
-<pre><code>git merge --no-ff release-v25.0.0
+<pre><code>git merge --no-ff -X theirs release-v25.0.0
 </code></pre>
 </li>
 <li>Push the main release branch:
@@ -388,7 +389,7 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 </li>
 <li>Tag the release on GitHub:
 <ol>
-<li><a href="https://github.com/mozilla/glean/releases/new">Draft a New Release</a> in the GitHub UI (<code>Releases &gt; Draft a New Release</code>).</li>
+<li><a href="https://github.com/mozilla/glean/releases/new">Create a New Release</a> in the GitHub UI (<code>Releases &gt; Draft a New Release</code>).</li>
 <li>Enter <code>v&lt;myversion&gt;</code> as the tag. It's important this is the same as the version you specified to the <code>prepare_release.sh</code> script, with the <code>v</code> prefix added.</li>
 <li>Select the <code>release</code> branch as the target.</li>
 <li>Under the description, paste the contents of the release notes from <code>CHANGELOG.md</code>.</li>
@@ -400,15 +401,13 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 <li>You can find the TaskCluster task on the corresponding commit. See <a href="ci.html#how-to-find-taskcluster-tasks">How to find TaskCluster tasks</a> for details.</li>
 </ul>
 </li>
-<li>Send a pull request to merge back the specific release branch to the development branch: <a href="https://github.com/mozilla/glean/compare/main...release-v25.0.0?expand=1">https://github.com/mozilla/glean/compare/main...release-v25.0.0?expand=1</a>
+<li>Merge the Pull Request opened previously.
 <ul>
 <li>This is important so that no changes are lost.</li>
-<li>This might have merge conflicts with the <code>main</code> branch, which you need to fix before it is merged.</li>
 <li>If this PR is &quot;trivial&quot; (no bugfixes or merge conflicts of note from earlier steps) you may land it without review.</li>
 </ul>
 </li>
 <li>Once the above pull request lands, delete the specific release branch.</li>
-<li>Update <code>glean-ffi</code> in the iOS megazord. See the <a href="https://github.com/mozilla/application-services/blob/main/megazords/ios/README.md#glean-component">application-services documentation for that</a>.</li>
 <li>Post a message to <a href="https://chat.mozilla.org/#/room/#glean:mozilla.org">#glean:mozilla.org</a> announcing the new release.
 <ul>
 <li>Include a copy of the release-specific changelog if you want to be fancy.</li>
@@ -418,7 +417,8 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 <h2 id="hotfix-release-for-latest-version"><a class="header" href="#hotfix-release-for-latest-version">Hotfix release for latest version</a></h2>
 <p>If the latest released version requires a bug fix, a hotfix branch is used.</p>
 <h3 id="create-a-hotfix-branch"><a class="header" href="#create-a-hotfix-branch">Create a hotfix branch</a></h3>
-<ol>
+<ol start="0">
+<li>Announce your intention to create a release in the team chat.</li>
 <li>Create a hotfix branch from the main release branch:
 <pre><code>git checkout -b hotfix-v25.0.1 release
 </code></pre>
@@ -463,7 +463,7 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 </li>
 <li>Tag the release on GitHub:
 <ol>
-<li><a href="https://github.com/mozilla/glean/releases/new">Draft a New Release</a> in the GitHub UI (<code>Releases &gt; Draft a New Release</code>).</li>
+<li><a href="https://github.com/mozilla/glean/releases/new">Create a New Release</a> in the GitHub UI (<code>Releases &gt; Draft a New Release</code>).</li>
 <li>Enter <code>v&lt;myversion&gt;</code> as the tag. It's important this is the same as the version you specified to the <code>prepare_release.sh</code> script, with the <code>v</code> prefix added.</li>
 <li>Select the <code>release</code> branch as the target.</li>
 <li>Under the description, paste the contents of the release notes from <code>CHANGELOG.md</code>.</li>
@@ -482,7 +482,6 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 </ul>
 </li>
 <li>Once the above pull request lands, delete the hotfix branch.</li>
-<li>Update <code>glean-ffi</code> in the iOS megazord. See the <a href="https://github.com/mozilla/application-services/blob/main/megazords/ios/README.md#glean-component">application-services documentation for that</a>.</li>
 </ol>
 <h2 id="hotfix-release-for-previous-version"><a class="header" href="#hotfix-release-for-previous-version">Hotfix release for previous version</a></h2>
 <p>If you need to release a hotfix for a previously released version (that is: not the latest released version), you need a support branch.</p>
@@ -490,7 +489,8 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 <p><strong>Note</strong>: This should rarely happen. We generally support only the latest released version of Glean.</p>
 </blockquote>
 <h3 id="create-a-support-and-hotfix-branch"><a class="header" href="#create-a-support-and-hotfix-branch">Create a support and hotfix branch</a></h3>
-<ol>
+<ol start="0">
+<li>Announce your intention to create a release in the team chat.</li>
 <li>Create a support branch from the version tag and push it:
 <pre><code>git checkout -b support/v24.0 v24.0.0
 git push upstream support/v24.0
@@ -533,7 +533,7 @@ git push upstream support/v24.0
 </li>
 <li>Tag the release on GitHub:
 <ol>
-<li><a href="https://github.com/mozilla/glean/releases/new">Draft a New Release</a> in the GitHub UI (<code>Releases &gt; Draft a New Release</code>).</li>
+<li><a href="https://github.com/mozilla/glean/releases/new">Create a New Release</a> in the GitHub UI (<code>Releases &gt; Draft a New Release</code>).</li>
 <li>Enter <code>v&lt;myversion&gt;</code> as the tag. It's important this is the same as the version you specified to the <code>prepare_release.sh</code> script, with the <code>v</code> prefix added.</li>
 <li>Select the support branch (e.g. <code>support/v24.0</code>) as the target.</li>
 <li>Under the description, paste the contents of the release notes from <code>CHANGELOG.md</code>.</li>
