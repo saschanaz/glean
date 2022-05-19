@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["glean_destroy_ping_type",""],["glean_new_ping_type",""],["glean_register_ping_type",""],["glean_test_has_ping_type",""]]});

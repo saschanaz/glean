@@ -1,1 +1,0 @@
-initSidebarItems({"constant":[["UPLOAD_RESULT_HTTP_STATUS","A HTTP response code."],["UPLOAD_RESULT_RECOVERABLE","A recoverable error."],["UPLOAD_RESULT_UNRECOVERABLE","An unrecoverable error."]]});

@@ -420,6 +420,9 @@
 <span id="415">415</span>
 <span id="416">416</span>
 <span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -729,7 +732,7 @@
         <span class="ident">glean</span>.<span class="ident">register_ping_type</span>(<span class="kw-2">&amp;</span><span class="ident">ping_type</span>);
 
         <span class="comment">// Submit the ping to populate the pending_pings directory</span>
-        <span class="ident">glean</span>.<span class="ident">submit_ping</span>(<span class="kw-2">&amp;</span><span class="ident">ping_type</span>, <span class="prelude-val">None</span>);
+        <span class="ident">ping_type</span>.<span class="ident">submit_sync</span>(<span class="kw-2">&amp;</span><span class="ident">glean</span>, <span class="prelude-val">None</span>);
 
         <span class="kw">let</span> <span class="ident">directory_manager</span> <span class="op">=</span> <span class="ident">PingDirectoryManager::new</span>(<span class="ident">dir</span>.<span class="ident">path</span>());
 
@@ -755,7 +758,7 @@
         <span class="ident">glean</span>.<span class="ident">register_ping_type</span>(<span class="kw-2">&amp;</span><span class="ident">ping_type</span>);
 
         <span class="comment">// Submit the ping to populate the pending_pings directory</span>
-        <span class="ident">glean</span>.<span class="ident">submit_ping</span>(<span class="kw-2">&amp;</span><span class="ident">ping_type</span>, <span class="prelude-val">None</span>);
+        <span class="ident">ping_type</span>.<span class="ident">submit_sync</span>(<span class="kw-2">&amp;</span><span class="ident">glean</span>, <span class="prelude-val">None</span>);
 
         <span class="kw">let</span> <span class="ident">directory_manager</span> <span class="op">=</span> <span class="ident">PingDirectoryManager::new</span>(<span class="kw-2">&amp;</span><span class="ident">dir</span>.<span class="ident">path</span>());
 
@@ -790,7 +793,7 @@
         <span class="ident">glean</span>.<span class="ident">register_ping_type</span>(<span class="kw-2">&amp;</span><span class="ident">ping_type</span>);
 
         <span class="comment">// Submit the ping to populate the pending_pings directory</span>
-        <span class="ident">glean</span>.<span class="ident">submit_ping</span>(<span class="kw-2">&amp;</span><span class="ident">ping_type</span>, <span class="prelude-val">None</span>);
+        <span class="ident">ping_type</span>.<span class="ident">submit_sync</span>(<span class="kw-2">&amp;</span><span class="ident">glean</span>, <span class="prelude-val">None</span>);
 
         <span class="kw">let</span> <span class="ident">directory_manager</span> <span class="op">=</span> <span class="ident">PingDirectoryManager::new</span>(<span class="kw-2">&amp;</span><span class="ident">dir</span>.<span class="ident">path</span>());
 
@@ -821,7 +824,10 @@
         <span class="kw">let</span> (<span class="ident">glean</span>, <span class="ident">dir</span>) <span class="op">=</span> <span class="ident">new_glean</span>(<span class="prelude-val">None</span>);
 
         <span class="comment">// Submit a deletion request ping to populate deletion request folder.</span>
-        <span class="ident">glean</span>.<span class="ident">internal_pings</span>.<span class="ident">deletion_request</span>.<span class="ident">submit</span>(<span class="kw-2">&amp;</span><span class="ident">glean</span>, <span class="prelude-val">None</span>);
+        <span class="ident">glean</span>
+            .<span class="ident">internal_pings</span>
+            .<span class="ident">deletion_request</span>
+            .<span class="ident">submit_sync</span>(<span class="kw-2">&amp;</span><span class="ident">glean</span>, <span class="prelude-val">None</span>);
 
         <span class="kw">let</span> <span class="ident">directory_manager</span> <span class="op">=</span> <span class="ident">PingDirectoryManager::new</span>(<span class="ident">dir</span>.<span class="ident">path</span>());
 

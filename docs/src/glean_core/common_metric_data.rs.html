@@ -132,8 +132,6 @@
 <span id="127">127</span>
 <span id="128">128</span>
 <span id="129">129</span>
-<span id="130">130</span>
-<span id="131">131</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -142,8 +140,6 @@
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error</span>::{<span class="ident">Error</span>, <span class="ident">ErrorKind</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics::labeled::validate_dynamic_label</span>;
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span>
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics::LabeledMetric</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Glean</span>;
 
 <span class="doccomment">/// The supported metrics&#39; lifetimes.</span>
@@ -207,7 +203,7 @@
     <span class="kw">pub</span> <span class="ident">disabled</span>: <span class="ident">bool</span>,
     <span class="doccomment">/// Dynamic label.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// When a [`LabeledMetric&lt;T&gt;`](LabeledMetric) factory creates the specific</span>
+    <span class="doccomment">/// When a [`LabeledMetric&lt;T&gt;`](crate::metrics::LabeledMetric) factory creates the specific</span>
     <span class="doccomment">/// metric to be recorded to, dynamic labels are stored in the specific</span>
     <span class="doccomment">/// label so that we can validate them when the Glean singleton is</span>
     <span class="doccomment">/// available.</span>

@@ -1,1 +1,1 @@
-window.ALL_CRATES = ["glean","glean_core","glean_ffi"];
+window.ALL_CRATES = ["embedded_uniffi_bindgen","glean","glean_core"];

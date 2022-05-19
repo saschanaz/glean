@@ -71,7 +71,7 @@
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
 
-<span class="kw">use</span> <span class="ident"><span class="kw">super</span>::metrics::PingType</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics::PingType</span>;
 
 <span class="doccomment">/// Glean-provided pings, all enabled by default.</span>
 <span class="doccomment">///</span>
@@ -79,7 +79,7 @@
 <span class="doccomment">/// This might get auto-generated when the Rust API lands ([Bug 1579146](https://bugzilla.mozilla.org/show_bug.cgi?id=1579146)).</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// They are parsed and registered by the platform-specific wrappers, but might be used Glean-internal directly.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InternalPings</span> {
     <span class="kw">pub</span> <span class="ident">baseline</span>: <span class="ident">PingType</span>,
     <span class="kw">pub</span> <span class="ident">metrics</span>: <span class="ident">PingType</span>,

@@ -17,7 +17,7 @@
     <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Glean Docs</a> (97% documented)</p>
+        <p><a href="index.html">Glean Docs</a> (23% documented)</p>
         <p class="header-right"><a href="https://github.com/mozilla/glean"><img src="img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="search.json">
@@ -40,16 +40,25 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Classes/BooleanMetricType.html">BooleanMetricType</a>
+                <a href="Classes/BooleanMetric.html">BooleanMetric</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/CounterMetricType.html">CounterMetricType</a>
+                <a href="Classes/CounterMetric.html">CounterMetric</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CustomDistributionMetric.html">CustomDistributionMetric</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/DatetimeMetric.html">DatetimeMetric</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/DatetimeMetricType.html">DatetimeMetricType</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/DistributionData.html">DistributionData</a>
+                <a href="Classes/DenominatorMetric.html">DenominatorMetric</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/EventMetric.html">EventMetric</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/EventMetricType.html">EventMetricType</a>
@@ -61,40 +70,58 @@
                 <a href="Classes/HttpPingUploader.html">HttpPingUploader</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/JweMetricType.html">JweMetricType</a>
+                <a href="Classes/LabeledBoolean.html">LabeledBoolean</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/LabeledCounter.html">LabeledCounter</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/LabeledMetricType.html">LabeledMetricType</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/MemoryDistributionMetricType.html">MemoryDistributionMetricType</a>
+                <a href="Classes/LabeledString.html">LabeledString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/MemoryDistributionMetric.html">MemoryDistributionMetric</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/NoExtras.html">NoExtras</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/NumeratorMetric.html">NumeratorMetric</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/Ping.html">Ping</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/PingBase.html">PingBase</a>
+                <a href="Classes/PingType.html">PingType</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/QuantityMetricType.html">QuantityMetricType</a>
+                <a href="Classes/QuantityMetric.html">QuantityMetric</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/StringListMetricType.html">StringListMetricType</a>
+                <a href="Classes/RateMetric.html">RateMetric</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/StringMetricType.html">StringMetricType</a>
+                <a href="Classes/StringListMetric.html">StringListMetric</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/TimespanMetricType.html">TimespanMetricType</a>
+                <a href="Classes/StringMetric.html">StringMetric</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/TimingDistributionMetricType.html">TimingDistributionMetricType</a>
+                <a href="Classes/TimespanMetric.html">TimespanMetric</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/TimingDistributionMetric.html">TimingDistributionMetric</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/UrlMetric.html">UrlMetric</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/UrlMetricType.html">UrlMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/UuidMetric.html">UuidMetric</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/UuidMetricType.html">UuidMetricType</a>
@@ -108,7 +135,13 @@
                 <a href="Enums/ErrorType.html">ErrorType</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums.html#/s:5Glean0A9LifecycleO">GleanLifecycle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums.html#/s:5Glean0A7MetricsO">GleanMetrics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/HistogramType.html">HistogramType</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/Lifetime.html">Lifetime</a>
@@ -123,7 +156,13 @@
                 <a href="Enums/NoReasonCodes.html">NoReasonCodes</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums/PingUploadTask.html">PingUploadTask</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/TimeUnit.html">TimeUnit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/UploadResult.html">UploadResult</a>
               </li>
             </ul>
           </li>
@@ -131,10 +170,105 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Extensions/BooleanMetricType.html">BooleanMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/CounterMetricType.html">CounterMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/DenominatorMetricType.html">DenominatorMetricType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/Dictionary.html">Dictionary</a>
               </li>
               <li class="nav-group-task">
+                <a href="Extensions/NumeratorMetricType.html">NumeratorMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/QuantityMetricType.html">QuantityMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/RateMetricType.html">RateMetricType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/StringListMetricType.html">StringListMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/StringMetricType.html">StringMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/TimespanMetricType.html">TimespanMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/TimingDistributionMetricType.html">TimingDistributionMetricType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean18gleanEnableLoggingyyF">gleanEnableLogging()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean22gleanEnableLoggingToFdyys6UInt64VF">gleanEnableLoggingToFd(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean18gleanGetUploadTaskAA04PingdE0OyF">gleanGetUploadTask()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean23gleanHandleClientActiveyyF">gleanHandleClientActive()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean25gleanHandleClientInactiveyyF">gleanHandleClientInactive()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean15gleanInitializeyyAA21InternalConfigurationV_AA17ClientInfoMetricsVAA02OnA6Events_ptF">gleanInitialize(_:_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean28gleanInitializeForSubprocessySbAA21InternalConfigurationVF">gleanInitializeForSubprocess(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean30gleanProcessPingUploadResponseyySS_AA0E6ResultOtF">gleanProcessPingUploadResponse(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean20gleanSetDebugViewTagySbSSF">gleanSetDebugViewTag(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean17gleanSetDirtyFlagyySbF">gleanSetDirtyFlag(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean24gleanSetExperimentActiveyySS_SSSDyS2SGtF">gleanSetExperimentActive(_:_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean26gleanSetExperimentInactiveyySSF">gleanSetExperimentInactive(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean16gleanSetLogPingsyySbF">gleanSetLogPings(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean18gleanSetSourceTagsySbSaySSGF">gleanSetSourceTags(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean16gleanSetTestModeyySbF">gleanSetTestMode(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean21gleanSetUploadEnabledyySbF">gleanSetUploadEnabled(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean21gleanSubmitPingByNameyySS_SSSgtF">gleanSubmitPingByName(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean25gleanSubmitPingByNameSyncySbSS_SSSgtF">gleanSubmitPingByNameSync(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean016gleanTestDestroyA0yySbF">gleanTestDestroyGlean(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean26gleanTestGetExperimentDatayAA08RecordedE0VSgSSF">gleanTestGetExperimentData(_:)</a>
               </li>
             </ul>
           </li>
@@ -142,13 +276,76 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Protocols/BooleanMetricProtocol.html">BooleanMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/CounterMetricProtocol.html">CounterMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/CustomDistributionMetricProtocol.html">CustomDistributionMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/DatetimeMetricProtocol.html">DatetimeMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/DenominatorMetricProtocol.html">DenominatorMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/EventExtraKey.html">EventExtraKey</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/EventExtras.html">EventExtras</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols/ExtraKeys.html">ExtraKeys</a>
+                <a href="Protocols/EventMetricProtocol.html">EventMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/LabeledBooleanProtocol.html">LabeledBooleanProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/LabeledCounterProtocol.html">LabeledCounterProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/LabeledStringProtocol.html">LabeledStringProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/MemoryDistributionMetricProtocol.html">MemoryDistributionMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/NumeratorMetricProtocol.html">NumeratorMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/OnGleanEvents.html">OnGleanEvents</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/PingTypeProtocol.html">PingTypeProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/QuantityMetricProtocol.html">QuantityMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/RateMetricProtocol.html">RateMetricProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/ReasonCodes.html">ReasonCodes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/StringListMetricProtocol.html">StringListMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/StringMetricProtocol.html">StringMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/TimespanMetricProtocol.html">TimespanMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/TimingDistributionMetricProtocol.html">TimingDistributionMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/UrlMetricProtocol.html">UrlMetricProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/UuidMetricProtocol.html">UuidMetricProtocol</a>
               </li>
             </ul>
           </li>
@@ -159,16 +356,37 @@
                 <a href="Structs/BuildInfo.html">BuildInfo</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/ClientInfoMetrics.html">ClientInfoMetrics</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CommonMetricData.html">CommonMetricData</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/Configuration.html">Configuration</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs.html#/s:5Glean7JweDataV">JweData</a>
+                <a href="Structs/Datetime.html">Datetime</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/RecordedEventData.html">RecordedEventData</a>
+                <a href="Structs/DistributionData.html">DistributionData</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs.html#/s:5Glean22RecordedExperimentDataV">RecordedExperimentData</a>
+                <a href="Structs/InternalConfiguration.html">InternalConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PingRequest.html">PingRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Rate.html">Rate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecordedEvent.html">RecordedEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/RecordedExperiment.html">RecordedExperiment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TimerId.html">TimerId</a>
               </li>
             </ul>
           </li>
@@ -176,7 +394,40 @@
             <a href="Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean17BooleanMetricTypea">BooleanMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean17CounterMetricTypea">CounterMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean21DenominatorMetricTypea">DenominatorMetricType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Typealiases.html#/s:5Glean0A7TimerIda">GleanTimerId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean28MemoryDistributionMetricTypea">MemoryDistributionMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean19NumeratorMetricTypea">NumeratorMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean18QuantityMetricTypea">QuantityMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean14RateMetricTypea">RateMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean20StringListMetricTypea">StringListMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean16StringMetricTypea">StringMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean18TimespanMetricTypea">TimespanMetricType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:5Glean28TimingDistributionMetricTypea">TimingDistributionMetricType</a>
               </li>
             </ul>
           </li>
@@ -195,6 +446,566 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:5Glean8PingTypeC"></a>
+                    <a name="//apple_ref/swift/Class/PingType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean8PingTypeC">PingType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/PingType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PingType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/PingTypeProtocol.html">PingTypeProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean13CounterMetricC"></a>
+                    <a name="//apple_ref/swift/Class/CounterMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean13CounterMetricC">CounterMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/CounterMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CounterMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CounterMetricProtocol.html">CounterMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean14TimespanMetricC"></a>
+                    <a name="//apple_ref/swift/Class/TimespanMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean14TimespanMetricC">TimespanMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/TimespanMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">TimespanMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/TimespanMetricProtocol.html">TimespanMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean13BooleanMetricC"></a>
+                    <a name="//apple_ref/swift/Class/BooleanMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean13BooleanMetricC">BooleanMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/BooleanMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">BooleanMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/BooleanMetricProtocol.html">BooleanMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean12StringMetricC"></a>
+                    <a name="//apple_ref/swift/Class/StringMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean12StringMetricC">StringMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/StringMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">StringMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/StringMetricProtocol.html">StringMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean14LabeledCounterC"></a>
+                    <a name="//apple_ref/swift/Class/LabeledCounter" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean14LabeledCounterC">LabeledCounter</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/LabeledCounter.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">LabeledCounter</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LabeledCounterProtocol.html">LabeledCounterProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean14LabeledBooleanC"></a>
+                    <a name="//apple_ref/swift/Class/LabeledBoolean" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean14LabeledBooleanC">LabeledBoolean</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/LabeledBoolean.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">LabeledBoolean</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LabeledBooleanProtocol.html">LabeledBooleanProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean13LabeledStringC"></a>
+                    <a name="//apple_ref/swift/Class/LabeledString" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean13LabeledStringC">LabeledString</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/LabeledString.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">LabeledString</span> <span class="p">:</span> <span class="kt"><a href="Protocols/LabeledStringProtocol.html">LabeledStringProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean16StringListMetricC"></a>
+                    <a name="//apple_ref/swift/Class/StringListMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean16StringListMetricC">StringListMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/StringListMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">StringListMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/StringListMetricProtocol.html">StringListMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean9UrlMetricC"></a>
+                    <a name="//apple_ref/swift/Class/UrlMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean9UrlMetricC">UrlMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/UrlMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">UrlMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/UrlMetricProtocol.html">UrlMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean10UuidMetricC"></a>
+                    <a name="//apple_ref/swift/Class/UuidMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean10UuidMetricC">UuidMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/UuidMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">UuidMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/UuidMetricProtocol.html">UuidMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean14QuantityMetricC"></a>
+                    <a name="//apple_ref/swift/Class/QuantityMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean14QuantityMetricC">QuantityMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/QuantityMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">QuantityMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/QuantityMetricProtocol.html">QuantityMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean24TimingDistributionMetricC"></a>
+                    <a name="//apple_ref/swift/Class/TimingDistributionMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean24TimingDistributionMetricC">TimingDistributionMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/TimingDistributionMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">TimingDistributionMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/TimingDistributionMetricProtocol.html">TimingDistributionMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean24MemoryDistributionMetricC"></a>
+                    <a name="//apple_ref/swift/Class/MemoryDistributionMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean24MemoryDistributionMetricC">MemoryDistributionMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/MemoryDistributionMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">MemoryDistributionMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/MemoryDistributionMetricProtocol.html">MemoryDistributionMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean24CustomDistributionMetricC"></a>
+                    <a name="//apple_ref/swift/Class/CustomDistributionMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean24CustomDistributionMetricC">CustomDistributionMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/CustomDistributionMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CustomDistributionMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/CustomDistributionMetricProtocol.html">CustomDistributionMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean14DatetimeMetricC"></a>
+                    <a name="//apple_ref/swift/Class/DatetimeMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean14DatetimeMetricC">DatetimeMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/DatetimeMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DatetimeMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DatetimeMetricProtocol.html">DatetimeMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean11EventMetricC"></a>
+                    <a name="//apple_ref/swift/Class/EventMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean11EventMetricC">EventMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/EventMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">EventMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/EventMetricProtocol.html">EventMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean10RateMetricC"></a>
+                    <a name="//apple_ref/swift/Class/RateMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean10RateMetricC">RateMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/RateMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">RateMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RateMetricProtocol.html">RateMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean17DenominatorMetricC"></a>
+                    <a name="//apple_ref/swift/Class/DenominatorMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean17DenominatorMetricC">DenominatorMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/DenominatorMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DenominatorMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/DenominatorMetricProtocol.html">DenominatorMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean15NumeratorMetricC"></a>
+                    <a name="//apple_ref/swift/Class/NumeratorMetric" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean15NumeratorMetricC">NumeratorMetric</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/NumeratorMetric.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">NumeratorMetric</span> <span class="p">:</span> <span class="kt"><a href="Protocols/NumeratorMetricProtocol.html">NumeratorMetricProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:5GleanAAC"></a>
                     <a name="//apple_ref/swift/Class/Glean" class="dashAnchor"></a>
                     <a class="token" href="#/s:5GleanAAC">Glean</a>
@@ -205,7 +1016,9 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The main Glean API.</p>
+
+<p>This is exposed through the global <code><a href="Classes/Glean.html#/s:5GleanAAC6sharedABvpZ">Glean.shared</a></code> object.</p>
 
                         <a href="Classes/Glean.html" class="slightly-smaller">See more</a>
                       </div>
@@ -214,74 +1027,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Glean</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean17BooleanMetricTypeC"></a>
-                    <a name="//apple_ref/swift/Class/BooleanMetricType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean17BooleanMetricTypeC">BooleanMetricType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements the developer facing API for recording boolean metrics.</p>
-
-<p>Instances of this class type are automatically generated by the parsers at build time,
-allowing developers to record values that were previously registered in the metrics.yaml file.</p>
-
-<p>The boolean API only exposes the <code><a href="Classes/BooleanMetricType.html#/s:5Glean17BooleanMetricTypeC3setyySbF">BooleanMetricType.set(_:)</a></code> method, which takes care of validating the input
-data and making sure that limits are enforced.</p>
-
-                        <a href="Classes/BooleanMetricType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">BooleanMetricType</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean17CounterMetricTypeC"></a>
-                    <a name="//apple_ref/swift/Class/CounterMetricType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean17CounterMetricTypeC">CounterMetricType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements the developer facing API for recording counter metrics.</p>
-
-<p>Instances of this class type are automatically generated by the parsers at build time,
-allowing developers to record values that were previously registered in the metrics.yaml file.</p>
-
-<p>The counter API only exposes the <code><a href="Classes/CounterMetricType.html#/s:5Glean17CounterMetricTypeC3addyys5Int32VF">CounterMetricType.add(_:)</a></code> method, which takes care of validating the input
-data and making sure that limits are enforced.</p>
-
-                        <a href="Classes/CounterMetricType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CounterMetricType</span></code></pre>
 
                         </div>
                       </div>
@@ -316,39 +1061,6 @@ data and making sure that limits are enforced.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DatetimeMetricType</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean16DistributionDataC"></a>
-                    <a name="//apple_ref/swift/Class/DistributionData" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean16DistributionDataC">DistributionData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This class represents the structure of a timing distribution according to the pipeline schema. It
-is meant to help serialize and deserialize data to the correct format for transport and storage,
-as well as including a helper function to calculate the bucket sizes.</p>
-
-<p>@param values a map containing the bucket index mapped to the accumulated count
-@param sum the accumulated sum of all the samples in the timing distribution</p>
-
-                        <a href="Classes/DistributionData.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DistributionData</span></code></pre>
 
                         </div>
                       </div>
@@ -413,41 +1125,7 @@ data and making sure that limits are enforced.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">EventMetricType</span><span class="o">&lt;</span><span class="kt">ExtraKeysEnum</span><span class="p">,</span> <span class="kt">ExtraObject</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">ExtraKeysEnum</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ExtraKeys.html">ExtraKeys</a></span><span class="p">,</span> <span class="kt">ExtraObject</span> <span class="p">:</span> <span class="kt"><a href="Protocols/EventExtras.html">EventExtras</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean13JweMetricTypeC"></a>
-                    <a name="//apple_ref/swift/Class/JweMetricType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean13JweMetricTypeC">JweMetricType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements the developer facing API for recording JWE metrics.</p>
-
-<p>Instances of this class type are automatically generated by the parsers at build time,
-allowing developers to record values that were previously registered in the metrics.yaml file.</p>
-
-<p>The JWE API exposes the <code>JweMetricType.set(_:)</code> and <code><a href="Classes/JweMetricType.html#/s:5Glean13JweMetricTypeC28setWithCompactRepresentationyySSF">JweMetricType.setWithCompactRepresentation(_:)</a></code> methods,
-which takes care of validating the input data.</p>
-
-                        <a href="Classes/JweMetricType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">JweMetricType</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">EventMetricType</span><span class="o">&lt;</span><span class="kt">ExtraKeysEnum</span><span class="p">,</span> <span class="kt">ExtraObject</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">ExtraKeysEnum</span> <span class="p">:</span> <span class="kt"><a href="Protocols/EventExtraKey.html">EventExtraKey</a></span><span class="p">,</span> <span class="kt">ExtraObject</span> <span class="p">:</span> <span class="kt"><a href="Protocols/EventExtras.html">EventExtras</a></span></code></pre>
 
                         </div>
                       </div>
@@ -492,67 +1170,6 @@ The only difference is that labeled metrics are stored with the special key <cod
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5Glean28MemoryDistributionMetricTypeC"></a>
-                    <a name="//apple_ref/swift/Class/MemoryDistributionMetricType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean28MemoryDistributionMetricTypeC">MemoryDistributionMetricType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements the developer facing API for recording memory distribution metrics.</p>
-
-<p>Instances of this class type are automatically generated by the parsers at build time,
-allowing developers to record values that were previously registered in the metrics.yaml file.</p>
-
-<p>The memory distribution API only exposes the <code>MemoryDistributionMetricType.accumulate()</code> method.</p>
-
-                        <a href="Classes/MemoryDistributionMetricType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">MemoryDistributionMetricType</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean8PingBaseC"></a>
-                    <a name="//apple_ref/swift/Class/PingBase" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean8PingBaseC">PingBase</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A base class for functionality across all Ping<T></p>
-
-                        <a href="Classes/PingBase.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">PingBase</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:5Glean4PingC"></a>
                     <a name="//apple_ref/swift/Class/Ping" class="dashAnchor"></a>
                     <a class="token" href="#/s:5Glean4PingC">Ping</a>
@@ -576,178 +1193,7 @@ schedules a ping for eventual upload.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Ping</span><span class="o">&lt;</span><span class="kt">ReasonCodesEnum</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="Classes/PingBase.html">PingBase</a></span> <span class="k">where</span> <span class="kt">ReasonCodesEnum</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ReasonCodes.html">ReasonCodes</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean18QuantityMetricTypeC"></a>
-                    <a name="//apple_ref/swift/Class/QuantityMetricType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean18QuantityMetricTypeC">QuantityMetricType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements the developer facing API for recording quantity metrics.</p>
-
-<p>Instances of this class type are automatically generated by the parsers at build time,
-allowing developers to record values that were previously registered in the metrics.yaml file.</p>
-
-<p>The quantity API only exposes the <code><a href="Classes/QuantityMetricType.html#/s:5Glean18QuantityMetricTypeC3setyys5Int64VF">QuantityMetricType.set(_:)</a></code> method, which takes care of validating the input
-data and making sure that requirements are enforced.</p>
-
-                        <a href="Classes/QuantityMetricType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">QuantityMetricType</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean20StringListMetricTypeC"></a>
-                    <a name="//apple_ref/swift/Class/StringListMetricType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean20StringListMetricTypeC">StringListMetricType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements the developer facing API for recording string list metrics.</p>
-
-<p>Instances of this class type are automatically generated by the parsers at build time,
-allowing developers to record values that were previously registered in the metrics.yaml file.</p>
-
-<p>The string list API only exposes the <code><a href="Classes/StringListMetricType.html#/s:5Glean20StringListMetricTypeC3addyySSF">StringListMetricType.add(_:)</a></code> and <code><a href="Classes/StringListMetricType.html#/s:5Glean20StringListMetricTypeC3setyySaySSGF">StringListMetricType.set(_:)</a></code> methods,
-which takes care of validating the input
-data and making sure that limits are enforced.</p>
-
-                        <a href="Classes/StringListMetricType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">StringListMetricType</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean16StringMetricTypeC"></a>
-                    <a name="//apple_ref/swift/Class/StringMetricType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean16StringMetricTypeC">StringMetricType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements the developer facing API for recording string metrics.</p>
-
-<p>Instances of this class type are automatically generated by the parsers at build time,
-allowing developers to record values that were previously registered in the metrics.yaml file.</p>
-
-<p>The string API only exposes the <code><a href="Classes/StringMetricType.html#/s:5Glean16StringMetricTypeC3setyySSF">StringMetricType.set(_:)</a></code> method, which takes care of validating the input
-data and making sure that limits are enforced.</p>
-
-                        <a href="Classes/StringMetricType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">StringMetricType</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean18TimespanMetricTypeC"></a>
-                    <a name="//apple_ref/swift/Class/TimespanMetricType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean18TimespanMetricTypeC">TimespanMetricType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements the developer facing API for recording timespan metrics.</p>
-
-<p>Instances of this class type are automatically generated by the parsers at build time,
-allowing developers to record values that were previously registered in the metrics.yaml file.</p>
-
-<p>The timespan API only exposes the <code><a href="Classes/TimespanMetricType.html#/s:5Glean18TimespanMetricTypeC5startyyF">TimespanMetricType.start()</a></code>, <code><a href="Classes/TimespanMetricType.html#/s:5Glean18TimespanMetricTypeC4stopyyF">TimespanMetricType.stop()</a></code>
-and <code><a href="Classes/TimespanMetricType.html#/s:5Glean18TimespanMetricTypeC6cancelyyF">TimespanMetricType.cancel()</a></code>  methods.</p>
-
-                        <a href="Classes/TimespanMetricType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">TimespanMetricType</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean28TimingDistributionMetricTypeC"></a>
-                    <a name="//apple_ref/swift/Class/TimingDistributionMetricType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean28TimingDistributionMetricTypeC">TimingDistributionMetricType</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>This implements the developer facing API for recording timing distribution metrics.</p>
-
-<p>Instances of this class type are automatically generated by the parsers at build time,
-allowing developers to record values that were previously registered in the metrics.yaml file.</p>
-
-<p>The timing distribution API only exposes the <code><a href="Classes/TimingDistributionMetricType.html#/s:5Glean28TimingDistributionMetricTypeC5starts6UInt64VSgyF">TimingDistributionMetricType.start()</a></code>,
-<code><a href="Classes/TimingDistributionMetricType.html#/s:5Glean28TimingDistributionMetricTypeC17stopAndAccumulateyys6UInt64VSgF">TimingDistributionMetricType.stopAndAccumulate(_:)</a></code> and <code><a href="Classes/TimingDistributionMetricType.html#/s:5Glean28TimingDistributionMetricTypeC6cancelyys6UInt64VSgF">TimingDistributionMetricType.cancel(_:)</a></code>  methods.</p>
-
-                        <a href="Classes/TimingDistributionMetricType.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">TimingDistributionMetricType</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Ping</span><span class="o">&lt;</span><span class="kt">ReasonCodesEnum</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">ReasonCodesEnum</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ReasonCodes.html">ReasonCodes</a></span></code></pre>
 
                         </div>
                       </div>
@@ -806,7 +1252,7 @@ data and making sure that limits are enforced.</p>
 <p>Instances of this class type are automatically generated by the parsers at build time,
 allowing developers to record values that were previously registered in the metrics.yaml file.</p>
 
-<p>The UUID API only exposes the <code><a href="Classes/UuidMetricType.html#/s:5Glean14UuidMetricTypeC14generateAndSet10Foundation4UUIDVSgyF">UuidMetricType.generateAndSet()</a></code> and <code><a href="Classes/UuidMetricType.html#/s:5Glean14UuidMetricTypeC3setyy10Foundation4UUIDVF">UuidMetricType.set(_:)</a></code> methods,
+<p>The UUID API only exposes the <code><a href="Classes/UuidMetricType.html#/s:5Glean14UuidMetricTypeC14generateAndSet10Foundation4UUIDVyF">UuidMetricType.generateAndSet()</a></code> and <code><a href="Classes/UuidMetricType.html#/s:5Glean14UuidMetricTypeC3setyy10Foundation4UUIDVF">UuidMetricType.set(_:)</a></code> methods,
 which takes care of validating the input data and making sure that limits are enforced.</p>
 
                         <a href="Classes/UuidMetricType.html" class="slightly-smaller">See more</a>
@@ -857,7 +1303,7 @@ which takes care of validating the input data and making sure that limits are en
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="https://mozilla.github.com/glean" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-05-17)</p>
+          <p>&copy; 2022 <a class="link" href="https://mozilla.github.com/glean" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2022-05-19)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

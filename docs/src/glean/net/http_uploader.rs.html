@@ -48,7 +48,7 @@
     <span class="doccomment">///   the request, i.e. (Name, Value).</span>
     <span class="kw">fn</span> <span class="ident">upload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">url</span>: <span class="ident">String</span>, <span class="ident">_body</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">_headers</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span>) -&gt; <span class="ident">UploadResult</span> {
         <span class="macro">log::debug!</span>(<span class="string">&quot;TODO bug 1675468: submitting to {:?}&quot;</span>, <span class="ident">url</span>);
-        <span class="ident">UploadResult::HttpStatus</span>(<span class="number">200</span>)
+        <span class="ident">UploadResult::http_status</span>(<span class="number">200</span>)
     }
 }
 </code></pre></div>

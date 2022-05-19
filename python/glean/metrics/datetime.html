@@ -32,23 +32,20 @@
 
 
 import datetime
-import sys
-from typing import List, Optional
+from typing import Optional
 
 
-from .. import _ffi
-from .._dispatcher import Dispatcher
+from .._uniffi import DatetimeMetric
+from .._uniffi import CommonMetricData, TimeUnit, Datetime
 from ..testing import ErrorType
 
 
-from .lifetime import Lifetime
-from .timeunit import TimeUnit
-
-
-if sys.version_info &lt; (3, 7):
-    import iso8601  # type: ignore
-else:
-    iso8601 = None
+def tzoffset(offset):
+    &#34;&#34;&#34;
+    Create a timezone from the given offset (in seconds) from UTC.
+    &#34;&#34;&#34;
+    delta = datetime.timedelta(seconds=offset)
+    return datetime.timezone(delta)
 
 
 class DatetimeMetricType:
@@ -62,31 +59,8 @@ class DatetimeMetricType:
     The datetime API only exposes the `DatetimeMetricType.set` method.
     &#34;&#34;&#34;
 
-    def __init__(
-        self,
-        disabled: bool,
-        category: str,
-        lifetime: Lifetime,
-        name: str,
-        send_in_pings: List[str],
-        time_unit: TimeUnit,
-    ):
-        self._disabled = disabled
-        self._send_in_pings = send_in_pings
-
-        self._handle = _ffi.lib.glean_new_datetime_metric(
-            _ffi.ffi_encode_string(category),
-            _ffi.ffi_encode_string(name),
-            _ffi.ffi_encode_vec_string(send_in_pings),
-            len(send_in_pings),
-            lifetime.value,
-            disabled,
-            time_unit.value,
-        )
-
-    def __del__(self):
-        if getattr(self, &#34;_handle&#34;, 0) != 0:
-            _ffi.lib.glean_destroy_datetime_metric(self._handle)
+    def __init__(self, common_metric_data: CommonMetricData, time_unit: TimeUnit):
+        self._inner = DatetimeMetric(common_metric_data, time_unit)
 
     def set(self, value: Optional[datetime.datetime] = None) -&gt; None:
         &#34;&#34;&#34;
@@ -96,59 +70,34 @@ class DatetimeMetricType:
             value (datetime.datetime): (default: now) The `datetime.datetime`
                 value to set. If not provided, will record the current time.
         &#34;&#34;&#34;
-        if self._disabled:
-            return
-
         if value is None:
             # now at UTC -&gt; astimezone gives us a time with the local timezone.
             value = datetime.datetime.now(datetime.timezone.utc).astimezone()
 
-        @Dispatcher.launch
-        def set():
-            tzinfo = value.tzinfo
-            if tzinfo is not None:
-                utcoff = tzinfo.utcoffset(value)
-                if utcoff is not None:
-                    offset = utcoff.seconds
-                else:
-                    offset = 0
+        tzinfo = value.tzinfo
+        if tzinfo is not None:
+            utcoff = tzinfo.utcoffset(value)
+            if utcoff is not None:
+                offset = utcoff.seconds
             else:
                 offset = 0
+        else:
+            offset = 0
 
-            _ffi.lib.glean_datetime_set(
-                self._handle,
-                value.year,
-                value.month,
-                value.day,
-                value.hour,
-                value.minute,
-                value.second,
-                value.microsecond * 1000,
-                offset,
-            )
-
-    def test_has_value(self, ping_name: Optional[str] = None) -&gt; bool:
-        &#34;&#34;&#34;
-        Tests whether a value is stored for the metric for testing purposes
-        only.
-
-        Args:
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            has_value (bool): True if the metric value exists.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return bool(
-            _ffi.lib.glean_datetime_test_has_value(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
+        dt = Datetime(
+            year=value.year,
+            month=value.month,
+            day=value.day,
+            hour=value.hour,
+            minute=value.minute,
+            second=value.second,
+            nanosecond=value.microsecond * 1000,
+            offset_seconds=offset,
         )
 
-    def test_get_value_as_str(self, ping_name: Optional[str] = None) -&gt; str:
+        self._inner.set(dt)
+
+    def test_get_value_as_str(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only, as an ISO8601 string.
 
@@ -159,19 +108,15 @@ class DatetimeMetricType:
         Returns:
             value (str): value of the stored metric.
         &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
+        dt = self.test_get_value(ping_name)
+        if not dt:
+            return None
 
-        if not self.test_has_value(ping_name):
-            raise ValueError(&#34;metric has no value&#34;)
+        return dt.isoformat()
 
-        return _ffi.ffi_decode_string(
-            _ffi.lib.glean_datetime_test_get_value_as_string(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
-        )
-
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; datetime.datetime:
+    def test_get_value(
+        self, ping_name: Optional[str] = None
+    ) -&gt; Optional[datetime.datetime]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -182,36 +127,27 @@ class DatetimeMetricType:
         Returns:
             value (datetime.datetime): value of the stored metric.
         &#34;&#34;&#34;
-        if sys.version_info &lt; (3, 7):
-            return iso8601.parse_date(self.test_get_value_as_str(ping_name))
-        else:
-            return datetime.datetime.fromisoformat(
-                self.test_get_value_as_str(ping_name)
-            )
+        dt = self._inner.test_get_value(ping_name)
+        if not dt:
+            return None
+
+        tz = tzoffset(dt.offset_seconds)
+        dt = datetime.datetime(
+            year=dt.year,
+            month=dt.month,
+            day=dt.day,
+            hour=dt.hour,
+            minute=dt.minute,
+            second=dt.second,
+            microsecond=round(dt.nanosecond / 1000),
+            tzinfo=tz,
+        )
+        return dt
 
     def test_get_num_recorded_errors(
         self, error_type: ErrorType, ping_name: Optional[str] = None
     ) -&gt; int:
-        &#34;&#34;&#34;
-        Returns the number of errors recorded for the given metric.
-
-        Args:
-            error_type (ErrorType): The type of error recorded.
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            num_errors (int): The number of errors recorded for the metric for
-                the given error type.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return _ffi.lib.glean_datetime_test_get_num_recorded_errors(
-            self._handle,
-            error_type.value,
-            _ffi.ffi_encode_string(ping_name),
-        )
+        return self._inner.test_get_num_recorded_errors(error_type, ping_name)
 
 
 __all__ = [&#34;DatetimeMetricType&#34;]</code></pre>
@@ -228,7 +164,7 @@ __all__ = [&#34;DatetimeMetricType&#34;]</code></pre>
 <dl>
 <dt id="glean.metrics.datetime.DatetimeMetricType"><code class="flex name class">
 <span>class <span class="ident">DatetimeMetricType</span></span>
-<span>(</span><span>disabled: bool, category: str, lifetime: <a title="glean.metrics.lifetime.Lifetime" href="lifetime.html#glean.metrics.lifetime.Lifetime">Lifetime</a>, name: str, send_in_pings: List[str], time_unit: <a title="glean.metrics.timeunit.TimeUnit" href="timeunit.html#glean.metrics.timeunit.TimeUnit">TimeUnit</a>)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, time_unit: glean._uniffi.TimeUnit)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording datetime metrics.</p>
@@ -251,31 +187,8 @@ previously registered in the metrics.yaml file.</p>
     The datetime API only exposes the `DatetimeMetricType.set` method.
     &#34;&#34;&#34;
 
-    def __init__(
-        self,
-        disabled: bool,
-        category: str,
-        lifetime: Lifetime,
-        name: str,
-        send_in_pings: List[str],
-        time_unit: TimeUnit,
-    ):
-        self._disabled = disabled
-        self._send_in_pings = send_in_pings
-
-        self._handle = _ffi.lib.glean_new_datetime_metric(
-            _ffi.ffi_encode_string(category),
-            _ffi.ffi_encode_string(name),
-            _ffi.ffi_encode_vec_string(send_in_pings),
-            len(send_in_pings),
-            lifetime.value,
-            disabled,
-            time_unit.value,
-        )
-
-    def __del__(self):
-        if getattr(self, &#34;_handle&#34;, 0) != 0:
-            _ffi.lib.glean_destroy_datetime_metric(self._handle)
+    def __init__(self, common_metric_data: CommonMetricData, time_unit: TimeUnit):
+        self._inner = DatetimeMetric(common_metric_data, time_unit)
 
     def set(self, value: Optional[datetime.datetime] = None) -&gt; None:
         &#34;&#34;&#34;
@@ -285,59 +198,34 @@ previously registered in the metrics.yaml file.</p>
             value (datetime.datetime): (default: now) The `datetime.datetime`
                 value to set. If not provided, will record the current time.
         &#34;&#34;&#34;
-        if self._disabled:
-            return
-
         if value is None:
             # now at UTC -&gt; astimezone gives us a time with the local timezone.
             value = datetime.datetime.now(datetime.timezone.utc).astimezone()
 
-        @Dispatcher.launch
-        def set():
-            tzinfo = value.tzinfo
-            if tzinfo is not None:
-                utcoff = tzinfo.utcoffset(value)
-                if utcoff is not None:
-                    offset = utcoff.seconds
-                else:
-                    offset = 0
+        tzinfo = value.tzinfo
+        if tzinfo is not None:
+            utcoff = tzinfo.utcoffset(value)
+            if utcoff is not None:
+                offset = utcoff.seconds
             else:
                 offset = 0
+        else:
+            offset = 0
 
-            _ffi.lib.glean_datetime_set(
-                self._handle,
-                value.year,
-                value.month,
-                value.day,
-                value.hour,
-                value.minute,
-                value.second,
-                value.microsecond * 1000,
-                offset,
-            )
-
-    def test_has_value(self, ping_name: Optional[str] = None) -&gt; bool:
-        &#34;&#34;&#34;
-        Tests whether a value is stored for the metric for testing purposes
-        only.
-
-        Args:
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            has_value (bool): True if the metric value exists.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return bool(
-            _ffi.lib.glean_datetime_test_has_value(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
+        dt = Datetime(
+            year=value.year,
+            month=value.month,
+            day=value.day,
+            hour=value.hour,
+            minute=value.minute,
+            second=value.second,
+            nanosecond=value.microsecond * 1000,
+            offset_seconds=offset,
         )
 
-    def test_get_value_as_str(self, ping_name: Optional[str] = None) -&gt; str:
+        self._inner.set(dt)
+
+    def test_get_value_as_str(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only, as an ISO8601 string.
 
@@ -348,19 +236,15 @@ previously registered in the metrics.yaml file.</p>
         Returns:
             value (str): value of the stored metric.
         &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
+        dt = self.test_get_value(ping_name)
+        if not dt:
+            return None
 
-        if not self.test_has_value(ping_name):
-            raise ValueError(&#34;metric has no value&#34;)
+        return dt.isoformat()
 
-        return _ffi.ffi_decode_string(
-            _ffi.lib.glean_datetime_test_get_value_as_string(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
-        )
-
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; datetime.datetime:
+    def test_get_value(
+        self, ping_name: Optional[str] = None
+    ) -&gt; Optional[datetime.datetime]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -371,36 +255,27 @@ previously registered in the metrics.yaml file.</p>
         Returns:
             value (datetime.datetime): value of the stored metric.
         &#34;&#34;&#34;
-        if sys.version_info &lt; (3, 7):
-            return iso8601.parse_date(self.test_get_value_as_str(ping_name))
-        else:
-            return datetime.datetime.fromisoformat(
-                self.test_get_value_as_str(ping_name)
-            )
+        dt = self._inner.test_get_value(ping_name)
+        if not dt:
+            return None
+
+        tz = tzoffset(dt.offset_seconds)
+        dt = datetime.datetime(
+            year=dt.year,
+            month=dt.month,
+            day=dt.day,
+            hour=dt.hour,
+            minute=dt.minute,
+            second=dt.second,
+            microsecond=round(dt.nanosecond / 1000),
+            tzinfo=tz,
+        )
+        return dt
 
     def test_get_num_recorded_errors(
         self, error_type: ErrorType, ping_name: Optional[str] = None
     ) -&gt; int:
-        &#34;&#34;&#34;
-        Returns the number of errors recorded for the given metric.
-
-        Args:
-            error_type (ErrorType): The type of error recorded.
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            num_errors (int): The number of errors recorded for the metric for
-                the given error type.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return _ffi.lib.glean_datetime_test_get_num_recorded_errors(
-            self._handle,
-            error_type.value,
-            _ffi.ffi_encode_string(ping_name),
-        )</code></pre>
+        return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -427,54 +302,39 @@ value to set. If not provided, will record the current time.</dd>
         value (datetime.datetime): (default: now) The `datetime.datetime`
             value to set. If not provided, will record the current time.
     &#34;&#34;&#34;
-    if self._disabled:
-        return
-
     if value is None:
         # now at UTC -&gt; astimezone gives us a time with the local timezone.
         value = datetime.datetime.now(datetime.timezone.utc).astimezone()
 
-    @Dispatcher.launch
-    def set():
-        tzinfo = value.tzinfo
-        if tzinfo is not None:
-            utcoff = tzinfo.utcoffset(value)
-            if utcoff is not None:
-                offset = utcoff.seconds
-            else:
-                offset = 0
+    tzinfo = value.tzinfo
+    if tzinfo is not None:
+        utcoff = tzinfo.utcoffset(value)
+        if utcoff is not None:
+            offset = utcoff.seconds
         else:
             offset = 0
+    else:
+        offset = 0
 
-        _ffi.lib.glean_datetime_set(
-            self._handle,
-            value.year,
-            value.month,
-            value.day,
-            value.hour,
-            value.minute,
-            value.second,
-            value.microsecond * 1000,
-            offset,
-        )</code></pre>
+    dt = Datetime(
+        year=value.year,
+        month=value.month,
+        day=value.day,
+        hour=value.hour,
+        minute=value.minute,
+        second=value.second,
+        nanosecond=value.microsecond * 1000,
+        offset_seconds=offset,
+    )
+
+    self._inner.set(dt)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.datetime.DatetimeMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: <a title="glean.testing.error_type.ErrorType" href="../testing/error_type.html#glean.testing.error_type.ErrorType">ErrorType</a>, ping_name: Optional[str] = None) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType, ping_name: Optional[str] = None) ‑> int</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the number of errors recorded for the given metric.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>error_type</code></strong> :&ensp;<code>ErrorType</code></dt>
-<dd>The type of error recorded.</dd>
-<dt><strong><code>ping_name</code></strong> :&ensp;<code>str</code></dt>
-<dd>(default: first value in send_in_pings) The name
-of the ping to retrieve the metric for.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>num_errors (int): The number of errors recorded for the metric for
-the given error type.</p></div>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -482,30 +342,11 @@ the given error type.</p></div>
 <pre><code class="python">def test_get_num_recorded_errors(
     self, error_type: ErrorType, ping_name: Optional[str] = None
 ) -&gt; int:
-    &#34;&#34;&#34;
-    Returns the number of errors recorded for the given metric.
-
-    Args:
-        error_type (ErrorType): The type of error recorded.
-        ping_name (str): (default: first value in send_in_pings) The name
-            of the ping to retrieve the metric for.
-
-    Returns:
-        num_errors (int): The number of errors recorded for the metric for
-            the given error type.
-    &#34;&#34;&#34;
-    if ping_name is None:
-        ping_name = self._send_in_pings[0]
-
-    return _ffi.lib.glean_datetime_test_get_num_recorded_errors(
-        self._handle,
-        error_type.value,
-        _ffi.ffi_encode_string(ping_name),
-    )</code></pre>
+    return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.datetime.DatetimeMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> datetime.datetime</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[datetime.datetime]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -521,7 +362,9 @@ of the ping to retrieve the metric for.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; datetime.datetime:
+<pre><code class="python">def test_get_value(
+    self, ping_name: Optional[str] = None
+) -&gt; Optional[datetime.datetime]:
     &#34;&#34;&#34;
     Returns the stored value for testing purposes only.
 
@@ -532,16 +375,26 @@ of the ping to retrieve the metric for.</dd>
     Returns:
         value (datetime.datetime): value of the stored metric.
     &#34;&#34;&#34;
-    if sys.version_info &lt; (3, 7):
-        return iso8601.parse_date(self.test_get_value_as_str(ping_name))
-    else:
-        return datetime.datetime.fromisoformat(
-            self.test_get_value_as_str(ping_name)
-        )</code></pre>
+    dt = self._inner.test_get_value(ping_name)
+    if not dt:
+        return None
+
+    tz = tzoffset(dt.offset_seconds)
+    dt = datetime.datetime(
+        year=dt.year,
+        month=dt.month,
+        day=dt.day,
+        hour=dt.hour,
+        minute=dt.minute,
+        second=dt.second,
+        microsecond=round(dt.nanosecond / 1000),
+        tzinfo=tz,
+    )
+    return dt</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.datetime.DatetimeMetricType.test_get_value_as_str"><code class="name flex">
-<span>def <span class="ident">test_get_value_as_str</span></span>(<span>self, ping_name: Optional[str] = None) ‑> str</span>
+<span>def <span class="ident">test_get_value_as_str</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[str]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only, as an ISO8601 string.</p>
@@ -557,7 +410,7 @@ of the ping to retrieve the metric for.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value_as_str(self, ping_name: Optional[str] = None) -&gt; str:
+<pre><code class="python">def test_get_value_as_str(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
     &#34;&#34;&#34;
     Returns the stored value for testing purposes only, as an ISO8601 string.
 
@@ -568,57 +421,11 @@ of the ping to retrieve the metric for.</dd>
     Returns:
         value (str): value of the stored metric.
     &#34;&#34;&#34;
-    if ping_name is None:
-        ping_name = self._send_in_pings[0]
+    dt = self.test_get_value(ping_name)
+    if not dt:
+        return None
 
-    if not self.test_has_value(ping_name):
-        raise ValueError(&#34;metric has no value&#34;)
-
-    return _ffi.ffi_decode_string(
-        _ffi.lib.glean_datetime_test_get_value_as_string(
-            self._handle, _ffi.ffi_encode_string(ping_name)
-        )
-    )</code></pre>
-</details>
-</dd>
-<dt id="glean.metrics.datetime.DatetimeMetricType.test_has_value"><code class="name flex">
-<span>def <span class="ident">test_has_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> bool</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Tests whether a value is stored for the metric for testing purposes
-only.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>ping_name</code></strong> :&ensp;<code>str</code></dt>
-<dd>(default: first value in send_in_pings) The name
-of the ping to retrieve the metric for.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>has_value (bool): True if the metric value exists.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_has_value(self, ping_name: Optional[str] = None) -&gt; bool:
-    &#34;&#34;&#34;
-    Tests whether a value is stored for the metric for testing purposes
-    only.
-
-    Args:
-        ping_name (str): (default: first value in send_in_pings) The name
-            of the ping to retrieve the metric for.
-
-    Returns:
-        has_value (bool): True if the metric value exists.
-    &#34;&#34;&#34;
-    if ping_name is None:
-        ping_name = self._send_in_pings[0]
-
-    return bool(
-        _ffi.lib.glean_datetime_test_has_value(
-            self._handle, _ffi.ffi_encode_string(ping_name)
-        )
-    )</code></pre>
+    return dt.isoformat()</code></pre>
 </details>
 </dd>
 </dl>
@@ -646,7 +453,6 @@ of the ping to retrieve the metric for.</dd>
 <li><code><a title="glean.metrics.datetime.DatetimeMetricType.test_get_num_recorded_errors" href="#glean.metrics.datetime.DatetimeMetricType.test_get_num_recorded_errors">test_get_num_recorded_errors</a></code></li>
 <li><code><a title="glean.metrics.datetime.DatetimeMetricType.test_get_value" href="#glean.metrics.datetime.DatetimeMetricType.test_get_value">test_get_value</a></code></li>
 <li><code><a title="glean.metrics.datetime.DatetimeMetricType.test_get_value_as_str" href="#glean.metrics.datetime.DatetimeMetricType.test_get_value_as_str">test_get_value_as_str</a></code></li>
-<li><code><a title="glean.metrics.datetime.DatetimeMetricType.test_has_value" href="#glean.metrics.datetime.DatetimeMetricType.test_has_value">test_has_value</a></code></li>
 </ul>
 </li>
 </ul>

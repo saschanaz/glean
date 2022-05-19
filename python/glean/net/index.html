@@ -71,10 +71,6 @@ module.</p></div>
 <dd>
 <div class="desc"></div>
 </dd>
-<dt><code class="name"><a title="glean.net.upload_task_tag" href="upload_task_tag.html">glean.net.upload_task_tag</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
 </dl>
 </section>
 <section>
@@ -95,7 +91,7 @@ to the user-provided delegate.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class BaseUploader(ping_uploader.PingUploader):
+<pre><code class="python">class BaseUploader(PingUploader):
     &#34;&#34;&#34;
     The logic for uploading pings. This leaves the actual upload implementation
     to the user-provided delegate.
@@ -105,9 +101,14 @@ to the user-provided delegate.</p></div>
         self,
         path: str,
         data: bytes,
-        headers: List[Tuple[str, str]],
+        headers: Dict[str, str],
         config: &#34;Configuration&#34;,
-    ) -&gt; ping_uploader.UploadResult:
+    ) -&gt; Union[
+        UploadResult,
+        UploadResult.UNRECOVERABLE_FAILURE,
+        UploadResult.RECOVERABLE_FAILURE,
+        UploadResult.HTTP_STATUS,
+    ]:
         &#34;&#34;&#34;
         This function triggers the actual upload.
 
@@ -116,9 +117,7 @@ to the user-provided delegate.</p></div>
         Args:
             url (str): The URL path to upload the data to.
             data (bytes): The serialized data to send.
-            headers (list of (str, str)): List of header entries as tuple
-                pairs, where the first element is the header name and the
-                second is its value.
+            headers (dict of (str, str)): Dictionary of header entries.
             config (glean.Configuration): The Glean Configuration object.
 
         Returns:
@@ -145,7 +144,7 @@ to the user-provided delegate.</p></div>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.net.BaseUploader.do_upload"><code class="name flex">
-<span>def <span class="ident">do_upload</span></span>(<span>self, path: str, data: bytes, headers: List[Tuple[str, str]], config: Configuration) ‑> <a title="glean.net.ping_uploader.UploadResult" href="ping_uploader.html#glean.net.ping_uploader.UploadResult">UploadResult</a></span>
+<span>def <span class="ident">do_upload</span></span>(<span>self, path: str, data: bytes, headers: Dict[str, str], config: Configuration) ‑> Union[glean._uniffi.UploadResult, glean._uniffi.UploadResult.UNRECOVERABLE_FAILURE, glean._uniffi.UploadResult.RECOVERABLE_FAILURE, glean._uniffi.UploadResult.HTTP_STATUS]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This function triggers the actual upload.</p>
@@ -156,9 +155,7 @@ to the user-provided delegate.</p></div>
 <dd>The URL path to upload the data to.</dd>
 <dt><strong><code>data</code></strong> :&ensp;<code>bytes</code></dt>
 <dd>The serialized data to send.</dd>
-<dt>headers (list of (str, str)): List of header entries as tuple</dt>
-<dt>pairs, where the first element is the header name and the</dt>
-<dt>second is its value.</dt>
+<dt>headers (dict of (str, str)): Dictionary of header entries.</dt>
 <dt><strong><code>config</code></strong> :&ensp;<code><a title="glean.Configuration" href="../index.html#glean.Configuration">Configuration</a></code></dt>
 <dd>The Glean Configuration object.</dd>
 </dl>
@@ -172,9 +169,14 @@ to the user-provided delegate.</p></div>
     self,
     path: str,
     data: bytes,
-    headers: List[Tuple[str, str]],
+    headers: Dict[str, str],
     config: &#34;Configuration&#34;,
-) -&gt; ping_uploader.UploadResult:
+) -&gt; Union[
+    UploadResult,
+    UploadResult.UNRECOVERABLE_FAILURE,
+    UploadResult.RECOVERABLE_FAILURE,
+    UploadResult.HTTP_STATUS,
+]:
     &#34;&#34;&#34;
     This function triggers the actual upload.
 
@@ -183,9 +185,7 @@ to the user-provided delegate.</p></div>
     Args:
         url (str): The URL path to upload the data to.
         data (bytes): The serialized data to send.
-        headers (list of (str, str)): List of header entries as tuple
-            pairs, where the first element is the header name and the
-            second is its value.
+        headers (dict of (str, str)): Dictionary of header entries.
         config (glean.Configuration): The Glean Configuration object.
 
     Returns:
@@ -226,15 +226,20 @@ to the user-provided delegate.</p></div>
 
     @classmethod
     def upload(
-        cls, url: str, data: bytes, headers: List[Tuple[str, str]]
-    ) -&gt; ping_uploader.UploadResult:
+        cls, url: str, data: bytes, headers: Dict[str, str]
+    ) -&gt; Union[
+        UploadResult,
+        UploadResult.UNRECOVERABLE_FAILURE,
+        UploadResult.RECOVERABLE_FAILURE,
+        UploadResult.HTTP_STATUS,
+    ]:
         &#34;&#34;&#34;
         Synchronously upload a ping to a server.
 
         Args:
             url (str): The URL path to upload the data to.
             data (str): The serialized text data to send.
-            headers (list of (str, str)): HTTP headers to send.
+            headers (dict of (str, str)): HTTP headers to send.
         &#34;&#34;&#34;
         parsed_url = urllib.parse.urlparse(url)
         if parsed_url.scheme == &#34;http&#34;:
@@ -253,37 +258,37 @@ to the user-provided delegate.</p></div>
             # If we don&#39;t know the URL scheme, log an error and mark this as an unrecoverable
             # error, like if it were a malformed URL.
             log.error(f&#34;Unknown URL scheme {parsed_url.scheme}&#34;)
-            return ping_uploader.UnrecoverableFailure()
+            return UploadResult.UNRECOVERABLE_FAILURE(0)
 
         try:
             conn.request(
                 &#34;POST&#34;,
                 parsed_url.path,
                 body=data,
-                headers=dict(headers),
+                headers=headers,
             )
             response = conn.getresponse()
         except http.client.InvalidURL as e:
             log.error(f&#34;Could not upload telemetry due to malformed URL: &#39;{url}&#39; {e}&#34;)
-            return ping_uploader.UnrecoverableFailure()
+            return UploadResult.UNRECOVERABLE_FAILURE(0)
         except http.client.HTTPException as e:
             log.debug(f&#34;http.client.HTTPException while uploading ping: &#39;{url}&#39; {e}&#34;)
-            return ping_uploader.RecoverableFailure()
+            return UploadResult.RECOVERABLE_FAILURE(0)
         except socket.gaierror as e:
             log.debug(f&#34;socket.gaierror while uploading ping: &#39;{url}&#39; {e}&#34;)
-            return ping_uploader.RecoverableFailure()
+            return UploadResult.RECOVERABLE_FAILURE(0)
         except OSError as e:
             log.debug(f&#34;OSError while uploading ping: &#39;{url}&#39; {e}&#34;)
-            return ping_uploader.RecoverableFailure()
+            return UploadResult.RECOVERABLE_FAILURE(0)
         except Exception as e:
             log.error(f&#34;Unknown Exception while uploading ping: &#39;{url}&#39; {e}&#34;)
-            return ping_uploader.RecoverableFailure()
+            return UploadResult.RECOVERABLE_FAILURE(0)
 
         status_code = response.status
 
         conn.close()
 
-        return ping_uploader.HttpResponse(status_code)</code></pre>
+        return UploadResult.HTTP_STATUS(status_code)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -295,7 +300,7 @@ to the user-provided delegate.</p></div>
 <h3>Static methods</h3>
 <dl>
 <dt id="glean.net.HttpClientUploader.upload"><code class="name flex">
-<span>def <span class="ident">upload</span></span>(<span>url: str, data: bytes, headers: List[Tuple[str, str]]) ‑> <a title="glean.net.ping_uploader.UploadResult" href="ping_uploader.html#glean.net.ping_uploader.UploadResult">UploadResult</a></span>
+<span>def <span class="ident">upload</span></span>(<span>url: str, data: bytes, headers: Dict[str, str]) ‑> Union[glean._uniffi.UploadResult, glean._uniffi.UploadResult.UNRECOVERABLE_FAILURE, glean._uniffi.UploadResult.RECOVERABLE_FAILURE, glean._uniffi.UploadResult.HTTP_STATUS]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Synchronously upload a ping to a server.</p>
@@ -306,22 +311,27 @@ to the user-provided delegate.</p></div>
 <dt><strong><code>data</code></strong> :&ensp;<code>str</code></dt>
 <dd>The serialized text data to send.</dd>
 </dl>
-<p>headers (list of (str, str)): HTTP headers to send.</p></div>
+<p>headers (dict of (str, str)): HTTP headers to send.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
 def upload(
-    cls, url: str, data: bytes, headers: List[Tuple[str, str]]
-) -&gt; ping_uploader.UploadResult:
+    cls, url: str, data: bytes, headers: Dict[str, str]
+) -&gt; Union[
+    UploadResult,
+    UploadResult.UNRECOVERABLE_FAILURE,
+    UploadResult.RECOVERABLE_FAILURE,
+    UploadResult.HTTP_STATUS,
+]:
     &#34;&#34;&#34;
     Synchronously upload a ping to a server.
 
     Args:
         url (str): The URL path to upload the data to.
         data (str): The serialized text data to send.
-        headers (list of (str, str)): HTTP headers to send.
+        headers (dict of (str, str)): HTTP headers to send.
     &#34;&#34;&#34;
     parsed_url = urllib.parse.urlparse(url)
     if parsed_url.scheme == &#34;http&#34;:
@@ -340,37 +350,37 @@ def upload(
         # If we don&#39;t know the URL scheme, log an error and mark this as an unrecoverable
         # error, like if it were a malformed URL.
         log.error(f&#34;Unknown URL scheme {parsed_url.scheme}&#34;)
-        return ping_uploader.UnrecoverableFailure()
+        return UploadResult.UNRECOVERABLE_FAILURE(0)
 
     try:
         conn.request(
             &#34;POST&#34;,
             parsed_url.path,
             body=data,
-            headers=dict(headers),
+            headers=headers,
         )
         response = conn.getresponse()
     except http.client.InvalidURL as e:
         log.error(f&#34;Could not upload telemetry due to malformed URL: &#39;{url}&#39; {e}&#34;)
-        return ping_uploader.UnrecoverableFailure()
+        return UploadResult.UNRECOVERABLE_FAILURE(0)
     except http.client.HTTPException as e:
         log.debug(f&#34;http.client.HTTPException while uploading ping: &#39;{url}&#39; {e}&#34;)
-        return ping_uploader.RecoverableFailure()
+        return UploadResult.RECOVERABLE_FAILURE(0)
     except socket.gaierror as e:
         log.debug(f&#34;socket.gaierror while uploading ping: &#39;{url}&#39; {e}&#34;)
-        return ping_uploader.RecoverableFailure()
+        return UploadResult.RECOVERABLE_FAILURE(0)
     except OSError as e:
         log.debug(f&#34;OSError while uploading ping: &#39;{url}&#39; {e}&#34;)
-        return ping_uploader.RecoverableFailure()
+        return UploadResult.RECOVERABLE_FAILURE(0)
     except Exception as e:
         log.error(f&#34;Unknown Exception while uploading ping: &#39;{url}&#39; {e}&#34;)
-        return ping_uploader.RecoverableFailure()
+        return UploadResult.RECOVERABLE_FAILURE(0)
 
     status_code = response.status
 
     conn.close()
 
-    return ping_uploader.HttpResponse(status_code)</code></pre>
+    return UploadResult.HTTP_STATUS(status_code)</code></pre>
 </details>
 </dd>
 </dl>
@@ -394,7 +404,7 @@ def upload(
 </summary>
 <pre><code class="python">class PingUploadWorker:
     @classmethod
-    def process(cls):
+    def process(cls, testing_mode: bool = False):
         &#34;&#34;&#34;
         Function to deserialize and process all serialized ping files.
 
@@ -402,14 +412,14 @@ def upload(
         just delete them to prevent files from polluting the ping storage
         directory.
         &#34;&#34;&#34;
-        if Dispatcher._testing_mode:
+        if testing_mode:
             cls._test_process_sync()
             return
 
         cls._process()
 
     @classmethod
-    def _process(cls):
+    def _process(cls, testing_mode: bool = False):
         from .. import Glean
 
         return ProcessDispatcher.dispatch(
@@ -430,8 +440,6 @@ def upload(
         Returns:
             uploaded (bool): The success of the upload task.
         &#34;&#34;&#34;
-        assert Dispatcher._testing_mode is True
-
         p = cls._process()
         p.wait()
         return p.returncode == 0</code></pre>
@@ -439,7 +447,7 @@ def upload(
 <h3>Static methods</h3>
 <dl>
 <dt id="glean.net.PingUploadWorker.process"><code class="name flex">
-<span>def <span class="ident">process</span></span>(<span>)</span>
+<span>def <span class="ident">process</span></span>(<span>testing_mode: bool = False)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Function to deserialize and process all serialized ping files.</p>
@@ -451,7 +459,7 @@ directory.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@classmethod
-def process(cls):
+def process(cls, testing_mode: bool = False):
     &#34;&#34;&#34;
     Function to deserialize and process all serialized ping files.
 
@@ -459,7 +467,7 @@ def process(cls):
     just delete them to prevent files from polluting the ping storage
     directory.
     &#34;&#34;&#34;
-    if Dispatcher._testing_mode:
+    if testing_mode:
         cls._test_process_sync()
         return
 
@@ -504,17 +512,20 @@ Protocol classes can be generic, they are defined as::</p>
 </summary>
 <pre><code class="python">class PingUploader(Protocol):
     def upload(
-        self, url: str, data: bytes, headers: List[Tuple[str, str]]
-    ) -&gt; UploadResult:
+        self, url: str, data: bytes, headers: Dict[str, str]
+    ) -&gt; Union[
+        UploadResult,
+        UploadResult.UNRECOVERABLE_FAILURE,
+        UploadResult.RECOVERABLE_FAILURE,
+        UploadResult.HTTP_STATUS,
+    ]:
         &#34;&#34;&#34;
         Upload a ping to a server.
 
         Args:
             url (str): The URL path to upload the data to.
             data (bytes): The serialized data to send.
-            headers (list of (str, str)): List of header entries as tuple
-                pairs, where the first element is the header name and the
-                second is its value.
+            headers (dict of (str, str)): Dictionary of header entries.
 
         Returns:
             result (UploadResult): the status code of the upload response.
@@ -533,7 +544,7 @@ Protocol classes can be generic, they are defined as::</p>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.net.PingUploader.upload"><code class="name flex">
-<span>def <span class="ident">upload</span></span>(<span>self, url: str, data: bytes, headers: List[Tuple[str, str]]) ‑> <a title="glean.net.ping_uploader.UploadResult" href="ping_uploader.html#glean.net.ping_uploader.UploadResult">UploadResult</a></span>
+<span>def <span class="ident">upload</span></span>(<span>self, url: str, data: bytes, headers: Dict[str, str]) ‑> Union[glean._uniffi.UploadResult, glean._uniffi.UploadResult.UNRECOVERABLE_FAILURE, glean._uniffi.UploadResult.RECOVERABLE_FAILURE, glean._uniffi.UploadResult.HTTP_STATUS]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Upload a ping to a server.</p>
@@ -544,9 +555,7 @@ Protocol classes can be generic, they are defined as::</p>
 <dt><strong><code>data</code></strong> :&ensp;<code>bytes</code></dt>
 <dd>The serialized data to send.</dd>
 </dl>
-<p>headers (list of (str, str)): List of header entries as tuple
-pairs, where the first element is the header name and the
-second is its value.</p>
+<p>headers (dict of (str, str)): Dictionary of header entries.</p>
 <h2 id="returns">Returns</h2>
 <p>result (UploadResult): the status code of the upload response.</p></div>
 <details class="source">
@@ -554,17 +563,20 @@ second is its value.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def upload(
-    self, url: str, data: bytes, headers: List[Tuple[str, str]]
-) -&gt; UploadResult:
+    self, url: str, data: bytes, headers: Dict[str, str]
+) -&gt; Union[
+    UploadResult,
+    UploadResult.UNRECOVERABLE_FAILURE,
+    UploadResult.RECOVERABLE_FAILURE,
+    UploadResult.HTTP_STATUS,
+]:
     &#34;&#34;&#34;
     Upload a ping to a server.
 
     Args:
         url (str): The URL path to upload the data to.
         data (bytes): The serialized data to send.
-        headers (list of (str, str)): List of header entries as tuple
-            pairs, where the first element is the header name and the
-            second is its value.
+        headers (dict of (str, str)): Dictionary of header entries.
 
     Returns:
         result (UploadResult): the status code of the upload response.
@@ -594,7 +606,6 @@ second is its value.</p>
 <li><code><a title="glean.net.http_client" href="http_client.html">glean.net.http_client</a></code></li>
 <li><code><a title="glean.net.ping_upload_worker" href="ping_upload_worker.html">glean.net.ping_upload_worker</a></code></li>
 <li><code><a title="glean.net.ping_uploader" href="ping_uploader.html">glean.net.ping_uploader</a></code></li>
-<li><code><a title="glean.net.upload_task_tag" href="upload_task_tag.html">glean.net.upload_task_tag</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>

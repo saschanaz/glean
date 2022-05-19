@@ -36,17 +36,17 @@ A base class for ping uploaders.
 &#34;&#34;&#34;
 
 
-from typing import List, Tuple, TYPE_CHECKING
+from typing import Union, Dict, TYPE_CHECKING
 
 
-from . import ping_uploader
+from .ping_uploader import PingUploader, UploadResult
 
 
 if TYPE_CHECKING:
     from glean.config import Configuration
 
 
-class BaseUploader(ping_uploader.PingUploader):
+class BaseUploader(PingUploader):
     &#34;&#34;&#34;
     The logic for uploading pings. This leaves the actual upload implementation
     to the user-provided delegate.
@@ -56,9 +56,14 @@ class BaseUploader(ping_uploader.PingUploader):
         self,
         path: str,
         data: bytes,
-        headers: List[Tuple[str, str]],
+        headers: Dict[str, str],
         config: &#34;Configuration&#34;,
-    ) -&gt; ping_uploader.UploadResult:
+    ) -&gt; Union[
+        UploadResult,
+        UploadResult.UNRECOVERABLE_FAILURE,
+        UploadResult.RECOVERABLE_FAILURE,
+        UploadResult.HTTP_STATUS,
+    ]:
         &#34;&#34;&#34;
         This function triggers the actual upload.
 
@@ -67,9 +72,7 @@ class BaseUploader(ping_uploader.PingUploader):
         Args:
             url (str): The URL path to upload the data to.
             data (bytes): The serialized data to send.
-            headers (list of (str, str)): List of header entries as tuple
-                pairs, where the first element is the header name and the
-                second is its value.
+            headers (dict of (str, str)): Dictionary of header entries.
             config (glean.Configuration): The Glean Configuration object.
 
         Returns:
@@ -106,7 +109,7 @@ to the user-provided delegate.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class BaseUploader(ping_uploader.PingUploader):
+<pre><code class="python">class BaseUploader(PingUploader):
     &#34;&#34;&#34;
     The logic for uploading pings. This leaves the actual upload implementation
     to the user-provided delegate.
@@ -116,9 +119,14 @@ to the user-provided delegate.</p></div>
         self,
         path: str,
         data: bytes,
-        headers: List[Tuple[str, str]],
+        headers: Dict[str, str],
         config: &#34;Configuration&#34;,
-    ) -&gt; ping_uploader.UploadResult:
+    ) -&gt; Union[
+        UploadResult,
+        UploadResult.UNRECOVERABLE_FAILURE,
+        UploadResult.RECOVERABLE_FAILURE,
+        UploadResult.HTTP_STATUS,
+    ]:
         &#34;&#34;&#34;
         This function triggers the actual upload.
 
@@ -127,9 +135,7 @@ to the user-provided delegate.</p></div>
         Args:
             url (str): The URL path to upload the data to.
             data (bytes): The serialized data to send.
-            headers (list of (str, str)): List of header entries as tuple
-                pairs, where the first element is the header name and the
-                second is its value.
+            headers (dict of (str, str)): Dictionary of header entries.
             config (glean.Configuration): The Glean Configuration object.
 
         Returns:
@@ -156,7 +162,7 @@ to the user-provided delegate.</p></div>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.net.base_uploader.BaseUploader.do_upload"><code class="name flex">
-<span>def <span class="ident">do_upload</span></span>(<span>self, path: str, data: bytes, headers: List[Tuple[str, str]], config: Configuration) ‑> <a title="glean.net.ping_uploader.UploadResult" href="ping_uploader.html#glean.net.ping_uploader.UploadResult">UploadResult</a></span>
+<span>def <span class="ident">do_upload</span></span>(<span>self, path: str, data: bytes, headers: Dict[str, str], config: Configuration) ‑> Union[glean._uniffi.UploadResult, glean._uniffi.UploadResult.UNRECOVERABLE_FAILURE, glean._uniffi.UploadResult.RECOVERABLE_FAILURE, glean._uniffi.UploadResult.HTTP_STATUS]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This function triggers the actual upload.</p>
@@ -167,9 +173,7 @@ to the user-provided delegate.</p></div>
 <dd>The URL path to upload the data to.</dd>
 <dt><strong><code>data</code></strong> :&ensp;<code>bytes</code></dt>
 <dd>The serialized data to send.</dd>
-<dt>headers (list of (str, str)): List of header entries as tuple</dt>
-<dt>pairs, where the first element is the header name and the</dt>
-<dt>second is its value.</dt>
+<dt>headers (dict of (str, str)): Dictionary of header entries.</dt>
 <dt><strong><code>config</code></strong> :&ensp;<code><a title="glean.Configuration" href="../index.html#glean.Configuration">Configuration</a></code></dt>
 <dd>The Glean Configuration object.</dd>
 </dl>
@@ -183,9 +187,14 @@ to the user-provided delegate.</p></div>
     self,
     path: str,
     data: bytes,
-    headers: List[Tuple[str, str]],
+    headers: Dict[str, str],
     config: &#34;Configuration&#34;,
-) -&gt; ping_uploader.UploadResult:
+) -&gt; Union[
+    UploadResult,
+    UploadResult.UNRECOVERABLE_FAILURE,
+    UploadResult.RECOVERABLE_FAILURE,
+    UploadResult.HTTP_STATUS,
+]:
     &#34;&#34;&#34;
     This function triggers the actual upload.
 
@@ -194,9 +203,7 @@ to the user-provided delegate.</p></div>
     Args:
         url (str): The URL path to upload the data to.
         data (bytes): The serialized data to send.
-        headers (list of (str, str)): List of header entries as tuple
-            pairs, where the first element is the header name and the
-            second is its value.
+        headers (dict of (str, str)): Dictionary of header entries.
         config (glean.Configuration): The Glean Configuration object.
 
     Returns:

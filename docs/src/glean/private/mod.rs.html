@@ -31,68 +31,34 @@
 <span id="26">26</span>
 <span id="27">27</span>
 <span id="28">28</span>
-<span id="29">29</span>
-<span id="30">30</span>
-<span id="31">31</span>
-<span id="32">32</span>
-<span id="33">33</span>
-<span id="34">34</span>
-<span id="35">35</span>
-<span id="36">36</span>
-<span id="37">37</span>
-<span id="38">38</span>
-<span id="39">39</span>
-<span id="40">40</span>
-<span id="41">41</span>
-<span id="42">42</span>
-<span id="43">43</span>
-<span id="44">44</span>
-<span id="45">45</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
 
 <span class="doccomment">//! The different metric types supported by the Glean SDK to handle data.</span>
 
-<span class="kw">mod</span> <span class="ident">boolean</span>;
-<span class="kw">mod</span> <span class="ident">counter</span>;
-<span class="kw">mod</span> <span class="ident">custom_distribution</span>;
-<span class="kw">mod</span> <span class="ident">datetime</span>;
-<span class="kw">mod</span> <span class="ident">denominator</span>;
 <span class="kw">mod</span> <span class="ident">event</span>;
-<span class="kw">mod</span> <span class="ident">labeled</span>;
-<span class="kw">mod</span> <span class="ident">memory_distribution</span>;
-<span class="kw">mod</span> <span class="ident">numerator</span>;
 <span class="kw">mod</span> <span class="ident">ping</span>;
-<span class="kw">mod</span> <span class="ident">quantity</span>;
-<span class="kw">mod</span> <span class="ident">rate</span>;
-<span class="kw">mod</span> <span class="ident">recorded_experiment_data</span>;
-<span class="kw">mod</span> <span class="ident">string</span>;
-<span class="kw">mod</span> <span class="ident">string_list</span>;
-<span class="kw">mod</span> <span class="ident">timespan</span>;
-<span class="kw">mod</span> <span class="ident">timing_distribution</span>;
-<span class="kw">mod</span> <span class="ident">url</span>;
-<span class="kw">mod</span> <span class="ident">uuid</span>;
 
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="self">self</span>::uuid::UuidMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">boolean::BooleanMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">counter::CounterMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">custom_distribution::CustomDistributionMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">datetime</span>::{<span class="ident">Datetime</span>, <span class="ident">DatetimeMetric</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">denominator::DenominatorMetric</span>;
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">event::EventMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">labeled</span>::{<span class="ident">AllowLabeled</span>, <span class="ident">LabeledMetric</span>};
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">memory_distribution::MemoryDistributionMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">numerator::NumeratorMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::BooleanMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::CounterMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::CustomDistributionMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::DenominatorMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::MemoryDistributionMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::NumeratorMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::QuantityMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::RateMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::RecordedExperiment</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::StringListMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::StringMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::TimespanMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::TimingDistributionMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::UrlMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::UuidMetric</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core</span>::{<span class="ident">AllowLabeled</span>, <span class="ident">LabeledMetric</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core</span>::{<span class="ident">Datetime</span>, <span class="ident">DatetimeMetric</span>};
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ping::PingType</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">quantity::QuantityMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">rate::RateMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">recorded_experiment_data::RecordedExperimentData</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">string::StringMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">string_list::StringListMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">timespan::TimespanMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">timing_distribution::TimingDistributionMetric</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">url::UrlMetric</span>;
 </code></pre></div>
 </section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="glean" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0 (7737e0b5c 2022-04-04)" ></div>
 </body></html>

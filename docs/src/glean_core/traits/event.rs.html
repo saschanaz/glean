@@ -157,7 +157,7 @@
     <span class="doccomment">/// 1. The list of extra key indices.</span>
     <span class="doccomment">///    Unset keys will be skipped.</span>
     <span class="doccomment">/// 2. The list of extra values.</span>
-    <span class="kw">fn</span> <span class="ident">into_ffi_extra</span>(<span class="self">self</span>) -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">String</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">into_ffi_extra</span>(<span class="self">self</span>) -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// Default of no extra keys for events.</span>
@@ -173,7 +173,7 @@
 <span class="kw">impl</span> <span class="ident">ExtraKeys</span> <span class="kw">for</span> <span class="ident">NoExtraKeys</span> {
     <span class="kw">const</span> <span class="ident">ALLOWED_KEYS</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[];
 
-    <span class="kw">fn</span> <span class="ident">into_ffi_extra</span>(<span class="self">self</span>) -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">into_ffi_extra</span>(<span class="self">self</span>) -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span> {
         <span class="macro">unimplemented!</span>(<span class="string">&quot;non-existing extra keys can&#39;t be turned into a list&quot;</span>)
     }
 }

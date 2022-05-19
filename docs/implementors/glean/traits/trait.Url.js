@@ -1,3 +1,0 @@
-(function() {var implementors = {};
-implementors["glean"] = [{"text":"impl <a class=\"trait\" href=\"glean/traits/trait.Url.html\" title=\"trait glean::traits::Url\">Url</a> for <a class=\"struct\" href=\"glean/private/struct.UrlMetric.html\" title=\"struct glean::private::UrlMetric\">UrlMetric</a>","synthetic":false,"types":["glean::private::url::UrlMetric"]}];
-if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

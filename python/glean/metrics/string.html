@@ -31,15 +31,12 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from typing import List, Optional
+from typing import Optional
 
 
-from .. import _ffi
-from .._dispatcher import Dispatcher
+from .._uniffi import CommonMetricData
+from .._uniffi import StringMetric
 from ..testing import ErrorType
-
-
-from .lifetime import Lifetime
 
 
 class StringMetricType:
@@ -55,25 +52,8 @@ class StringMetricType:
     enforced.
     &#34;&#34;&#34;
 
-    def __init__(
-        self,
-        disabled: bool,
-        category: str,
-        lifetime: Lifetime,
-        name: str,
-        send_in_pings: List[str],
-    ):
-        self._disabled = disabled
-        self._send_in_pings = send_in_pings
-
-        self._handle = _ffi.lib.glean_new_string_metric(
-            _ffi.ffi_encode_string(category),
-            _ffi.ffi_encode_string(name),
-            _ffi.ffi_encode_vec_string(send_in_pings),
-            len(send_in_pings),
-            lifetime.value,
-            disabled,
-        )
+    def __init__(self, common_metric_data: CommonMetricData):
+        self._inner = StringMetric(common_metric_data)
 
     def set(self, value: str) -&gt; None:
         &#34;&#34;&#34;
@@ -83,93 +63,18 @@ class StringMetricType:
             value (str): This is a user-defined string value. If the length of
                 the string exceeds the maximum length, it will be truncated.
         &#34;&#34;&#34;
-        if self._disabled:
+        if value is None:
             return
 
-        @Dispatcher.launch
-        def set():
-            _ffi.lib.glean_string_set(self._handle, _ffi.ffi_encode_string(value))
-
-    def _set_sync(self, value: str) -&gt; None:
-        &#34;&#34;&#34;
-        Set a string value, synchronously.
-
-        Args:
-            value (str): This is a user-defined string value. If the length of
-                the string exceeds the maximum length, it will be truncated.
-        &#34;&#34;&#34;
-        if self._disabled:
-            return
-
-        _ffi.lib.glean_string_set(self._handle, _ffi.ffi_encode_string(value))
-
-    def test_has_value(self, ping_name: Optional[str] = None) -&gt; bool:
-        &#34;&#34;&#34;
-        Tests whether a value is stored for the metric for testing purposes
-        only.
-
-        Args:
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            has_value (bool): True if the metric value exists.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return bool(
-            _ffi.lib.glean_string_test_has_value(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
-        )
+        self._inner.set(value)
 
     def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
-        &#34;&#34;&#34;
-        Returns the stored value for testing purposes only.
-
-        Args:
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            value (int): value of the stored metric.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        if not self.test_has_value(ping_name):
-            raise ValueError(&#34;metric has no value&#34;)
-
-        return _ffi.ffi_decode_string(
-            _ffi.lib.glean_string_test_get_value(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
-        )
+        return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
         self, error_type: ErrorType, ping_name: Optional[str] = None
     ) -&gt; int:
-        &#34;&#34;&#34;
-        Returns the number of errors recorded for the given metric.
-
-        Args:
-            error_type (ErrorType): The type of error recorded.
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            num_errors (int): The number of errors recorded for the metric for
-                the given error type.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return _ffi.lib.glean_string_test_get_num_recorded_errors(
-            self._handle,
-            error_type.value,
-            _ffi.ffi_encode_string(ping_name),
-        )
+        return self._inner.test_get_num_recorded_errors(error_type, ping_name)
 
 
 __all__ = [&#34;StringMetricType&#34;]</code></pre>
@@ -186,7 +91,7 @@ __all__ = [&#34;StringMetricType&#34;]</code></pre>
 <dl>
 <dt id="glean.metrics.string.StringMetricType"><code class="flex name class">
 <span>class <span class="ident">StringMetricType</span></span>
-<span>(</span><span>disabled: bool, category: str, lifetime: <a title="glean.metrics.lifetime.Lifetime" href="lifetime.html#glean.metrics.lifetime.Lifetime">Lifetime</a>, name: str, send_in_pings: List[str])</span>
+<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording string metrics.</p>
@@ -213,25 +118,8 @@ enforced.</p></div>
     enforced.
     &#34;&#34;&#34;
 
-    def __init__(
-        self,
-        disabled: bool,
-        category: str,
-        lifetime: Lifetime,
-        name: str,
-        send_in_pings: List[str],
-    ):
-        self._disabled = disabled
-        self._send_in_pings = send_in_pings
-
-        self._handle = _ffi.lib.glean_new_string_metric(
-            _ffi.ffi_encode_string(category),
-            _ffi.ffi_encode_string(name),
-            _ffi.ffi_encode_vec_string(send_in_pings),
-            len(send_in_pings),
-            lifetime.value,
-            disabled,
-        )
+    def __init__(self, common_metric_data: CommonMetricData):
+        self._inner = StringMetric(common_metric_data)
 
     def set(self, value: str) -&gt; None:
         &#34;&#34;&#34;
@@ -241,93 +129,18 @@ enforced.</p></div>
             value (str): This is a user-defined string value. If the length of
                 the string exceeds the maximum length, it will be truncated.
         &#34;&#34;&#34;
-        if self._disabled:
+        if value is None:
             return
 
-        @Dispatcher.launch
-        def set():
-            _ffi.lib.glean_string_set(self._handle, _ffi.ffi_encode_string(value))
-
-    def _set_sync(self, value: str) -&gt; None:
-        &#34;&#34;&#34;
-        Set a string value, synchronously.
-
-        Args:
-            value (str): This is a user-defined string value. If the length of
-                the string exceeds the maximum length, it will be truncated.
-        &#34;&#34;&#34;
-        if self._disabled:
-            return
-
-        _ffi.lib.glean_string_set(self._handle, _ffi.ffi_encode_string(value))
-
-    def test_has_value(self, ping_name: Optional[str] = None) -&gt; bool:
-        &#34;&#34;&#34;
-        Tests whether a value is stored for the metric for testing purposes
-        only.
-
-        Args:
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            has_value (bool): True if the metric value exists.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return bool(
-            _ffi.lib.glean_string_test_has_value(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
-        )
+        self._inner.set(value)
 
     def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
-        &#34;&#34;&#34;
-        Returns the stored value for testing purposes only.
-
-        Args:
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            value (int): value of the stored metric.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        if not self.test_has_value(ping_name):
-            raise ValueError(&#34;metric has no value&#34;)
-
-        return _ffi.ffi_decode_string(
-            _ffi.lib.glean_string_test_get_value(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
-        )
+        return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
         self, error_type: ErrorType, ping_name: Optional[str] = None
     ) -&gt; int:
-        &#34;&#34;&#34;
-        Returns the number of errors recorded for the given metric.
-
-        Args:
-            error_type (ErrorType): The type of error recorded.
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            num_errors (int): The number of errors recorded for the metric for
-                the given error type.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return _ffi.lib.glean_string_test_get_num_recorded_errors(
-            self._handle,
-            error_type.value,
-            _ffi.ffi_encode_string(ping_name),
-        )</code></pre>
+        return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -354,30 +167,17 @@ the string exceeds the maximum length, it will be truncated.</dd>
         value (str): This is a user-defined string value. If the length of
             the string exceeds the maximum length, it will be truncated.
     &#34;&#34;&#34;
-    if self._disabled:
+    if value is None:
         return
 
-    @Dispatcher.launch
-    def set():
-        _ffi.lib.glean_string_set(self._handle, _ffi.ffi_encode_string(value))</code></pre>
+    self._inner.set(value)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.string.StringMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: <a title="glean.testing.error_type.ErrorType" href="../testing/error_type.html#glean.testing.error_type.ErrorType">ErrorType</a>, ping_name: Optional[str] = None) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType, ping_name: Optional[str] = None) ‑> int</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the number of errors recorded for the given metric.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>error_type</code></strong> :&ensp;<code>ErrorType</code></dt>
-<dd>The type of error recorded.</dd>
-<dt><strong><code>ping_name</code></strong> :&ensp;<code>str</code></dt>
-<dd>(default: first value in send_in_pings) The name
-of the ping to retrieve the metric for.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>num_errors (int): The number of errors recorded for the metric for
-the given error type.</p></div>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -385,107 +185,20 @@ the given error type.</p></div>
 <pre><code class="python">def test_get_num_recorded_errors(
     self, error_type: ErrorType, ping_name: Optional[str] = None
 ) -&gt; int:
-    &#34;&#34;&#34;
-    Returns the number of errors recorded for the given metric.
-
-    Args:
-        error_type (ErrorType): The type of error recorded.
-        ping_name (str): (default: first value in send_in_pings) The name
-            of the ping to retrieve the metric for.
-
-    Returns:
-        num_errors (int): The number of errors recorded for the metric for
-            the given error type.
-    &#34;&#34;&#34;
-    if ping_name is None:
-        ping_name = self._send_in_pings[0]
-
-    return _ffi.lib.glean_string_test_get_num_recorded_errors(
-        self._handle,
-        error_type.value,
-        _ffi.ffi_encode_string(ping_name),
-    )</code></pre>
+    return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.string.StringMetricType.test_get_value"><code class="name flex">
 <span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> str</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the stored value for testing purposes only.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>ping_name</code></strong> :&ensp;<code>str</code></dt>
-<dd>(default: first value in send_in_pings) The name
-of the ping to retrieve the metric for.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>value (int): value of the stored metric.</p></div>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
-    &#34;&#34;&#34;
-    Returns the stored value for testing purposes only.
-
-    Args:
-        ping_name (str): (default: first value in send_in_pings) The name
-            of the ping to retrieve the metric for.
-
-    Returns:
-        value (int): value of the stored metric.
-    &#34;&#34;&#34;
-    if ping_name is None:
-        ping_name = self._send_in_pings[0]
-
-    if not self.test_has_value(ping_name):
-        raise ValueError(&#34;metric has no value&#34;)
-
-    return _ffi.ffi_decode_string(
-        _ffi.lib.glean_string_test_get_value(
-            self._handle, _ffi.ffi_encode_string(ping_name)
-        )
-    )</code></pre>
-</details>
-</dd>
-<dt id="glean.metrics.string.StringMetricType.test_has_value"><code class="name flex">
-<span>def <span class="ident">test_has_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> bool</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Tests whether a value is stored for the metric for testing purposes
-only.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>ping_name</code></strong> :&ensp;<code>str</code></dt>
-<dd>(default: first value in send_in_pings) The name
-of the ping to retrieve the metric for.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>has_value (bool): True if the metric value exists.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_has_value(self, ping_name: Optional[str] = None) -&gt; bool:
-    &#34;&#34;&#34;
-    Tests whether a value is stored for the metric for testing purposes
-    only.
-
-    Args:
-        ping_name (str): (default: first value in send_in_pings) The name
-            of the ping to retrieve the metric for.
-
-    Returns:
-        has_value (bool): True if the metric value exists.
-    &#34;&#34;&#34;
-    if ping_name is None:
-        ping_name = self._send_in_pings[0]
-
-    return bool(
-        _ffi.lib.glean_string_test_has_value(
-            self._handle, _ffi.ffi_encode_string(ping_name)
-        )
-    )</code></pre>
+    return self._inner.test_get_value(ping_name)</code></pre>
 </details>
 </dd>
 </dl>
@@ -512,7 +225,6 @@ of the ping to retrieve the metric for.</dd>
 <li><code><a title="glean.metrics.string.StringMetricType.set" href="#glean.metrics.string.StringMetricType.set">set</a></code></li>
 <li><code><a title="glean.metrics.string.StringMetricType.test_get_num_recorded_errors" href="#glean.metrics.string.StringMetricType.test_get_num_recorded_errors">test_get_num_recorded_errors</a></code></li>
 <li><code><a title="glean.metrics.string.StringMetricType.test_get_value" href="#glean.metrics.string.StringMetricType.test_get_value">test_get_value</a></code></li>
-<li><code><a title="glean.metrics.string.StringMetricType.test_has_value" href="#glean.metrics.string.StringMetricType.test_has_value">test_has_value</a></code></li>
 </ul>
 </li>
 </ul>

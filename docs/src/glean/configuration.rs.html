@@ -36,8 +36,6 @@
 <span id="31">31</span>
 <span id="32">32</span>
 <span id="33">33</span>
-<span id="34">34</span>
-<span id="35">35</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -64,8 +62,6 @@
     <span class="kw">pub</span> <span class="ident">max_events</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Whether Glean should delay persistence of data from metrics with ping lifetime.</span>
     <span class="kw">pub</span> <span class="ident">delay_ping_lifetime_io</span>: <span class="ident">bool</span>,
-    <span class="doccomment">/// The release channel the application is on, if known.</span>
-    <span class="kw">pub</span> <span class="ident">channel</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The server pings are sent to.</span>
     <span class="kw">pub</span> <span class="ident">server_endpoint</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The instance of the uploader used to send pings.</span>

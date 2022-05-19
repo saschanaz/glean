@@ -31,18 +31,15 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 
-from typing import List, Optional
+from typing import Optional
 
 
-from .. import _ffi
-from .._dispatcher import Dispatcher
+from .._uniffi import CommonMetricData
+from .._uniffi import DistributionData
+from .._uniffi import TimeUnit
+from .._uniffi import TimerId
+from .._uniffi import TimingDistributionMetric
 from ..testing import ErrorType
-from .. import _util
-
-
-from .distribution_data import DistributionData
-from .lifetime import Lifetime
-from .timeunit import TimeUnit
 
 
 class TimingDistributionMetricType:
@@ -57,31 +54,12 @@ class TimingDistributionMetricType:
 
     def __init__(
         self,
-        disabled: bool,
-        category: str,
-        lifetime: Lifetime,
-        name: str,
-        send_in_pings: List[str],
+        common_metric_data: CommonMetricData,
         time_unit: TimeUnit,
     ):
-        self._disabled = disabled
-        self._send_in_pings = send_in_pings
+        self._inner = TimingDistributionMetric(common_metric_data, time_unit)
 
-        self._handle = _ffi.lib.glean_new_timing_distribution_metric(
-            _ffi.ffi_encode_string(category),
-            _ffi.ffi_encode_string(name),
-            _ffi.ffi_encode_vec_string(send_in_pings),
-            len(send_in_pings),
-            lifetime.value,
-            disabled,
-            time_unit.value,
-        )
-
-    def __del__(self):
-        if getattr(self, &#34;_handle&#34;, 0) != 0:
-            _ffi.lib.glean_destroy_timing_distribution_metric(self._handle)
-
-    def start(self) -&gt; Optional[int]:
+    def start(self) -&gt; TimerId:
         &#34;&#34;&#34;
         Start tracking time for the provided metric.
         Multiple timers can run simultaneously.
@@ -89,19 +67,9 @@ class TimingDistributionMetricType:
         Returns:
             timer_id: The object to associate with this timing.
         &#34;&#34;&#34;
-        if self._disabled:
-            return None
+        return self._inner.start()
 
-        # Even though the Rust code for `start` runs synchronously, the Rust
-        # code for `stopAndAccumulate` runs asynchronously, and we need to use
-        # the same clock for start and stop. Therefore we take the time on the
-        # Python side, both here and in `stopAndAccumulate`.
-        start_time = _util.time_ns()
-
-        # No dispatcher, we need the return value
-        return _ffi.lib.glean_timing_distribution_set_start(self._handle, start_time)
-
-    def stop_and_accumulate(self, timer_id: Optional[int]) -&gt; None:
+    def stop_and_accumulate(self, timer_id: TimerId) -&gt; None:
         &#34;&#34;&#34;
         Stop tracking time for the provided metric and associated timer id. Add a
         count to the corresponding bucket in the timing distribution.
@@ -112,34 +80,9 @@ class TimingDistributionMetricType:
                 concurrent timing of events associated with different ids to
                 the same timespan metric.
         &#34;&#34;&#34;
-        # `start` may have returned None.
-        # Accepting that means users of this API don&#39;t need to do a None check.
-        if self._disabled or timer_id is None:
-            return
+        self._inner.stop_and_accumulate(timer_id)
 
-        # The Rust code runs async and might be delayed. We need the time as
-        # precisely as possible. We also need the same clock for start and stop
-        # (`start` takes the time on the Python side).
-        stop_time = _util.time_ns()
-
-        @Dispatcher.launch
-        def stop_and_accumulate():
-            # CFFI prevents us from passing a negative value to
-            # `glean_timing_distribution_set_stop_and_accumulate`. However, to be
-            # consistent with the other platforms, we should still pass an invalid
-            # value to the Rust side so it can record an error using the Glean
-            # error reporting system.
-            if timer_id &lt; 0:
-                # 64-bit maxint
-                corrected_timer_id = 0xFFFFFFFFFFFFFFFF
-            else:
-                corrected_timer_id = timer_id
-
-            _ffi.lib.glean_timing_distribution_set_stop_and_accumulate(
-                self._handle, corrected_timer_id, stop_time
-            )
-
-    def cancel(self, timer_id: Optional[int]) -&gt; None:
+    def cancel(self, timer_id: TimerId) -&gt; None:
         &#34;&#34;&#34;
         Abort a previous `start` call. No error is recorded if no `start` was called.
 
@@ -148,25 +91,7 @@ class TimingDistributionMetricType:
                 concurrent timing of events associated with different ids to
                 the same timing distribution metric.
         &#34;&#34;&#34;
-        # `start` may have returned None.
-        # Accepting that means users of this API don&#39;t need to do a None check.
-        if self._disabled or timer_id is None:
-            return
-
-        @Dispatcher.launch
-        def cancel():
-            # CFFI prevents us from passing a negative value to
-            # `glean_timing_distribution_cancel`. However, to be consistent
-            # with the other platforms, we should still pass an invalid value
-            # to the Rust side so it can record an error using the Glean error
-            # reporting system.
-            if timer_id &lt; 0:
-                # 64-bit maxint
-                corrected_timer_id = 0xFFFFFFFFFFFFFFFF
-            else:
-                corrected_timer_id = timer_id
-
-            _ffi.lib.glean_timing_distribution_cancel(self._handle, corrected_timer_id)
+        self._inner.cancel(timer_id)
 
     class _TimingDistributionContextManager:
         &#34;&#34;&#34;
@@ -199,27 +124,6 @@ class TimingDistributionMetricType:
         &#34;&#34;&#34;
         return self._TimingDistributionContextManager(self)
 
-    def test_has_value(self, ping_name: Optional[str] = None) -&gt; bool:
-        &#34;&#34;&#34;
-        Tests whether a value is stored for the metric for testing purposes
-        only.
-
-        Args:
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            has_value (bool): True if the metric value exists.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return bool(
-            _ffi.lib.glean_timing_distribution_test_has_value(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
-        )
-
     def test_get_value(self, ping_name: Optional[str] = None) -&gt; DistributionData:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
@@ -231,19 +135,7 @@ class TimingDistributionMetricType:
         Returns:
             value (DistriubutionData): value of the stored metric.
         &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        if not self.test_has_value(ping_name):
-            raise ValueError(&#34;metric has no value&#34;)
-
-        return DistributionData.from_json_string(
-            _ffi.ffi_decode_string(
-                _ffi.lib.glean_timing_distribution_test_get_value_as_json_string(
-                    self._handle, _ffi.ffi_encode_string(ping_name)
-                )
-            )
-        )
+        return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
         self, error_type: ErrorType, ping_name: Optional[str] = None
@@ -260,14 +152,7 @@ class TimingDistributionMetricType:
             num_errors (int): The number of errors recorded for the metric for
                 the given error type.
         &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return _ffi.lib.glean_timing_distribution_test_get_num_recorded_errors(
-            self._handle,
-            error_type.value,
-            _ffi.ffi_encode_string(ping_name),
-        )
+        return self._inner.test_get_num_recorded_errors(error_type, ping_name)
 
 
 __all__ = [&#34;TimingDistributionMetricType&#34;]</code></pre>
@@ -284,7 +169,7 @@ __all__ = [&#34;TimingDistributionMetricType&#34;]</code></pre>
 <dl>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType"><code class="flex name class">
 <span>class <span class="ident">TimingDistributionMetricType</span></span>
-<span>(</span><span>disabled: bool, category: str, lifetime: <a title="glean.metrics.lifetime.Lifetime" href="lifetime.html#glean.metrics.lifetime.Lifetime">Lifetime</a>, name: str, send_in_pings: List[str], time_unit: <a title="glean.metrics.timeunit.TimeUnit" href="timeunit.html#glean.metrics.timeunit.TimeUnit">TimeUnit</a>)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, time_unit: glean._uniffi.TimeUnit)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording timing distribution
@@ -308,31 +193,12 @@ previously registered in the metrics.yaml file.</p></div>
 
     def __init__(
         self,
-        disabled: bool,
-        category: str,
-        lifetime: Lifetime,
-        name: str,
-        send_in_pings: List[str],
+        common_metric_data: CommonMetricData,
         time_unit: TimeUnit,
     ):
-        self._disabled = disabled
-        self._send_in_pings = send_in_pings
+        self._inner = TimingDistributionMetric(common_metric_data, time_unit)
 
-        self._handle = _ffi.lib.glean_new_timing_distribution_metric(
-            _ffi.ffi_encode_string(category),
-            _ffi.ffi_encode_string(name),
-            _ffi.ffi_encode_vec_string(send_in_pings),
-            len(send_in_pings),
-            lifetime.value,
-            disabled,
-            time_unit.value,
-        )
-
-    def __del__(self):
-        if getattr(self, &#34;_handle&#34;, 0) != 0:
-            _ffi.lib.glean_destroy_timing_distribution_metric(self._handle)
-
-    def start(self) -&gt; Optional[int]:
+    def start(self) -&gt; TimerId:
         &#34;&#34;&#34;
         Start tracking time for the provided metric.
         Multiple timers can run simultaneously.
@@ -340,19 +206,9 @@ previously registered in the metrics.yaml file.</p></div>
         Returns:
             timer_id: The object to associate with this timing.
         &#34;&#34;&#34;
-        if self._disabled:
-            return None
+        return self._inner.start()
 
-        # Even though the Rust code for `start` runs synchronously, the Rust
-        # code for `stopAndAccumulate` runs asynchronously, and we need to use
-        # the same clock for start and stop. Therefore we take the time on the
-        # Python side, both here and in `stopAndAccumulate`.
-        start_time = _util.time_ns()
-
-        # No dispatcher, we need the return value
-        return _ffi.lib.glean_timing_distribution_set_start(self._handle, start_time)
-
-    def stop_and_accumulate(self, timer_id: Optional[int]) -&gt; None:
+    def stop_and_accumulate(self, timer_id: TimerId) -&gt; None:
         &#34;&#34;&#34;
         Stop tracking time for the provided metric and associated timer id. Add a
         count to the corresponding bucket in the timing distribution.
@@ -363,34 +219,9 @@ previously registered in the metrics.yaml file.</p></div>
                 concurrent timing of events associated with different ids to
                 the same timespan metric.
         &#34;&#34;&#34;
-        # `start` may have returned None.
-        # Accepting that means users of this API don&#39;t need to do a None check.
-        if self._disabled or timer_id is None:
-            return
+        self._inner.stop_and_accumulate(timer_id)
 
-        # The Rust code runs async and might be delayed. We need the time as
-        # precisely as possible. We also need the same clock for start and stop
-        # (`start` takes the time on the Python side).
-        stop_time = _util.time_ns()
-
-        @Dispatcher.launch
-        def stop_and_accumulate():
-            # CFFI prevents us from passing a negative value to
-            # `glean_timing_distribution_set_stop_and_accumulate`. However, to be
-            # consistent with the other platforms, we should still pass an invalid
-            # value to the Rust side so it can record an error using the Glean
-            # error reporting system.
-            if timer_id &lt; 0:
-                # 64-bit maxint
-                corrected_timer_id = 0xFFFFFFFFFFFFFFFF
-            else:
-                corrected_timer_id = timer_id
-
-            _ffi.lib.glean_timing_distribution_set_stop_and_accumulate(
-                self._handle, corrected_timer_id, stop_time
-            )
-
-    def cancel(self, timer_id: Optional[int]) -&gt; None:
+    def cancel(self, timer_id: TimerId) -&gt; None:
         &#34;&#34;&#34;
         Abort a previous `start` call. No error is recorded if no `start` was called.
 
@@ -399,25 +230,7 @@ previously registered in the metrics.yaml file.</p></div>
                 concurrent timing of events associated with different ids to
                 the same timing distribution metric.
         &#34;&#34;&#34;
-        # `start` may have returned None.
-        # Accepting that means users of this API don&#39;t need to do a None check.
-        if self._disabled or timer_id is None:
-            return
-
-        @Dispatcher.launch
-        def cancel():
-            # CFFI prevents us from passing a negative value to
-            # `glean_timing_distribution_cancel`. However, to be consistent
-            # with the other platforms, we should still pass an invalid value
-            # to the Rust side so it can record an error using the Glean error
-            # reporting system.
-            if timer_id &lt; 0:
-                # 64-bit maxint
-                corrected_timer_id = 0xFFFFFFFFFFFFFFFF
-            else:
-                corrected_timer_id = timer_id
-
-            _ffi.lib.glean_timing_distribution_cancel(self._handle, corrected_timer_id)
+        self._inner.cancel(timer_id)
 
     class _TimingDistributionContextManager:
         &#34;&#34;&#34;
@@ -450,27 +263,6 @@ previously registered in the metrics.yaml file.</p></div>
         &#34;&#34;&#34;
         return self._TimingDistributionContextManager(self)
 
-    def test_has_value(self, ping_name: Optional[str] = None) -&gt; bool:
-        &#34;&#34;&#34;
-        Tests whether a value is stored for the metric for testing purposes
-        only.
-
-        Args:
-            ping_name (str): (default: first value in send_in_pings) The name
-                of the ping to retrieve the metric for.
-
-        Returns:
-            has_value (bool): True if the metric value exists.
-        &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return bool(
-            _ffi.lib.glean_timing_distribution_test_has_value(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
-        )
-
     def test_get_value(self, ping_name: Optional[str] = None) -&gt; DistributionData:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
@@ -482,19 +274,7 @@ previously registered in the metrics.yaml file.</p></div>
         Returns:
             value (DistriubutionData): value of the stored metric.
         &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        if not self.test_has_value(ping_name):
-            raise ValueError(&#34;metric has no value&#34;)
-
-        return DistributionData.from_json_string(
-            _ffi.ffi_decode_string(
-                _ffi.lib.glean_timing_distribution_test_get_value_as_json_string(
-                    self._handle, _ffi.ffi_encode_string(ping_name)
-                )
-            )
-        )
+        return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
         self, error_type: ErrorType, ping_name: Optional[str] = None
@@ -511,19 +291,12 @@ previously registered in the metrics.yaml file.</p></div>
             num_errors (int): The number of errors recorded for the metric for
                 the given error type.
         &#34;&#34;&#34;
-        if ping_name is None:
-            ping_name = self._send_in_pings[0]
-
-        return _ffi.lib.glean_timing_distribution_test_get_num_recorded_errors(
-            self._handle,
-            error_type.value,
-            _ffi.ffi_encode_string(ping_name),
-        )</code></pre>
+        return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.cancel"><code class="name flex">
-<span>def <span class="ident">cancel</span></span>(<span>self, timer_id: Optional[int]) ‑> None</span>
+<span>def <span class="ident">cancel</span></span>(<span>self, timer_id: glean._uniffi.TimerId) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Abort a previous <code>start</code> call. No error is recorded if no <code>start</code> was called.</p>
@@ -538,7 +311,7 @@ the same timing distribution metric.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def cancel(self, timer_id: Optional[int]) -&gt; None:
+<pre><code class="python">def cancel(self, timer_id: TimerId) -&gt; None:
     &#34;&#34;&#34;
     Abort a previous `start` call. No error is recorded if no `start` was called.
 
@@ -547,25 +320,7 @@ the same timing distribution metric.</dd>
             concurrent timing of events associated with different ids to
             the same timing distribution metric.
     &#34;&#34;&#34;
-    # `start` may have returned None.
-    # Accepting that means users of this API don&#39;t need to do a None check.
-    if self._disabled or timer_id is None:
-        return
-
-    @Dispatcher.launch
-    def cancel():
-        # CFFI prevents us from passing a negative value to
-        # `glean_timing_distribution_cancel`. However, to be consistent
-        # with the other platforms, we should still pass an invalid value
-        # to the Rust side so it can record an error using the Glean error
-        # reporting system.
-        if timer_id &lt; 0:
-            # 64-bit maxint
-            corrected_timer_id = 0xFFFFFFFFFFFFFFFF
-        else:
-            corrected_timer_id = timer_id
-
-        _ffi.lib.glean_timing_distribution_cancel(self._handle, corrected_timer_id)</code></pre>
+    self._inner.cancel(timer_id)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.measure"><code class="name flex">
@@ -599,7 +354,7 @@ is not recorded.</p>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.start"><code class="name flex">
-<span>def <span class="ident">start</span></span>(<span>self) ‑> Optional[int]</span>
+<span>def <span class="ident">start</span></span>(<span>self) ‑> glean._uniffi.TimerId</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Start tracking time for the provided metric.
@@ -613,7 +368,7 @@ Multiple timers can run simultaneously.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def start(self) -&gt; Optional[int]:
+<pre><code class="python">def start(self) -&gt; TimerId:
     &#34;&#34;&#34;
     Start tracking time for the provided metric.
     Multiple timers can run simultaneously.
@@ -621,21 +376,11 @@ Multiple timers can run simultaneously.</p>
     Returns:
         timer_id: The object to associate with this timing.
     &#34;&#34;&#34;
-    if self._disabled:
-        return None
-
-    # Even though the Rust code for `start` runs synchronously, the Rust
-    # code for `stopAndAccumulate` runs asynchronously, and we need to use
-    # the same clock for start and stop. Therefore we take the time on the
-    # Python side, both here and in `stopAndAccumulate`.
-    start_time = _util.time_ns()
-
-    # No dispatcher, we need the return value
-    return _ffi.lib.glean_timing_distribution_set_start(self._handle, start_time)</code></pre>
+    return self._inner.start()</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.stop_and_accumulate"><code class="name flex">
-<span>def <span class="ident">stop_and_accumulate</span></span>(<span>self, timer_id: Optional[int]) ‑> None</span>
+<span>def <span class="ident">stop_and_accumulate</span></span>(<span>self, timer_id: glean._uniffi.TimerId) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Stop tracking time for the provided metric and associated timer id. Add a
@@ -652,7 +397,7 @@ the same timespan metric.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def stop_and_accumulate(self, timer_id: Optional[int]) -&gt; None:
+<pre><code class="python">def stop_and_accumulate(self, timer_id: TimerId) -&gt; None:
     &#34;&#34;&#34;
     Stop tracking time for the provided metric and associated timer id. Add a
     count to the corresponding bucket in the timing distribution.
@@ -663,36 +408,11 @@ the same timespan metric.</dd>
             concurrent timing of events associated with different ids to
             the same timespan metric.
     &#34;&#34;&#34;
-    # `start` may have returned None.
-    # Accepting that means users of this API don&#39;t need to do a None check.
-    if self._disabled or timer_id is None:
-        return
-
-    # The Rust code runs async and might be delayed. We need the time as
-    # precisely as possible. We also need the same clock for start and stop
-    # (`start` takes the time on the Python side).
-    stop_time = _util.time_ns()
-
-    @Dispatcher.launch
-    def stop_and_accumulate():
-        # CFFI prevents us from passing a negative value to
-        # `glean_timing_distribution_set_stop_and_accumulate`. However, to be
-        # consistent with the other platforms, we should still pass an invalid
-        # value to the Rust side so it can record an error using the Glean
-        # error reporting system.
-        if timer_id &lt; 0:
-            # 64-bit maxint
-            corrected_timer_id = 0xFFFFFFFFFFFFFFFF
-        else:
-            corrected_timer_id = timer_id
-
-        _ffi.lib.glean_timing_distribution_set_stop_and_accumulate(
-            self._handle, corrected_timer_id, stop_time
-        )</code></pre>
+    self._inner.stop_and_accumulate(timer_id)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: <a title="glean.testing.error_type.ErrorType" href="../testing/error_type.html#glean.testing.error_type.ErrorType">ErrorType</a>, ping_name: Optional[str] = None) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType, ping_name: Optional[str] = None) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the number of errors recorded for the given metric.</p>
@@ -726,18 +446,11 @@ the given error type.</p></div>
         num_errors (int): The number of errors recorded for the metric for
             the given error type.
     &#34;&#34;&#34;
-    if ping_name is None:
-        ping_name = self._send_in_pings[0]
-
-    return _ffi.lib.glean_timing_distribution_test_get_num_recorded_errors(
-        self._handle,
-        error_type.value,
-        _ffi.ffi_encode_string(ping_name),
-    )</code></pre>
+    return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> <a title="glean.metrics.distribution_data.DistributionData" href="distribution_data.html#glean.metrics.distribution_data.DistributionData">DistributionData</a></span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> glean._uniffi.DistributionData</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -764,59 +477,7 @@ of the ping to retrieve the metric for.</dd>
     Returns:
         value (DistriubutionData): value of the stored metric.
     &#34;&#34;&#34;
-    if ping_name is None:
-        ping_name = self._send_in_pings[0]
-
-    if not self.test_has_value(ping_name):
-        raise ValueError(&#34;metric has no value&#34;)
-
-    return DistributionData.from_json_string(
-        _ffi.ffi_decode_string(
-            _ffi.lib.glean_timing_distribution_test_get_value_as_json_string(
-                self._handle, _ffi.ffi_encode_string(ping_name)
-            )
-        )
-    )</code></pre>
-</details>
-</dd>
-<dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.test_has_value"><code class="name flex">
-<span>def <span class="ident">test_has_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> bool</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Tests whether a value is stored for the metric for testing purposes
-only.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>ping_name</code></strong> :&ensp;<code>str</code></dt>
-<dd>(default: first value in send_in_pings) The name
-of the ping to retrieve the metric for.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<p>has_value (bool): True if the metric value exists.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def test_has_value(self, ping_name: Optional[str] = None) -&gt; bool:
-    &#34;&#34;&#34;
-    Tests whether a value is stored for the metric for testing purposes
-    only.
-
-    Args:
-        ping_name (str): (default: first value in send_in_pings) The name
-            of the ping to retrieve the metric for.
-
-    Returns:
-        has_value (bool): True if the metric value exists.
-    &#34;&#34;&#34;
-    if ping_name is None:
-        ping_name = self._send_in_pings[0]
-
-    return bool(
-        _ffi.lib.glean_timing_distribution_test_has_value(
-            self._handle, _ffi.ffi_encode_string(ping_name)
-        )
-    )</code></pre>
+    return self._inner.test_get_value(ping_name)</code></pre>
 </details>
 </dd>
 </dl>
@@ -846,7 +507,6 @@ of the ping to retrieve the metric for.</dd>
 <li><code><a title="glean.metrics.timing_distribution.TimingDistributionMetricType.stop_and_accumulate" href="#glean.metrics.timing_distribution.TimingDistributionMetricType.stop_and_accumulate">stop_and_accumulate</a></code></li>
 <li><code><a title="glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_num_recorded_errors" href="#glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_num_recorded_errors">test_get_num_recorded_errors</a></code></li>
 <li><code><a title="glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_value" href="#glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_value">test_get_value</a></code></li>
-<li><code><a title="glean.metrics.timing_distribution.TimingDistributionMetricType.test_has_value" href="#glean.metrics.timing_distribution.TimingDistributionMetricType.test_has_value">test_has_value</a></code></li>
 </ul>
 </li>
 </ul>

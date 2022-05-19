@@ -283,15 +283,15 @@
                 <span class="ident">dynamic_label</span>: <span class="prelude-val">None</span>,
             }),
 
-            <span class="ident">pings_submitted</span>: <span class="ident">LabeledMetric::new</span>(
-                <span class="ident">CounterMetric::new</span>(<span class="ident">CommonMetricData</span> {
+            <span class="ident">pings_submitted</span>: <span class="ident">LabeledMetric</span>::<span class="op">&lt;</span><span class="ident">CounterMetric</span><span class="op">&gt;</span><span class="ident">::new</span>(
+                <span class="ident">CommonMetricData</span> {
                     <span class="ident">name</span>: <span class="string">&quot;pings_submitted&quot;</span>.<span class="ident">into</span>(),
                     <span class="ident">category</span>: <span class="string">&quot;glean.validation&quot;</span>.<span class="ident">into</span>(),
                     <span class="ident">send_in_pings</span>: <span class="macro">vec!</span>[<span class="string">&quot;metrics&quot;</span>.<span class="ident">into</span>(), <span class="string">&quot;baseline&quot;</span>.<span class="ident">into</span>()],
                     <span class="ident">lifetime</span>: <span class="ident">Lifetime::Ping</span>,
                     <span class="ident">disabled</span>: <span class="bool-val">false</span>,
                     <span class="ident">dynamic_label</span>: <span class="prelude-val">None</span>,
-                }),
+                },
                 <span class="prelude-val">None</span>,
             ),
         }
@@ -310,15 +310,15 @@
 <span class="kw">impl</span> <span class="ident">UploadMetrics</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="ident">UploadMetrics</span> {
         <span class="ident">UploadMetrics</span> {
-            <span class="ident">ping_upload_failure</span>: <span class="ident">LabeledMetric::new</span>(
-                <span class="ident">CounterMetric::new</span>(<span class="ident">CommonMetricData</span> {
+            <span class="ident">ping_upload_failure</span>: <span class="ident">LabeledMetric</span>::<span class="op">&lt;</span><span class="ident">CounterMetric</span><span class="op">&gt;</span><span class="ident">::new</span>(
+                <span class="ident">CommonMetricData</span> {
                     <span class="ident">name</span>: <span class="string">&quot;ping_upload_failure&quot;</span>.<span class="ident">into</span>(),
                     <span class="ident">category</span>: <span class="string">&quot;glean.upload&quot;</span>.<span class="ident">into</span>(),
                     <span class="ident">send_in_pings</span>: <span class="macro">vec!</span>[<span class="string">&quot;metrics&quot;</span>.<span class="ident">into</span>()],
                     <span class="ident">lifetime</span>: <span class="ident">Lifetime::Ping</span>,
                     <span class="ident">disabled</span>: <span class="bool-val">false</span>,
                     <span class="ident">dynamic_label</span>: <span class="prelude-val">None</span>,
-                }),
+                },
                 <span class="prelude-val">Some</span>(<span class="macro">vec!</span>[
                     <span class="string">&quot;status_code_4xx&quot;</span>.<span class="ident">into</span>(),
                     <span class="string">&quot;status_code_5xx&quot;</span>.<span class="ident">into</span>(),

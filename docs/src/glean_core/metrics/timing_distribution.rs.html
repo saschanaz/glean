@@ -472,13 +472,83 @@
 <span id="467">467</span>
 <span id="468">468</span>
 <span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
+<span class="kw">use</span> <span class="ident">std::sync::atomic</span>::{<span class="ident">AtomicUsize</span>, <span class="ident">Ordering</span>};
+<span class="kw">use</span> <span class="ident">std::sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>};
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error_recording</span>::{<span class="ident">record_error</span>, <span class="ident">ErrorType</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error_recording</span>::{<span class="ident">record_error</span>, <span class="ident">test_get_num_recorded_errors</span>, <span class="ident">ErrorType</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::histogram</span>::{<span class="ident">Functional</span>, <span class="ident">Histogram</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics::time_unit::TimeUnit</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics</span>::{<span class="ident">DistributionData</span>, <span class="ident">Metric</span>, <span class="ident">MetricType</span>};
@@ -502,77 +572,36 @@
 <span class="kw">const</span> <span class="ident">MAX_SAMPLE_TIME</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">1000</span> <span class="op">*</span> <span class="number">1000</span> <span class="op">*</span> <span class="number">1000</span> <span class="op">*</span> <span class="number">60</span> <span class="op">*</span> <span class="number">10</span>;
 
 <span class="doccomment">/// Identifier for a running timer.</span>
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">TimerId</span> <span class="op">=</span> <span class="ident">u64</span>;
-
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>
-<span class="kw">struct</span> <span class="ident">Timings</span> {
-    <span class="ident">next_id</span>: <span class="ident">TimerId</span>,
-    <span class="ident">start_times</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">TimerId</span>, <span class="ident">u64</span><span class="op">&gt;</span>,
+<span class="doccomment">///</span>
+<span class="doccomment">/// Its internals are considered private,</span>
+<span class="doccomment">/// but due to UniFFI&#39;s behavior we expose its field for now.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>, <span class="ident">Hash</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TimerId</span> {
+    <span class="doccomment">/// This timer&#39;s id.</span>
+    <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">u64</span>,
 }
 
-<span class="doccomment">/// Track different running timers, identified by a `TimerId`.</span>
-<span class="kw">impl</span> <span class="ident">Timings</span> {
-    <span class="doccomment">/// Create a new timing manager.</span>
-    <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">next_id</span>: <span class="number">0</span>,
-            <span class="ident">start_times</span>: <span class="ident">HashMap::new</span>(),
-        }
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TimerId</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">u64</span>) -&gt; <span class="ident">TimerId</span> {
+        <span class="ident">TimerId</span> { <span class="ident">id</span>: <span class="ident">val</span> }
     }
+}
 
-    <span class="doccomment">/// Start a new timer and set it to the `start_time`.</span>
-    <span class="doccomment">/// Multiple timers can run simultaneously.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns a new [`TimerId`] identifying the timer.</span>
-    <span class="kw">fn</span> <span class="ident">set_start</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">start_time</span>: <span class="ident">u64</span>) -&gt; <span class="ident">TimerId</span> {
-        <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">next_id</span>;
-        <span class="self">self</span>.<span class="ident">next_id</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
-        <span class="self">self</span>.<span class="ident">start_times</span>.<span class="ident">insert</span>(<span class="ident">id</span>, <span class="ident">start_time</span>);
-        <span class="ident">id</span>
-    }
-
-    <span class="doccomment">/// Stop the timer and return the elapsed time.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns an error if the `id` does not correspond to a running timer.</span>
-    <span class="doccomment">/// Returns an error if the stop time is before the start time.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// ## Note</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This API exists to satisfy the FFI requirements, where the clock is handled on the</span>
-    <span class="doccomment">/// application side and passed in as a timestamp.</span>
-    <span class="kw">fn</span> <span class="ident">set_stop</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>, <span class="ident">stop_time</span>: <span class="ident">u64</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u64</span>, (<span class="ident">ErrorType</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)<span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">start_time</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">start_times</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">start_time</span>) =&gt; <span class="ident">start_time</span>,
-            <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>((<span class="ident">ErrorType::InvalidState</span>, <span class="string">&quot;Timing not running&quot;</span>)),
-        };
-
-        <span class="kw">let</span> <span class="ident">duration</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">stop_time</span>.<span class="ident">checked_sub</span>(<span class="ident">start_time</span>) {
-            <span class="prelude-val">Some</span>(<span class="ident">duration</span>) =&gt; <span class="ident">duration</span>,
-            <span class="prelude-val">None</span> =&gt; {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>((
-                    <span class="ident">ErrorType::InvalidValue</span>,
-                    <span class="string">&quot;Timer stopped with negative duration&quot;</span>,
-                ))
-            }
-        };
-
-        <span class="prelude-val">Ok</span>(<span class="ident">duration</span>)
-    }
-
-    <span class="doccomment">/// Cancel and remove the timer.</span>
-    <span class="kw">fn</span> <span class="ident">cancel</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>) {
-        <span class="self">self</span>.<span class="ident">start_times</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>);
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TimerId</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">val</span>: <span class="ident">usize</span>) -&gt; <span class="ident">TimerId</span> {
+        <span class="ident">TimerId</span> { <span class="ident">id</span>: <span class="ident">val</span> <span class="kw">as</span> <span class="ident">u64</span> }
     }
 }
 
 <span class="doccomment">/// A timing distribution metric.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Timing distributions are used to accumulate and store time measurement, for analyzing distributions of the timing data.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TimingDistributionMetric</span> {
-    <span class="ident">meta</span>: <span class="ident">CommonMetricData</span>,
+    <span class="ident">meta</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">CommonMetricData</span><span class="op">&gt;</span>,
     <span class="ident">time_unit</span>: <span class="ident">TimeUnit</span>,
-    <span class="ident">timings</span>: <span class="ident">Timings</span>,
+    <span class="ident">next_id</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">AtomicUsize</span><span class="op">&gt;</span>,
+    <span class="ident">start_times</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">TimerId</span>, <span class="ident">u64</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// Create a snapshot of the histogram with a time unit.</span>
@@ -582,18 +611,18 @@
     <span class="ident">DistributionData</span> {
         <span class="comment">// **Caution**: This cannot use `Histogram::snapshot_values` and needs to use the more</span>
         <span class="comment">// specialized snapshot function.</span>
-        <span class="ident">values</span>: <span class="ident">hist</span>.<span class="ident">snapshot</span>(),
-        <span class="ident">sum</span>: <span class="ident">hist</span>.<span class="ident">sum</span>(),
+        <span class="ident">values</span>: <span class="ident">hist</span>
+            .<span class="ident">snapshot</span>()
+            .<span class="ident">into_iter</span>()
+            .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="ident">v</span>)<span class="op">|</span> (<span class="ident">k</span> <span class="kw">as</span> <span class="ident">i64</span>, <span class="ident">v</span> <span class="kw">as</span> <span class="ident">i64</span>))
+            .<span class="ident">collect</span>(),
+        <span class="ident">sum</span>: <span class="ident">hist</span>.<span class="ident">sum</span>() <span class="kw">as</span> <span class="ident">i64</span>,
     }
 }
 
 <span class="kw">impl</span> <span class="ident">MetricType</span> <span class="kw">for</span> <span class="ident">TimingDistributionMetric</span> {
     <span class="kw">fn</span> <span class="ident">meta</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">CommonMetricData</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">meta</span>
-    }
-
-    <span class="kw">fn</span> <span class="ident">meta_mut</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut</span> <span class="ident">CommonMetricData</span> {
-        <span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">meta</span>
     }
 }
 
@@ -605,9 +634,10 @@
     <span class="doccomment">/// Creates a new timing distribution metric.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">meta</span>: <span class="ident">CommonMetricData</span>, <span class="ident">time_unit</span>: <span class="ident">TimeUnit</span>) -&gt; <span class="self">Self</span> {
         <span class="self">Self</span> {
-            <span class="ident">meta</span>,
+            <span class="ident">meta</span>: <span class="ident">Arc::new</span>(<span class="ident">meta</span>),
             <span class="ident">time_unit</span>,
-            <span class="ident">timings</span>: <span class="ident">Timings::new</span>(),
+            <span class="ident">next_id</span>: <span class="ident">Arc::new</span>(<span class="ident">AtomicUsize::new</span>(<span class="number">0</span>)),
+            <span class="ident">start_times</span>: <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="ident">Default::default</span>())),
         }
     }
 
@@ -625,8 +655,23 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A unique [`TimerId`] for the new timer.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_start</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">start_time</span>: <span class="ident">u64</span>) -&gt; <span class="ident">TimerId</span> {
-        <span class="self">self</span>.<span class="ident">timings</span>.<span class="ident">set_start</span>(<span class="ident">start_time</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">start</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">TimerId</span> {
+        <span class="kw">let</span> <span class="ident">start_time</span> <span class="op">=</span> <span class="ident">time::precise_time_ns</span>();
+        <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">next_id</span>.<span class="ident">fetch_add</span>(<span class="number">1</span>, <span class="ident">Ordering::SeqCst</span>).<span class="ident">into</span>();
+        <span class="kw">let</span> <span class="ident">metric</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
+        <span class="ident"><span class="kw">crate</span>::launch_with_glean</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">_glean</span><span class="op">|</span> <span class="ident">metric</span>.<span class="ident">set_start</span>(<span class="ident">id</span>, <span class="ident">start_time</span>));
+        <span class="ident">id</span>
+    }
+
+    <span class="doccomment">/// **Test-only API (exported for testing purposes).**</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Set start time for this metric synchronously.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Use [`start`](Self::start) instead.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_start</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>, <span class="ident">start_time</span>: <span class="ident">u64</span>) {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">map</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">start_times</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;can&#39;t lock timings map&quot;</span>);
+        <span class="ident">map</span>.<span class="ident">insert</span>(<span class="ident">id</span>, <span class="ident">start_time</span>);
     }
 
     <span class="doccomment">/// Stops tracking time for the provided metric and associated timer id.</span>
@@ -641,9 +686,47 @@
     <span class="doccomment">///   for concurrent timing of events associated with different ids to the</span>
     <span class="doccomment">///   same timespan metric.</span>
     <span class="doccomment">/// * `stop_time` - Timestamp in nanoseconds.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_stop_and_accumulate</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>, <span class="ident">stop_time</span>: <span class="ident">u64</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">stop_and_accumulate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>) {
+        <span class="kw">let</span> <span class="ident">stop_time</span> <span class="op">=</span> <span class="ident">time::precise_time_ns</span>();
+        <span class="kw">let</span> <span class="ident">metric</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
+        <span class="ident"><span class="kw">crate</span>::launch_with_glean</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="ident">metric</span>.<span class="ident">set_stop_and_accumulate</span>(<span class="ident">glean</span>, <span class="ident">id</span>, <span class="ident">stop_time</span>));
+    }
+
+    <span class="kw">fn</span> <span class="ident">set_stop</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>, <span class="ident">stop_time</span>: <span class="ident">u64</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u64</span>, (<span class="ident">ErrorType</span>, <span class="kw-2">&amp;</span><span class="ident">str</span>)<span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_times</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">start_times</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;can&#39;t lock timings map&quot;</span>);
+        <span class="kw">let</span> <span class="ident">start_time</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">start_times</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>) {
+            <span class="prelude-val">Some</span>(<span class="ident">start_time</span>) =&gt; <span class="ident">start_time</span>,
+            <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>((<span class="ident">ErrorType::InvalidState</span>, <span class="string">&quot;Timing not running&quot;</span>)),
+        };
+
+        <span class="kw">let</span> <span class="ident">duration</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">stop_time</span>.<span class="ident">checked_sub</span>(<span class="ident">start_time</span>) {
+            <span class="prelude-val">Some</span>(<span class="ident">duration</span>) =&gt; <span class="ident">duration</span>,
+            <span class="prelude-val">None</span> =&gt; {
+                <span class="kw">return</span> <span class="prelude-val">Err</span>((
+                    <span class="ident">ErrorType::InvalidValue</span>,
+                    <span class="string">&quot;Timer stopped with negative duration&quot;</span>,
+                ))
+            }
+        };
+
+        <span class="prelude-val">Ok</span>(<span class="ident">duration</span>)
+    }
+
+    <span class="doccomment">/// **Test-only API (exported for testing purposes).**</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Set stop time for this metric synchronously.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Use [`stop_and_accumulate`](Self::stop_and_accumulate) instead.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_stop_and_accumulate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>, <span class="ident">stop_time</span>: <span class="ident">u64</span>) {
+        <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">should_record</span>(<span class="ident">glean</span>) {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_times</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">start_times</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;can&#39;t lock timings map&quot;</span>);
+            <span class="ident">start_times</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>);
+            <span class="kw">return</span>;
+        }
+
         <span class="comment">// Duration is in nanoseconds.</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">duration</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">timings</span>.<span class="ident">set_stop</span>(<span class="ident">id</span>, <span class="ident">stop_time</span>) {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">duration</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">set_stop</span>(<span class="ident">id</span>, <span class="ident">stop_time</span>) {
             <span class="prelude-val">Err</span>((<span class="ident">err_type</span>, <span class="ident">err_msg</span>)) =&gt; {
                 <span class="ident">record_error</span>(<span class="ident">glean</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">meta</span>, <span class="ident">err_type</span>, <span class="ident">err_msg</span>, <span class="prelude-val">None</span>);
                 <span class="kw">return</span>;
@@ -688,17 +771,24 @@
             });
     }
 
-    <span class="doccomment">/// Aborts a previous [`set_start`](TimingDistributionMetric::set_start)</span>
-    <span class="doccomment">/// call. No error is recorded if no</span>
-    <span class="doccomment">/// [`set_start`](TimingDistributionMetric.set_start) was called.</span>
+    <span class="doccomment">/// Aborts a previous [`start`](Self::start) call.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// No error is recorded if no [`start`](Self::start) was called.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Arguments</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// * `id` - The [`TimerId`] to associate with this timing. This allows</span>
     <span class="doccomment">///   for concurrent timing of events associated with different ids to the</span>
     <span class="doccomment">///   same timing distribution metric.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cancel</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>) {
-        <span class="self">self</span>.<span class="ident">timings</span>.<span class="ident">cancel</span>(<span class="ident">id</span>);
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">cancel</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>) {
+        <span class="kw">let</span> <span class="ident">metric</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
+        <span class="ident"><span class="kw">crate</span>::launch_with_glean</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">_glean</span><span class="op">|</span> <span class="ident">metric</span>.<span class="ident">cancel_sync</span>(<span class="ident">id</span>));
+    }
+
+    <span class="doccomment">/// Aborts a previous [`start`](Self::start) call synchronously.</span>
+    <span class="kw">fn</span> <span class="ident">cancel_sync</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">id</span>: <span class="ident">TimerId</span>) {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">map</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">start_times</span>.<span class="ident">lock</span>().<span class="ident">expect</span>(<span class="string">&quot;can&#39;t lock timings map&quot;</span>);
+        <span class="ident">map</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">id</span>);
     }
 
     <span class="doccomment">/// Accumulates the provided signed samples in the metric.</span>
@@ -722,7 +812,17 @@
     <span class="doccomment">/// Discards any negative value in `samples` and report an [`ErrorType::InvalidValue`]</span>
     <span class="doccomment">/// for each of them. Reports an [`ErrorType::InvalidOverflow`] error for samples that</span>
     <span class="doccomment">/// are longer than `MAX_SAMPLE_TIME`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accumulate_samples_signed</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>, <span class="ident">samples</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accumulate_samples</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">samples</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span>) {
+        <span class="kw">let</span> <span class="ident">metric</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
+        <span class="ident"><span class="kw">crate</span>::launch_with_glean</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="ident">metric</span>.<span class="ident">accumulate_samples_sync</span>(<span class="ident">glean</span>, <span class="ident">samples</span>))
+    }
+
+    <span class="doccomment">/// **Test-only API (exported for testing purposes).**</span>
+    <span class="doccomment">/// Accumulates the provided signed samples in the metric.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Use [`accumulate_samples`](Self::accumulate_samples)</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accumulate_samples_sync</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>, <span class="ident">samples</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span>) {
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">should_record</span>(<span class="ident">glean</span>) {
             <span class="kw">return</span>;
         }
@@ -798,7 +898,20 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// Reports an [`ErrorType::InvalidOverflow`] error for samples that</span>
     <span class="doccomment">/// are longer than `MAX_SAMPLE_TIME`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accumulate_raw_samples_nanos</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>, <span class="ident">samples</span>: <span class="kw-2">&amp;</span>[<span class="ident">u64</span>]) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accumulate_raw_samples_nanos</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">samples</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>) {
+        <span class="kw">let</span> <span class="ident">metric</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">clone</span>();
+        <span class="ident"><span class="kw">crate</span>::launch_with_glean</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">glean</span><span class="op">|</span> {
+            <span class="ident">metric</span>.<span class="ident">accumulate_raw_samples_nanos_sync</span>(<span class="ident">glean</span>, <span class="kw-2">&amp;</span><span class="ident">samples</span>)
+        })
+    }
+
+    <span class="doccomment">/// **Test-only API (exported for testing purposes).**</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Accumulates the provided samples in the metric.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Use [`accumulate_raw_samples_nanos`](Self::accumulate_raw_samples_nanos) instead.</span>
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">accumulate_raw_samples_nanos_sync</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>, <span class="ident">samples</span>: <span class="kw-2">&amp;</span>[<span class="ident">u64</span>]) {
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">should_record</span>(<span class="ident">glean</span>) {
             <span class="kw">return</span>;
         }
@@ -845,15 +958,20 @@
         }
     }
 
-    <span class="doccomment">/// **Test-only API (exported for FFI purposes).**</span>
-    <span class="doccomment">///</span>
     <span class="doccomment">/// Gets the currently stored value as an integer.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This doesn&#39;t clear the stored value.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>, <span class="ident">storage_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DistributionData</span><span class="op">&gt;</span> {
+    <span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_value</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>,
+        <span class="ident">ping_name</span>: <span class="ident">S</span>,
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DistributionData</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">queried_ping_name</span> <span class="op">=</span> <span class="ident">ping_name</span>
+            .<span class="ident">into</span>()
+            .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">meta</span>().<span class="ident">send_in_pings</span>[<span class="number">0</span>]);
+
         <span class="kw">match</span> <span class="ident">StorageManager</span>.<span class="ident">snapshot_metric_for_test</span>(
             <span class="ident">glean</span>.<span class="ident">storage</span>(),
-            <span class="ident">storage_name</span>,
+            <span class="ident">queried_ping_name</span>,
             <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">meta</span>.<span class="ident">identifier</span>(<span class="ident">glean</span>),
             <span class="self">self</span>.<span class="ident">meta</span>.<span class="ident">lifetime</span>,
         ) {
@@ -864,16 +982,34 @@
 
     <span class="doccomment">/// **Test-only API (exported for FFI purposes).**</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Gets the currently-stored histogram as a JSON String of the serialized value.</span>
+    <span class="doccomment">/// Gets the currently stored value as an integer.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This doesn&#39;t clear the stored value.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_get_value_as_json_string</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>,
-        <span class="ident">storage_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">test_get_value</span>(<span class="ident">glean</span>, <span class="ident">storage_name</span>)
-            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">snapshot</span><span class="op">|</span> <span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">snapshot</span>).<span class="ident">unwrap</span>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_get_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ping_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DistributionData</span><span class="op">&gt;</span> {
+        <span class="ident"><span class="kw">crate</span>::block_on_dispatcher</span>();
+        <span class="ident"><span class="kw">crate</span>::core::with_glean</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">get_value</span>(<span class="ident">glean</span>, <span class="ident">ping_name</span>.<span class="ident">as_deref</span>()))
+    }
+
+    <span class="doccomment">/// **Exported for test purposes.**</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Gets the number of recorded errors for the given metric and error type.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Arguments</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// * `error` - The type of error</span>
+    <span class="doccomment">/// * `ping_name` - represents the optional name of the ping to retrieve the</span>
+    <span class="doccomment">///   metric for. Defaults to the first value in `send_in_pings`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Returns</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The number of errors reported.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_get_num_recorded_errors</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">error</span>: <span class="ident">ErrorType</span>, <span class="ident">ping_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="ident">i32</span> {
+        <span class="ident"><span class="kw">crate</span>::block_on_dispatcher</span>();
+
+        <span class="ident"><span class="kw">crate</span>::core::with_glean</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> {
+            <span class="ident">test_get_num_recorded_errors</span>(<span class="ident">glean</span>, <span class="self">self</span>.<span class="ident">meta</span>(), <span class="ident">error</span>, <span class="ident">ping_name</span>.<span class="ident">as_deref</span>())
+                .<span class="ident">unwrap_or</span>(<span class="number">0</span>)
+        })
     }
 }
 

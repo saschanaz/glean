@@ -1801,6 +1801,21 @@
 <span id="1796">1796</span>
 <span id="1797">1797</span>
 <span id="1798">1798</span>
+<span id="1799">1799</span>
+<span id="1800">1800</span>
+<span id="1801">1801</span>
+<span id="1802">1802</span>
+<span id="1803">1803</span>
+<span id="1804">1804</span>
+<span id="1805">1805</span>
+<span id="1806">1806</span>
+<span id="1807">1807</span>
+<span id="1808">1808</span>
+<span id="1809">1809</span>
+<span id="1810">1810</span>
+<span id="1811">1811</span>
+<span id="1812">1812</span>
+<span id="1813">1813</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -1814,6 +1829,21 @@
 <span class="kw">use</span> <span class="ident">std::sync::RwLock</span>;
 
 <span class="kw">use</span> <span class="ident">rkv::StoreOptions</span>;
+
+<span class="doccomment">/// Unwrap a `Result`s `Ok` value or do the specified action.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This is an alternative to the question-mark operator (`?`),</span>
+<span class="doccomment">/// when the other action should not be to return the error.</span>
+<span class="macro">macro_rules!</span> <span class="ident">unwrap_or</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">or</span>:<span class="ident">expr</span>) =&gt; {
+        <span class="kw">match</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expr</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">x</span>) =&gt; <span class="ident">x</span>,
+            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; {
+                <span class="macro-nonterminal">$</span><span class="macro-nonterminal">or</span>;
+            }
+        }
+    };
+}
 
 <span class="comment">// Select the LMDB-powered storage backend when the feature is not activated.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rkv-safe-mode&quot;</span>))]</span>

@@ -32,7 +32,9 @@
 
 
 import sys
-from typing import List, Tuple
+from typing import Dict, Union
+
+from .._uniffi import UploadResult
 
 
 if sys.version_info &gt;= (3, 8):
@@ -40,84 +42,23 @@ if sys.version_info &gt;= (3, 8):
 else:
     Protocol = object
 
-&#34;&#34;&#34;
-Result values of attempted ping uploads encoded for FFI use.
-They are defined in `glean-core/src/upload/result.rs` and re-defined for use in Kotlin here.
-
-NOTE:
-THEY MUST BE THE SAME ACROSS BOTH FILES!
-&#34;&#34;&#34;
-# A recoverable error.
-_UPLOAD_RESULT_RECOVERABLE = 0x1
-# An unrecoverable error.
-_UPLOAD_RESULT_UNRECOVERABLE = 0x2
-# A HTTP response code.
-_UPLOAD_RESULT_HTTP_STATUS = 0x8000
-
-
-class UploadResult(Protocol):
-    &#34;&#34;&#34;
-    The result of the ping upload.
-
-    See below for the different possible cases.
-    &#34;&#34;&#34;
-
-    def to_ffi(self) -&gt; int:
-        return _UPLOAD_RESULT_UNRECOVERABLE
-
-
-class HttpResponse(UploadResult):
-    &#34;&#34;&#34;
-    A HTTP response code.
-
-    This can still indicate an error, depending on the status code.
-    &#34;&#34;&#34;
-
-    def __init__(self, status_code: int):
-        self._status_code = status_code
-
-    def to_ffi(self) -&gt; int:
-        return _UPLOAD_RESULT_HTTP_STATUS | self._status_code
-
-
-class UnrecoverableFailure(UploadResult):
-    &#34;&#34;&#34;
-    An unrecoverable upload failure.
-
-    A possible cause might be a malformed URL.
-    The ping data is removed afterwards.
-    &#34;&#34;&#34;
-
-    def to_ffi(self) -&gt; int:
-        return _UPLOAD_RESULT_UNRECOVERABLE
-
-
-class RecoverableFailure(UploadResult):
-    &#34;&#34;&#34;
-    A recoverable failure.
-
-    During upload something went wrong,
-    e.g. the network connection failed.
-    The upload should be retried at a later time.
-    &#34;&#34;&#34;
-
-    def to_ffi(self) -&gt; int:
-        return _UPLOAD_RESULT_RECOVERABLE
-
 
 class PingUploader(Protocol):
     def upload(
-        self, url: str, data: bytes, headers: List[Tuple[str, str]]
-    ) -&gt; UploadResult:
+        self, url: str, data: bytes, headers: Dict[str, str]
+    ) -&gt; Union[
+        UploadResult,
+        UploadResult.UNRECOVERABLE_FAILURE,
+        UploadResult.RECOVERABLE_FAILURE,
+        UploadResult.HTTP_STATUS,
+    ]:
         &#34;&#34;&#34;
         Upload a ping to a server.
 
         Args:
             url (str): The URL path to upload the data to.
             data (bytes): The serialized data to send.
-            headers (list of (str, str)): List of header entries as tuple
-                pairs, where the first element is the header name and the
-                second is its value.
+            headers (dict of (str, str)): Dictionary of header entries.
 
         Returns:
             result (UploadResult): the status code of the upload response.
@@ -126,10 +67,7 @@ class PingUploader(Protocol):
 
 
 __all__ = [
-    &#34;HttpResponse&#34;,
     &#34;PingUploader&#34;,
-    &#34;RecoverableFailure&#34;,
-    &#34;UnrecoverableFailure&#34;,
     &#34;UploadResult&#34;,
 ]</code></pre>
 </details>
@@ -143,53 +81,6 @@ __all__ = [
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="glean.net.ping_uploader.HttpResponse"><code class="flex name class">
-<span>class <span class="ident">HttpResponse</span></span>
-<span>(</span><span>status_code: int)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>A HTTP response code.</p>
-<p>This can still indicate an error, depending on the status code.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class HttpResponse(UploadResult):
-    &#34;&#34;&#34;
-    A HTTP response code.
-
-    This can still indicate an error, depending on the status code.
-    &#34;&#34;&#34;
-
-    def __init__(self, status_code: int):
-        self._status_code = status_code
-
-    def to_ffi(self) -&gt; int:
-        return _UPLOAD_RESULT_HTTP_STATUS | self._status_code</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="glean.net.ping_uploader.UploadResult" href="#glean.net.ping_uploader.UploadResult">UploadResult</a></li>
-<li>typing.Protocol</li>
-<li>typing.Generic</li>
-</ul>
-<h3>Methods</h3>
-<dl>
-<dt id="glean.net.ping_uploader.HttpResponse.to_ffi"><code class="name flex">
-<span>def <span class="ident">to_ffi</span></span>(<span>self) ‑> int</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def to_ffi(self) -&gt; int:
-    return _UPLOAD_RESULT_HTTP_STATUS | self._status_code</code></pre>
-</details>
-</dd>
-</dl>
-</dd>
 <dt id="glean.net.ping_uploader.PingUploader"><code class="flex name class">
 <span>class <span class="ident">PingUploader</span></span>
 <span>(</span><span>*args, **kwargs)</span>
@@ -226,17 +117,20 @@ Protocol classes can be generic, they are defined as::</p>
 </summary>
 <pre><code class="python">class PingUploader(Protocol):
     def upload(
-        self, url: str, data: bytes, headers: List[Tuple[str, str]]
-    ) -&gt; UploadResult:
+        self, url: str, data: bytes, headers: Dict[str, str]
+    ) -&gt; Union[
+        UploadResult,
+        UploadResult.UNRECOVERABLE_FAILURE,
+        UploadResult.RECOVERABLE_FAILURE,
+        UploadResult.HTTP_STATUS,
+    ]:
         &#34;&#34;&#34;
         Upload a ping to a server.
 
         Args:
             url (str): The URL path to upload the data to.
             data (bytes): The serialized data to send.
-            headers (list of (str, str)): List of header entries as tuple
-                pairs, where the first element is the header name and the
-                second is its value.
+            headers (dict of (str, str)): Dictionary of header entries.
 
         Returns:
             result (UploadResult): the status code of the upload response.
@@ -255,7 +149,7 @@ Protocol classes can be generic, they are defined as::</p>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.net.ping_uploader.PingUploader.upload"><code class="name flex">
-<span>def <span class="ident">upload</span></span>(<span>self, url: str, data: bytes, headers: List[Tuple[str, str]]) ‑> <a title="glean.net.ping_uploader.UploadResult" href="#glean.net.ping_uploader.UploadResult">UploadResult</a></span>
+<span>def <span class="ident">upload</span></span>(<span>self, url: str, data: bytes, headers: Dict[str, str]) ‑> Union[glean._uniffi.UploadResult, glean._uniffi.UploadResult.UNRECOVERABLE_FAILURE, glean._uniffi.UploadResult.RECOVERABLE_FAILURE, glean._uniffi.UploadResult.HTTP_STATUS]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Upload a ping to a server.</p>
@@ -266,9 +160,7 @@ Protocol classes can be generic, they are defined as::</p>
 <dt><strong><code>data</code></strong> :&ensp;<code>bytes</code></dt>
 <dd>The serialized data to send.</dd>
 </dl>
-<p>headers (list of (str, str)): List of header entries as tuple
-pairs, where the first element is the header name and the
-second is its value.</p>
+<p>headers (dict of (str, str)): Dictionary of header entries.</p>
 <h2 id="returns">Returns</h2>
 <p>result (UploadResult): the status code of the upload response.</p></div>
 <details class="source">
@@ -276,17 +168,20 @@ second is its value.</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def upload(
-    self, url: str, data: bytes, headers: List[Tuple[str, str]]
-) -&gt; UploadResult:
+    self, url: str, data: bytes, headers: Dict[str, str]
+) -&gt; Union[
+    UploadResult,
+    UploadResult.UNRECOVERABLE_FAILURE,
+    UploadResult.RECOVERABLE_FAILURE,
+    UploadResult.HTTP_STATUS,
+]:
     &#34;&#34;&#34;
     Upload a ping to a server.
 
     Args:
         url (str): The URL path to upload the data to.
         data (bytes): The serialized data to send.
-        headers (list of (str, str)): List of header entries as tuple
-            pairs, where the first element is the header name and the
-            second is its value.
+        headers (dict of (str, str)): Dictionary of header entries.
 
     Returns:
         result (UploadResult): the status code of the upload response.
@@ -296,136 +191,8 @@ second is its value.</p>
 </dd>
 </dl>
 </dd>
-<dt id="glean.net.ping_uploader.RecoverableFailure"><code class="flex name class">
-<span>class <span class="ident">RecoverableFailure</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>A recoverable failure.</p>
-<p>During upload something went wrong,
-e.g. the network connection failed.
-The upload should be retried at a later time.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class RecoverableFailure(UploadResult):
-    &#34;&#34;&#34;
-    A recoverable failure.
-
-    During upload something went wrong,
-    e.g. the network connection failed.
-    The upload should be retried at a later time.
-    &#34;&#34;&#34;
-
-    def to_ffi(self) -&gt; int:
-        return _UPLOAD_RESULT_RECOVERABLE</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="glean.net.ping_uploader.UploadResult" href="#glean.net.ping_uploader.UploadResult">UploadResult</a></li>
-<li>typing.Protocol</li>
-<li>typing.Generic</li>
-</ul>
-<h3>Methods</h3>
-<dl>
-<dt id="glean.net.ping_uploader.RecoverableFailure.to_ffi"><code class="name flex">
-<span>def <span class="ident">to_ffi</span></span>(<span>self) ‑> int</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def to_ffi(self) -&gt; int:
-    return _UPLOAD_RESULT_RECOVERABLE</code></pre>
-</details>
-</dd>
-</dl>
-</dd>
-<dt id="glean.net.ping_uploader.UnrecoverableFailure"><code class="flex name class">
-<span>class <span class="ident">UnrecoverableFailure</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>An unrecoverable upload failure.</p>
-<p>A possible cause might be a malformed URL.
-The ping data is removed afterwards.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class UnrecoverableFailure(UploadResult):
-    &#34;&#34;&#34;
-    An unrecoverable upload failure.
-
-    A possible cause might be a malformed URL.
-    The ping data is removed afterwards.
-    &#34;&#34;&#34;
-
-    def to_ffi(self) -&gt; int:
-        return _UPLOAD_RESULT_UNRECOVERABLE</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="glean.net.ping_uploader.UploadResult" href="#glean.net.ping_uploader.UploadResult">UploadResult</a></li>
-<li>typing.Protocol</li>
-<li>typing.Generic</li>
-</ul>
-<h3>Methods</h3>
-<dl>
-<dt id="glean.net.ping_uploader.UnrecoverableFailure.to_ffi"><code class="name flex">
-<span>def <span class="ident">to_ffi</span></span>(<span>self) ‑> int</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def to_ffi(self) -&gt; int:
-    return _UPLOAD_RESULT_UNRECOVERABLE</code></pre>
-</details>
-</dd>
-</dl>
-</dd>
 <dt id="glean.net.ping_uploader.UploadResult"><code class="flex name class">
 <span>class <span class="ident">UploadResult</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>The result of the ping upload.</p>
-<p>See below for the different possible cases.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class UploadResult(Protocol):
-    &#34;&#34;&#34;
-    The result of the ping upload.
-
-    See below for the different possible cases.
-    &#34;&#34;&#34;
-
-    def to_ffi(self) -&gt; int:
-        return _UPLOAD_RESULT_UNRECOVERABLE</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>typing.Protocol</li>
-<li>typing.Generic</li>
-</ul>
-<h3>Subclasses</h3>
-<ul class="hlist">
-<li><a title="glean.net.ping_uploader.HttpResponse" href="#glean.net.ping_uploader.HttpResponse">HttpResponse</a></li>
-<li><a title="glean.net.ping_uploader.RecoverableFailure" href="#glean.net.ping_uploader.RecoverableFailure">RecoverableFailure</a></li>
-<li><a title="glean.net.ping_uploader.UnrecoverableFailure" href="#glean.net.ping_uploader.UnrecoverableFailure">UnrecoverableFailure</a></li>
-</ul>
-<h3>Methods</h3>
-<dl>
-<dt id="glean.net.ping_uploader.UploadResult.to_ffi"><code class="name flex">
-<span>def <span class="ident">to_ffi</span></span>(<span>self) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -433,8 +200,127 @@ The ping data is removed afterwards.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def to_ffi(self) -&gt; int:
-    return _UPLOAD_RESULT_UNRECOVERABLE</code></pre>
+<pre><code class="python">class UploadResult:
+    def __init__(self):
+        raise RuntimeError(&#34;UploadResult cannot be instantiated directly&#34;)
+
+    # Each enum variant is a nested class of the enum itself.
+    class RECOVERABLE_FAILURE(object):
+        def __init__(self,unused):
+            
+            self.unused = unused
+            
+
+        def __str__(self):
+            return &#34;UploadResult.RECOVERABLE_FAILURE(unused={})&#34;.format(self.unused)
+
+        def __eq__(self, other):
+            if not other.is_recoverable_failure():
+                return False
+            if self.unused != other.unused:
+                return False
+            return True
+    class UNRECOVERABLE_FAILURE(object):
+        def __init__(self,unused):
+            
+            self.unused = unused
+            
+
+        def __str__(self):
+            return &#34;UploadResult.UNRECOVERABLE_FAILURE(unused={})&#34;.format(self.unused)
+
+        def __eq__(self, other):
+            if not other.is_unrecoverable_failure():
+                return False
+            if self.unused != other.unused:
+                return False
+            return True
+    class HTTP_STATUS(object):
+        def __init__(self,code):
+            
+            self.code = code
+            
+
+        def __str__(self):
+            return &#34;UploadResult.HTTP_STATUS(code={})&#34;.format(self.code)
+
+        def __eq__(self, other):
+            if not other.is_http_status():
+                return False
+            if self.code != other.code:
+                return False
+            return True
+    
+
+    # For each variant, we have an `is_NAME` method for easily checking
+    # whether an instance is that variant.
+    def is_recoverable_failure(self):
+        return isinstance(self, UploadResult.RECOVERABLE_FAILURE)
+    def is_unrecoverable_failure(self):
+        return isinstance(self, UploadResult.UNRECOVERABLE_FAILURE)
+    def is_http_status(self):
+        return isinstance(self, UploadResult.HTTP_STATUS)</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li>glean._uniffi.UploadResult.HTTP_STATUS</li>
+<li>glean._uniffi.UploadResult.RECOVERABLE_FAILURE</li>
+<li>glean._uniffi.UploadResult.UNRECOVERABLE_FAILURE</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="glean.net.ping_uploader.UploadResult.HTTP_STATUS"><code class="name">var <span class="ident">HTTP_STATUS</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.net.ping_uploader.UploadResult.RECOVERABLE_FAILURE"><code class="name">var <span class="ident">RECOVERABLE_FAILURE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.net.ping_uploader.UploadResult.UNRECOVERABLE_FAILURE"><code class="name">var <span class="ident">UNRECOVERABLE_FAILURE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="glean.net.ping_uploader.UploadResult.is_http_status"><code class="name flex">
+<span>def <span class="ident">is_http_status</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_http_status(self):
+    return isinstance(self, UploadResult.HTTP_STATUS)</code></pre>
+</details>
+</dd>
+<dt id="glean.net.ping_uploader.UploadResult.is_recoverable_failure"><code class="name flex">
+<span>def <span class="ident">is_recoverable_failure</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_recoverable_failure(self):
+    return isinstance(self, UploadResult.RECOVERABLE_FAILURE)</code></pre>
+</details>
+</dd>
+<dt id="glean.net.ping_uploader.UploadResult.is_unrecoverable_failure"><code class="name flex">
+<span>def <span class="ident">is_unrecoverable_failure</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_unrecoverable_failure(self):
+    return isinstance(self, UploadResult.UNRECOVERABLE_FAILURE)</code></pre>
 </details>
 </dd>
 </dl>
@@ -456,33 +342,20 @@ The ping data is removed afterwards.</p></div>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="glean.net.ping_uploader.HttpResponse" href="#glean.net.ping_uploader.HttpResponse">HttpResponse</a></code></h4>
-<ul class="">
-<li><code><a title="glean.net.ping_uploader.HttpResponse.to_ffi" href="#glean.net.ping_uploader.HttpResponse.to_ffi">to_ffi</a></code></li>
-</ul>
-</li>
-<li>
 <h4><code><a title="glean.net.ping_uploader.PingUploader" href="#glean.net.ping_uploader.PingUploader">PingUploader</a></code></h4>
 <ul class="">
 <li><code><a title="glean.net.ping_uploader.PingUploader.upload" href="#glean.net.ping_uploader.PingUploader.upload">upload</a></code></li>
 </ul>
 </li>
 <li>
-<h4><code><a title="glean.net.ping_uploader.RecoverableFailure" href="#glean.net.ping_uploader.RecoverableFailure">RecoverableFailure</a></code></h4>
-<ul class="">
-<li><code><a title="glean.net.ping_uploader.RecoverableFailure.to_ffi" href="#glean.net.ping_uploader.RecoverableFailure.to_ffi">to_ffi</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="glean.net.ping_uploader.UnrecoverableFailure" href="#glean.net.ping_uploader.UnrecoverableFailure">UnrecoverableFailure</a></code></h4>
-<ul class="">
-<li><code><a title="glean.net.ping_uploader.UnrecoverableFailure.to_ffi" href="#glean.net.ping_uploader.UnrecoverableFailure.to_ffi">to_ffi</a></code></li>
-</ul>
-</li>
-<li>
 <h4><code><a title="glean.net.ping_uploader.UploadResult" href="#glean.net.ping_uploader.UploadResult">UploadResult</a></code></h4>
 <ul class="">
-<li><code><a title="glean.net.ping_uploader.UploadResult.to_ffi" href="#glean.net.ping_uploader.UploadResult.to_ffi">to_ffi</a></code></li>
+<li><code><a title="glean.net.ping_uploader.UploadResult.HTTP_STATUS" href="#glean.net.ping_uploader.UploadResult.HTTP_STATUS">HTTP_STATUS</a></code></li>
+<li><code><a title="glean.net.ping_uploader.UploadResult.RECOVERABLE_FAILURE" href="#glean.net.ping_uploader.UploadResult.RECOVERABLE_FAILURE">RECOVERABLE_FAILURE</a></code></li>
+<li><code><a title="glean.net.ping_uploader.UploadResult.UNRECOVERABLE_FAILURE" href="#glean.net.ping_uploader.UploadResult.UNRECOVERABLE_FAILURE">UNRECOVERABLE_FAILURE</a></code></li>
+<li><code><a title="glean.net.ping_uploader.UploadResult.is_http_status" href="#glean.net.ping_uploader.UploadResult.is_http_status">is_http_status</a></code></li>
+<li><code><a title="glean.net.ping_uploader.UploadResult.is_recoverable_failure" href="#glean.net.ping_uploader.UploadResult.is_recoverable_failure">is_recoverable_failure</a></code></li>
+<li><code><a title="glean.net.ping_uploader.UploadResult.is_unrecoverable_failure" href="#glean.net.ping_uploader.UploadResult.is_unrecoverable_failure">is_unrecoverable_failure</a></code></li>
 </ul>
 </li>
 </ul>

@@ -34,9 +34,7 @@
 from typing import Callable, List, Optional
 
 
-from ..glean import Glean
-from .._dispatcher import Dispatcher
-from .. import _ffi
+from .._uniffi import PingType as GleanPingType
 
 
 class PingType:
@@ -53,28 +51,11 @@ class PingType:
         The Ping API only exposes the `PingType.submit` method, which schedules a
         ping for eventual uploading.
         &#34;&#34;&#34;
-        self._name = name
         self._reason_codes = reason_codes
-        self._handle = _ffi.lib.glean_new_ping_type(
-            _ffi.ffi_encode_string(name),
-            include_client_id,
-            send_if_empty,
-            _ffi.ffi_encode_vec_string(reason_codes),
-            len(reason_codes),
+        self._inner = GleanPingType(
+            name, include_client_id, send_if_empty, reason_codes
         )
         self._test_callback = None  # type: Optional[Callable[[Optional[str]], None]]
-        Glean.register_ping_type(self)
-
-    def __del__(self):
-        if self._handle != 0:
-            _ffi.lib.glean_destroy_ping_type(self._handle)
-
-    @property
-    def name(self) -&gt; str:
-        &#34;&#34;&#34;
-        Get the name of the ping.
-        &#34;&#34;&#34;
-        return self._name
 
     def test_before_next_submit(self, cb: Callable[[Optional[str]], None]):
         &#34;&#34;&#34;
@@ -87,7 +68,6 @@ class PingType:
         A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
         `send_if_empty` is `False`).
         &#34;&#34;&#34;
-        assert Dispatcher._testing_mode is True
         self._test_callback = cb
 
     def submit(self, reason: Optional[int] = None) -&gt; None:
@@ -109,7 +89,7 @@ class PingType:
             self._test_callback(reason_string)
             self._test_callback = None
 
-        Glean._submit_ping(self, reason_string)</code></pre>
+        self._inner.submit(reason_string)</code></pre>
 </details>
 </section>
 <section>
@@ -147,28 +127,11 @@ ping for eventual uploading.</p></div>
         The Ping API only exposes the `PingType.submit` method, which schedules a
         ping for eventual uploading.
         &#34;&#34;&#34;
-        self._name = name
         self._reason_codes = reason_codes
-        self._handle = _ffi.lib.glean_new_ping_type(
-            _ffi.ffi_encode_string(name),
-            include_client_id,
-            send_if_empty,
-            _ffi.ffi_encode_vec_string(reason_codes),
-            len(reason_codes),
+        self._inner = GleanPingType(
+            name, include_client_id, send_if_empty, reason_codes
         )
         self._test_callback = None  # type: Optional[Callable[[Optional[str]], None]]
-        Glean.register_ping_type(self)
-
-    def __del__(self):
-        if self._handle != 0:
-            _ffi.lib.glean_destroy_ping_type(self._handle)
-
-    @property
-    def name(self) -&gt; str:
-        &#34;&#34;&#34;
-        Get the name of the ping.
-        &#34;&#34;&#34;
-        return self._name
 
     def test_before_next_submit(self, cb: Callable[[Optional[str]], None]):
         &#34;&#34;&#34;
@@ -181,7 +144,6 @@ ping for eventual uploading.</p></div>
         A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
         `send_if_empty` is `False`).
         &#34;&#34;&#34;
-        assert Dispatcher._testing_mode is True
         self._test_callback = cb
 
     def submit(self, reason: Optional[int] = None) -&gt; None:
@@ -203,26 +165,8 @@ ping for eventual uploading.</p></div>
             self._test_callback(reason_string)
             self._test_callback = None
 
-        Glean._submit_ping(self, reason_string)</code></pre>
+        self._inner.submit(reason_string)</code></pre>
 </details>
-<h3>Instance variables</h3>
-<dl>
-<dt id="glean.metrics.ping.PingType.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
-<dd>
-<div class="desc"><p>Get the name of the ping.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def name(self) -&gt; str:
-    &#34;&#34;&#34;
-    Get the name of the ping.
-    &#34;&#34;&#34;
-    return self._name</code></pre>
-</details>
-</dd>
-</dl>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.metrics.ping.PingType.submit"><code class="name flex">
@@ -259,7 +203,7 @@ def name(self) -&gt; str:
         self._test_callback(reason_string)
         self._test_callback = None
 
-    Glean._submit_ping(self, reason_string)</code></pre>
+    self._inner.submit(reason_string)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.ping.PingType.test_before_next_submit"><code class="name flex">
@@ -287,7 +231,6 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     `send_if_empty` is `False`).
     &#34;&#34;&#34;
-    assert Dispatcher._testing_mode is True
     self._test_callback = cb</code></pre>
 </details>
 </dd>
@@ -312,7 +255,6 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 <li>
 <h4><code><a title="glean.metrics.ping.PingType" href="#glean.metrics.ping.PingType">PingType</a></code></h4>
 <ul class="">
-<li><code><a title="glean.metrics.ping.PingType.name" href="#glean.metrics.ping.PingType.name">name</a></code></li>
 <li><code><a title="glean.metrics.ping.PingType.submit" href="#glean.metrics.ping.PingType.submit">submit</a></code></li>
 <li><code><a title="glean.metrics.ping.PingType.test_before_next_submit" href="#glean.metrics.ping.PingType.test_before_next_submit">test_before_next_submit</a></code></li>
 </ul>

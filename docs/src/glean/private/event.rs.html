@@ -168,34 +168,13 @@
 <span id="163">163</span>
 <span id="164">164</span>
 <span id="165">165</span>
-<span id="166">166</span>
-<span id="167">167</span>
-<span id="168">168</span>
-<span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
-<span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
 
 <span class="kw">use</span> <span class="ident">inherent::inherent</span>;
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::HashMap</span>, <span class="ident">marker::PhantomData</span>, <span class="ident">sync::Arc</span>};
+<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">collections::HashMap</span>, <span class="ident">marker::PhantomData</span>};
 
-<span class="kw">use</span> <span class="ident">glean_core::metrics::MetricType</span>;
 <span class="kw">use</span> <span class="ident">glean_core::traits</span>;
 
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">ErrorType</span>, <span class="ident">RecordedEvent</span>};
@@ -214,7 +193,7 @@
 <span class="doccomment">/// registered in the metrics.yaml file.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">EventMetric</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">inner</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">glean_core::metrics::EventMetric</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">inner</span>: <span class="ident">glean_core::metrics::EventMetric</span>,
     <span class="ident">extra_keys</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span>,
 }
 
@@ -222,10 +201,7 @@
     <span class="doccomment">/// The public constructor used by automatically generated metrics.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">meta</span>: <span class="ident">glean_core::CommonMetricData</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> <span class="ident">allowed_extra_keys</span> <span class="op">=</span> <span class="ident">K::ALLOWED_KEYS</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">to_string</span>()).<span class="ident">collect</span>();
-        <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">glean_core::metrics::EventMetric::new</span>(
-            <span class="ident">meta</span>,
-            <span class="ident">allowed_extra_keys</span>,
-        ));
+        <span class="kw">let</span> <span class="ident">inner</span> <span class="op">=</span> <span class="ident">glean_core::metrics::EventMetric::new</span>(<span class="ident">meta</span>, <span class="ident">allowed_extra_keys</span>);
         <span class="self">Self</span> {
             <span class="ident">inner</span>,
             <span class="ident">extra_keys</span>: <span class="ident">PhantomData</span>,
@@ -236,54 +212,8 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// It&#39;s the caller&#39;s responsibility to ensure the timestamp comes from the same clock source.</span>
     <span class="doccomment">/// Use [`glean::get_timestamp_ms`](crate::get_timestamp_ms) to get a valid timestamp.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">record_with_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timestamp</span>: <span class="ident">u64</span>, <span class="ident">extra</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">String</span><span class="op">&gt;</span>) {
-        <span class="kw">let</span> <span class="ident">metric</span> <span class="op">=</span> <span class="ident">Arc::clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">inner</span>);
-        <span class="ident"><span class="kw">crate</span>::launch_with_glean</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="ident">metric</span>.<span class="ident">record</span>(<span class="ident">glean</span>, <span class="ident">timestamp</span>, <span class="prelude-val">Some</span>(<span class="ident">extra</span>)));
-    }
-}
-
-<span class="attribute">#[<span class="ident">inherent</span>(<span class="kw">pub</span>)]</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">traits::ExtraKeys</span><span class="op">&gt;</span> <span class="ident">traits::Event</span> <span class="kw">for</span> <span class="ident">EventMetric</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
-    <span class="kw">type</span> <span class="ident">Extra</span> <span class="op">=</span> <span class="ident">K</span>;
-
-    <span class="kw">fn</span> <span class="ident">record</span><span class="op">&lt;</span><span class="ident">M</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">traits::Event</span><span class="op">&gt;</span><span class="ident">::Extra</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">extra</span>: <span class="ident">M</span>) {
-        <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::get_timestamp_ms</span>();
-
-        <span class="comment">// Translate from {ExtraKey -&gt; String} to a [Int -&gt; String] map</span>
-        <span class="kw">let</span> <span class="ident">extra</span> <span class="op">=</span> <span class="ident">extra</span>.<span class="ident">into</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">into_ffi_extra</span>());
-        <span class="kw">let</span> <span class="ident">metric</span> <span class="op">=</span> <span class="ident">Arc::clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">inner</span>);
-        <span class="ident"><span class="kw">crate</span>::launch_with_glean</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="ident">metric</span>.<span class="ident">record</span>(<span class="ident">glean</span>, <span class="ident">now</span>, <span class="ident">extra</span>));
-    }
-
-    <span class="kw">fn</span> <span class="ident">test_get_value</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">ping_name</span>: <span class="ident">S</span>,
-    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RecordedEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="ident"><span class="kw">crate</span>::block_on_dispatcher</span>();
-
-        <span class="kw">let</span> <span class="ident">queried_ping_name</span> <span class="op">=</span> <span class="ident">ping_name</span>
-            .<span class="ident">into</span>()
-            .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">meta</span>().<span class="ident">send_in_pings</span>[<span class="number">0</span>]);
-
-        <span class="ident"><span class="kw">crate</span>::with_glean</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">test_get_value</span>(<span class="ident">glean</span>, <span class="ident">queried_ping_name</span>))
-    }
-
-    <span class="kw">fn</span> <span class="ident">test_get_num_recorded_errors</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">error</span>: <span class="ident">ErrorType</span>,
-        <span class="ident">ping_name</span>: <span class="ident">S</span>,
-    ) -&gt; <span class="ident">i32</span> {
-        <span class="ident"><span class="kw">crate</span>::block_on_dispatcher</span>();
-
-        <span class="ident"><span class="kw">crate</span>::with_glean_mut</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> {
-            <span class="ident">glean_core::test_get_num_recorded_errors</span>(
-                <span class="ident">glean</span>,
-                <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">meta</span>(),
-                <span class="ident">error</span>,
-                <span class="ident">ping_name</span>.<span class="ident">into</span>(),
-            )
-            .<span class="ident">unwrap_or</span>(<span class="number">0</span>)
-        })
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">record_with_time</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">timestamp</span>: <span class="ident">u64</span>, <span class="ident">extra</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span>) {
+        <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">record_with_time</span>(<span class="ident">timestamp</span>, <span class="ident">extra</span>);
     }
 }
 
@@ -327,10 +257,10 @@
         <span class="kw">impl</span> <span class="ident">glean_core::traits::ExtraKeys</span> <span class="kw">for</span> <span class="ident">SomeExtra</span> {
             <span class="kw">const</span> <span class="ident">ALLOWED_KEYS</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="ident">str</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;key2&quot;</span>];
 
-            <span class="kw">fn</span> <span class="ident">into_ffi_extra</span>(<span class="self">self</span>) -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">String</span><span class="op">&gt;</span> {
+            <span class="kw">fn</span> <span class="ident">into_ffi_extra</span>(<span class="self">self</span>) -&gt; <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">map</span> <span class="op">=</span> <span class="ident">HashMap::new</span>();
-                <span class="self">self</span>.<span class="ident">key1</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">key1</span><span class="op">|</span> <span class="ident">map</span>.<span class="ident">insert</span>(<span class="number">0</span>, <span class="ident">key1</span>));
-                <span class="self">self</span>.<span class="ident">key2</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">key2</span><span class="op">|</span> <span class="ident">map</span>.<span class="ident">insert</span>(<span class="number">1</span>, <span class="ident">key2</span>));
+                <span class="self">self</span>.<span class="ident">key1</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">key1</span><span class="op">|</span> <span class="ident">map</span>.<span class="ident">insert</span>(<span class="string">&quot;key1&quot;</span>.<span class="ident">into</span>(), <span class="ident">key1</span>));
+                <span class="self">self</span>.<span class="ident">key2</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">key2</span><span class="op">|</span> <span class="ident">map</span>.<span class="ident">insert</span>(<span class="string">&quot;key2&quot;</span>.<span class="ident">into</span>(), <span class="ident">key2</span>));
                 <span class="ident">map</span>
             }
         }
@@ -371,6 +301,36 @@
         <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">map</span>), <span class="ident">data</span>[<span class="number">1</span>].<span class="ident">extra</span>);
 
         <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, <span class="ident">data</span>[<span class="number">2</span>].<span class="ident">extra</span>);
+    }
+}
+
+<span class="attribute">#[<span class="ident">inherent</span>]</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">K</span>: <span class="ident">traits::ExtraKeys</span><span class="op">&gt;</span> <span class="ident">traits::Event</span> <span class="kw">for</span> <span class="ident">EventMetric</span><span class="op">&lt;</span><span class="ident">K</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Extra</span> <span class="op">=</span> <span class="ident">K</span>;
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">record</span><span class="op">&lt;</span><span class="ident">M</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="op">&lt;</span><span class="self">Self</span> <span class="kw">as</span> <span class="ident">traits::Event</span><span class="op">&gt;</span><span class="ident">::Extra</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">extra</span>: <span class="ident">M</span>) {
+        <span class="kw">let</span> <span class="ident">extra</span> <span class="op">=</span> <span class="ident">extra</span>
+            .<span class="ident">into</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">into_ffi_extra</span>())
+            .<span class="ident">unwrap_or_else</span>(<span class="ident">HashMap::new</span>);
+        <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">record</span>(<span class="ident">extra</span>);
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_get_value</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">ping_name</span>: <span class="ident">S</span>,
+    ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RecordedEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">ping_name</span> <span class="op">=</span> <span class="ident">ping_name</span>.<span class="ident">into</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">to_string</span>());
+        <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">test_get_value</span>(<span class="ident">ping_name</span>)
+    }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_get_num_recorded_errors</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">error</span>: <span class="ident">ErrorType</span>,
+        <span class="ident">ping_name</span>: <span class="ident">S</span>,
+    ) -&gt; <span class="ident">i32</span> {
+        <span class="kw">let</span> <span class="ident">ping_name</span> <span class="op">=</span> <span class="ident">ping_name</span>.<span class="ident">into</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">to_string</span>());
+        <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">test_get_num_recorded_errors</span>(<span class="ident">error</span>, <span class="ident">ping_name</span>)
     }
 }
 </code></pre></div>
