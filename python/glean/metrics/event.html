@@ -102,7 +102,7 @@ class EventMetricType:
 
         self._inner.record(extra)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; List[RecordedEvent]:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[List[RecordedEvent]]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -259,7 +259,7 @@ enforced.</p></div>
 
         self._inner.record(extra)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; List[RecordedEvent]:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[List[RecordedEvent]]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -383,7 +383,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.event.EventMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> List[glean._uniffi.RecordedEvent]</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[List[glean._uniffi.RecordedEvent]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -399,7 +399,7 @@ of the ping to retrieve the metric for.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; List[RecordedEvent]:
+<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[List[RecordedEvent]]:
     &#34;&#34;&#34;
     Returns the stored value for testing purposes only.
 

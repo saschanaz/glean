@@ -69,7 +69,7 @@ class UrlMetricType:
 
         self._inner.set(value)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
         return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
@@ -137,7 +137,7 @@ See <a href="https://mozilla.github.io/glean/book/reference/metrics/url.html#lim
 
         self._inner.set(value)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
         return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
@@ -192,7 +192,7 @@ the URL exceeds the maximum length, it will not be recorded.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.url.UrlMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> str</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[str]</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -200,7 +200,7 @@ the URL exceeds the maximum length, it will not be recorded.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
     return self._inner.test_get_value(ping_name)</code></pre>
 </details>
 </dd>

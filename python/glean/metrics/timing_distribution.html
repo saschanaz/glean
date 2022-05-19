@@ -124,7 +124,9 @@ class TimingDistributionMetricType:
         &#34;&#34;&#34;
         return self._TimingDistributionContextManager(self)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; DistributionData:
+    def test_get_value(
+        self, ping_name: Optional[str] = None
+    ) -&gt; Optional[DistributionData]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -263,7 +265,9 @@ previously registered in the metrics.yaml file.</p></div>
         &#34;&#34;&#34;
         return self._TimingDistributionContextManager(self)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; DistributionData:
+    def test_get_value(
+        self, ping_name: Optional[str] = None
+    ) -&gt; Optional[DistributionData]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -450,7 +454,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> glean._uniffi.DistributionData</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[glean._uniffi.DistributionData]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -466,7 +470,9 @@ of the ping to retrieve the metric for.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; DistributionData:
+<pre><code class="python">def test_get_value(
+    self, ping_name: Optional[str] = None
+) -&gt; Optional[DistributionData]:
     &#34;&#34;&#34;
     Returns the stored value for testing purposes only.
 

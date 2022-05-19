@@ -68,7 +68,7 @@ class StringMetricType:
 
         self._inner.set(value)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
         return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
@@ -134,7 +134,7 @@ enforced.</p></div>
 
         self._inner.set(value)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
         return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
@@ -189,7 +189,7 @@ the string exceeds the maximum length, it will be truncated.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.string.StringMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> str</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[str]</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -197,7 +197,7 @@ the string exceeds the maximum length, it will be truncated.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
     return self._inner.test_get_value(ping_name)</code></pre>
 </details>
 </dd>

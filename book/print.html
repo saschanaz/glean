@@ -11087,6 +11087,47 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v44.2.0...main">Full changelog</a></p>
+<p>This release is a major refactoring of the internals and contains several breaking changes to exposed APIs.
+Exposed functionality should be unaffected.
+See below for details.</p>
+<ul>
+<li>General
+<ul>
+<li>Switch to UniFFI-defined and -generated APIs for all 3 foreign-language SDKs</li>
+<li>The task dispatcher has been moved to Rust for all foreign-language SDKs</li>
+<li>Updated to <code>glean_parser</code> v6.0.0</li>
+</ul>
+</li>
+<li>Swift
+<ul>
+<li><code>testGetValue</code> on all metric types now returns <code>nil</code> when no data is recorded instead of throwing an exception.</li>
+<li><code>testGetValue</code> on metrics with more complex data now return new objects for inspection.
+See the respective documentation for details.</li>
+<li><code>testHasValue</code> on all metric types is deprecated.
+It is currently still available as extension methods.
+Use <code>testGetValue</code> with not-null checks.</li>
+</ul>
+</li>
+<li>Kotlin
+<ul>
+<li><code>testGetValue</code> on all metric types now returns <code>null</code> when no data is recorded instead of throwing an exception.</li>
+<li><code>testGetValue</code> on metrics with more complex data now return new objects for inspection.
+See the respective documentation for details.</li>
+<li><code>testHasValue</code> on all metric types is deprecated.
+It is currently still available as extension methods and thus require an additional import. Use <code>testGetValue</code> with not-null checks.</li>
+<li>On <code>TimingDistributionMetric</code>, <code>CustomDistributionMetric</code>, <code>MemoryDistributionMetric</code> the <code>accumulateSamples</code> method now takes a <code>List&lt;Long&gt;</code> instead of <code>LongArray</code>.
+Use <code>listOf</code> instead of <code>longArrayOf</code> or call <code>.toList</code></li>
+</ul>
+</li>
+<li><code>TimingDistributionMetricType.start</code> now always returns a valid <code>TimerId</code>, <code>TimingDistributionMetricType.stopAndAccumulate</code> always requires a <code>TimerId</code>.</li>
+<li>Python
+<ul>
+<li><code>test_get_value</code> on all metric types now returns <code>None</code> when no data is recorded instead of throwing an exception.</li>
+<li><code>test_has_value</code> on all metric types was removed.
+Use <code>test_get_value</code> with not-null checks.</li>
+</ul>
+</li>
+</ul>
 <h1 id="v4420-2022-05-16"><a class="header" href="#v4420-2022-05-16">v44.2.0 (2022-05-16)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v44.1.1...v44.2.0">Full changelog</a></p>
 <ul>

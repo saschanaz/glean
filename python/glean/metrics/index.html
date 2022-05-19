@@ -771,7 +771,7 @@ enforced.</p></div>
 
         self._inner.record(extra)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; List[RecordedEvent]:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[List[RecordedEvent]]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -895,7 +895,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.EventMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> List[glean._uniffi.RecordedEvent]</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[List[glean._uniffi.RecordedEvent]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -911,7 +911,7 @@ of the ping to retrieve the metric for.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; List[RecordedEvent]:
+<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[List[RecordedEvent]]:
     &#34;&#34;&#34;
     Returns the stored value for testing purposes only.
 
@@ -1695,7 +1695,7 @@ enforced.</p></div>
 
         self._inner.set(value)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
         return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
@@ -1750,7 +1750,7 @@ the string exceeds the maximum length, it will be truncated.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.StringMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> str</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[str]</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -1758,7 +1758,7 @@ the string exceeds the maximum length, it will be truncated.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
     return self._inner.test_get_value(ping_name)</code></pre>
 </details>
 </dd>
@@ -1948,7 +1948,7 @@ previously registered in the metrics.yaml file.</p>
         &#34;&#34;&#34;
         self._inner.set_raw_nanos(elapsed_nanos)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; int:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[int]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -2145,7 +2145,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.TimespanMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> int</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[int]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -2161,7 +2161,7 @@ of the ping to retrieve the metric for.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; int:
+<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[int]:
     &#34;&#34;&#34;
     Returns the stored value for testing purposes only.
 
@@ -2273,7 +2273,9 @@ previously registered in the metrics.yaml file.</p></div>
         &#34;&#34;&#34;
         return self._TimingDistributionContextManager(self)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; DistributionData:
+    def test_get_value(
+        self, ping_name: Optional[str] = None
+    ) -&gt; Optional[DistributionData]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -2460,7 +2462,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.TimingDistributionMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> glean._uniffi.DistributionData</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[glean._uniffi.DistributionData]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -2476,7 +2478,9 @@ of the ping to retrieve the metric for.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; DistributionData:
+<pre><code class="python">def test_get_value(
+    self, ping_name: Optional[str] = None
+) -&gt; Optional[DistributionData]:
     &#34;&#34;&#34;
     Returns the stored value for testing purposes only.
 
@@ -2539,7 +2543,7 @@ See <a href="https://mozilla.github.io/glean/book/reference/metrics/url.html#lim
 
         self._inner.set(value)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
         return self._inner.test_get_value(ping_name)
 
     def test_get_num_recorded_errors(
@@ -2594,7 +2598,7 @@ the URL exceeds the maximum length, it will not be recorded.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.UrlMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> str</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[str]</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -2602,7 +2606,7 @@ the URL exceeds the maximum length, it will not be recorded.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; str:
+<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[str]:
     return self._inner.test_get_value(ping_name)</code></pre>
 </details>
 </dd>

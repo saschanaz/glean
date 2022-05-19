@@ -131,7 +131,7 @@ class TimespanMetricType:
         &#34;&#34;&#34;
         self._inner.set_raw_nanos(elapsed_nanos)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; int:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[int]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -280,7 +280,7 @@ previously registered in the metrics.yaml file.</p>
         &#34;&#34;&#34;
         self._inner.set_raw_nanos(elapsed_nanos)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; int:
+    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[int]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -477,7 +477,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.timespan.TimespanMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> int</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[int]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -493,7 +493,7 @@ of the ping to retrieve the metric for.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; int:
+<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[int]:
     &#34;&#34;&#34;
     Returns the stored value for testing purposes only.
 
