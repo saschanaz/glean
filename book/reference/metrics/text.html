@@ -164,17 +164,41 @@ Reach out to the Glean team before using this.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Article
+
+Article.content.set(extractedText)
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Article;
+
+Article.INSTANCE.content().set(extractedText);
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">Article.content.set(extractedText)
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+metrics.article.content.set(extracted_text)
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean_metrics::article;
+
+article::content.set(extracted_text);
+</code></pre>
+</div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as article from &quot;./path/to/generated/files/article.js&quot;;
 
 article.content.set(extractedText);
 </code></pre>
 </div>
-<div data-lang="Rust" class="tab"></div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
@@ -193,21 +217,47 @@ Longer text is truncated. This is measured in the number of bytes when the strin
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given text metric.</p>
+<p>Gets the recorded value for a given text metric.<br />
+Returns the string if data is stored.<br />
+Returns <code>null</code> if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Article
+
+assertEquals(&quot;some content&quot;, Article.content.testGetValue())
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Article;
+
+assertEquals(&quot;some content&quot;, Article.INSTANCE.content().testGetValue());
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">XCTAssertEqual(&quot;some content&quot;, Article.content.testGetValue())
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+assert &quot;some content&quot; == metrics.article.content.test_get_value()
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean_metrics::article;
+
+assert_eq!(&quot;some content&quot;, article::content.test_get_value(None).unwrap());
+</code></pre>
+</div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as article from &quot;./path/to/generated/files/article.js&quot;;
 
 assert.strictEqual(&quot;some content&quot;, await article.content.testGetValue());
 </code></pre>
 </div>
-<div data-lang="Rust" class="tab"></div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
@@ -216,10 +266,55 @@ assert.strictEqual(&quot;some content&quot;, await article.content.testGetValue(
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Article
+
+// Was the string truncated, and an error reported?
+assertEquals(
+    0,
+    Article.content.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+)
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Article;
+
+// Was the string truncated, and an error reported?
+assertEquals(
+    0,
+    Article.content.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+);
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">// Was the string truncated, and an error reported?
+XCTAssertEqual(0, Article.content.testGetNumRecordedErrors(.invalidOverflow))
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+# Was the string truncated, and an error reported?
+assert 0 == metrics.article.content.test_get_num_recorded_errors(
+    ErrorType.INVALID_OVERFLOW
+)
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::article;
+
+// Was the string truncated, and an error reported?
+assert_eq!(
+  0,
+  article::content.test_get_num_recorded_errors(
+    ErrorType::InvalidOverflow,
+    None
+  )
+);
+</code></pre>
+</div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as article from &quot;./path/to/generated/files/article.js&quot;;
 import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
@@ -230,7 +325,6 @@ assert.strictEqual(
 );
 </code></pre>
 </div>
-<div data-lang="Rust" class="tab"></div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>

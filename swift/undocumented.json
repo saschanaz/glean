@@ -1774,573 +1774,636 @@
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
       "line": 3032,
+      "symbol": "TextMetricProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
+      "line": 3033,
+      "symbol": "TextMetricProtocol.set(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
+      "line": 3034,
+      "symbol": "TextMetricProtocol.testGetValue(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
+      "line": 3035,
+      "symbol": "TextMetricProtocol.testGetNumRecordedErrors(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
+      "line": 3039,
+      "symbol": "TextMetric",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
+      "line": 3048,
+      "symbol": "TextMetric.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
+      "line": 3065,
+      "symbol": "TextMetric.set(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
+      "line": 3074,
+      "symbol": "TextMetric.testGetValue(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
+      "line": 3085,
+      "symbol": "TextMetric.testGetNumRecordedErrors(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
+      "line": 3131,
       "symbol": "InternalConfiguration",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3033,
+      "line": 3132,
       "symbol": "InternalConfiguration.dataPath",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3034,
+      "line": 3133,
       "symbol": "InternalConfiguration.applicationId",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3035,
+      "line": 3134,
       "symbol": "InternalConfiguration.languageBindingName",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3036,
+      "line": 3135,
       "symbol": "InternalConfiguration.uploadEnabled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3037,
+      "line": 3136,
       "symbol": "InternalConfiguration.maxEvents",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3038,
+      "line": 3137,
       "symbol": "InternalConfiguration.delayPingLifetimeIo",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3039,
+      "line": 3138,
       "symbol": "InternalConfiguration.appBuild",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3040,
+      "line": 3139,
       "symbol": "InternalConfiguration.useCoreMps",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3044,
+      "line": 3143,
       "symbol": "InternalConfiguration.init(dataPath:applicationId:languageBindingName:uploadEnabled:maxEvents:delayPingLifetimeIo:appBuild:useCoreMps:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3057,
+      "line": 3156,
       "symbol": "InternalConfiguration",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3125,
+      "line": 3224,
       "symbol": "ClientInfoMetrics",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3126,
+      "line": 3225,
       "symbol": "ClientInfoMetrics.appBuild",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3127,
+      "line": 3226,
       "symbol": "ClientInfoMetrics.appDisplayVersion",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3128,
+      "line": 3227,
       "symbol": "ClientInfoMetrics.appBuildDate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3129,
+      "line": 3228,
       "symbol": "ClientInfoMetrics.architecture",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3130,
+      "line": 3229,
       "symbol": "ClientInfoMetrics.osVersion",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3131,
+      "line": 3230,
       "symbol": "ClientInfoMetrics.channel",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3132,
+      "line": 3231,
       "symbol": "ClientInfoMetrics.locale",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3133,
+      "line": 3232,
       "symbol": "ClientInfoMetrics.deviceManufacturer",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3134,
+      "line": 3233,
       "symbol": "ClientInfoMetrics.deviceModel",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3135,
+      "line": 3234,
       "symbol": "ClientInfoMetrics.androidSdkVersion",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3139,
+      "line": 3238,
       "symbol": "ClientInfoMetrics.init(appBuild:appDisplayVersion:appBuildDate:architecture:osVersion:channel:locale:deviceManufacturer:deviceModel:androidSdkVersion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3154,
+      "line": 3253,
       "symbol": "ClientInfoMetrics",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3234,
+      "line": 3333,
       "symbol": "RecordedExperiment",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3235,
+      "line": 3334,
       "symbol": "RecordedExperiment.branch",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3236,
+      "line": 3335,
       "symbol": "RecordedExperiment.extra",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3240,
+      "line": 3339,
       "symbol": "RecordedExperiment.init(branch:extra:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3247,
+      "line": 3346,
       "symbol": "RecordedExperiment",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3279,
+      "line": 3378,
       "symbol": "PingRequest",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3280,
+      "line": 3379,
       "symbol": "PingRequest.documentId",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3281,
+      "line": 3380,
       "symbol": "PingRequest.path",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3282,
+      "line": 3381,
       "symbol": "PingRequest.body",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3283,
+      "line": 3382,
       "symbol": "PingRequest.headers",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3287,
+      "line": 3386,
       "symbol": "PingRequest.init(documentId:path:body:headers:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3296,
+      "line": 3395,
       "symbol": "PingRequest",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3340,
+      "line": 3439,
       "symbol": "CommonMetricData",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3341,
+      "line": 3440,
       "symbol": "CommonMetricData.category",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3342,
+      "line": 3441,
       "symbol": "CommonMetricData.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3343,
+      "line": 3442,
       "symbol": "CommonMetricData.sendInPings",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3344,
+      "line": 3443,
       "symbol": "CommonMetricData.lifetime",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3345,
+      "line": 3444,
       "symbol": "CommonMetricData.disabled",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3346,
+      "line": 3445,
       "symbol": "CommonMetricData.dynamicLabel",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3350,
+      "line": 3449,
       "symbol": "CommonMetricData.init(category:name:sendInPings:lifetime:disabled:dynamicLabel:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3361,
+      "line": 3460,
       "symbol": "CommonMetricData",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3417,
+      "line": 3516,
       "symbol": "DistributionData",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3418,
+      "line": 3517,
       "symbol": "DistributionData.values",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3419,
+      "line": 3518,
       "symbol": "DistributionData.sum",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3423,
+      "line": 3522,
       "symbol": "DistributionData.init(values:sum:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3430,
+      "line": 3529,
       "symbol": "DistributionData",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3462,
+      "line": 3561,
       "symbol": "TimerId",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3463,
+      "line": 3562,
       "symbol": "TimerId.id",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3467,
+      "line": 3566,
       "symbol": "TimerId.init(id:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3473,
+      "line": 3572,
       "symbol": "TimerId",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3499,
+      "line": 3598,
       "symbol": "Datetime",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3500,
+      "line": 3599,
       "symbol": "Datetime.year",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3501,
+      "line": 3600,
       "symbol": "Datetime.month",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3502,
+      "line": 3601,
       "symbol": "Datetime.day",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3503,
+      "line": 3602,
       "symbol": "Datetime.hour",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3504,
+      "line": 3603,
       "symbol": "Datetime.minute",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3505,
+      "line": 3604,
       "symbol": "Datetime.second",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3506,
+      "line": 3605,
       "symbol": "Datetime.nanosecond",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3507,
+      "line": 3606,
       "symbol": "Datetime.offsetSeconds",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3511,
+      "line": 3610,
       "symbol": "Datetime.init(year:month:day:hour:minute:second:nanosecond:offsetSeconds:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3524,
+      "line": 3623,
       "symbol": "Datetime",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3592,
+      "line": 3691,
       "symbol": "RecordedEvent",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3593,
+      "line": 3692,
       "symbol": "RecordedEvent.timestamp",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3594,
+      "line": 3693,
       "symbol": "RecordedEvent.category",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3595,
+      "line": 3694,
       "symbol": "RecordedEvent.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3596,
+      "line": 3695,
       "symbol": "RecordedEvent.extra",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3600,
+      "line": 3699,
       "symbol": "RecordedEvent.init(timestamp:category:name:extra:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3609,
+      "line": 3708,
       "symbol": "RecordedEvent",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3653,
+      "line": 3752,
       "symbol": "Rate",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3654,
+      "line": 3753,
       "symbol": "Rate.numerator",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3655,
+      "line": 3754,
       "symbol": "Rate.denominator",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3659,
+      "line": 3758,
       "symbol": "Rate.init(numerator:denominator:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3666,
+      "line": 3765,
       "symbol": "Rate",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3701,
+      "line": 3800,
       "symbol": "OnGleanEvents",
       "symbol_kind": "source.lang.swift.decl.protocol",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3702,
+      "line": 3801,
       "symbol": "OnGleanEvents.onInitializeFinished()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3703,
+      "line": 3802,
       "symbol": "OnGleanEvents.triggerUpload()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3704,
+      "line": 3803,
       "symbol": "OnGleanEvents.startMetricsPingScheduler()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 3705,
+      "line": 3804,
       "symbol": "OnGleanEvents.cancelUploads()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
