@@ -185,16 +185,12 @@ metrics.user.client_id.generate_and_set()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
-use uuid::Uuid;
+<pre><code class="language-Rust">use uuid::Uuid;
+use glean_metrics::user;
 
 // Generate a new UUID and record it
 user::client_id.generate_and_set();
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as user from &quot;./path/to/generated/files/user.js&quot;;
@@ -251,16 +247,12 @@ metrics.user.client_id.set(uuid.uuid4())
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
-use uuid::Uuid;
+<pre><code class="language-Rust">use uuid::Uuid;
+use glean_metrics::user;
 
 // Set a UUID explicitly
 user::client_id.set(Uuid::new_v4());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as user from &quot;./path/to/generated/files/user.js&quot;;
@@ -292,7 +284,9 @@ Glean.user.clientId.set(uuid);
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given UUID metric.</p>
+<p>Gets the recorded value for a given UUID metric.<br />
+Returns a UUID if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -324,17 +318,13 @@ assert uuid == metrics.user.client_id.test_get_value()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
-use uuid::Uuid;
+<pre><code class="language-Rust">use uuid::Uuid;
+use glean_metrics::user;
 
 let u = Uuid::new_v4();
 // Does it have the expected value?
 assert_eq!(u, user::client_id.test_get_value(None).unwrap());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as user from &quot;./path/to/generated/files/user.js&quot;;
@@ -360,45 +350,8 @@ Assert.equal(Glean.user.clientId.testGetValue(), uuid);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given UUID metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.User
-
-// Was anything recorded?
-assertTrue(User.clientId.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.User;
-
-// Was anything recorded?
-assertTrue(User.INSTANCE.clientId.testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(User.clientId.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.user.client_id.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given UUID metric.</p>
+<p>Gets the number of errors recorded for a given UUID metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -406,7 +359,8 @@ assert metrics.user.client_id.test_has_value()
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.User
 
 assertEquals(
-    1, User.clientId.testGetNumRecordedErrors(ErrorType.InvalidValue)
+    0,
+    User.clientId.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 )
 </code></pre>
 </div>
@@ -414,12 +368,13 @@ assertEquals(
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.User;
 
 assertEquals(
-    1, User.INSTANCE.clientId.testGetNumRecordedErrors(ErrorType.InvalidValue)
+    0,
+    User.INSTANCE.clientId.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertEqual(1, User.clientId.testGetNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(0, User.clientId.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -428,27 +383,22 @@ metrics = load_metrics(&quot;metrics.yaml&quot;)
 
 from glean.testing import ErrorType
 
-assert 1 == metrics.user.client_id.test_get_num_recorded_errors(
+assert 0 == metrics.user.client_id.test_get_num_recorded_errors(
     ErrorType.INVALID_VALUE
 )
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::user;
 
 assert_eq!(
-  1,
+  0,
   user::client_id.test_get_num_recorded_errors(
     ErrorType::InvalidValue
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as user from &quot;./path/to/generated/files/user.js&quot;;
@@ -456,7 +406,7 @@ import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
 // Was the string truncated, and an error reported?
 assert.strictEqual(
-  1,
+  0,
   await user.clientId.testGetNumRecordedErrors(ErrorType.InvalidValue)
 );
 </code></pre>

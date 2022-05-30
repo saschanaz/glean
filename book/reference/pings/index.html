@@ -324,8 +324,7 @@ assert callback_was_called[0]
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean::Pings;
-use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::{search, pings};
 
 // Record some data.
 search::default_engine.add(5);

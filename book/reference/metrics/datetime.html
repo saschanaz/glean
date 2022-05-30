@@ -195,7 +195,7 @@ metrics.install.first_run.set(datetime.datetime(2019, 3, 25)) # Records a custom
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::install;
 
 use chrono::{FixedOffset, TimeZone};
 
@@ -232,7 +232,8 @@ Glean.install.firstRun.set(value.getTime() * 1000);
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Get the recorded value for a given datetime metric as a language-specific Date object.</p>
+<p>Get the recorded value for a given datetime metric as a language-specific Datetime object.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -267,7 +268,7 @@ assert value == metrics.install.first_run.test_get_value()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::install;
 
 use chrono::{FixedOffset, TimeZone};
 
@@ -304,7 +305,9 @@ Assert.equal(Glean.install.firstRun.testGetValue().getTime(), value.getTime());
 </div>
 </div>
 <h3 id="testgetvalueasstring"><a class="header" href="#testgetvalueasstring"><code>testGetValueAsString</code></a></h3>
-<p>Get the recorded value for a given datetime metric as an <a href="https://en.wikipedia.org/wiki/ISO_8601#Dates">ISO Date String</a>.</p>
+<p>Get the recorded value for a given datetime metric as an <a href="https://en.wikipedia.org/wiki/ISO_8601#Dates">ISO Date String</a>.<br />
+Returns a ISO 8601 date string if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <p>The returned string will be truncated to the metric's <a href="#time_unit">time unit</a>
 and will include the timezone offset from UTC, e.g. <code>2019-03-25-05:00</code>
 (in this example, <code>time_unit</code> is <code>day</code>).</p>
@@ -344,39 +347,6 @@ assert.strictEqual(&quot;2019-03-25-05:00&quot;, await install.firstRun.testGetV
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given datetime metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Install
-
-assertTrue(Install.firstRun.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Install;
-
-assertTrue(Install.INSTANCE.firstRun.testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(Install.firstRun.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.install.first_run.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Get number of errors recorded for a given datetime metric.</p>
 <div class="tabs">
@@ -386,14 +356,17 @@ assert metrics.install.first_run.test_has_value()
 <pre><code class="language-Kotlin">import mozilla.telemetry.glean.testing.ErrorType
 import org.mozilla.yourApplication.GleanMetrics.Install
 
-assertEquals(0, Install.firstRun.testGetNumRecordedErrors(ErrorType.InvalidValue))
+assertEquals(0, Install.firstRun.testGetNumRecordedErrors(ErrorType.INVALID_VALUE))
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import mozilla.telemetry.glean.testing.ErrorType
 import org.mozilla.yourApplication.GleanMetrics.Install;
 
-assertEquals(0, Install.INSTANCE.firstRun.testGetNumRecordedErrors(ErrorType.InvalidValue));
+assertEquals(
+    0,
+    Install.INSTANCE.firstRun.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -410,24 +383,23 @@ assert 0 == metrics.install.test_get_num_recorded_errors(
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::install;
 
-assert_eq!(0, install::first_run.test_get_num_recorded_errors(
-    ErrorType::InvalidValue
-));
-<span class="boring">}
-</span></code></pre></pre>
+assert_eq!(
+    0,
+    install::first_run.test_get_num_recorded_errors(
+        ErrorType::InvalidValue
+    )
+);
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as install from &quot;./path/to/generated/files/install.js&quot;;
 import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
 assert.strictEqual(
-  1,
+  0,
   await install.firstRun.testGetNumRecordedErrors(ErrorType.InvalidValue)
 );
 </code></pre>

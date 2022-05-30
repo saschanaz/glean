@@ -197,17 +197,13 @@ def on_show_login():
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;
 
 fn show_login() {
-    metrics::auth::login_time.start();
+    auth::login_time.start();
     // ...
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -305,17 +301,13 @@ def on_login():
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;;
 
 fn login() {
-    metrics::auth::login_time.stop();
+    auth::login_time.stop();
     // ...
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -389,17 +381,13 @@ def on_login_cancel():
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;
 
 fn login_cancel() {
-    metrics::auth::login_time.cancel();
+    auth::login_time.cancel();
     // ...
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -518,18 +506,14 @@ def after_login(login_elapsed_ns):
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
-use std::time::duration;
+<pre><code class="language-Rust">use std::time::duration;
+use glean_metrics::auth;
 
 fn after_login(login_elapsed: Duration) {
-    metrics::auth::login_time.set_raw(login_elapsed);
+    auth::login_time.set_raw(login_elapsed);
     // ...
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -573,7 +557,9 @@ void AfterLogin(uint32_t aDuration) {
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Get the currently-stored value.</p>
+<p>Get the currently-stored value.<br />
+Returns the timespan as a integer in the metric's time unit if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -590,7 +576,7 @@ assertTrue(Auth.INSTANCE.loginTime.testGetValue() &gt; 0);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(try Auth.loginTime.testGetValue() &gt; 0)
+<pre><code class="language-Swift">XCTAssert(Auth.loginTime.testGetValue() &gt; 0)
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -601,14 +587,10 @@ assert metrics.auth.login_time.test_get_value() &gt; 0
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;
 
-assert!(metrics::login_time.test_get_value().unwrap() &gt; 0);
-<span class="boring">}
-</span></code></pre></pre>
+assert!(auth::login_time.test_get_value().unwrap() &gt; 0);
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -630,48 +612,6 @@ Assert.ok(Glean.auth.loginTime.testGetValue() &gt; 0);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Test if the metric currently stores any value.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Auth
-
-assertTrue(Auth.loginTime.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
-
-assertTrue(Auth.INSTANCE.loginTime.testHasValue() &gt; 0);
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(try Auth.loginTime.testHasValue() &gt; 0)
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.auth.login_time.test_has_value() &gt; 0
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
-
-assert!(metrics::login_time.test_has_value().unwrap() &gt; 0);
-<span class="boring">}
-</span></code></pre></pre>
-</div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded during operations on this metric.</p>
 <div class="tabs">
@@ -680,42 +620,39 @@ assert!(metrics::login_time.test_has_value().unwrap() &gt; 0);
 <div data-lang="Kotlin" class="tab">
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Auth
 
-assertEquals(1, Auth.loginTime.testGetNumRecordedErrors(ErrorType.InvalidValue))
+assertEquals(
+    0,
+    Auth.loginTime.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 assertEquals(
-    1,
-    Auth.INSTANCE.loginTime.testGetNumRecordedErrors(
-        ErrorType.InvalidValue
-    )
+    0,
+    Auth.INSTANCE.loginTime.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertEqual(1, Auth.loginTime.testGetNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(0, Auth.loginTime.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
 <pre><code class="language-Python">from glean import load_metrics
 metrics = load_metrics(&quot;metrics.yaml&quot;)
 
-assert 1 == metrics.auth.local_time.test_get_num_recorded_errors(
+assert 0 == metrics.auth.local_time.test_get_num_recorded_errors(
     ErrorType.INVALID_VALUE
 )
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;
 
-assert_eq!(1, login_time.test_get_num_recorded_errors(ErrorType::InvalidValue));
-<span class="boring">}
-</span></code></pre></pre>
+assert_eq!(1, auth::login_time.test_get_num_recorded_errors(ErrorType::InvalidValue));
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;

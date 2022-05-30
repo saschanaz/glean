@@ -181,14 +181,10 @@ metrics.login.errors_by_stage[&quot;server_auth&quot;].set(&quot;Invalid passwor
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::login;
 
 login::errors_by_stage.get(&quot;server_auth&quot;).set(&quot;Invalid password&quot;);
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as login from &quot;./path/to/generated/files/login.js&quot;;
@@ -225,7 +221,9 @@ mozilla::glean::login::errors_by_stage.Get(&quot;server_auth&quot;_ns).Set(&quot
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given label in a labeled string metric.</p>
+<p>Gets the recorded value for a given label in a labeled string metric.<br />
+Returns the string if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -257,15 +255,11 @@ assert &quot;Invalid password&quot; == metrics.login.errors_by_stage[&quot;serve
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::login;
 
 // Does the metric have the expected value?
 assert!(login::errors_by_stage.get(&quot;server_auth&quot;).test_get_value());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as login from &quot;./path/to/generated/files/login.js&quot;;
@@ -291,40 +285,6 @@ ASSERT_STREQ(&quot;Invalid password&quot;,
 </div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given label in a labeled string metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Login
-
-// Was anything recorded?
-assertTrue(Login.errorsByStage[&quot;server_auth&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Login;
-
-// Was anything recorded?
-assertTrue(Login.INSTANCE.errorsByStage[&quot;server_auth&quot;].testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(Login.errorsByStage[&quot;server_auth&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python"># Was anything recorded?
-assert metrics.login.errors_by_stage[&quot;server_auth&quot;].test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded for a given labeled string metric in total.</p>
 <div class="tabs">
@@ -334,14 +294,20 @@ assert metrics.login.errors_by_stage[&quot;server_auth&quot;].test_has_value()
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Login
 
 // Were there any invalid labels?
-assertEquals(0, Login.errorsByStage.testGetNumRecordedErrors(ErrorType.InvalidLabel))
+assertEquals(
+    0,
+    Login.errorsByStage.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Login;
 
 // Were there any invalid labels?
-assertEquals(0, Login.INSTANCE.errorsByStage.testGetNumRecordedErrors(ErrorType.InvalidLabel));
+assertEquals(
+    0,
+    Login.INSTANCE.errorsByStage.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -360,12 +326,8 @@ assert 0 == metrics.login.errors_by_stage.test_get_num_recorded_errors(
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::login;
 
 // Were there any invalid labels?
 assert_eq!(
@@ -374,8 +336,7 @@ assert_eq!(
     ErrorType::InvalidLabel
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as login from &quot;./path/to/generated/files/login.js&quot;;

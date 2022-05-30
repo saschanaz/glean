@@ -192,15 +192,11 @@ metrics.stability.crash_count[&quot;native_code_crash&quot;].add(3)
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::stability;
 
 stability::crash_count.get(&quot;uncaught_exception&quot;).add(1); // Adds 1 to the &quot;uncaught_exception&quot; counter.
 stability::crash_count.get(&quot;native_code_crash&quot;).add(3); // Adds 3 to the &quot;native_code_crash&quot; counter.
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as stability from &quot;./path/to/generated/files/stability.js&quot;;
@@ -243,7 +239,9 @@ Glean.stability.crashCount[&quot;native_code_crash&quot;].add(3);
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given label in a labeled counter metric.</p>
+<p>Gets the recorded value for a given label in a labeled counter metric.<br />
+Returns the count if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -265,8 +263,8 @@ assertEquals(3, Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].tes
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Do the counters have the expected values?
-XCTAssertEqual(1, try Stability.crashCount[&quot;uncaught_exception&quot;].testGetValue())
-XCTAssertEqual(3, try Stability.crashCount[&quot;native_code_crash&quot;].testGetValue())
+XCTAssertEqual(1, Stability.crashCount[&quot;uncaught_exception&quot;].testGetValue())
+XCTAssertEqual(3, Stability.crashCount[&quot;native_code_crash&quot;].testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -279,16 +277,12 @@ assert 3 == metrics.stability.crash_count[&quot;native_code_crash&quot;].test_ge
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::stability;
 
 // Do the counters have the expected values?
 assert_eq!(1, stability::crash_count.get(&quot;uncaught_exception&quot;).test_get_value().unwrap());
 assert_eq!(3, stability::crash_count.get(&quot;native_code_crash&quot;).test_get_value().unwrap());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as stability from &quot;./path/to/generated/files/stability.js&quot;;
@@ -316,47 +310,6 @@ Assert.equal(3, Glean.stability.crashCount.native_code_crash.testGetValue());
 </div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given label in a labeled counter metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Stability
-
-// Was anything recorded?
-assertTrue(Stability.crashCount[&quot;uncaught_exception&quot;].testHasValue())
-assertTrue(Stability.crashCount[&quot;native_code_crash&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Stability;
-
-// Was anything recorded?
-assertTrue(Stability.INSTANCE.crashCount[&quot;uncaught_exception&quot;].testHasValue());
-assertTrue(Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(Stability.crashCount[&quot;uncaught_exception&quot;].testHasValue())
-XCTAssert(Stability.crashCount[&quot;native_code_crash&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.stability.crash_count[&quot;uncaught_exception&quot;].test_has_value()
-assert metrics.stability.crash_count[&quot;native_code_crash&quot;].test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded for a given labeled counter metric in total.</p>
 <div class="tabs">
@@ -366,14 +319,20 @@ assert metrics.stability.crash_count[&quot;native_code_crash&quot;].test_has_val
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Stabilit
 
 // Were there any invalid labels?
-assertEquals(0, Stability.crashCount.testGetNumRecordedErrors(ErrorType.InvalidLabel))
+assertEquals(
+    0,
+    Stability.crashCount.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Stability;
 
 // Were there any invalid labels?
-assertEquals(0, Stability.INSTANCE.crashCount.testGetNumRecordedErrors(ErrorType.InvalidLabel));
+assertEquals(
+    0,
+    Stability.INSTANCE.crashCount.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -392,12 +351,9 @@ assert 0 == metrics.stability.crash_count.test_get_num_recorded_errors(
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
+<pre><code class="language-Rust">use glean::ErrorType;
 
-use glean_metrics;
+use glean_metrics::stability;
 
 // Were there any invalid labels?
 assert_eq!(
@@ -406,8 +362,7 @@ assert_eq!(
     ErrorType::InvalidLabel
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as stability from &quot;./path/to/generated/files/stability.js&quot;;

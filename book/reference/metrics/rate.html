@@ -171,12 +171,92 @@ Instead, count to the numerator and denominator as you go.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Network
+
+if (connectionHadError) {
+    Network.httpConnectionError.addToNumerator(1)
+}
+
+Network.httpConnectionError.addToDenominator(1)
+</code></pre>
+<h4 id="external-denominators"><a class="header" href="#external-denominators">External Denominators</a></h4>
+<p>If the rate uses an external denominator,
+adding to the denominator must be done through the denominator's
+<a href="./counter.html#recording-api"><code>counter</code> API</a>:</p>
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Network
+
+if (connectionHadError) {
+    Network.httpConnectionError.addToNumerator(1)
+}
+
+Network.httpConnections.add(1)
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Network;
+
+if (connectionHadError) {
+    Network.INSTANCE.httpConnectionError().addToNumerator(1);
+}
+
+Network.IMPORTANT.httpConnectionError().addToDenominator(1);
+</code></pre>
+<h4 id="external-denominators-1"><a class="header" href="#external-denominators-1">External Denominators</a></h4>
+<p>If the rate uses an external denominator,
+adding to the denominator must be done through the denominator's
+<a href="./counter.html#recording-api"><code>counter</code> API</a>:</p>
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Network;
+
+if (connectionHadError) {
+    Network.INSTANCE.httpConnectionError().addToNumerator(1);
+}
+
+Network.INSTANCE.httpConnections().add(1)
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">if (connectionHadError) {
+    Network.httpConnectionError.addToNumerator(1)
+}
+
+Network.httpConnectionError.addToDenominator(1)
+</code></pre>
+<h4 id="external-denominators-2"><a class="header" href="#external-denominators-2">External Denominators</a></h4>
+<p>If the rate uses an external denominator,
+adding to the denominator must be done through the denominator's
+<a href="./counter.html#recording-api"><code>counter</code> API</a>:</p>
+<pre><code class="language-Swift">if (connectionHadError) {
+    Network.httpConnectionError.addToNumerator(1)
+}
+
+Network.httpConnections.add(1)
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+if connection_had_error:
+    metrics.network.http_connection_error.add_to_numerator(1)
+
+metrics.network.http_connection_error.add_to_denominator(1)
+</code></pre>
+<h4 id="external-denominators-3"><a class="header" href="#external-denominators-3">External Denominators</a></h4>
+<p>If the rate uses an external denominator,
+adding to the denominator must be done through the denominator's
+<a href="./counter.html#recording-api"><code>counter</code> API</a>:</p>
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+if connection_had_error:
+    metrics.network.http_connection_error.add_to_numerator(1)
+
+metrics.network.http_connections.add(1)
+</code></pre>
+</div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics::*;
+<pre><code class="language-Rust">use glean_metrics::network;
 
 if connection_had_error {
     network::http_connection_error.add_to_numerator(1);
@@ -184,11 +264,11 @@ if connection_had_error {
 
 network::http_connection_error.add_to_denominator(1);
 </code></pre>
-<h4 id="external-denominators"><a class="header" href="#external-denominators">External Denominators</a></h4>
+<h4 id="external-denominators-4"><a class="header" href="#external-denominators-4">External Denominators</a></h4>
 <p>If the rate uses an external denominator,
 adding to the denominator must be done through the denominator's
 <a href="./counter.html#recording-api"><code>counter</code> API</a>:</p>
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::network;
 
 if connection_had_error {
     network::http_connection_error.add_to_numerator(1);
@@ -197,7 +277,7 @@ if connection_had_error {
 network::http_connections.add(1);
 </code></pre>
 </div>
-<div data-lang="Javascript" class="tab">
+<div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as network from &quot;./path/to/generated/files/network.js&quot;;
 
 if (connectionHadError) {
@@ -212,13 +292,13 @@ network.httpConnectionError.addToDenominator(1);
 <pre><code class="language-cpp">#include &quot;mozilla/glean/GleanMetrics.h&quot;
 
 if (aHadError) {
-  mozilla::glean::network::http_connection_error.AddToNumerator(1);
+mozilla::glean::network::http_connection_error.AddToNumerator(1);
 }
 mozilla::glean::network::http_connection_error.AddToDenominator(1);
 </code></pre>
 <p><strong>JavaScript</strong></p>
 <pre><code class="language-js">if (aHadError) {
-  Glean.network.httpConnectionError.addToNumerator(1);
+Glean.network.httpConnectionError.addToNumerator(1);
 }
 Glean.network.httpConnectionError.addToDenominator(1);
 </code></pre>
@@ -237,20 +317,47 @@ Glean.network.httpConnectionError.addToDenominator(1);
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
+<p>Gets the recorded value for a given rate metric.<br />
+Returns the numerator/denominator pair if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
-<div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics::*;
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Network
 
-assert_eq!((1, 1), network::http_connection_error.test_get_value(None).unwrap());
+assertEquals(Rate(1, 1), Network.httpConnectionError.testGetValue())
 </code></pre>
 </div>
-<div data-lang="Javascript" class="tab">
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Network;
+
+assertEquals(Rate(1, 1), Network.INSTANCE.httpConnectionError().testGetValue());
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">XCTAssertEqual(
+    Rate(numerator: 1, denominator: 1),
+    Network.httpConnectionError.testGetValue()
+)
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+assert Rate(1, 1) == metrics.network.http_connection_error.test_get_value()
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean_metrics::network;
+
+let rate = network::http_connection_error.test_get_value(None).unwrap();
+assert_eq!(1, rate.numerator);
+assert_eq!(1, rate.denominator);
+</code></pre>
+</div>
+<div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as network from &quot;./path/to/generated/files/network.js&quot;;
 
 const { numerator, denominator } = await network.httpConnectionError.testGetValue();
@@ -269,47 +376,69 @@ ASSERT_EQ(1, pair.second);
 <p><strong>JavaScript</strong></p>
 <pre><code class="language-js">// testGetValue will throw NS_ERROR_LOSS_OF_SIGNIFICANT_DATA on error.
 Assert.deepEqual(
-  { numerator: 1, denominator: 1 },
-  Glean.network.httpConnectionError.testGetValue()
+{ numerator: 1, denominator: 1 },
+Glean.network.httpConnectionError.testGetValue()
 );
 </code></pre>
 </div>
-</div>
-</div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="Javascript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
-<div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics::*;
-use glean::ErrorType;
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Network
 
-assert_eq!(
+assertEquals(
     0,
-    network::http_connection_error.test_get_num_recorded_errors(
-        ErrorType::InvalidValue
+    Network.httpConnectionError.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+)
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Network;
+
+assertEquals(
+    0,
+    Network.INSTANCE.httpConnectionError().testGetNumRecordedErrors(
+        ErrorType.INVALID_VALUE
     )
 );
 </code></pre>
 </div>
-<div data-lang="Javascript" class="tab">
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">XCTAssertEqual(
+    0,
+    Network.httpConnectionError.testGetNumRecordedErrors(.invalidValue)
+)
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+from glean.testing import ErrorType
+
+assert 0 == metrics.network.http_connection_error.test_get_num_recorded_errors(
+    ErrorType.INVALID_VALUE
+)
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::network;
+
+assert_eq!(
+    0,
+    network::http_connection_error.test_get_num_recorded_errors(
+        ErrorType::InvalidValue,
+        None
+    )
+);
+</code></pre>
+</div>
+<div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as network from &quot;./path/to/generated/files/network.js&quot;;
 import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
@@ -339,7 +468,7 @@ assert.strictEqual(
 </code></pre>
 <p>For a full reference on metrics parameters common to all metric types,
 refer to the <a href="../yaml/metrics.html">metrics YAML registry format</a> reference page.</p>
-<h2 id="external-denominators-1"><a class="header" href="#external-denominators-1">External Denominators</a></h2>
+<h2 id="external-denominators-5"><a class="header" href="#external-denominators-5">External Denominators</a></h2>
 <p>If several rates share the same denominator
 then the denominator should be defined as a <code>counter</code> and shared between
 <code>rates</code> using the <code>denominator_metric</code> property:</p>

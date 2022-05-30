@@ -185,15 +185,11 @@ metrics.accessibility.features[&quot;high_contrast&quot;].set(is_high_contrast_e
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::accessibility;
 
 accessibility::features.get(&quot;screen_reader&quot;).set(is_screen_reader_enabled());
 accessibility::features.get(&quot;high_contrast&quot;).set(is_high_contrast_enabled());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as acessibility from &quot;./path/to/generated/files/acessibility.js&quot;;
@@ -228,7 +224,9 @@ Glean.accessibility.features[&quot;high_contrast&quot;].set(false);
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given label in a labeled boolean metric.</p>
+<p>Gets the recorded value for a given label in a labeled boolean metric.<br />
+Returns the count if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -250,8 +248,8 @@ assertEquals(False, Acessibility.INSTANCE.features[&quot;high_contrast&quot;].te
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Do the booleans have the expected values?
-XCTAssertEqual(true, try Accessibility.features[&quot;screen_reader&quot;].testGetValue())
-XCTAssertEqual(false, try Accessibility.features[&quot;high_contrast&quot;].testGetValue())
+XCTAssertEqual(true, Accessibility.features[&quot;screen_reader&quot;].testGetValue())
+XCTAssertEqual(false, Accessibility.features[&quot;high_contrast&quot;].testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -264,16 +262,12 @@ assert not metrics.accessibility.features[&quot;high_contrast&quot;].test_get_va
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::accessibility;
 
 // Do the booleans have the expected values?
 assert!(accessibility::features.get(&quot;screen_reader&quot;).test_get_value(None).unwrap());
 assert!(!accessibility::features.get(&quot;high_contrast&quot;).test_get_value(None).unwrap());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as accessibility from &quot;./path/to/generated/files/acessibility.js&quot;;
@@ -300,47 +294,6 @@ Assert.equal(false, Glean.accessibility.features.high_contrast.testGetValue());
 </div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given label in a labeled boolean metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Accessibility
-
-// Was anything recorded?
-assertTrue(Accessibility.features[&quot;screen_reader&quot;].testHasValue())
-assertTrue(Accessibility.features[&quot;high_contrast&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Accessibility;
-
-// Was anything recorded?
-assertEquals(True, Acessibility.INSTANCE.features[&quot;screen_reader&quot;].testHasValue());
-assertEquals(True, Acessibility.INSTANCE.features[&quot;high_contrast&quot;].testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(Accessibility.features[&quot;screen_reader&quot;].testHasValue())
-XCTAssert(Accessibility.features[&quot;high_contrast&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.accessibility.features[&quot;screen_reader&quot;].test_has_value()
-assert metrics.accessibility.features[&quot;high_contrast&quot;].test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded for a given labeled boolean metric in total.</p>
 <div class="tabs">
@@ -350,14 +303,20 @@ assert metrics.accessibility.features[&quot;high_contrast&quot;].test_has_value(
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Accessibility
 
 // Did we record any invalid labels?
-assertEquals(0, Accessibility.features.testGetNumRecordedErrors(ErrorType.InvalidLabel))
+assertEquals(
+    0,
+    Accessibility.features.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Accessibility;
 
 // Did we record any invalid labels?
-assertEquals(0, Acessibility.INSTANCE.features.testGetNumRecordedErrors());
+assertEquals(
+    0,
+    Acessibility.INSTANCE.features.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -376,12 +335,8 @@ assert 0 == metrics.accessibility.features.test_get_num_recorded_errors(
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::accessibility;
 
 // Did we record any invalid labels?
 assert_eq!(
@@ -390,8 +345,7 @@ assert_eq!(
     ErrorType::InvalidLabel
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as accessibility from &quot;./path/to/generated/files/acessibility.js&quot;;

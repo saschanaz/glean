@@ -4477,7 +4477,7 @@ metrics.flags.a11y_enabled.set(is_accessibility_enabled())
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::flags;
 
 flags::a11y_enabled.set(system.is_accessibility_enabled());
 </code></pre>
@@ -4502,11 +4502,13 @@ mozilla::glean::flags::a11y_enabled.Set(false);
 </div>
 <h4 id="recorded-errors-1"><a class="header" href="#recorded-errors-1">Recorded errors</a></h4>
 <ul>
-<li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-boolean value is given.</li>
+<li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-boolean value is given (JavaScript only).</li>
 </ul>
 <h2 id="testing-api-2"><a class="header" href="#testing-api-2">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given boolean metric.</p>
+<p>Gets the recorded value for a given boolean metric.<br />
+Returns <code>true</code> or <code>false</code> if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -4523,7 +4525,7 @@ assertTrue(Flags.INSTANCE.a11yEnabled.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertTrue(try Flags.a11yEnabled.testGetValue())
+<pre><code class="language-Swift">XCTAssertTrue(Flags.a11yEnabled.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -4534,7 +4536,7 @@ assert True is metrics.flags.a11y_enabled.test_get_value()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::flags;
 
 assert!(flags::a11y_enabled.test_get_value(None).unwrap());
 </code></pre>
@@ -4557,52 +4559,41 @@ ASSERT_EQ(false, mozilla::glean::flags::a11y_enabled.TestGetValue().value());
 </div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given boolean metric.</p>
+<h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
+<p>Gets the number of errors recorded for a given boolean metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
 <div data-lang="Kotlin" class="tab">
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Flags
 
-assertTrue(Flags.a11yEnabled.testHasValue())
+assertEquals(
+    0, Flags.a11yEnabled.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Flags;
 
-assertTrue(Flags.INSTANCE.a11yEnabled.testHasValue());
+assertEquals(
+    0, Flags.INSTANCE.a11yEnabled.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertTrue(try Flags.a11yEnabled.testHasValue())
+<pre><code class="language-Swift">XCTAssertEqual(0, Flags.a11yEnabled.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert True is metrics.flags.a11y_enabled.test_has_value()
+<pre><code class="language-Python">assert 0 == metrics.flags.a11y_enabled.test_get_num_recorded_errors(
+    ErrorType.INVALID_VALUE
+)
 </code></pre>
 </div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
-<h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given boolean metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
 <div data-lang="Rust" class="tab">
 <pre><code class="language-Rust">use glean::ErrorType;
 
-use glean_metrics;
+use glean_metrics::flags;
 
 assert_eq!(
   0,
@@ -4682,15 +4673,11 @@ metrics.accessibility.features[&quot;high_contrast&quot;].set(is_high_contrast_e
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::accessibility;
 
 accessibility::features.get(&quot;screen_reader&quot;).set(is_screen_reader_enabled());
 accessibility::features.get(&quot;high_contrast&quot;).set(is_high_contrast_enabled());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as acessibility from &quot;./path/to/generated/files/acessibility.js&quot;;
@@ -4725,7 +4712,9 @@ Glean.accessibility.features[&quot;high_contrast&quot;].set(false);
 </ul>
 <h2 id="testing-api-3"><a class="header" href="#testing-api-3">Testing API</a></h2>
 <h3 id="testgetvalue-1"><a class="header" href="#testgetvalue-1"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given label in a labeled boolean metric.</p>
+<p>Gets the recorded value for a given label in a labeled boolean metric.<br />
+Returns the count if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -4747,8 +4736,8 @@ assertEquals(False, Acessibility.INSTANCE.features[&quot;high_contrast&quot;].te
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Do the booleans have the expected values?
-XCTAssertEqual(true, try Accessibility.features[&quot;screen_reader&quot;].testGetValue())
-XCTAssertEqual(false, try Accessibility.features[&quot;high_contrast&quot;].testGetValue())
+XCTAssertEqual(true, Accessibility.features[&quot;screen_reader&quot;].testGetValue())
+XCTAssertEqual(false, Accessibility.features[&quot;high_contrast&quot;].testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -4761,16 +4750,12 @@ assert not metrics.accessibility.features[&quot;high_contrast&quot;].test_get_va
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::accessibility;
 
 // Do the booleans have the expected values?
 assert!(accessibility::features.get(&quot;screen_reader&quot;).test_get_value(None).unwrap());
 assert!(!accessibility::features.get(&quot;high_contrast&quot;).test_get_value(None).unwrap());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as accessibility from &quot;./path/to/generated/files/acessibility.js&quot;;
@@ -4797,47 +4782,6 @@ Assert.equal(false, Glean.accessibility.features.high_contrast.testGetValue());
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-1"><a class="header" href="#testhasvalue-1"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given label in a labeled boolean metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Accessibility
-
-// Was anything recorded?
-assertTrue(Accessibility.features[&quot;screen_reader&quot;].testHasValue())
-assertTrue(Accessibility.features[&quot;high_contrast&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Accessibility;
-
-// Was anything recorded?
-assertEquals(True, Acessibility.INSTANCE.features[&quot;screen_reader&quot;].testHasValue());
-assertEquals(True, Acessibility.INSTANCE.features[&quot;high_contrast&quot;].testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(Accessibility.features[&quot;screen_reader&quot;].testHasValue())
-XCTAssert(Accessibility.features[&quot;high_contrast&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.accessibility.features[&quot;screen_reader&quot;].test_has_value()
-assert metrics.accessibility.features[&quot;high_contrast&quot;].test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-1"><a class="header" href="#testgetnumrecordederrors-1"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded for a given labeled boolean metric in total.</p>
 <div class="tabs">
@@ -4847,14 +4791,20 @@ assert metrics.accessibility.features[&quot;high_contrast&quot;].test_has_value(
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Accessibility
 
 // Did we record any invalid labels?
-assertEquals(0, Accessibility.features.testGetNumRecordedErrors(ErrorType.InvalidLabel))
+assertEquals(
+    0,
+    Accessibility.features.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Accessibility;
 
 // Did we record any invalid labels?
-assertEquals(0, Acessibility.INSTANCE.features.testGetNumRecordedErrors());
+assertEquals(
+    0,
+    Acessibility.INSTANCE.features.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -4873,12 +4823,8 @@ assert 0 == metrics.accessibility.features.test_get_num_recorded_errors(
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::accessibility;
 
 // Did we record any invalid labels?
 assert_eq!(
@@ -4887,8 +4833,7 @@ assert_eq!(
     ErrorType::InvalidLabel
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as accessibility from &quot;./path/to/generated/files/acessibility.js&quot;;
@@ -5011,7 +4956,7 @@ metrics.controls.refresh_pressed.add(5) # Adds 5 to the counter.
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::controls;
 
 controls::refresh_pressed.add(1); // Adds 1 to the counter.
 controls::refresh_pressed.add(5); // Adds 5 to the counter.
@@ -5050,7 +4995,9 @@ Glean.controls.refreshPressed.add(5);
 </ul>
 <h2 id="testing-api-4"><a class="header" href="#testing-api-4">Testing API</a></h2>
 <h3 id="testgetvalue-2"><a class="header" href="#testgetvalue-2"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given counter metric.</p>
+<p>Gets the recorded value for a given counter metric.<br />
+Returns the count if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -5067,7 +5014,7 @@ assertEquals(6, Controls.INSTANCE.refreshPressed.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertEqual(6, try Controls.refreshPressed.testGetValue())
+<pre><code class="language-Swift">XCTAssertEqual(6, Controls.refreshPressed.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -5078,14 +5025,10 @@ assert 6 == metrics.controls.refresh_pressed.test_get_value()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::controls;
 
 assert_eq!(6, controls::refresh_pressed.test_get_value(None).unwrap());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as controls from &quot;./path/to/generated/files/controls.js&quot;;
@@ -5107,41 +5050,8 @@ Assert.equal(6, Glean.controls.refreshPressed.testGetValue());
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-2"><a class="header" href="#testhasvalue-2"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given counter metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Controls
-
-assertTrue(Controls.refreshPressed.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Controls;
-
-assertTrue(Controls.INSTANCE.refreshPressed.testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(Controls.refreshPressed.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.controls.refresh_pressed.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-2"><a class="header" href="#testgetnumrecordederrors-2"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given counter metric.</p>
+<p>Gets the number of errors recorded for a given counter metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -5149,7 +5059,8 @@ assert metrics.controls.refresh_pressed.test_has_value()
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Controls
 
 assertEquals(
-    1, Controls.refreshPressed.testGetNumRecordedErrors(ErrorType.InvalidValue)
+    0,
+    Controls.refreshPressed.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 )
 </code></pre>
 </div>
@@ -5157,12 +5068,13 @@ assertEquals(
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Controls;
 
 assertEquals(
-    1, Controls.INSTANCE.refreshPressed.testGetNumRecordedErrors(ErrorType.InvalidValue)
+    0,
+    Controls.INSTANCE.refreshPressed.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertEqual(1, Controls.refreshPressed.testGetNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(0, Controls.refreshPressed.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -5171,34 +5083,29 @@ metrics = load_metrics(&quot;metrics.yaml&quot;)
 
 from glean.testing import ErrorType
 
-assert 1 == metrics.controls.refresh_pressed.test_get_num_recorded_errors(
+assert 0 == metrics.controls.refresh_pressed.test_get_num_recorded_errors(
     ErrorType.INVALID_VALUE
 )
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::controls;
 
 assert_eq!(
-  1,
+  0,
   controls::refresh_pressed.test_get_num_recorded_errors(
     ErrorType::InvalidValue
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as controls from &quot;./path/to/generated/files/controls.js&quot;;
 import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
 assert.strictEqual(
-  1,
+  0,
   await controls.refreshPressed.testGetNumRecordedErrors(ErrorType.InvalidValue)
 );
 </code></pre>
@@ -5279,15 +5186,11 @@ metrics.stability.crash_count[&quot;native_code_crash&quot;].add(3)
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::stability;
 
 stability::crash_count.get(&quot;uncaught_exception&quot;).add(1); // Adds 1 to the &quot;uncaught_exception&quot; counter.
 stability::crash_count.get(&quot;native_code_crash&quot;).add(3); // Adds 3 to the &quot;native_code_crash&quot; counter.
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as stability from &quot;./path/to/generated/files/stability.js&quot;;
@@ -5330,7 +5233,9 @@ Glean.stability.crashCount[&quot;native_code_crash&quot;].add(3);
 </ul>
 <h2 id="testing-api-5"><a class="header" href="#testing-api-5">Testing API</a></h2>
 <h3 id="testgetvalue-3"><a class="header" href="#testgetvalue-3"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given label in a labeled counter metric.</p>
+<p>Gets the recorded value for a given label in a labeled counter metric.<br />
+Returns the count if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -5352,8 +5257,8 @@ assertEquals(3, Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].tes
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Do the counters have the expected values?
-XCTAssertEqual(1, try Stability.crashCount[&quot;uncaught_exception&quot;].testGetValue())
-XCTAssertEqual(3, try Stability.crashCount[&quot;native_code_crash&quot;].testGetValue())
+XCTAssertEqual(1, Stability.crashCount[&quot;uncaught_exception&quot;].testGetValue())
+XCTAssertEqual(3, Stability.crashCount[&quot;native_code_crash&quot;].testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -5366,16 +5271,12 @@ assert 3 == metrics.stability.crash_count[&quot;native_code_crash&quot;].test_ge
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::stability;
 
 // Do the counters have the expected values?
 assert_eq!(1, stability::crash_count.get(&quot;uncaught_exception&quot;).test_get_value().unwrap());
 assert_eq!(3, stability::crash_count.get(&quot;native_code_crash&quot;).test_get_value().unwrap());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as stability from &quot;./path/to/generated/files/stability.js&quot;;
@@ -5403,47 +5304,6 @@ Assert.equal(3, Glean.stability.crashCount.native_code_crash.testGetValue());
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-3"><a class="header" href="#testhasvalue-3"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given label in a labeled counter metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Stability
-
-// Was anything recorded?
-assertTrue(Stability.crashCount[&quot;uncaught_exception&quot;].testHasValue())
-assertTrue(Stability.crashCount[&quot;native_code_crash&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Stability;
-
-// Was anything recorded?
-assertTrue(Stability.INSTANCE.crashCount[&quot;uncaught_exception&quot;].testHasValue());
-assertTrue(Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(Stability.crashCount[&quot;uncaught_exception&quot;].testHasValue())
-XCTAssert(Stability.crashCount[&quot;native_code_crash&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.stability.crash_count[&quot;uncaught_exception&quot;].test_has_value()
-assert metrics.stability.crash_count[&quot;native_code_crash&quot;].test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-3"><a class="header" href="#testgetnumrecordederrors-3"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded for a given labeled counter metric in total.</p>
 <div class="tabs">
@@ -5453,14 +5313,20 @@ assert metrics.stability.crash_count[&quot;native_code_crash&quot;].test_has_val
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Stabilit
 
 // Were there any invalid labels?
-assertEquals(0, Stability.crashCount.testGetNumRecordedErrors(ErrorType.InvalidLabel))
+assertEquals(
+    0,
+    Stability.crashCount.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Stability;
 
 // Were there any invalid labels?
-assertEquals(0, Stability.INSTANCE.crashCount.testGetNumRecordedErrors(ErrorType.InvalidLabel));
+assertEquals(
+    0,
+    Stability.INSTANCE.crashCount.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -5479,12 +5345,9 @@ assert 0 == metrics.stability.crash_count.test_get_num_recorded_errors(
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
+<pre><code class="language-Rust">use glean::ErrorType;
 
-use glean_metrics;
+use glean_metrics::stability;
 
 // Were there any invalid labels?
 assert_eq!(
@@ -5493,8 +5356,7 @@ assert_eq!(
     ErrorType::InvalidLabel
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as stability from &quot;./path/to/generated/files/stability.js&quot;;
@@ -5621,17 +5483,13 @@ metrics.search_default.name.set(&quot;wikipedia&quot;)
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::search_default;
 
 // Record a value into the metric.
 search_default::name.set(&quot;duck duck go&quot;);
 // If it changed later, you can record the new value:
 search_default::name.set(&quot;wikipedia&quot;);
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as searchDefault from &quot;./path/to/generated/files/searchDefault.js&quot;;
@@ -5665,7 +5523,9 @@ mozilla::glean::search_default::name.Set(&quot;wikipedia&quot;_ns);
 </ul>
 <h2 id="testing-api-6"><a class="header" href="#testing-api-6">Testing API</a></h2>
 <h3 id="testgetvalue-4"><a class="header" href="#testgetvalue-4"><code>testGetValue</code></a></h3>
-<p>Get the recorded value for a given string metric.</p>
+<p>Get the recorded value for a given string metric.<br />
+Returns the string if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <p>The recorded value may have been truncated. See <a href="reference/metrics/string.html#limits">&quot;Limits&quot;</a> section above.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -5678,7 +5538,7 @@ assertEquals(&quot;wikipedia&quot;, SearchDefault.name.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.SearchDefault
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.SearchDefault;
 
 // Does the string metric have the expected value?
 assertEquals(&quot;wikipedia&quot;, SearchDefault.INSTANCE.name.testGetValue());
@@ -5686,7 +5546,7 @@ assertEquals(&quot;wikipedia&quot;, SearchDefault.INSTANCE.name.testGetValue());
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Does the string metric have the expected value?
-XCTAssertEqual(&quot;wikipedia&quot;, try SearchDefault.name.testGetValue())
+XCTAssertEqual(&quot;wikipedia&quot;, SearchDefault.name.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -5698,15 +5558,11 @@ assert &quot;wikipedia&quot; == metrics.search_default.name.test_get_value()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::search_default;
 
 // Does the string metric have the expected value?
 assert_eq!(6, search_default::name.test_get_value(None).unwrap());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as searchDefault from &quot;./path/to/generated/files/searchDefault.js&quot;;
@@ -5734,45 +5590,8 @@ Assert.equal(&quot;wikipedia&quot;, Glean.searchDefault.name.testGetValue());
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-4"><a class="header" href="#testhasvalue-4"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given string metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.SearchDefault
-
-// Was anything recorded?
-assertTrue(SearchDefault.name.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.SearchDefault
-
-// Was anything recorded?
-assertTrue(SearchDefault.INSTANCE.name.testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(SearchDefault.name.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.search_default.name.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-4"><a class="header" href="#testgetnumrecordederrors-4"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given string metric.</p>
+<p>Gets the number of errors recorded for a given string metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -5780,7 +5599,10 @@ assert metrics.search_default.name.test_has_value()
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.SearchDefault
 
 // Was the string truncated, and an error reported?
-assertEquals(1, SearchDefault.name.testGetNumRecordedErrors(ErrorType.InvalidOverflow))
+assertEquals(
+    0,
+    SearchDefault.name.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
@@ -5788,16 +5610,14 @@ assertEquals(1, SearchDefault.name.testGetNumRecordedErrors(ErrorType.InvalidOve
 
 // Was the string truncated, and an error reported?
 assertEquals(
-    1,
-    SearchDefault.INSTANCE.name.testGetNumRecordedErrors(
-        ErrorType.InvalidOverflow
-    )
+    0,
+    SearchDefault.INSTANCE.name.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
 );
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Was the string truncated, and an error reported?
-XCTAssertEqual(1, SearchDefault.name.testGetNumRecordedErrors(.invalidOverflow))
+XCTAssertEqual(0, SearchDefault.name.testGetNumRecordedErrors(.invalidOverflow))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -5805,28 +5625,23 @@ XCTAssertEqual(1, SearchDefault.name.testGetNumRecordedErrors(.invalidOverflow))
 metrics = load_metrics(&quot;metrics.yaml&quot;)
 
 # Was the string truncated, and an error reported?
-assert 1 == metrics.search_default.name.test_get_num_recorded_errors(
+assert 0 == metrics.search_default.name.test_get_num_recorded_errors(
     ErrorType.INVALID_OVERFLOW
 )
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::search_default;
 
 // Was the string truncated, and an error reported?
 assert_eq!(
-  1,
+  0,
   search_default::name.test_get_num_recorded_errors(
     ErrorType::InvalidOverflow
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as searchDefault from &quot;./path/to/generated/files/searchDefault.js&quot;;
@@ -5834,7 +5649,7 @@ import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
 // Was the string truncated, and an error reported?
 assert.strictEqual(
-  1,
+  0,
   await searchDefault.name.testGetNumRecordedErrors(ErrorType.InvalidOverflow)
 );
 </code></pre>
@@ -5909,14 +5724,10 @@ metrics.login.errors_by_stage[&quot;server_auth&quot;].set(&quot;Invalid passwor
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::login;
 
 login::errors_by_stage.get(&quot;server_auth&quot;).set(&quot;Invalid password&quot;);
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as login from &quot;./path/to/generated/files/login.js&quot;;
@@ -5953,7 +5764,9 @@ mozilla::glean::login::errors_by_stage.Get(&quot;server_auth&quot;_ns).Set(&quot
 </ul>
 <h2 id="testing-api-7"><a class="header" href="#testing-api-7">Testing API</a></h2>
 <h3 id="testgetvalue-5"><a class="header" href="#testgetvalue-5"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given label in a labeled string metric.</p>
+<p>Gets the recorded value for a given label in a labeled string metric.<br />
+Returns the string if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -5985,15 +5798,11 @@ assert &quot;Invalid password&quot; == metrics.login.errors_by_stage[&quot;serve
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::login;
 
 // Does the metric have the expected value?
 assert!(login::errors_by_stage.get(&quot;server_auth&quot;).test_get_value());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as login from &quot;./path/to/generated/files/login.js&quot;;
@@ -6019,40 +5828,6 @@ ASSERT_STREQ(&quot;Invalid password&quot;,
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-5"><a class="header" href="#testhasvalue-5"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given label in a labeled string metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Login
-
-// Was anything recorded?
-assertTrue(Login.errorsByStage[&quot;server_auth&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Login;
-
-// Was anything recorded?
-assertTrue(Login.INSTANCE.errorsByStage[&quot;server_auth&quot;].testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(Login.errorsByStage[&quot;server_auth&quot;].testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python"># Was anything recorded?
-assert metrics.login.errors_by_stage[&quot;server_auth&quot;].test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-5"><a class="header" href="#testgetnumrecordederrors-5"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded for a given labeled string metric in total.</p>
 <div class="tabs">
@@ -6062,14 +5837,20 @@ assert metrics.login.errors_by_stage[&quot;server_auth&quot;].test_has_value()
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Login
 
 // Were there any invalid labels?
-assertEquals(0, Login.errorsByStage.testGetNumRecordedErrors(ErrorType.InvalidLabel))
+assertEquals(
+    0,
+    Login.errorsByStage.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Login;
 
 // Were there any invalid labels?
-assertEquals(0, Login.INSTANCE.errorsByStage.testGetNumRecordedErrors(ErrorType.InvalidLabel));
+assertEquals(
+    0,
+    Login.INSTANCE.errorsByStage.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -6088,12 +5869,8 @@ assert 0 == metrics.login.errors_by_stage.test_get_num_recorded_errors(
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::login;
 
 // Were there any invalid labels?
 assert_eq!(
@@ -6102,8 +5879,7 @@ assert_eq!(
     ErrorType::InvalidLabel
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as login from &quot;./path/to/generated/files/login.js&quot;;
@@ -6197,10 +5973,10 @@ Search.engines.add(&quot;duck duck go&quot;)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
 
-Search.INSTANCE.engines().add(&quot;wikipedia&quot;)
-Search.INSTANCE.engines().add(&quot;duck duck go&quot;)
+Search.INSTANCE.engines().add(&quot;wikipedia&quot;);
+Search.INSTANCE.engines().add(&quot;duck duck go&quot;);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -6265,9 +6041,9 @@ Search.engines.set(listOf(&quot;wikipedia&quot;, &quot;duck duck go&quot;))
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
 
-Search.INSTANCE.engines().set(listOf(&quot;wikipedia&quot;, &quot;duck duck go&quot;))
+Search.INSTANCE.engines().set(listOf(&quot;wikipedia&quot;, &quot;duck duck go&quot;));
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -6316,7 +6092,9 @@ mozilla::glean::search::engines.Set({&quot;wikipedia&quot;_ns, &quot;duck duck g
 </ul>
 <h2 id="testing-api-8"><a class="header" href="#testing-api-8">Testing API</a></h2>
 <h3 id="testgetvalue-6"><a class="header" href="#testgetvalue-6"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given string list metric.</p>
+<p>Gets the recorded value for a given string list metric.<br />
+Returns the list of strings if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -6327,16 +6105,16 @@ assertEquals(listOf(&quot;Google&quot;, &quot;DuckDuckGo&quot;), Search.engines.
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
 
 assertEquals(
     Arrays.asList(&quot;Google&quot;, &quot;DuckDuckGo&quot;),
     Search.INSTANCE.engines().testGetValue()
-)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertEqual([&quot;Google&quot;, &quot;DuckDuckGo&quot;], try Search.engines.testGetValue())
+<pre><code class="language-Swift">XCTAssertEqual([&quot;Google&quot;, &quot;DuckDuckGo&quot;], Search.engines.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -6380,68 +6158,39 @@ Assert.ok(engines.includes(&quot;duck duck go&quot;));
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-6"><a class="header" href="#testhasvalue-6"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given string list metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Search
-
-assertTrue(Search.engines.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
-
-assertTrue(Search.INSTANCE.engines().testHasValue())
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(Search.engines.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.search.engines.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-6"><a class="header" href="#testgetnumrecordederrors-6"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given string list metric.</p>
+<p>Gets the number of errors recorded for a given string list metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
 <div data-lang="Kotlin" class="tab">
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Search
-
-assertEquals(1, Search.engines.testGetNumRecordedErrors(ErrorType.InvalidValue))
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
 
 assertEquals(
-    1, Search.INSTANCE.engines().testGetNumRecordedErrors(ErrorType.InvalidValue)
+    0,
+    Search.engines.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 )
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
+
+assertEquals(
+    0,
+    Search.INSTANCE.engines().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Were any of the values too long, and thus an error was recorded?
-XCTAssertEqual(1, Search.engines.testGetNumRecordedErrors(.invalidValue))
+XCTAssertEqual(0, Search.engines.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
 <pre><code class="language-Python">from glean import load_metrics
 metrics = load_metrics(&quot;metrics.yaml&quot;)
 
-assert 1 == metrics.search.engines.test_get_num_recorded_errors(
+assert 0 == metrics.search.engines.test_get_num_recorded_errors(
     ErrorType.INVALID_VALUE
 )
 </code></pre>
@@ -6537,17 +6286,13 @@ def on_show_login():
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;
 
 fn show_login() {
-    metrics::auth::login_time.start();
+    auth::login_time.start();
     // ...
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -6645,17 +6390,13 @@ def on_login():
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;;
 
 fn login() {
-    metrics::auth::login_time.stop();
+    auth::login_time.stop();
     // ...
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -6729,17 +6470,13 @@ def on_login_cancel():
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;
 
 fn login_cancel() {
-    metrics::auth::login_time.cancel();
+    auth::login_time.cancel();
     // ...
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -6858,18 +6595,14 @@ def after_login(login_elapsed_ns):
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
-use std::time::duration;
+<pre><code class="language-Rust">use std::time::duration;
+use glean_metrics::auth;
 
 fn after_login(login_elapsed: Duration) {
-    metrics::auth::login_time.set_raw(login_elapsed);
+    auth::login_time.set_raw(login_elapsed);
     // ...
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -6913,7 +6646,9 @@ void AfterLogin(uint32_t aDuration) {
 </ul>
 <h2 id="testing-api-9"><a class="header" href="#testing-api-9">Testing API</a></h2>
 <h3 id="testgetvalue-7"><a class="header" href="#testgetvalue-7"><code>testGetValue</code></a></h3>
-<p>Get the currently-stored value.</p>
+<p>Get the currently-stored value.<br />
+Returns the timespan as a integer in the metric's time unit if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -6930,7 +6665,7 @@ assertTrue(Auth.INSTANCE.loginTime.testGetValue() &gt; 0);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(try Auth.loginTime.testGetValue() &gt; 0)
+<pre><code class="language-Swift">XCTAssert(Auth.loginTime.testGetValue() &gt; 0)
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -6941,14 +6676,10 @@ assert metrics.auth.login_time.test_get_value() &gt; 0
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;
 
-assert!(metrics::login_time.test_get_value().unwrap() &gt; 0);
-<span class="boring">}
-</span></code></pre></pre>
+assert!(auth::login_time.test_get_value().unwrap() &gt; 0);
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -6970,48 +6701,6 @@ Assert.ok(Glean.auth.loginTime.testGetValue() &gt; 0);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-7"><a class="header" href="#testhasvalue-7"><code>testHasValue</code></a></h3>
-<p>Test if the metric currently stores any value.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Auth
-
-assertTrue(Auth.loginTime.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
-
-assertTrue(Auth.INSTANCE.loginTime.testHasValue() &gt; 0);
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(try Auth.loginTime.testHasValue() &gt; 0)
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.auth.login_time.test_has_value() &gt; 0
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
-
-assert!(metrics::login_time.test_has_value().unwrap() &gt; 0);
-<span class="boring">}
-</span></code></pre></pre>
-</div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-7"><a class="header" href="#testgetnumrecordederrors-7"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Gets the number of errors recorded during operations on this metric.</p>
 <div class="tabs">
@@ -7020,42 +6709,39 @@ assert!(metrics::login_time.test_has_value().unwrap() &gt; 0);
 <div data-lang="Kotlin" class="tab">
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Auth
 
-assertEquals(1, Auth.loginTime.testGetNumRecordedErrors(ErrorType.InvalidValue))
+assertEquals(
+    0,
+    Auth.loginTime.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 assertEquals(
-    1,
-    Auth.INSTANCE.loginTime.testGetNumRecordedErrors(
-        ErrorType.InvalidValue
-    )
+    0,
+    Auth.INSTANCE.loginTime.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertEqual(1, Auth.loginTime.testGetNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(0, Auth.loginTime.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
 <pre><code class="language-Python">from glean import load_metrics
 metrics = load_metrics(&quot;metrics.yaml&quot;)
 
-assert 1 == metrics.auth.local_time.test_get_num_recorded_errors(
+assert 0 == metrics.auth.local_time.test_get_num_recorded_errors(
     ErrorType.INVALID_VALUE
 )
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use fog::metrics;
+<pre><code class="language-Rust">use glean_metrics::auth;
 
-assert_eq!(1, login_time.test_get_num_recorded_errors(ErrorType::InvalidValue));
-<span class="boring">}
-</span></code></pre></pre>
+assert_eq!(1, auth::login_time.test_get_num_recorded_errors(ErrorType::InvalidValue));
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
@@ -7203,16 +6889,12 @@ class PageHandler:
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics::pages;
+<pre><code class="language-Rust">use glean_metrics::pages;
 
 fn on_page_start() {
     self.timer_id = pages::page_load.start();
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
 <div data-lang="Firefox Desktop" class="tab">
@@ -7391,7 +7073,9 @@ mozilla::glean::pages::page_load.Cancel(std::move(timerId));
 </div>
 <h2 id="testing-api-10"><a class="header" href="#testing-api-10">Testing API</a></h2>
 <h3 id="testgetvalue-8"><a class="header" href="#testgetvalue-8"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given timing distribution metric.</p>
+<p>Gets the recorded value for a given timing distribution metric.<br />
+Returns a struct with counts per buckets and total sum if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -7403,7 +7087,7 @@ val snapshot = Pages.pageLoad.testGetValue()
 
 // Usually you don't know the exact timing values,
 // but how many should have been recorded.
-assertEquals(1L, snapshot.count)
+assertEquals(1L, snapshot.sum)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
@@ -7414,16 +7098,16 @@ DistributionData snapshot = pages.INSTANCE.pageLoad().testGetValue();
 
 // Usually you don't know the exact timing values,
 // but how many should have been recorded.
-assertEquals(1L, snapshot.getCount());
+assertEquals(1L, snapshot.getSum());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Get snapshot.
-let snapshot = try! pages.pageLoad.testGetValue()
+let snapshot = pages.pageLoad.testGetValue()
 
 // Usually you don't know the exact timing values,
 // but how many should have been recorded.
-XCTAssertEqual(1, snapshot.count)
+XCTAssertEqual(1, snapshot.sum)
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -7435,14 +7119,11 @@ snapshot = metrics.pages.page_load.test_get_value()
 
 # Usually you don't know the exact timing values,
 # but how many should have been recorded.
-assert 1 == snapshot.count
+assert 1 == snapshot.sum
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
+<pre><code class="language-Rust">use glean::ErrorType;
 use glean_metrics::pages;
 
 // Get snapshot
@@ -7451,8 +7132,7 @@ let snapshot = pages::page_load.test_get_value(None).unwrap();
 // Usually you don't know the exact timing values,
 // but how many should have been recorded.
 assert_eq!(1, snapshot.values.len());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
 <div data-lang="Firefox Desktop" class="tab">
@@ -7469,45 +7149,8 @@ ASSERT_TRUE(data.sum &gt; 0);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-8"><a class="header" href="#testhasvalue-8"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given timing distribution metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Pages
-
-// Was anything recorded?
-assertTrue(Pages.pageLoad.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Pages;
-
-// Was anything recorded?
-assertTrue(Pages.INSTANCE.pageLoad().testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(pages.pageLoad.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.pages.page_load.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-8"><a class="header" href="#testgetnumrecordederrors-8"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given timing distribution metric.</p>
+<p>Gets the number of errors recorded for a given timing distribution metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -7515,7 +7158,10 @@ assert metrics.pages.page_load.test_has_value()
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Pages
 
 // Assert that no errors were recorded.
-assertEquals(0, Pages.pageLoad.testGetNumRecordedErrors(ErrorType.InvalidValue))
+assertEquals(
+    0,
+    Pages.pageLoad.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
@@ -7524,15 +7170,13 @@ assertEquals(0, Pages.pageLoad.testGetNumRecordedErrors(ErrorType.InvalidValue))
 // Assert that no errors were recorded.
 assertEquals(
     0,
-    Pages.INSTANCE.pageLoad().testGetNumRecordedErrors(
-        ErrorType.InvalidValue
-    )
+    Pages.INSTANCE.pageLoad().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Assert that no errors were recorded.
-XCTAssertEqual(0, pages.pageLoad.testGetNumRecordedErrors(.invalidValue))
+XCTAssertEqual(0, Pages.pageLoad.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -7748,17 +7392,13 @@ def allocate_memory(nbytes):
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics::memory;
+<pre><code class="language-Rust">use glean_metrics::memory;
 
 fn allocate_memory(bytes: u64) {
     // ...
     memory::heap_allocated.accumulate(bytes / 1024);
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab" data-bug="1716952"></div>
 <div data-lang="Firefox Desktop" class="tab">
@@ -7780,7 +7420,9 @@ mozilla::glean::memory::heap_allocated.Accumulate(bytes / 1024);
 </ul>
 <h2 id="testing-api-11"><a class="header" href="#testing-api-11">Testing API</a></h2>
 <h3 id="testgetvalue-9"><a class="header" href="#testgetvalue-9"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given memory distribution metric.</p>
+<p>Gets the recorded value for a given memory distribution metric.<br />
+Returns a struct with counts per buckets and total sum if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -7840,10 +7482,7 @@ assert 2 == snapshot.count
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
+<pre><code class="language-Rust">use glean::ErrorType;
 use glean_metrics::memory;
 
 // Get snapshot
@@ -7855,8 +7494,7 @@ assert_eq!(11, snapshot.sum);
 // Usually you don't know the exact timing values,
 // but how many should have been recorded.
 assert_eq!(2, snapshot.values.len());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab"  data-bug="1716952"></div>
 <div data-lang="Firefox Desktop" class="tab">
@@ -7874,45 +7512,8 @@ Assert.equal(11 * 1024, data.sum);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-9"><a class="header" href="#testhasvalue-9"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given memory distribution metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Pages
-
-// Get snapshot
-assertTrue(Memory.heapAllocated.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Pages;
-
-// Was anything recorded?
-assertTrue(Memory.INSTANCE.heapAllocated().testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(Memory.heapAllocated.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.memory.head_allocated.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-9"><a class="header" href="#testgetnumrecordederrors-9"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given memory distribution metric.</p>
+<p>Gets the number of errors recorded for a given memory distribution metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -7922,7 +7523,7 @@ assert metrics.memory.head_allocated.test_has_value()
 // Did this record a negative value?
 assertEquals(
     0,
-    Memory.heapAllocated.testGetNumRecordedErrors(ErrorType.InvalidValue)
+    Memory.heapAllocated.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 )
 </code></pre>
 </div>
@@ -7932,9 +7533,7 @@ assertEquals(
 // Assert that no errors were recorded.
 assertEquals(
     0,
-    Memory.INSTANCE.heapAllocated().testGetNumRecordedErrors(
-        ErrorType.InvalidValue
-    )
+    Memory.INSTANCE.heapAllocated().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
@@ -8111,16 +7710,12 @@ metrics.user.client_id.generate_and_set()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
-use uuid::Uuid;
+<pre><code class="language-Rust">use uuid::Uuid;
+use glean_metrics::user;
 
 // Generate a new UUID and record it
 user::client_id.generate_and_set();
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as user from &quot;./path/to/generated/files/user.js&quot;;
@@ -8177,16 +7772,12 @@ metrics.user.client_id.set(uuid.uuid4())
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
-use uuid::Uuid;
+<pre><code class="language-Rust">use uuid::Uuid;
+use glean_metrics::user;
 
 // Set a UUID explicitly
 user::client_id.set(Uuid::new_v4());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as user from &quot;./path/to/generated/files/user.js&quot;;
@@ -8218,7 +7809,9 @@ Glean.user.clientId.set(uuid);
 </ul>
 <h2 id="testing-api-12"><a class="header" href="#testing-api-12">Testing API</a></h2>
 <h3 id="testgetvalue-10"><a class="header" href="#testgetvalue-10"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given UUID metric.</p>
+<p>Gets the recorded value for a given UUID metric.<br />
+Returns a UUID if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -8250,17 +7843,13 @@ assert uuid == metrics.user.client_id.test_get_value()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
-use uuid::Uuid;
+<pre><code class="language-Rust">use uuid::Uuid;
+use glean_metrics::user;
 
 let u = Uuid::new_v4();
 // Does it have the expected value?
 assert_eq!(u, user::client_id.test_get_value(None).unwrap());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as user from &quot;./path/to/generated/files/user.js&quot;;
@@ -8286,45 +7875,8 @@ Assert.equal(Glean.user.clientId.testGetValue(), uuid);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-10"><a class="header" href="#testhasvalue-10"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given UUID metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.User
-
-// Was anything recorded?
-assertTrue(User.clientId.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.User;
-
-// Was anything recorded?
-assertTrue(User.INSTANCE.clientId.testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(User.clientId.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.user.client_id.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-10"><a class="header" href="#testgetnumrecordederrors-10"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given UUID metric.</p>
+<p>Gets the number of errors recorded for a given UUID metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -8332,7 +7884,8 @@ assert metrics.user.client_id.test_has_value()
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.User
 
 assertEquals(
-    1, User.clientId.testGetNumRecordedErrors(ErrorType.InvalidValue)
+    0,
+    User.clientId.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 )
 </code></pre>
 </div>
@@ -8340,12 +7893,13 @@ assertEquals(
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.User;
 
 assertEquals(
-    1, User.INSTANCE.clientId.testGetNumRecordedErrors(ErrorType.InvalidValue)
+    0,
+    User.INSTANCE.clientId.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertEqual(1, User.clientId.testGetNumRecordedErrors(.invalidValue))
+<pre><code class="language-Swift">XCTAssertEqual(0, User.clientId.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -8354,27 +7908,22 @@ metrics = load_metrics(&quot;metrics.yaml&quot;)
 
 from glean.testing import ErrorType
 
-assert 1 == metrics.user.client_id.test_get_num_recorded_errors(
+assert 0 == metrics.user.client_id.test_get_num_recorded_errors(
     ErrorType.INVALID_VALUE
 )
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::user;
 
 assert_eq!(
-  1,
+  0,
   user::client_id.test_get_num_recorded_errors(
     ErrorType::InvalidValue
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as user from &quot;./path/to/generated/files/user.js&quot;;
@@ -8382,7 +7931,7 @@ import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
 // Was the string truncated, and an error reported?
 assert.strictEqual(
-  1,
+  0,
   await user.clientId.testGetNumRecordedErrors(ErrorType.InvalidValue)
 );
 </code></pre>
@@ -8468,14 +8017,10 @@ metrics.search.template.set(&quot;https://mysearchengine.com/&quot;)
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::search;
 
 search::template.set(&quot;https://mysearchengine.com/&quot;);
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as search from &quot;./path/to/generated/files/search.js&quot;;
@@ -8531,7 +8076,9 @@ search.template.setUrl(new URL(&quot;https://mysearchengine.com/&quot;));
 </ul>
 <h2 id="testing-api-13"><a class="header" href="#testing-api-13">Testing API</a></h2>
 <h3 id="testgetvalue-11"><a class="header" href="#testgetvalue-11"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given URL metric as a (unencoded) string.</p>
+<p>Gets the recorded value for a given URL metric as a (unencoded) string.<br />
+Returns a URL if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -8559,14 +8106,10 @@ assert &quot;https://mysearchengine.com/&quot; == metrics.search.template.test_g
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::search;
 
 assert_eq!(&quot;https://mysearchengine.com/&quot;, search::template.test_get_value(None).unwrap());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as search from &quot;./path/to/generated/files/search.js&quot;;
@@ -8577,50 +8120,16 @@ assert.strictEqual(&quot;https://mysearchengine.com/&quot;, await search.templat
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testhasvalue-11"><a class="header" href="#testhasvalue-11"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given UUID metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Search
-
-assertTrue(Search.template.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
-
-assertTrue(Search.INSTANCE.template.testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(try Search.template.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.search.template.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-11"><a class="header" href="#testgetnumrecordederrors-11"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given counter metric.</p>
+<p>Gets the number of errors recorded for a given counter metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
 <div data-lang="Kotlin" class="tab">
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Search
 
-assertEquals(0, Search.template.testGetNumRecordedErrors(ErrorType.InvalidValue))
-
-assertEquals(0, Search.template.testGetNumRecordedErrors(ErrorType.InvalidOverflow))
+assertEquals(0, Search.template.testGetNumRecordedErrors(ErrorType.INVALID_VALUE))
+assertEquals(0, Search.template.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW))
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
@@ -8628,16 +8137,12 @@ assertEquals(0, Search.template.testGetNumRecordedErrors(ErrorType.InvalidOverfl
 
 assertEquals(
     0,
-    Search.INSTANCE.template.testGetNumRecordedErrors(
-        ErrorType.InvalidValue
-    )
+    Search.INSTANCE.template.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 
 assertEquals(
     0,
-    Search.INSTANCE.template.testGetNumRecordedErrors(
-        ErrorType.InvalidOverflow
-    )
+    Search.INSTANCE.template.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
 );
 </code></pre>
 </div>
@@ -8660,12 +8165,8 @@ assert 0 == metrics.search.template.test_get_num_recorded_errors(
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::search;
 
 assert_eq!(
   0,
@@ -8680,8 +8181,7 @@ assert_eq!(
     ErrorType::InvalidOverflow
   )
 );
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as search from &quot;./path/to/generated/files/search.js&quot;;
@@ -8782,7 +8282,7 @@ metrics.install.first_run.set(datetime.datetime(2019, 3, 25)) # Records a custom
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::install;
 
 use chrono::{FixedOffset, TimeZone};
 
@@ -8819,7 +8319,8 @@ Glean.install.firstRun.set(value.getTime() * 1000);
 </ul>
 <h2 id="testing-api-14"><a class="header" href="#testing-api-14">Testing API</a></h2>
 <h3 id="testgetvalue-12"><a class="header" href="#testgetvalue-12"><code>testGetValue</code></a></h3>
-<p>Get the recorded value for a given datetime metric as a language-specific Date object.</p>
+<p>Get the recorded value for a given datetime metric as a language-specific Datetime object.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -8854,7 +8355,7 @@ assert value == metrics.install.first_run.test_get_value()
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::install;
 
 use chrono::{FixedOffset, TimeZone};
 
@@ -8891,7 +8392,9 @@ Assert.equal(Glean.install.firstRun.testGetValue().getTime(), value.getTime());
 </div>
 </div>
 <h3 id="testgetvalueasstring"><a class="header" href="#testgetvalueasstring"><code>testGetValueAsString</code></a></h3>
-<p>Get the recorded value for a given datetime metric as an <a href="https://en.wikipedia.org/wiki/ISO_8601#Dates">ISO Date String</a>.</p>
+<p>Get the recorded value for a given datetime metric as an <a href="https://en.wikipedia.org/wiki/ISO_8601#Dates">ISO Date String</a>.<br />
+Returns a ISO 8601 date string if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <p>The returned string will be truncated to the metric's <a href="reference/metrics/datetime.html#time_unit">time unit</a>
 and will include the timezone offset from UTC, e.g. <code>2019-03-25-05:00</code>
 (in this example, <code>time_unit</code> is <code>day</code>).</p>
@@ -8931,39 +8434,6 @@ assert.strictEqual(&quot;2019-03-25-05:00&quot;, await install.firstRun.testGetV
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h3 id="testhasvalue-12"><a class="header" href="#testhasvalue-12"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given datetime metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Install
-
-assertTrue(Install.firstRun.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Install;
-
-assertTrue(Install.INSTANCE.firstRun.testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(Install.firstRun.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.install.first_run.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-12"><a class="header" href="#testgetnumrecordederrors-12"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Get number of errors recorded for a given datetime metric.</p>
 <div class="tabs">
@@ -8973,14 +8443,17 @@ assert metrics.install.first_run.test_has_value()
 <pre><code class="language-Kotlin">import mozilla.telemetry.glean.testing.ErrorType
 import org.mozilla.yourApplication.GleanMetrics.Install
 
-assertEquals(0, Install.firstRun.testGetNumRecordedErrors(ErrorType.InvalidValue))
+assertEquals(0, Install.firstRun.testGetNumRecordedErrors(ErrorType.INVALID_VALUE))
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import mozilla.telemetry.glean.testing.ErrorType
 import org.mozilla.yourApplication.GleanMetrics.Install;
 
-assertEquals(0, Install.INSTANCE.firstRun.testGetNumRecordedErrors(ErrorType.InvalidValue));
+assertEquals(
+    0,
+    Install.INSTANCE.firstRun.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -8997,24 +8470,23 @@ assert 0 == metrics.install.test_get_num_recorded_errors(
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-use glean_metrics;
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::install;
 
-assert_eq!(0, install::first_run.test_get_num_recorded_errors(
-    ErrorType::InvalidValue
-));
-<span class="boring">}
-</span></code></pre></pre>
+assert_eq!(
+    0,
+    install::first_run.test_get_num_recorded_errors(
+        ErrorType::InvalidValue
+    )
+);
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as install from &quot;./path/to/generated/files/install.js&quot;;
 import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
 assert.strictEqual(
-  1,
+  0,
   await install.firstRun.testGetNumRecordedErrors(ErrorType.InvalidValue)
 );
 </code></pre>
@@ -9207,7 +8679,8 @@ views.loginOpened.record({ sourceOfLogin: &quot;toolbar&quot; });
 </ul>
 <h2 id="testing-api-15"><a class="header" href="#testing-api-15">Testing API</a></h2>
 <h3 id="testgetvalue-13"><a class="header" href="#testgetvalue-13"><code>testGetValue</code></a></h3>
-<p>Get the list of recorded events.</p>
+<p>Get the list of recorded events.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -9278,39 +8751,6 @@ Assert.equal(&quot;login_opened&quot;, events[0].name);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-13"><a class="header" href="#testhasvalue-13"><code>testHasValue</code></a></h3>
-<p>Whether or not any event was recorded for a given event metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Views
-
-assertTrue(Views.loginOpened.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Views
-
-assertTrue(Views.INSTANCE.loginOpened.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-swift">XCTAssert(Views.loginOpened.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.views.login_opened.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-13"><a class="header" href="#testgetnumrecordederrors-13"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Get the number of errors recorded for a given event metric.</p>
 <div class="tabs">
@@ -9320,14 +8760,20 @@ assert metrics.views.login_opened.test_has_value()
 <pre><code class="language-Kotlin">import mozilla.telemetry.glean.testing.ErrorType
 import org.mozilla.yourApplication.GleanMetrics.Views
 
-assertEquals(0, Views.loginOpened.testGetNumRecordedErrors(ErrorType.InvalidOverflow))
+assertEquals(
+    0,
+    Views.loginOpened.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Kotlin">import mozilla.telemetry.glean.testing.ErrorType
 import org.mozilla.yourApplication.GleanMetrics.Views
 
-assertEquals(0, Views.INSTANCE.loginOpened.testGetNumRecordedErrors(ErrorType.InvalidOverflow))
+assertEquals(
+    0,
+    Views.INSTANCE.loginOpened.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+)
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -9350,7 +8796,10 @@ use metrics::views;
 
 assert_eq!(
     0,
-    views::login_opened.test_get_num_recorded_errors(ErrorType::InvalidOverflow, None)
+    views::login_opened.test_get_num_recorded_errors(
+        ErrorType::InvalidOverflow,
+        None
+    )
 );
 </code></pre>
 </div>
@@ -9359,7 +8808,7 @@ assert_eq!(
 import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
 assert.strictEqual(
-  1,
+  0,
   await views.loginOpened.testGetNumRecordedErrors(ErrorType.InvalidValue)
 );
 </code></pre>
@@ -9448,11 +8897,25 @@ Otherwise, look at the standard distribution metric types:</p>
 Graphics.checkerboardPeak.accumulateSamples([23])
 </code></pre>
 </div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Graphics;
+
+Graphics.INSTANCE.checkerboardPeak().accumulateSamples(listOf(23));
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">Graphics.checkerboardPeak.accumulateSamples([23])
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+metrics.graphics.checkerboard_peak.accumulate_samples([23])
+</code></pre>
+</div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::graphics;
 
 graphics::checkerboard_peak.accumulate_samples_signed(vec![23]);
 </code></pre>
@@ -9481,7 +8944,9 @@ mozilla::glean::graphics::checkerboard_peak.AccumulateSamples({ 23 });
 </ul>
 <h2 id="testing-api-16"><a class="header" href="#testing-api-16">Testing API</a></h2>
 <h3 id="testgetvalue-14"><a class="header" href="#testgetvalue-14"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given counter metric.</p>
+<p>Gets the recorded value for a given counter metric.<br />
+Returns a struct with counts per buckets and total sum if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -9492,21 +8957,58 @@ mozilla::glean::graphics::checkerboard_peak.AccumulateSamples({ 23 });
 val snapshot = Graphics.checkerboardPeak.testGetValue()
 
 // Does the sum have the expected value?
-assertEquals(11, snapshot.sum)
+assertEquals(23, snapshot.sum)
 
-// Usually you don't know the exact timing values, but how many should have been recorded.
-assertEquals(2L, snapshot.count())
+// Buckets are indexed by their lower bound.
+assertEquals(1L, snapshot.values[19])
 </code></pre>
 </div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
-<div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean::ErrorType;
-use glean_metrics::graphics;
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Graphics;
 
-// Does it have the expected value?
+// Get snapshot
+val snapshot = Graphics.INSTANCE.checkerboardPeak().testGetValue();
+
+// Does the sum have the expected value?
+assertEquals(23, snapshot.sum);
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">// Get snapshot.
+let snapshot = graphics.checkerboardPeak.testGetValue()
+
+// Usually you don't know the exact values,
+// but how many should have been recorded.
+XCTAssertEqual(23, snapshot.sum)
+
+// Buckets are indexed by their lower bound.
+XCTAssertEqual(1L, snapshot.values[19])
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+# Get snapshot.
+snapshot = metrics.graphics.checkerboard_peak.test_get_value()
+
+# Usually you don't know the exact values,
+# but how many should have been recorded.
+assert 23 == snapshot.sum
+
+# Buckets are indexed by their lower bound.
+assertEquals(1L, snapshot.values[19])
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean_metrics::graphics;
+
+// Usually you don't know the exact values,
+// but how many should have been recorded.
 assert_eq!(23, graphics::checkerboard_peak.test_get_value(None).unwrap().sum);
+
+// Buckets are indexed by their lower bound.
+assert_eq(1, snapshot.values[19])
 </code></pre>
 </div>
 <div data-lang="JavaScript" class="tab"></div>
@@ -9524,28 +9026,8 @@ Assert.equal(23, data.sum);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-14"><a class="header" href="#testhasvalue-14"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given counter metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Graphics
-
-// Was anything recorded?
-assertTrue(Graphics.checkerboardPeak.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-14"><a class="header" href="#testgetnumrecordederrors-14"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given counter metric.</p>
+<p>Gets the number of errors recorded for a the custom distribution metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -9553,12 +9035,39 @@ assertTrue(Graphics.checkerboardPeak.testHasValue())
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Graphics
 
 /// Did the metric receive a negative value?
-assertEquals(1, Graphics.checkerboardPeak.testGetNumRecordedErrors(ErrorType.InvalidValue))
+assertEquals(
+    0,
+    Graphics.checkerboardPeak.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+)
 </code></pre>
 </div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Graphics;
+
+/// Did the metric receive a negative value?
+assertEquals(
+    0,
+    Graphics.INSTANCE.checkerboardPeak().testGetNumRecordedErrors(
+        ErrorType.INVALID_VALUE
+    )
+)
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">// Assert that no errors were recorded.
+XCTAssertEqual(0, Graphics.checkerboardPeak.testGetNumRecordedErrors(.invalidValue))
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+# Assert that no errors were recorded.
+assert 0 == metrics.graphics.checkerboard_peak.test_get_num_recorded_errors(
+    ErrorType.INVALID_VALUE
+)
+</code></pre>
+</div>
 <div data-lang="Rust" class="tab">
 <pre><code class="language-Rust">use glean::ErrorType;
 use glean_metrics::graphics;
@@ -9566,7 +9075,11 @@ use glean_metrics::graphics;
 // Were any of the values negative and thus caused an error to be recorded?
 assert_eq!(
     0,
-    graphics::checkerboard_peak.test_get_num_recorded_errors(ErrorType::InvalidValue));
+    graphics::checkerboard_peak.test_get_num_recorded_errors(
+        ErrorType::InvalidValue,
+        None
+    )
+);
 </code></pre>
 </div>
 <div data-lang="JavaScript" class="tab"></div>
@@ -9713,30 +9226,26 @@ metrics = load_metrics(&quot;metrics.yaml&quot;)
 metrics.display.width.set(width)
 </code></pre>
 </div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean_metrics::display;
+
+display::width.set(width);
+</code></pre>
+</div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as display from &quot;./path/to/generated/files/display.js&quot;;
 
-display.width.set(window.innerHeight);
+display.width.set(window.innerWidth);
 </code></pre>
-</div>
-<div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
-
-display::width.set(width);
-<span class="boring">}
-</span></code></pre></pre>
 </div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-cpp">#include &quot;mozilla/glean/GleanMetrics.h&quot;
 
-mozilla::glean::display::width.Set(innerHeight);
+mozilla::glean::display::width.Set(innerWidth);
 </code></pre>
 <p><strong>JavaScript</strong></p>
-<pre><code class="language-js">Glean.display.width.set(innerHeight);
+<pre><code class="language-js">Glean.display.width.set(innerWidth);
 </code></pre>
 </div>
 </div>
@@ -9752,7 +9261,9 @@ mozilla::glean::display::width.Set(innerHeight);
 </ul>
 <h2 id="testing-api-17"><a class="header" href="#testing-api-17">Testing API</a></h2>
 <h3 id="testgetvalue-15"><a class="header" href="#testgetvalue-15"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given quantity metric.</p>
+<p>Gets the recorded value for a given quantity metric.<br />
+Returns the quantity value if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -9760,21 +9271,19 @@ mozilla::glean::display::width.Set(innerHeight);
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Display
 
 // Does the quantity have the expected value?
-assertEquals(6, Display.width.testGetValue())
+assertEquals(433, Display.width.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Display;
 
-// Was anything recorded?
-assertTrue(Display.INSTANCE.width.testHasValue());
 // Does the quantity have the expected value?
-assertEquals(6, Display.INSTANCE.width.testGetValue());
+assertEquals(433, Display.INSTANCE.width.testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Does the quantity have the expected value?
-XCTAssertEqual(6, try Display.width.testGetValue())
+XCTAssertEqual(433, try Display.width.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -9782,7 +9291,14 @@ XCTAssertEqual(6, try Display.width.testGetValue())
 metrics = load_metrics(&quot;metrics.yaml&quot;)
 
 # Does the quantity have the expected value?
-assert 6 == metrics.display.width.test_get_value()
+assert 433 == metrics.display.width.test_get_value()
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean_metrics::display;
+
+// Was anything recorded?
+assert_eq!(433, display::width.test_get_value(None).unwrap());
 </code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
@@ -9790,17 +9306,6 @@ assert 6 == metrics.display.width.test_get_value()
 
 assert.strictEqual(433, await display.width.testGetValue());
 </code></pre>
-</div>
-<div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics;
-
-// Was anything recorded?
-assert!(display::width.test_get_value(None).is_some());
-<span class="boring">}
-</span></code></pre></pre>
 </div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
@@ -9816,46 +9321,8 @@ Assert.equal(433, Glean.display.width.testGetValue());
 </div>
 </div>
 </div>
-<h3 id="testhasvalue-15"><a class="header" href="#testhasvalue-15"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given quantity metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Display
-
-// Was anything recorded?
-assertTrue(Display.width.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Display;
-
-// Was anything recorded?
-assertTrue(Display.INSTANCE.width.testHasValue());
-);
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(Display.width.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.display.width.test_has_value()
-</code></pre>
-</div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors-15"><a class="header" href="#testgetnumrecordederrors-15"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given quantity metric.</p>
+<p>Gets the number of errors recorded for a given quantity metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -9863,7 +9330,7 @@ assert metrics.display.width.test_has_value()
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Display
 
 // Did it record an error due to a negative value?
-assertEquals(1, Display.width.testGetNumRecordedErrors(ErrorType.InvalidValue))
+assertEquals(0, Display.width.testGetNumRecordedErrors(ErrorType.INVALID_VALUE))
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
@@ -9871,13 +9338,14 @@ assertEquals(1, Display.width.testGetNumRecordedErrors(ErrorType.InvalidValue))
 
 // Did the quantity record a negative value?
 assertEquals(
-    1, Display.INSTANCE.width.testGetNumRecordedErrors(ErrorType.InvalidValue)
+    0,
+    Display.INSTANCE.width.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Did the quantity record a negative value?
-XCTAssertEqual(1, Display.width.testGetNumRecordedErrors(.invalidValue))
+XCTAssertEqual(0, Display.width.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -9886,9 +9354,22 @@ metrics = load_metrics(&quot;metrics.yaml&quot;)
 
 # Did the quantity record an negative value?
 from glean.testing import ErrorType
-assert 1 == metrics.display.width.test_get_num_recorded_errors(
+assert 0 == metrics.display.width.test_get_num_recorded_errors(
     ErrorType.INVALID_VALUE
 )
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::display;
+
+assert_eq!(
+  0,
+  display::width.test_get_num_recorded_errors(
+    ErrorType::InvalidValue,
+    None
+  )
+);
 </code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
@@ -9900,23 +9381,6 @@ assert.strictEqual(
   await display.width.testGetNumRecordedErrors(ErrorType.InvalidValue)
 );
 </code></pre>
-</div>
-<div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
-
-use glean_metrics;
-
-assert_eq!(
-  1,
-  display::width.test_get_num_recorded_errors(
-    ErrorType::InvalidValue
-  )
-);
-<span class="boring">}
-</span></code></pre></pre>
 </div>
 <div data-lang="Firefox Desktop" class="tab" data-info="Firefox Desktop uses testGetValue to communicate errors"></div>
 </div>
@@ -9975,12 +9439,92 @@ Instead, count to the numerator and denominator as you go.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Network
+
+if (connectionHadError) {
+    Network.httpConnectionError.addToNumerator(1)
+}
+
+Network.httpConnectionError.addToDenominator(1)
+</code></pre>
+<h4 id="external-denominators"><a class="header" href="#external-denominators">External Denominators</a></h4>
+<p>If the rate uses an external denominator,
+adding to the denominator must be done through the denominator's
+<a href="reference/metrics/./counter.html#recording-api"><code>counter</code> API</a>:</p>
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Network
+
+if (connectionHadError) {
+    Network.httpConnectionError.addToNumerator(1)
+}
+
+Network.httpConnections.add(1)
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Network;
+
+if (connectionHadError) {
+    Network.INSTANCE.httpConnectionError().addToNumerator(1);
+}
+
+Network.IMPORTANT.httpConnectionError().addToDenominator(1);
+</code></pre>
+<h4 id="external-denominators-1"><a class="header" href="#external-denominators-1">External Denominators</a></h4>
+<p>If the rate uses an external denominator,
+adding to the denominator must be done through the denominator's
+<a href="reference/metrics/./counter.html#recording-api"><code>counter</code> API</a>:</p>
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Network;
+
+if (connectionHadError) {
+    Network.INSTANCE.httpConnectionError().addToNumerator(1);
+}
+
+Network.INSTANCE.httpConnections().add(1)
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">if (connectionHadError) {
+    Network.httpConnectionError.addToNumerator(1)
+}
+
+Network.httpConnectionError.addToDenominator(1)
+</code></pre>
+<h4 id="external-denominators-2"><a class="header" href="#external-denominators-2">External Denominators</a></h4>
+<p>If the rate uses an external denominator,
+adding to the denominator must be done through the denominator's
+<a href="reference/metrics/./counter.html#recording-api"><code>counter</code> API</a>:</p>
+<pre><code class="language-Swift">if (connectionHadError) {
+    Network.httpConnectionError.addToNumerator(1)
+}
+
+Network.httpConnections.add(1)
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+if connection_had_error:
+    metrics.network.http_connection_error.add_to_numerator(1)
+
+metrics.network.http_connection_error.add_to_denominator(1)
+</code></pre>
+<h4 id="external-denominators-3"><a class="header" href="#external-denominators-3">External Denominators</a></h4>
+<p>If the rate uses an external denominator,
+adding to the denominator must be done through the denominator's
+<a href="reference/metrics/./counter.html#recording-api"><code>counter</code> API</a>:</p>
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+if connection_had_error:
+    metrics.network.http_connection_error.add_to_numerator(1)
+
+metrics.network.http_connections.add(1)
+</code></pre>
+</div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics::*;
+<pre><code class="language-Rust">use glean_metrics::network;
 
 if connection_had_error {
     network::http_connection_error.add_to_numerator(1);
@@ -9988,11 +9532,11 @@ if connection_had_error {
 
 network::http_connection_error.add_to_denominator(1);
 </code></pre>
-<h4 id="external-denominators"><a class="header" href="#external-denominators">External Denominators</a></h4>
+<h4 id="external-denominators-4"><a class="header" href="#external-denominators-4">External Denominators</a></h4>
 <p>If the rate uses an external denominator,
 adding to the denominator must be done through the denominator's
 <a href="reference/metrics/./counter.html#recording-api"><code>counter</code> API</a>:</p>
-<pre><code class="language-Rust">use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::network;
 
 if connection_had_error {
     network::http_connection_error.add_to_numerator(1);
@@ -10001,7 +9545,7 @@ if connection_had_error {
 network::http_connections.add(1);
 </code></pre>
 </div>
-<div data-lang="Javascript" class="tab">
+<div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as network from &quot;./path/to/generated/files/network.js&quot;;
 
 if (connectionHadError) {
@@ -10016,13 +9560,13 @@ network.httpConnectionError.addToDenominator(1);
 <pre><code class="language-cpp">#include &quot;mozilla/glean/GleanMetrics.h&quot;
 
 if (aHadError) {
-  mozilla::glean::network::http_connection_error.AddToNumerator(1);
+mozilla::glean::network::http_connection_error.AddToNumerator(1);
 }
 mozilla::glean::network::http_connection_error.AddToDenominator(1);
 </code></pre>
 <p><strong>JavaScript</strong></p>
 <pre><code class="language-js">if (aHadError) {
-  Glean.network.httpConnectionError.addToNumerator(1);
+Glean.network.httpConnectionError.addToNumerator(1);
 }
 Glean.network.httpConnectionError.addToDenominator(1);
 </code></pre>
@@ -10041,20 +9585,47 @@ Glean.network.httpConnectionError.addToDenominator(1);
 </ul>
 <h2 id="testing-api-18"><a class="header" href="#testing-api-18">Testing API</a></h2>
 <h3 id="testgetvalue-16"><a class="header" href="#testgetvalue-16"><code>testGetValue</code></a></h3>
+<p>Gets the recorded value for a given rate metric.<br />
+Returns the numerator/denominator pair if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
-<div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics::*;
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Network
 
-assert_eq!((1, 1), network::http_connection_error.test_get_value(None).unwrap());
+assertEquals(Rate(1, 1), Network.httpConnectionError.testGetValue())
 </code></pre>
 </div>
-<div data-lang="Javascript" class="tab">
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Network;
+
+assertEquals(Rate(1, 1), Network.INSTANCE.httpConnectionError().testGetValue());
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">XCTAssertEqual(
+    Rate(numerator: 1, denominator: 1),
+    Network.httpConnectionError.testGetValue()
+)
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+assert Rate(1, 1) == metrics.network.http_connection_error.test_get_value()
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean_metrics::network;
+
+let rate = network::http_connection_error.test_get_value(None).unwrap();
+assert_eq!(1, rate.numerator);
+assert_eq!(1, rate.denominator);
+</code></pre>
+</div>
+<div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as network from &quot;./path/to/generated/files/network.js&quot;;
 
 const { numerator, denominator } = await network.httpConnectionError.testGetValue();
@@ -10073,47 +9644,69 @@ ASSERT_EQ(1, pair.second);
 <p><strong>JavaScript</strong></p>
 <pre><code class="language-js">// testGetValue will throw NS_ERROR_LOSS_OF_SIGNIFICANT_DATA on error.
 Assert.deepEqual(
-  { numerator: 1, denominator: 1 },
-  Glean.network.httpConnectionError.testGetValue()
+{ numerator: 1, denominator: 1 },
+Glean.network.httpConnectionError.testGetValue()
 );
 </code></pre>
 </div>
-</div>
-</div>
-<h3 id="testhasvalue-16"><a class="header" href="#testhasvalue-16"><code>testHasValue</code></a></h3>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="Javascript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
 <h3 id="testgetnumrecordederrors-16"><a class="header" href="#testgetnumrecordederrors-16"><code>testGetNumRecordedErrors</code></a></h3>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
-<div data-lang="Kotlin" class="tab"></div>
-<div data-lang="Java" class="tab"></div>
-<div data-lang="Swift" class="tab"></div>
-<div data-lang="Python" class="tab"></div>
-<div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean_metrics::*;
-use glean::ErrorType;
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Network
 
-assert_eq!(
+assertEquals(
     0,
-    network::http_connection_error.test_get_num_recorded_errors(
-        ErrorType::InvalidValue
+    Network.httpConnectionError.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+)
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Network;
+
+assertEquals(
+    0,
+    Network.INSTANCE.httpConnectionError().testGetNumRecordedErrors(
+        ErrorType.INVALID_VALUE
     )
 );
 </code></pre>
 </div>
-<div data-lang="Javascript" class="tab">
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">XCTAssertEqual(
+    0,
+    Network.httpConnectionError.testGetNumRecordedErrors(.invalidValue)
+)
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+from glean.testing import ErrorType
+
+assert 0 == metrics.network.http_connection_error.test_get_num_recorded_errors(
+    ErrorType.INVALID_VALUE
+)
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">use glean::ErrorType;
+use glean_metrics::network;
+
+assert_eq!(
+    0,
+    network::http_connection_error.test_get_num_recorded_errors(
+        ErrorType::InvalidValue,
+        None
+    )
+);
+</code></pre>
+</div>
+<div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as network from &quot;./path/to/generated/files/network.js&quot;;
 import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
@@ -10143,7 +9736,7 @@ assert.strictEqual(
 </code></pre>
 <p>For a full reference on metrics parameters common to all metric types,
 refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML registry format</a> reference page.</p>
-<h2 id="external-denominators-1"><a class="header" href="#external-denominators-1">External Denominators</a></h2>
+<h2 id="external-denominators-5"><a class="header" href="#external-denominators-5">External Denominators</a></h2>
 <p>If several rates share the same denominator
 then the denominator should be defined as a <code>counter</code> and shared between
 <code>rates</code> using the <code>denominator_metric</code> property:</p>
@@ -10246,7 +9839,7 @@ assert.strictEqual(&quot;some content&quot;, await article.content.testGetValue(
 </div>
 </div>
 <h3 id="testgetnumrecordederrors-17"><a class="header" href="#testgetnumrecordederrors-17"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given text metric.</p>
+<p>Gets the number of errors recorded for a given text metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -10469,8 +10062,7 @@ assert callback_was_called[0]
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><code class="language-Rust">use glean::Pings;
-use glean_metrics;
+<pre><code class="language-Rust">use glean_metrics::{search, pings};
 
 // Record some data.
 search::default_engine.add(5);

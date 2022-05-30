@@ -170,10 +170,10 @@ Search.engines.add(&quot;duck duck go&quot;)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
 
-Search.INSTANCE.engines().add(&quot;wikipedia&quot;)
-Search.INSTANCE.engines().add(&quot;duck duck go&quot;)
+Search.INSTANCE.engines().add(&quot;wikipedia&quot;);
+Search.INSTANCE.engines().add(&quot;duck duck go&quot;);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -238,9 +238,9 @@ Search.engines.set(listOf(&quot;wikipedia&quot;, &quot;duck duck go&quot;))
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
 
-Search.INSTANCE.engines().set(listOf(&quot;wikipedia&quot;, &quot;duck duck go&quot;))
+Search.INSTANCE.engines().set(listOf(&quot;wikipedia&quot;, &quot;duck duck go&quot;));
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -289,7 +289,9 @@ mozilla::glean::search::engines.Set({&quot;wikipedia&quot;_ns, &quot;duck duck g
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given string list metric.</p>
+<p>Gets the recorded value for a given string list metric.<br />
+Returns the list of strings if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -300,16 +302,16 @@ assertEquals(listOf(&quot;Google&quot;, &quot;DuckDuckGo&quot;), Search.engines.
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
 
 assertEquals(
     Arrays.asList(&quot;Google&quot;, &quot;DuckDuckGo&quot;),
     Search.INSTANCE.engines().testGetValue()
-)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssertEqual([&quot;Google&quot;, &quot;DuckDuckGo&quot;], try Search.engines.testGetValue())
+<pre><code class="language-Swift">XCTAssertEqual([&quot;Google&quot;, &quot;DuckDuckGo&quot;], Search.engines.testGetValue())
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -353,68 +355,39 @@ Assert.ok(engines.includes(&quot;duck duck go&quot;));
 </div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given string list metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Search
-
-assertTrue(Search.engines.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
-
-assertTrue(Search.INSTANCE.engines().testHasValue())
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">XCTAssert(Search.engines.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.search.engines.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given string list metric.</p>
+<p>Gets the number of errors recorded for a given string list metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
 <div data-lang="Kotlin" class="tab">
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Search
-
-assertEquals(1, Search.engines.testGetNumRecordedErrors(ErrorType.InvalidValue))
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
 
 assertEquals(
-    1, Search.INSTANCE.engines().testGetNumRecordedErrors(ErrorType.InvalidValue)
+    0,
+    Search.engines.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 )
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
+
+assertEquals(
+    0,
+    Search.INSTANCE.engines().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Were any of the values too long, and thus an error was recorded?
-XCTAssertEqual(1, Search.engines.testGetNumRecordedErrors(.invalidValue))
+XCTAssertEqual(0, Search.engines.testGetNumRecordedErrors(.invalidValue))
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
 <pre><code class="language-Python">from glean import load_metrics
 metrics = load_metrics(&quot;metrics.yaml&quot;)
 
-assert 1 == metrics.search.engines.test_get_num_recorded_errors(
+assert 0 == metrics.search.engines.test_get_num_recorded_errors(
     ErrorType.INVALID_VALUE
 )
 </code></pre>

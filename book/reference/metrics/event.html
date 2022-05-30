@@ -292,7 +292,8 @@ views.loginOpened.record({ sourceOfLogin: &quot;toolbar&quot; });
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Get the list of recorded events.</p>
+<p>Get the list of recorded events.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -363,39 +364,6 @@ Assert.equal(&quot;login_opened&quot;, events[0].name);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Whether or not any event was recorded for a given event metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Views
-
-assertTrue(Views.loginOpened.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Views
-
-assertTrue(Views.INSTANCE.loginOpened.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-swift">XCTAssert(Views.loginOpened.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-assert metrics.views.login_opened.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
 <p>Get the number of errors recorded for a given event metric.</p>
 <div class="tabs">
@@ -405,14 +373,20 @@ assert metrics.views.login_opened.test_has_value()
 <pre><code class="language-Kotlin">import mozilla.telemetry.glean.testing.ErrorType
 import org.mozilla.yourApplication.GleanMetrics.Views
 
-assertEquals(0, Views.loginOpened.testGetNumRecordedErrors(ErrorType.InvalidOverflow))
+assertEquals(
+    0,
+    Views.loginOpened.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+)
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Kotlin">import mozilla.telemetry.glean.testing.ErrorType
 import org.mozilla.yourApplication.GleanMetrics.Views
 
-assertEquals(0, Views.INSTANCE.loginOpened.testGetNumRecordedErrors(ErrorType.InvalidOverflow))
+assertEquals(
+    0,
+    Views.INSTANCE.loginOpened.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+)
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -435,7 +409,10 @@ use metrics::views;
 
 assert_eq!(
     0,
-    views::login_opened.test_get_num_recorded_errors(ErrorType::InvalidOverflow, None)
+    views::login_opened.test_get_num_recorded_errors(
+        ErrorType::InvalidOverflow,
+        None
+    )
 );
 </code></pre>
 </div>
@@ -444,7 +421,7 @@ assert_eq!(
 import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
 
 assert.strictEqual(
-  1,
+  0,
   await views.loginOpened.testGetNumRecordedErrors(ErrorType.InvalidValue)
 );
 </code></pre>

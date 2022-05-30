@@ -201,17 +201,13 @@ def allocate_memory(nbytes):
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean_metrics::memory;
+<pre><code class="language-Rust">use glean_metrics::memory;
 
 fn allocate_memory(bytes: u64) {
     // ...
     memory::heap_allocated.accumulate(bytes / 1024);
 }
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab" data-bug="1716952"></div>
 <div data-lang="Firefox Desktop" class="tab">
@@ -233,7 +229,9 @@ mozilla::glean::memory::heap_allocated.Accumulate(bytes / 1024);
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Gets the recorded value for a given memory distribution metric.</p>
+<p>Gets the recorded value for a given memory distribution metric.<br />
+Returns a struct with counts per buckets and total sum if data is stored.<br />
+Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -293,10 +291,7 @@ assert 2 == snapshot.count
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>use glean::ErrorType;
+<pre><code class="language-Rust">use glean::ErrorType;
 use glean_metrics::memory;
 
 // Get snapshot
@@ -308,8 +303,7 @@ assert_eq!(11, snapshot.sum);
 // Usually you don't know the exact timing values,
 // but how many should have been recorded.
 assert_eq!(2, snapshot.values.len());
-<span class="boring">}
-</span></code></pre></pre>
+</code></pre>
 </div>
 <div data-lang="JavaScript" class="tab"  data-bug="1716952"></div>
 <div data-lang="Firefox Desktop" class="tab">
@@ -327,45 +321,8 @@ Assert.equal(11 * 1024, data.sum);
 </div>
 </div>
 </div>
-<h3 id="testhasvalue"><a class="header" href="#testhasvalue"><code>testHasValue</code></a></h3>
-<p>Whether or not <strong>any</strong> value was recorded for a given memory distribution metric.</p>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Pages
-
-// Get snapshot
-assertTrue(Memory.heapAllocated.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Pages;
-
-// Was anything recorded?
-assertTrue(Memory.INSTANCE.heapAllocated().testHasValue());
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<pre><code class="language-Swift">// Was anything recorded?
-XCTAssert(Memory.heapAllocated.testHasValue())
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-# Was anything recorded?
-assert metrics.memory.head_allocated.test_has_value()
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h3 id="testgetnumrecordederrors"><a class="header" href="#testgetnumrecordederrors"><code>testGetNumRecordedErrors</code></a></h3>
-<p>Gets number of errors recorded for a given memory distribution metric.</p>
+<p>Gets the number of errors recorded for a given memory distribution metric.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -375,7 +332,7 @@ assert metrics.memory.head_allocated.test_has_value()
 // Did this record a negative value?
 assertEquals(
     0,
-    Memory.heapAllocated.testGetNumRecordedErrors(ErrorType.InvalidValue)
+    Memory.heapAllocated.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 )
 </code></pre>
 </div>
@@ -385,9 +342,7 @@ assertEquals(
 // Assert that no errors were recorded.
 assertEquals(
     0,
-    Memory.INSTANCE.heapAllocated().testGetNumRecordedErrors(
-        ErrorType.InvalidValue
-    )
+    Memory.INSTANCE.heapAllocated().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
