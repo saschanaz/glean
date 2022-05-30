@@ -175,7 +175,7 @@ fun onShowLogin() {
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 void onShowLogin() {
-    Auth.INSTANCE.loginTime.start();
+    Auth.INSTANCE.loginTime().start();
     // ...
 }
 </code></pre>
@@ -279,7 +279,7 @@ fun onLogin() {
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 void onLogin() {
-    Auth.INSTANCE.loginTime.stop();
+    Auth.INSTANCE.loginTime().stop();
     // ...
 }
 </code></pre>
@@ -359,7 +359,7 @@ fun onLoginCancel() {
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 void onLoginCancel() {
-    Auth.INSTANCE.loginTime.cancel();
+    Auth.INSTANCE.loginTime().cancel();
     // ...
 }
 </code></pre>
@@ -433,7 +433,7 @@ Auth.loginTime.measure {
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth
 
-Auth.INSTANCE.loginTime.measure() -&gt; {
+Auth.INSTANCE.loginTime().measure() -&gt; {
     // Process login flow
     return null;
 });
@@ -484,7 +484,7 @@ fun afterLogin(loginElapsedNs: Long) {
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 void afterLogin(long loginElapsedNs) {
-    Auth.INSTANCE.loginTime.setRawNanos(loginElapsedNs);
+    Auth.INSTANCE.loginTime().setRawNanos(loginElapsedNs);
     // ...
 }
 </code></pre>
@@ -572,7 +572,7 @@ assertTrue(Auth.loginTime.testGetValue() &gt; 0)
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
-assertTrue(Auth.INSTANCE.loginTime.testGetValue() &gt; 0);
+assertTrue(Auth.INSTANCE.loginTime().testGetValue() &gt; 0);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -631,7 +631,7 @@ assertEquals(
 
 assertEquals(
     0,
-    Auth.INSTANCE.loginTime.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    Auth.INSTANCE.loginTime().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>

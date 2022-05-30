@@ -178,7 +178,7 @@ Search.template.set(&quot;https://mysearchengine.com/&quot;)
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
 
-Search.INSTANCE.template.set(&quot;https://mysearchengine.com/&quot;);
+Search.INSTANCE.template().set(&quot;https://mysearchengine.com/&quot;);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -271,7 +271,7 @@ assertEquals(&quot;https://mysearchengine.com/&quot;, Search.template.testGetVal
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
 
-assertEquals(&quot;https://mysearchengine.com/&quot;, Search.INSTANCE.template.testGetValue());
+assertEquals(&quot;https://mysearchengine.com/&quot;, Search.INSTANCE.template().testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -317,12 +317,12 @@ assertEquals(0, Search.template.testGetNumRecordedErrors(ErrorType.INVALID_OVERF
 
 assertEquals(
     0,
-    Search.INSTANCE.template.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    Search.INSTANCE.template().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 
 assertEquals(
     0,
-    Search.INSTANCE.template.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+    Search.INSTANCE.template().testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
 );
 </code></pre>
 </div>

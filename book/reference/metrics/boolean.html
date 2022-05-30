@@ -166,7 +166,7 @@ Flags.a11yEnabled.set(System.isAccesibilityEnabled())
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Flags;
 
-Flags.INSTANCE.a11yEnabled.set(System.isAccessibilityEnabled());
+Flags.INSTANCE.a11yEnabled().set(System.isAccessibilityEnabled());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -225,7 +225,7 @@ assertTrue(Flags.a11yEnabled.testGetValue())
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Flags;
 
-assertTrue(Flags.INSTANCE.a11yEnabled.testGetValue());
+assertTrue(Flags.INSTANCE.a11yEnabled().testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -280,7 +280,7 @@ assertEquals(
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Flags;
 
 assertEquals(
-    0, Flags.INSTANCE.a11yEnabled.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    0, Flags.INSTANCE.a11yEnabled().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>

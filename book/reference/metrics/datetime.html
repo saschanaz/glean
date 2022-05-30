@@ -171,8 +171,8 @@ Install.firstRun.set(Calendar(2019, 3, 25)) // Records a custom datetime
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Install;
 
-Install.INSTANCE.firstRun.set(); // Records &quot;now&quot;
-Install.INSTANCE.firstRun.set(Calendar(2019, 3, 25)); // Records a custom datetime
+Install.INSTANCE.firstRun().set(); // Records &quot;now&quot;
+Install.INSTANCE.firstRun().set(Calendar(2019, 3, 25)); // Records a custom datetime
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -246,7 +246,7 @@ assertEquals(Install.firstRun.testGetValue(), Date(2019, 3, 25))
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Install;
 
-assertEquals(Install.INSTANCE.firstRun.testGetValue(), Date(2019, 3, 25));
+assertEquals(Install.INSTANCE.firstRun().testGetValue(), Date(2019, 3, 25));
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -323,7 +323,7 @@ assertEquals(&quot;2019-03-25-05:00&quot;, Install.firstRun.testGetValueAsString
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Install;
 
-assertEquals(&quot;2019-03-25-05:00&quot;, Install.INSTANCE.firstRun.testGetValueAsString());
+assertEquals(&quot;2019-03-25-05:00&quot;, Install.INSTANCE.firstRun().testGetValueAsString());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -365,7 +365,7 @@ import org.mozilla.yourApplication.GleanMetrics.Install;
 
 assertEquals(
     0,
-    Install.INSTANCE.firstRun.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    Install.INSTANCE.firstRun().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>

@@ -172,8 +172,8 @@ Stability.crashCount[&quot;native_code_crash&quot;].add(3) // Adds 3 to the &quo
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Stability;
 
-Stability.INSTANCE.crashCount[&quot;uncaught_exception&quot;].add(); // Adds 1 to the &quot;uncaught_exception&quot; counter.
-Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].add(3); // Adds 3 to the &quot;native_code_crash&quot; counter.
+Stability.INSTANCE.crashCount()[&quot;uncaught_exception&quot;].add(); // Adds 1 to the &quot;uncaught_exception&quot; counter.
+Stability.INSTANCE.crashCount()[&quot;native_code_crash&quot;].add(3); // Adds 3 to the &quot;native_code_crash&quot; counter.
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -257,8 +257,8 @@ assertEquals(3, Stability.crashCount[&quot;native_code_crash&quot;].testGetValue
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Stability;
 
 // Do the counters have the expected values?
-assertEquals(1, Stability.INSTANCE.crashCount[&quot;uncaught_exception&quot;].testGetValue());
-assertEquals(3, Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].testGetValue());
+assertEquals(1, Stability.INSTANCE.crashCount()[&quot;uncaught_exception&quot;].testGetValue());
+assertEquals(3, Stability.INSTANCE.crashCount()[&quot;native_code_crash&quot;].testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -331,7 +331,7 @@ assertEquals(
 // Were there any invalid labels?
 assertEquals(
     0,
-    Stability.INSTANCE.crashCount.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+    Stability.INSTANCE.crashCount().testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
 );
 </code></pre>
 </div>

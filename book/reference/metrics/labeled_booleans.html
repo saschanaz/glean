@@ -167,8 +167,8 @@ Accessibility.features[&quot;high_contrast&quot;].set(isHighContrastEnabled())
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Accessibility;
 
-Acessibility.INSTANCE.features[&quot;screen_reader&quot;].set(isScreenReaderEnabled());
-Acessibility.INSTANCE.features[&quot;high_contrast&quot;].set(isHighContrastEnabled());
+Acessibility.INSTANCE.features()[&quot;screen_reader&quot;].set(isScreenReaderEnabled());
+Acessibility.INSTANCE.features()[&quot;high_contrast&quot;].set(isHighContrastEnabled());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -242,8 +242,8 @@ assertEquals(False, Accessibility.features[&quot;high_contrast&quot;].testGetVal
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Accessibility;
 
 // Do the booleans have the expected values?
-assertEquals(True, Acessibility.INSTANCE.features[&quot;screen_reader&quot;].testGetValue());
-assertEquals(False, Acessibility.INSTANCE.features[&quot;high_contrast&quot;].testGetValue());
+assertEquals(True, Acessibility.INSTANCE.features()[&quot;screen_reader&quot;].testGetValue());
+assertEquals(False, Acessibility.INSTANCE.features()[&quot;high_contrast&quot;].testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -315,7 +315,7 @@ assertEquals(
 // Did we record any invalid labels?
 assertEquals(
     0,
-    Acessibility.INSTANCE.features.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+    Acessibility.INSTANCE.features().testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
 );
 </code></pre>
 </div>

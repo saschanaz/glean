@@ -166,7 +166,7 @@ Login.errorsByStage[&quot;server_auth&quot;].set(&quot;Invalid password&quot;)
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Login;
 
-Login.INSTANCE.errorsByStage[&quot;server_auth&quot;].set(&quot;Invalid password&quot;);
+Login.INSTANCE.errorsByStage()[&quot;server_auth&quot;].set(&quot;Invalid password&quot;);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -238,7 +238,7 @@ assertTrue(Login.errorsByStage[&quot;server_auth&quot;].testGetValue())
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Login;
 
 // Does the metric have the expected value?
-assertTrue(Login.INSTANCE.errorsByStage[&quot;server_auth&quot;].testGetValue());
+assertTrue(Login.INSTANCE.errorsByStage()[&quot;server_auth&quot;].testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -306,7 +306,7 @@ assertEquals(
 // Were there any invalid labels?
 assertEquals(
     0,
-    Login.INSTANCE.errorsByStage.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+    Login.INSTANCE.errorsByStage().testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
 );
 </code></pre>
 </div>

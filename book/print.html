@@ -4462,7 +4462,7 @@ Flags.a11yEnabled.set(System.isAccesibilityEnabled())
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Flags;
 
-Flags.INSTANCE.a11yEnabled.set(System.isAccessibilityEnabled());
+Flags.INSTANCE.a11yEnabled().set(System.isAccessibilityEnabled());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -4521,7 +4521,7 @@ assertTrue(Flags.a11yEnabled.testGetValue())
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Flags;
 
-assertTrue(Flags.INSTANCE.a11yEnabled.testGetValue());
+assertTrue(Flags.INSTANCE.a11yEnabled().testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -4576,7 +4576,7 @@ assertEquals(
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Flags;
 
 assertEquals(
-    0, Flags.INSTANCE.a11yEnabled.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    0, Flags.INSTANCE.a11yEnabled().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
@@ -4655,8 +4655,8 @@ Accessibility.features[&quot;high_contrast&quot;].set(isHighContrastEnabled())
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Accessibility;
 
-Acessibility.INSTANCE.features[&quot;screen_reader&quot;].set(isScreenReaderEnabled());
-Acessibility.INSTANCE.features[&quot;high_contrast&quot;].set(isHighContrastEnabled());
+Acessibility.INSTANCE.features()[&quot;screen_reader&quot;].set(isScreenReaderEnabled());
+Acessibility.INSTANCE.features()[&quot;high_contrast&quot;].set(isHighContrastEnabled());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -4730,8 +4730,8 @@ assertEquals(False, Accessibility.features[&quot;high_contrast&quot;].testGetVal
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Accessibility;
 
 // Do the booleans have the expected values?
-assertEquals(True, Acessibility.INSTANCE.features[&quot;screen_reader&quot;].testGetValue());
-assertEquals(False, Acessibility.INSTANCE.features[&quot;high_contrast&quot;].testGetValue());
+assertEquals(True, Acessibility.INSTANCE.features()[&quot;screen_reader&quot;].testGetValue());
+assertEquals(False, Acessibility.INSTANCE.features()[&quot;high_contrast&quot;].testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -4803,7 +4803,7 @@ assertEquals(
 // Did we record any invalid labels?
 assertEquals(
     0,
-    Acessibility.INSTANCE.features.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+    Acessibility.INSTANCE.features().testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
 );
 </code></pre>
 </div>
@@ -4938,8 +4938,8 @@ Controls.refreshPressed.add(5) // Adds 5 to the counter.
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Controls;
 
-Controls.INSTANCE.refreshPressed.add(); // Adds 1 to the counter.
-Controls.INSTANCE.refreshPressed.add(5); // Adds 5 to the counter.
+Controls.INSTANCE.refreshPressed().add(); // Adds 1 to the counter.
+Controls.INSTANCE.refreshPressed().add(5); // Adds 5 to the counter.
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -5010,7 +5010,7 @@ assertEquals(6, Controls.refreshPressed.testGetValue())
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Controls;
 
-assertEquals(6, Controls.INSTANCE.refreshPressed.testGetValue());
+assertEquals(6, Controls.INSTANCE.refreshPressed().testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -5069,7 +5069,7 @@ assertEquals(
 
 assertEquals(
     0,
-    Controls.INSTANCE.refreshPressed.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    Controls.INSTANCE.refreshPressed().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
@@ -5166,8 +5166,8 @@ Stability.crashCount[&quot;native_code_crash&quot;].add(3) // Adds 3 to the &quo
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Stability;
 
-Stability.INSTANCE.crashCount[&quot;uncaught_exception&quot;].add(); // Adds 1 to the &quot;uncaught_exception&quot; counter.
-Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].add(3); // Adds 3 to the &quot;native_code_crash&quot; counter.
+Stability.INSTANCE.crashCount()[&quot;uncaught_exception&quot;].add(); // Adds 1 to the &quot;uncaught_exception&quot; counter.
+Stability.INSTANCE.crashCount()[&quot;native_code_crash&quot;].add(3); // Adds 3 to the &quot;native_code_crash&quot; counter.
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -5251,8 +5251,8 @@ assertEquals(3, Stability.crashCount[&quot;native_code_crash&quot;].testGetValue
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Stability;
 
 // Do the counters have the expected values?
-assertEquals(1, Stability.INSTANCE.crashCount[&quot;uncaught_exception&quot;].testGetValue());
-assertEquals(3, Stability.INSTANCE.crashCount[&quot;native_code_crash&quot;].testGetValue());
+assertEquals(1, Stability.INSTANCE.crashCount()[&quot;uncaught_exception&quot;].testGetValue());
+assertEquals(3, Stability.INSTANCE.crashCount()[&quot;native_code_crash&quot;].testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -5325,7 +5325,7 @@ assertEquals(
 // Were there any invalid labels?
 assertEquals(
     0,
-    Stability.INSTANCE.crashCount.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+    Stability.INSTANCE.crashCount().testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
 );
 </code></pre>
 </div>
@@ -5460,9 +5460,9 @@ SearchDefault.name.set(&quot;wikipedia&quot;)
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.SearchDefault;
 
 // Record a value into the metric.
-SearchDefault.INSTANCE.name.set(&quot;duck duck go&quot;);
+SearchDefault.INSTANCE.name().set(&quot;duck duck go&quot;);
 // If it changed later, you can record the new value:
-SearchDefault.INSTANCE.name.set(&quot;wikipedia&quot;);
+SearchDefault.INSTANCE.name().set(&quot;wikipedia&quot;);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -5541,7 +5541,7 @@ assertEquals(&quot;wikipedia&quot;, SearchDefault.name.testGetValue())
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.SearchDefault;
 
 // Does the string metric have the expected value?
-assertEquals(&quot;wikipedia&quot;, SearchDefault.INSTANCE.name.testGetValue());
+assertEquals(&quot;wikipedia&quot;, SearchDefault.INSTANCE.name().testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -5611,7 +5611,7 @@ assertEquals(
 // Was the string truncated, and an error reported?
 assertEquals(
     0,
-    SearchDefault.INSTANCE.name.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+    SearchDefault.INSTANCE.name().testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
 );
 </code></pre>
 </div>
@@ -5709,7 +5709,7 @@ Login.errorsByStage[&quot;server_auth&quot;].set(&quot;Invalid password&quot;)
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Login;
 
-Login.INSTANCE.errorsByStage[&quot;server_auth&quot;].set(&quot;Invalid password&quot;);
+Login.INSTANCE.errorsByStage()[&quot;server_auth&quot;].set(&quot;Invalid password&quot;);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -5781,7 +5781,7 @@ assertTrue(Login.errorsByStage[&quot;server_auth&quot;].testGetValue())
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Login;
 
 // Does the metric have the expected value?
-assertTrue(Login.INSTANCE.errorsByStage[&quot;server_auth&quot;].testGetValue());
+assertTrue(Login.INSTANCE.errorsByStage()[&quot;server_auth&quot;].testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -5849,7 +5849,7 @@ assertEquals(
 // Were there any invalid labels?
 assertEquals(
     0,
-    Login.INSTANCE.errorsByStage.testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
+    Login.INSTANCE.errorsByStage().testGetNumRecordedErrors(ErrorType.INVALID_LABEL)
 );
 </code></pre>
 </div>
@@ -6264,7 +6264,7 @@ fun onShowLogin() {
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 void onShowLogin() {
-    Auth.INSTANCE.loginTime.start();
+    Auth.INSTANCE.loginTime().start();
     // ...
 }
 </code></pre>
@@ -6368,7 +6368,7 @@ fun onLogin() {
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 void onLogin() {
-    Auth.INSTANCE.loginTime.stop();
+    Auth.INSTANCE.loginTime().stop();
     // ...
 }
 </code></pre>
@@ -6448,7 +6448,7 @@ fun onLoginCancel() {
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 void onLoginCancel() {
-    Auth.INSTANCE.loginTime.cancel();
+    Auth.INSTANCE.loginTime().cancel();
     // ...
 }
 </code></pre>
@@ -6522,7 +6522,7 @@ Auth.loginTime.measure {
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth
 
-Auth.INSTANCE.loginTime.measure() -&gt; {
+Auth.INSTANCE.loginTime().measure() -&gt; {
     // Process login flow
     return null;
 });
@@ -6573,7 +6573,7 @@ fun afterLogin(loginElapsedNs: Long) {
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
 void afterLogin(long loginElapsedNs) {
-    Auth.INSTANCE.loginTime.setRawNanos(loginElapsedNs);
+    Auth.INSTANCE.loginTime().setRawNanos(loginElapsedNs);
     // ...
 }
 </code></pre>
@@ -6661,7 +6661,7 @@ assertTrue(Auth.loginTime.testGetValue() &gt; 0)
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Auth;
 
-assertTrue(Auth.INSTANCE.loginTime.testGetValue() &gt; 0);
+assertTrue(Auth.INSTANCE.loginTime().testGetValue() &gt; 0);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -6720,7 +6720,7 @@ assertEquals(
 
 assertEquals(
     0,
-    Auth.INSTANCE.loginTime.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    Auth.INSTANCE.loginTime().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
@@ -7693,7 +7693,7 @@ User.clientId.generateAndSet()
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.User;
 
 // Generate a new UUID and record it
-User.INSTANCE.clientId.generateAndSet();
+User.INSTANCE.clientId().generateAndSet();
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -7754,7 +7754,7 @@ User.clientId.set(UUID.randomUUID())  // Set a UUID explicitly
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.User;
 
 // Set a UUID explicitly
-User.INSTANCE.clientId.set(UUID.randomUUID());
+User.INSTANCE.clientId().set(UUID.randomUUID());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -7826,7 +7826,7 @@ assertEquals(uuid, User.clientId.testGetValue())
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.User;
 
 // Was it the expected value?
-assertEquals(uuid, User.INSTANCE.clientId.testGetValue());
+assertEquals(uuid, User.INSTANCE.clientId().testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -7894,7 +7894,7 @@ assertEquals(
 
 assertEquals(
     0,
-    User.INSTANCE.clientId.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    User.INSTANCE.clientId().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
@@ -7998,7 +7998,7 @@ Search.template.set(&quot;https://mysearchengine.com/&quot;)
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search;
 
-Search.INSTANCE.template.set(&quot;https://mysearchengine.com/&quot;);
+Search.INSTANCE.template().set(&quot;https://mysearchengine.com/&quot;);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -8091,7 +8091,7 @@ assertEquals(&quot;https://mysearchengine.com/&quot;, Search.template.testGetVal
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Search
 
-assertEquals(&quot;https://mysearchengine.com/&quot;, Search.INSTANCE.template.testGetValue());
+assertEquals(&quot;https://mysearchengine.com/&quot;, Search.INSTANCE.template().testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -8137,12 +8137,12 @@ assertEquals(0, Search.template.testGetNumRecordedErrors(ErrorType.INVALID_OVERF
 
 assertEquals(
     0,
-    Search.INSTANCE.template.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    Search.INSTANCE.template().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 
 assertEquals(
     0,
-    Search.INSTANCE.template.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+    Search.INSTANCE.template().testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
 );
 </code></pre>
 </div>
@@ -8258,8 +8258,8 @@ Install.firstRun.set(Calendar(2019, 3, 25)) // Records a custom datetime
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Install;
 
-Install.INSTANCE.firstRun.set(); // Records &quot;now&quot;
-Install.INSTANCE.firstRun.set(Calendar(2019, 3, 25)); // Records a custom datetime
+Install.INSTANCE.firstRun().set(); // Records &quot;now&quot;
+Install.INSTANCE.firstRun().set(Calendar(2019, 3, 25)); // Records a custom datetime
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -8333,7 +8333,7 @@ assertEquals(Install.firstRun.testGetValue(), Date(2019, 3, 25))
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Install;
 
-assertEquals(Install.INSTANCE.firstRun.testGetValue(), Date(2019, 3, 25));
+assertEquals(Install.INSTANCE.firstRun().testGetValue(), Date(2019, 3, 25));
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -8410,7 +8410,7 @@ assertEquals(&quot;2019-03-25-05:00&quot;, Install.firstRun.testGetValueAsString
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Install;
 
-assertEquals(&quot;2019-03-25-05:00&quot;, Install.INSTANCE.firstRun.testGetValueAsString());
+assertEquals(&quot;2019-03-25-05:00&quot;, Install.INSTANCE.firstRun().testGetValueAsString());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -8452,7 +8452,7 @@ import org.mozilla.yourApplication.GleanMetrics.Install;
 
 assertEquals(
     0,
-    Install.INSTANCE.firstRun.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    Install.INSTANCE.firstRun().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>
@@ -8641,7 +8641,7 @@ Views.loginOpened.record(mapOf(Views.loginOpenedKeys.sourceOfLogin to &quot;tool
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Views;
 
-Views.INSTANCE.loginOpened.record();
+Views.INSTANCE.loginOpened().record();
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -8696,7 +8696,7 @@ assertEquals(&quot;login_opened&quot;, first.name)
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Views
 
-assertEquals(Views.INSTANCE.loginOpened.testGetValue().size)
+assertEquals(Views.INSTANCE.loginOpened().testGetValue().size)
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -8772,7 +8772,7 @@ import org.mozilla.yourApplication.GleanMetrics.Views
 
 assertEquals(
     0,
-    Views.INSTANCE.loginOpened.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+    Views.INSTANCE.loginOpened().testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
 )
 </code></pre>
 </div>
@@ -9212,7 +9212,7 @@ Display.width.set(width)
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Display;
 
-Display.INSTANCE.width.set(width);
+Display.INSTANCE.width().set(width);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -9278,7 +9278,7 @@ assertEquals(433, Display.width.testGetValue())
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Display;
 
 // Does the quantity have the expected value?
-assertEquals(433, Display.INSTANCE.width.testGetValue());
+assertEquals(433, Display.INSTANCE.width().testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -9339,7 +9339,7 @@ assertEquals(0, Display.width.testGetNumRecordedErrors(ErrorType.INVALID_VALUE))
 // Did the quantity record a negative value?
 assertEquals(
     0,
-    Display.INSTANCE.width.testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
+    Display.INSTANCE.width().testGetNumRecordedErrors(ErrorType.INVALID_VALUE)
 );
 </code></pre>
 </div>

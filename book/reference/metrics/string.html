@@ -179,9 +179,9 @@ SearchDefault.name.set(&quot;wikipedia&quot;)
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.SearchDefault;
 
 // Record a value into the metric.
-SearchDefault.INSTANCE.name.set(&quot;duck duck go&quot;);
+SearchDefault.INSTANCE.name().set(&quot;duck duck go&quot;);
 // If it changed later, you can record the new value:
-SearchDefault.INSTANCE.name.set(&quot;wikipedia&quot;);
+SearchDefault.INSTANCE.name().set(&quot;wikipedia&quot;);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -260,7 +260,7 @@ assertEquals(&quot;wikipedia&quot;, SearchDefault.name.testGetValue())
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.SearchDefault;
 
 // Does the string metric have the expected value?
-assertEquals(&quot;wikipedia&quot;, SearchDefault.INSTANCE.name.testGetValue());
+assertEquals(&quot;wikipedia&quot;, SearchDefault.INSTANCE.name().testGetValue());
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
@@ -330,7 +330,7 @@ assertEquals(
 // Was the string truncated, and an error reported?
 assertEquals(
     0,
-    SearchDefault.INSTANCE.name.testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
+    SearchDefault.INSTANCE.name().testGetNumRecordedErrors(ErrorType.INVALID_OVERFLOW)
 );
 </code></pre>
 </div>
