@@ -771,7 +771,9 @@ enforced.</p></div>
 
         self._inner.record(extra)
 
-    def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[List[RecordedEvent]]:
+    def test_get_value(
+        self, ping_name: Optional[str] = None
+    ) -&gt; Optional[List[RecordedEvent]]:
         &#34;&#34;&#34;
         Returns the stored value for testing purposes only.
 
@@ -911,7 +913,9 @@ of the ping to retrieve the metric for.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: Optional[str] = None) -&gt; Optional[List[RecordedEvent]]:
+<pre><code class="python">def test_get_value(
+    self, ping_name: Optional[str] = None
+) -&gt; Optional[List[RecordedEvent]]:
     &#34;&#34;&#34;
     Returns the stored value for testing purposes only.
 
