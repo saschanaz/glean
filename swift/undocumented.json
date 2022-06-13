@@ -2410,14 +2410,14 @@
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Glean.swift",
-      "line": 48,
+      "line": 49,
       "symbol": "BuildInfo",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Glean.swift",
-      "line": 51,
+      "line": 52,
       "symbol": "BuildInfo.init(buildDate:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
