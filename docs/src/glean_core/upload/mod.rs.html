@@ -1708,7 +1708,7 @@
 <span class="doccomment">/// the requester may receive one out of three possible tasks.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// If new variants are added, this should be reflected in `glean-core/ffi/src/upload.rs` as well.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PingUploadTask</span> {
     <span class="doccomment">/// An upload task</span>
     <span class="ident">Upload</span> {

@@ -267,7 +267,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Buckets are pre-computed at instantiation with an exponential distribution from `min` to `max`</span>
 <span class="doccomment">/// and `bucket_count` buckets.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrecomputedExponential</span> {
     <span class="comment">// Don&#39;t serialize the (potentially large) array of ranges, instead compute them on first</span>
     <span class="comment">// access.</span>

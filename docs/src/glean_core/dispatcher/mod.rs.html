@@ -655,7 +655,7 @@
 }
 
 <span class="doccomment">/// The error returned from operations on the dispatcher</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Error</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Error</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">DispatchError</span> {
     <span class="doccomment">/// The worker panicked while running a task</span>
     <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;The worker panicked while running a task&quot;</span>)]</span>

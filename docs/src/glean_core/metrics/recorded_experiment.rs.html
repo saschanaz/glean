@@ -48,7 +48,7 @@
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">Map</span> <span class="kw">as</span> <span class="ident">JsonMap</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 
 <span class="doccomment">/// Deserialized experiment data.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Serialize</span>, <span class="ident">Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RecordedExperiment</span> {
     <span class="doccomment">/// The experiment&#39;s branch as set through [`set_experiment_active`](crate::glean_set_experiment_active).</span>
     <span class="kw">pub</span> <span class="ident">branch</span>: <span class="ident">String</span>,

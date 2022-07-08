@@ -277,7 +277,7 @@
 <span class="doccomment">/// in the platform-specific code (e.g. `ErrorType.kt`) and with the</span>
 <span class="doccomment">/// metrics in the registry files.</span>
 <span class="comment">// When adding a new error type ensure it&#39;s also added to `ErrorType::iter()` below.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ErrorType</span> {
     <span class="doccomment">/// For when the value to be recorded does not match the metric-specific restrictions</span>
     <span class="ident">InvalidValue</span>,
