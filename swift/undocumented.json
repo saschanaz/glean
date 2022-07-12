@@ -2,13 +2,6 @@
   "warnings": [
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 13,
-      "symbol": "MemoryDistributionMetric",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
       "line": 422,
       "symbol": "BooleanMetricProtocol",
       "symbol_kind": "source.lang.swift.decl.protocol",
@@ -2423,20 +2416,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/BooleanMetric.swift",
-      "line": 15,
-      "symbol": "BooleanMetricType.testHasValue(pingName:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/CounterMetric.swift",
-      "line": 15,
-      "symbol": "CounterMetricType.testHasValue(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/EventMetric.swift",
       "line": 11,
       "symbol": "EventExtraKey.keyName()",
@@ -2454,83 +2433,6 @@
       "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/EventMetric.swift",
       "line": 87,
       "symbol": "EventMetricType.record(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/MemoryDistributionMetric.swift",
-      "line": 14,
-      "symbol": "MemoryDistributionMetric.testHasValue(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/QuantityMetric.swift",
-      "line": 15,
-      "symbol": "QuantityMetricType.testHasValue(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/RateMetric.swift",
-      "line": 15,
-      "symbol": "RateMetricType.testHasValue(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/RateMetric.swift",
-      "line": 32,
-      "symbol": "DenominatorMetricType.testHasValue(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/RateMetric.swift",
-      "line": 37,
-      "symbol": "NumeratorMetricType",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/RateMetric.swift",
-      "line": 47,
-      "symbol": "NumeratorMetricType",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/RateMetric.swift",
-      "line": 48,
-      "symbol": "NumeratorMetricType.testHasValue(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/StringListMetric.swift",
-      "line": 16,
-      "symbol": "StringListMetricType.testHasValue(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/StringMetric.swift",
-      "line": 15,
-      "symbol": "StringMetricType.testHasValue(pingName:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/TimespanMetric.swift",
-      "line": 15,
-      "symbol": "TimespanMetricType.testHasValue(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/TimingDistributionMetric.swift",
-      "line": 15,
-      "symbol": "TimingDistributionMetricType.testHasValue(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }

@@ -475,24 +475,6 @@
 <span id="470">470</span>
 <span id="471">471</span>
 <span id="472">472</span>
-<span id="473">473</span>
-<span id="474">474</span>
-<span id="475">475</span>
-<span id="476">476</span>
-<span id="477">477</span>
-<span id="478">478</span>
-<span id="479">479</span>
-<span id="480">480</span>
-<span id="481">481</span>
-<span id="482">482</span>
-<span id="483">483</span>
-<span id="484">484</span>
-<span id="485">485</span>
-<span id="486">486</span>
-<span id="487">487</span>
-<span id="488">488</span>
-<span id="489">489</span>
-<span id="490">490</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -799,24 +781,6 @@
         <span class="ident">create_dir_all</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">path</span>)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
-    }
-
-    <span class="doccomment">/// **Test-only API (exported for FFI purposes).**</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns whether there are any events currently stored for the given even</span>
-    <span class="doccomment">/// metric.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This doesn&#39;t clear the stored value.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_has_value</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">meta</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">CommonMetricData</span>, <span class="ident">store_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">bool</span> {
-        <span class="ident">record_coverage</span>(<span class="kw-2">&amp;</span><span class="ident">meta</span>.<span class="ident">base_identifier</span>());
-
-        <span class="self">self</span>.<span class="ident">event_stores</span>
-            .<span class="ident">read</span>()
-            .<span class="ident">unwrap</span>() <span class="comment">// safe unwrap, only error case is poisoning</span>
-            .<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">store_name</span>.<span class="ident">to_string</span>())
-            .<span class="ident">into_iter</span>()
-            .<span class="ident">flatten</span>()
-            .<span class="ident">any</span>(<span class="op">|</span><span class="ident">event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">name</span> <span class="op">==</span> <span class="ident">meta</span>.<span class="ident">name</span> <span class="op">&amp;&amp;</span> <span class="ident">event</span>.<span class="ident">category</span> <span class="op">==</span> <span class="ident">meta</span>.<span class="ident">category</span>)
     }
 
     <span class="doccomment">/// **Test-only API (exported for FFI purposes).**</span>

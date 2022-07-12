@@ -1439,11 +1439,8 @@ GleanMetrics.BrowserEngagement.click.record(
 BrowserEngagement.click.record()
 BrowserEngagement.click.record()
 
-// Check if we collected any events into the 'click' metric
-assertTrue(BrowserEngagement.click.testHasValue())
-
 // Retrieve a snapshot of the recorded events
-val events = BrowserEngagement.click.testGetValue()
+val events = BrowserEngagement.click.testGetValue()!!
 
 // Check if we collected all 3 events in the snapshot
 assertEquals(3, events.size)
@@ -1460,11 +1457,8 @@ GleanMetrics.BrowserEngagement.click.record([.font: &quot;Courier&quot;])
 BrowserEngagement.click.record()
 BrowserEngagement.click.record()
 
-// Check if we collected any events into the 'click' metric
-XCTAssertTrue(BrowserEngagement.click.testHasValue())
-
 // Retrieve a snapshot of the recorded events
-let events = try! BrowserEngagement.click.testGetValue()
+let events = BrowserEngagement.click.testGetValue()!
 
 // Check if we collected all 3 events in the snapshot
 XCTAssertEqual(3, events.count)
@@ -1481,7 +1475,7 @@ metrics = load_metrics(&quot;metrics.yaml&quot;)
 metrics.url.visit.add(1)
 
 # Check if we collected any events into the 'click' metric
-assert metrics.url.visit.test_has_value()
+assert metrics.url.visit.test_get_value() is not Null
 
 # Retrieve a snapshot of the recorded events
 assert 1 == metrics.url.visit.test_get_value()
@@ -10799,6 +10793,15 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v50.1.2...main">Full changelog</a></p>
+<ul>
+<li>General
+<ul>
+<li>Remove <code>testHasValue</code> from all implementations.
+<code>testGetValue</code> always returns a null value
+(<code>null</code>, <code>nil</code>, <code>None</code> depending on the language) and does not throw an exception.</li>
+</ul>
+</li>
+</ul>
 <h1 id="v5012-2022-07-08"><a class="header" href="#v5012-2022-07-08">v50.1.2 (2022-07-08)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v50.1.1...v50.1.2">Full changelog</a></p>
 <ul>
