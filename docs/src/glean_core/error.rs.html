@@ -172,26 +172,6 @@
 <span id="167">167</span>
 <span id="168">168</span>
 <span id="169">169</span>
-<span id="170">170</span>
-<span id="171">171</span>
-<span id="172">172</span>
-<span id="173">173</span>
-<span id="174">174</span>
-<span id="175">175</span>
-<span id="176">176</span>
-<span id="177">177</span>
-<span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -200,8 +180,6 @@
 <span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="self">self</span>, <span class="ident">Display</span>};
 <span class="kw">use</span> <span class="ident">std::io</span>;
 <span class="kw">use</span> <span class="ident">std::result</span>;
-
-<span class="kw">use</span> <span class="ident">ffi_support</span>::{<span class="ident">handle_map::HandleError</span>, <span class="ident">ExternError</span>};
 
 <span class="kw">use</span> <span class="ident">rkv::StoreError</span>;
 
@@ -225,9 +203,6 @@
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ErrorKind</span> {
     <span class="doccomment">/// Lifetime conversion failed</span>
     <span class="ident">Lifetime</span>(<span class="ident">i32</span>),
-
-    <span class="doccomment">/// FFI-Support error</span>
-    <span class="ident">Handle</span>(<span class="ident">HandleError</span>),
 
     <span class="doccomment">/// IO error</span>
     <span class="ident">IoError</span>(<span class="ident">io::Error</span>),
@@ -301,7 +276,6 @@
         <span class="kw">use</span> <span class="ident">ErrorKind</span>::<span class="kw-2">*</span>;
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">kind</span>() {
             <span class="ident">Lifetime</span>(<span class="ident">l</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Lifetime conversion from {} failed&quot;</span>, <span class="ident">l</span>),
-            <span class="ident">Handle</span>(<span class="ident">e</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Invalid handle: {}&quot;</span>, <span class="ident">e</span>),
             <span class="ident">IoError</span>(<span class="ident">e</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;An I/O error occurred: {}&quot;</span>, <span class="ident">e</span>),
             <span class="ident">Rkv</span>(<span class="ident">e</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;An Rkv error occurred: {}&quot;</span>, <span class="ident">e</span>),
             <span class="ident">Json</span>(<span class="ident">e</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;A JSON error occurred: {}&quot;</span>, <span class="ident">e</span>),
@@ -327,14 +301,6 @@
     }
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">HandleError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Error</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">error</span>: <span class="ident">HandleError</span>) -&gt; <span class="ident">Error</span> {
-        <span class="ident">Error</span> {
-            <span class="ident">kind</span>: <span class="ident">ErrorKind::Handle</span>(<span class="ident">error</span>),
-        }
-    }
-}
-
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">io::Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Error</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">error</span>: <span class="ident">io::Error</span>) -&gt; <span class="ident">Error</span> {
         <span class="ident">Error</span> {
@@ -348,12 +314,6 @@
         <span class="ident">Error</span> {
             <span class="ident">kind</span>: <span class="ident">ErrorKind::Rkv</span>(<span class="ident">error</span>),
         }
-    }
-}
-
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ExternError</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">error</span>: <span class="ident">Error</span>) -&gt; <span class="ident">ExternError</span> {
-        <span class="ident">ffi_support::ExternError::new_error</span>(<span class="ident">ffi_support::ErrorCode::new</span>(<span class="number">42</span>), <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">error</span>))
     }
 }
 
