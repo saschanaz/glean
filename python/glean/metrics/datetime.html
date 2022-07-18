@@ -144,10 +144,8 @@ class DatetimeMetricType:
         )
         return dt
 
-    def test_get_num_recorded_errors(
-        self, error_type: ErrorType, ping_name: Optional[str] = None
-    ) -&gt; int:
-        return self._inner.test_get_num_recorded_errors(error_type, ping_name)
+    def test_get_num_recorded_errors(self, error_type: ErrorType) -&gt; int:
+        return self._inner.test_get_num_recorded_errors(error_type)
 
 
 __all__ = [&#34;DatetimeMetricType&#34;]</code></pre>
@@ -272,10 +270,8 @@ previously registered in the metrics.yaml file.</p>
         )
         return dt
 
-    def test_get_num_recorded_errors(
-        self, error_type: ErrorType, ping_name: Optional[str] = None
-    ) -&gt; int:
-        return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
+    def test_get_num_recorded_errors(self, error_type: ErrorType) -&gt; int:
+        return self._inner.test_get_num_recorded_errors(error_type)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -331,7 +327,7 @@ value to set. If not provided, will record the current time.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.datetime.DatetimeMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType, ping_name: Optional[str] = None) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -339,10 +335,8 @@ value to set. If not provided, will record the current time.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_num_recorded_errors(
-    self, error_type: ErrorType, ping_name: Optional[str] = None
-) -&gt; int:
-    return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
+<pre><code class="python">def test_get_num_recorded_errors(self, error_type: ErrorType) -&gt; int:
+    return self._inner.test_get_num_recorded_errors(error_type)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.datetime.DatetimeMetricType.test_get_value"><code class="name flex">

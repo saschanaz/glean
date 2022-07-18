@@ -139,9 +139,7 @@ class TimingDistributionMetricType:
         &#34;&#34;&#34;
         return self._inner.test_get_value(ping_name)
 
-    def test_get_num_recorded_errors(
-        self, error_type: ErrorType, ping_name: Optional[str] = None
-    ) -&gt; int:
+    def test_get_num_recorded_errors(self, error_type: ErrorType) -&gt; int:
         &#34;&#34;&#34;
         Returns the number of errors recorded for the given metric.
 
@@ -154,7 +152,7 @@ class TimingDistributionMetricType:
             num_errors (int): The number of errors recorded for the metric for
                 the given error type.
         &#34;&#34;&#34;
-        return self._inner.test_get_num_recorded_errors(error_type, ping_name)
+        return self._inner.test_get_num_recorded_errors(error_type)
 
 
 __all__ = [&#34;TimingDistributionMetricType&#34;]</code></pre>
@@ -280,9 +278,7 @@ previously registered in the metrics.yaml file.</p></div>
         &#34;&#34;&#34;
         return self._inner.test_get_value(ping_name)
 
-    def test_get_num_recorded_errors(
-        self, error_type: ErrorType, ping_name: Optional[str] = None
-    ) -&gt; int:
+    def test_get_num_recorded_errors(self, error_type: ErrorType) -&gt; int:
         &#34;&#34;&#34;
         Returns the number of errors recorded for the given metric.
 
@@ -295,7 +291,7 @@ previously registered in the metrics.yaml file.</p></div>
             num_errors (int): The number of errors recorded for the metric for
                 the given error type.
         &#34;&#34;&#34;
-        return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
+        return self._inner.test_get_num_recorded_errors(error_type)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -416,7 +412,7 @@ the same timespan metric.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType, ping_name: Optional[str] = None) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the number of errors recorded for the given metric.</p>
@@ -435,9 +431,7 @@ the given error type.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_num_recorded_errors(
-    self, error_type: ErrorType, ping_name: Optional[str] = None
-) -&gt; int:
+<pre><code class="python">def test_get_num_recorded_errors(self, error_type: ErrorType) -&gt; int:
     &#34;&#34;&#34;
     Returns the number of errors recorded for the given metric.
 
@@ -450,7 +444,7 @@ the given error type.</p></div>
         num_errors (int): The number of errors recorded for the metric for
             the given error type.
     &#34;&#34;&#34;
-    return self._inner.test_get_num_recorded_errors(error_type, ping_name)</code></pre>
+    return self._inner.test_get_num_recorded_errors(error_type)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_value"><code class="name flex">

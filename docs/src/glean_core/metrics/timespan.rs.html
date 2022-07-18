@@ -310,7 +310,6 @@
 <span id="305">305</span>
 <span id="306">306</span>
 <span id="307">307</span>
-<span id="308">308</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -610,12 +609,11 @@
     <span class="doccomment">/// # Returns</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The number of errors reported.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_get_num_recorded_errors</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">error</span>: <span class="ident">ErrorType</span>, <span class="ident">ping_name</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) -&gt; <span class="ident">i32</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_get_num_recorded_errors</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">error</span>: <span class="ident">ErrorType</span>) -&gt; <span class="ident">i32</span> {
         <span class="ident"><span class="kw">crate</span>::block_on_dispatcher</span>();
 
         <span class="ident"><span class="kw">crate</span>::core::with_glean</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> {
-            <span class="ident">test_get_num_recorded_errors</span>(<span class="ident">glean</span>, <span class="self">self</span>.<span class="ident">meta</span>(), <span class="ident">error</span>, <span class="ident">ping_name</span>.<span class="ident">as_deref</span>())
-                .<span class="ident">unwrap_or</span>(<span class="number">0</span>)
+            <span class="ident">test_get_num_recorded_errors</span>(<span class="ident">glean</span>, <span class="self">self</span>.<span class="ident">meta</span>(), <span class="ident">error</span>).<span class="ident">unwrap_or</span>(<span class="number">0</span>)
         })
     }
 }
