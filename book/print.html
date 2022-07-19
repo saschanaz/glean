@@ -532,18 +532,25 @@ Add it to your dependencies in <code>Cargo.toml</code>:</p>
 glean = &quot;50.0.0&quot;
 </code></pre>
 <h2 id="setting-up-metrics-and-pings-code-generation-2"><a class="header" href="#setting-up-metrics-and-pings-code-generation-2">Setting up metrics and pings code generation</a></h2>
+<div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
+<h1 id="glean-build-is-in-beta"><a class="header" href="#glean-build-is-in-beta"><code>glean-build</code> is in beta.</a></h1>
+<blockquote>
+<p>The <code>glean-build</code> crate is new and currently in beta.
+It can be used as a git dependency.
+Please <a href="https://bugzilla.mozilla.org/enter_bug.cgi?assigned_to=nobody%40mozilla.org&amp;bug_ignored=0&amp;bug_severity=normal&amp;bug_status=NEW&amp;bug_type=defect&amp;cf_fx_iteration=---&amp;cf_fx_points=---&amp;cf_status_firefox100=---&amp;cf_status_firefox101=---&amp;cf_status_firefox99=---&amp;cf_status_firefox_esr91=---&amp;cf_tracking_firefox100=---&amp;cf_tracking_firefox101=---&amp;cf_tracking_firefox99=---&amp;cf_tracking_firefox_esr91=---&amp;component=Glean%3A%20SDK&amp;contenttypemethod=list&amp;contenttypeselection=text%2Fplain&amp;defined_groups=1&amp;filed_via=standard_form&amp;flag_type-4=X&amp;flag_type-607=X&amp;flag_type-721=X&amp;flag_type-737=X&amp;flag_type-799=X&amp;flag_type-800=X&amp;flag_type-803=X&amp;flag_type-936=X&amp;flag_type-947=X&amp;form_name=enter_bug&amp;maketemplate=Remember%20values%20as%20bookmarkable%20template&amp;op_sys=Unspecified&amp;priority=P3&amp;product=Data%20Platform%20and%20Tools&amp;rep_platform=Unspecified&amp;status_whiteboard=%5Bglean-sdk%3Am%3F%5D&amp;target_milestone=---&amp;version=unspecified">file a bug</a> if it does not work for you.</p>
+</blockquote>
 <p>At build time you need to generate the metrics and ping API from your definition files.
 Add the <code>glean-build</code> crate as a build dependency in your <code>Cargo.toml</code>:</p>
 <pre><code class="language-toml">[build-dependencies]
-glean-build = &quot;50.0.0&quot;
+glean-build = { git = &quot;https://github.com/mozilla/glean&quot; }
 </code></pre>
 <p>Then add a <code>build.rs</code> file next to your <code>Cargo.toml</code> and call the builder:</p>
 <pre><code class="language-Rust">use glean_build::Builder;
 
 fn main() {
     Builder::default()
-        .metrics(&quot;metrics.yaml&quot;)
-        .pings(&quot;pings.yaml&quot;)
+        .file(&quot;metrics.yaml&quot;)
+        .file(&quot;pings.yaml&quot;)
         .generate()
         .expect(&quot;Error generating Glean Rust bindings&quot;);
 }
@@ -10854,6 +10861,11 @@ Errors default to the <code>metrics</code> ping, so that's what is queried inter
 <li>Fix the Glean Gradle Plugin to work with Android Gradle Plugin v7.2.1 (<a href="https://github.com/mozilla/glean/pull/2114">#2114</a>)</li>
 </ul>
 </li>
+<li>Rust
+<ul>
+<li>Add a method to construct an Event with runtime-known allowed extra keys. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1767037">bug 1767037</a>)</li>
+</ul>
+</li>
 </ul>
 <h1 id="v5012-2022-07-08"><a class="header" href="#v5012-2022-07-08">v50.1.2 (2022-07-08)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v50.1.1...v50.1.2">Full changelog</a></p>
@@ -12892,7 +12904,9 @@ This is a major milestone in using a cross-platform implementation of Glean on t
 <h3 id="general"><a class="header" href="#general">General</a></h3>
 <p>First testing release.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/sdk.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes-1"><a class="header" href="#unreleased-changes-1">Unreleased changes</a></h1>
-<p><a href="https://github.com/mozilla/glean.js/compare/v1.0.0...main">Full changelog</a></p>
+<p><a href="https://github.com/mozilla/glean.js/compare/v1.1.0...main">Full changelog</a></p>
+<h1 id="v110-2022-07-18"><a class="header" href="#v110-2022-07-18">v1.1.0 (2022-07-18)</a></h1>
+<p><a href="https://github.com/mozilla/glean.js/compare/v1.0.0...v1.1.0">Full changelog</a></p>
 <ul>
 <li><a href="https://github.com/mozilla/glean.js/pull/1318">#1318</a>: Expose <code>ErrorType</code> through its own entry point.</li>
 <li><a href="https://github.com/mozilla/glean.js/pull/1271">#1271</a>: BUGFIX: Fix pings validation function when scanning pings database on initialize.
