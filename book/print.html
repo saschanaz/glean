@@ -10854,6 +10854,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 (<code>null</code>, <code>nil</code>, <code>None</code> depending on the language) and does not throw an exception (<a href="https://github.com/mozilla/glean/pull/2087">#2087</a>).</li>
 <li>BREAKING CHANGE: Dropped <code>ping_name</code> argument from all <code>test_get_num_recorded_errors</code> methods (<a href="https://github.com/mozilla/glean/pull/2088">#2088</a>)<br />
 Errors default to the <code>metrics</code> ping, so that's what is queried internally.</li>
+<li>BREAKING: Disable <code>safe-mode</code> everywhere. This causes all clients to migrate from LMDB to safe-mode storage (<a href="https://github.com/mozilla/glean/pull/2123">#2123</a>)</li>
 </ul>
 </li>
 <li>Kotlin

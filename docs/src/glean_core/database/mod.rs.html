@@ -1738,84 +1738,6 @@
 <span id="1733">1733</span>
 <span id="1734">1734</span>
 <span id="1735">1735</span>
-<span id="1736">1736</span>
-<span id="1737">1737</span>
-<span id="1738">1738</span>
-<span id="1739">1739</span>
-<span id="1740">1740</span>
-<span id="1741">1741</span>
-<span id="1742">1742</span>
-<span id="1743">1743</span>
-<span id="1744">1744</span>
-<span id="1745">1745</span>
-<span id="1746">1746</span>
-<span id="1747">1747</span>
-<span id="1748">1748</span>
-<span id="1749">1749</span>
-<span id="1750">1750</span>
-<span id="1751">1751</span>
-<span id="1752">1752</span>
-<span id="1753">1753</span>
-<span id="1754">1754</span>
-<span id="1755">1755</span>
-<span id="1756">1756</span>
-<span id="1757">1757</span>
-<span id="1758">1758</span>
-<span id="1759">1759</span>
-<span id="1760">1760</span>
-<span id="1761">1761</span>
-<span id="1762">1762</span>
-<span id="1763">1763</span>
-<span id="1764">1764</span>
-<span id="1765">1765</span>
-<span id="1766">1766</span>
-<span id="1767">1767</span>
-<span id="1768">1768</span>
-<span id="1769">1769</span>
-<span id="1770">1770</span>
-<span id="1771">1771</span>
-<span id="1772">1772</span>
-<span id="1773">1773</span>
-<span id="1774">1774</span>
-<span id="1775">1775</span>
-<span id="1776">1776</span>
-<span id="1777">1777</span>
-<span id="1778">1778</span>
-<span id="1779">1779</span>
-<span id="1780">1780</span>
-<span id="1781">1781</span>
-<span id="1782">1782</span>
-<span id="1783">1783</span>
-<span id="1784">1784</span>
-<span id="1785">1785</span>
-<span id="1786">1786</span>
-<span id="1787">1787</span>
-<span id="1788">1788</span>
-<span id="1789">1789</span>
-<span id="1790">1790</span>
-<span id="1791">1791</span>
-<span id="1792">1792</span>
-<span id="1793">1793</span>
-<span id="1794">1794</span>
-<span id="1795">1795</span>
-<span id="1796">1796</span>
-<span id="1797">1797</span>
-<span id="1798">1798</span>
-<span id="1799">1799</span>
-<span id="1800">1800</span>
-<span id="1801">1801</span>
-<span id="1802">1802</span>
-<span id="1803">1803</span>
-<span id="1804">1804</span>
-<span id="1805">1805</span>
-<span id="1806">1806</span>
-<span id="1807">1807</span>
-<span id="1808">1808</span>
-<span id="1809">1809</span>
-<span id="1810">1810</span>
-<span id="1811">1811</span>
-<span id="1812">1812</span>
-<span id="1813">1813</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -1828,6 +1750,7 @@
 <span class="kw">use</span> <span class="ident">std::str</span>;
 <span class="kw">use</span> <span class="ident">std::sync::RwLock</span>;
 
+<span class="kw">use</span> <span class="ident">rkv::migrator::Migrator</span>;
 <span class="kw">use</span> <span class="ident">rkv::StoreOptions</span>;
 
 <span class="doccomment">/// Unwrap a `Result`s `Ok` value or do the specified action.</span>
@@ -1845,148 +1768,119 @@
     };
 }
 
-<span class="comment">// Select the LMDB-powered storage backend when the feature is not activated.</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rkv-safe-mode&quot;</span>))]</span>
-<span class="kw">mod</span> <span class="ident">backend</span> {
-    <span class="kw">use</span> <span class="ident">std::path::Path</span>;
+<span class="doccomment">/// cbindgen:ignore</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Rkv</span> <span class="op">=</span> <span class="ident">rkv::Rkv</span><span class="op">&lt;</span><span class="ident">rkv::backend::SafeModeEnvironment</span><span class="op">&gt;</span>;
+<span class="doccomment">/// cbindgen:ignore</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">SingleStore</span> <span class="op">=</span> <span class="ident">rkv::SingleStore</span><span class="op">&lt;</span><span class="ident">rkv::backend::SafeModeDatabase</span><span class="op">&gt;</span>;
+<span class="doccomment">/// cbindgen:ignore</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Writer</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">rkv::Writer</span><span class="op">&lt;</span><span class="ident">rkv::backend::SafeModeRwTransaction</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
-    <span class="doccomment">/// cbindgen:ignore</span>
-    <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Rkv</span> <span class="op">=</span> <span class="ident">rkv::Rkv</span><span class="op">&lt;</span><span class="ident">rkv::backend::LmdbEnvironment</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// cbindgen:ignore</span>
-    <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">SingleStore</span> <span class="op">=</span> <span class="ident">rkv::SingleStore</span><span class="op">&lt;</span><span class="ident">rkv::backend::LmdbDatabase</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// cbindgen:ignore</span>
-    <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Writer</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">rkv::Writer</span><span class="op">&lt;</span><span class="ident">rkv::backend::LmdbRwTransaction</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span><span class="op">&gt;</span>;
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rkv_new</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Rkv</span>, <span class="ident">rkv::StoreError</span><span class="op">&gt;</span> {
-        <span class="ident">Rkv::new</span>::<span class="op">&lt;</span><span class="ident">rkv::backend::Lmdb</span><span class="op">&gt;</span>(<span class="ident">path</span>)
-    }
-
-    <span class="doccomment">/// No migration necessary when staying with LMDB.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">migrate</span>(<span class="ident">_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">_dst_env</span>: <span class="kw-2">&amp;</span><span class="ident">Rkv</span>) {
-        <span class="comment">// Intentionally left empty.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rkv_new</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">Rkv</span>, <span class="ident">rkv::StoreError</span><span class="op">&gt;</span> {
+    <span class="kw">match</span> <span class="ident">Rkv::new</span>::<span class="op">&lt;</span><span class="ident">rkv::backend::SafeMode</span><span class="op">&gt;</span>(<span class="ident">path</span>) {
+        <span class="comment">// An invalid file can mean:</span>
+        <span class="comment">// 1. An empty file.</span>
+        <span class="comment">// 2. A corrupted file.</span>
+        <span class="comment">//</span>
+        <span class="comment">// In both instances there&#39;s not much we can do.</span>
+        <span class="comment">// Drop the data by removing the file, and start over.</span>
+        <span class="prelude-val">Err</span>(<span class="ident">rkv::StoreError::FileInvalid</span>) =&gt; {
+            <span class="kw">let</span> <span class="ident">safebin</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;data.safe.bin&quot;</span>);
+            <span class="ident">fs::remove_file</span>(<span class="ident">safebin</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">rkv::StoreError::FileInvalid</span>)<span class="question-mark">?</span>;
+            <span class="comment">// Now try again, we only handle that error once.</span>
+            <span class="ident">Rkv::new</span>::<span class="op">&lt;</span><span class="ident">rkv::backend::SafeMode</span><span class="op">&gt;</span>(<span class="ident">path</span>)
+        }
+        <span class="ident">other</span> =&gt; <span class="ident">other</span>,
     }
 }
 
-<span class="comment">// Select the &quot;safe mode&quot; storage backend when the feature is activated.</span>
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rkv-safe-mode&quot;</span>)]</span>
-<span class="kw">mod</span> <span class="ident">backend</span> {
-    <span class="kw">use</span> <span class="ident">rkv::migrator::Migrator</span>;
-    <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">fs</span>, <span class="ident">path::Path</span>};
-
-    <span class="doccomment">/// cbindgen:ignore</span>
-    <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Rkv</span> <span class="op">=</span> <span class="ident">rkv::Rkv</span><span class="op">&lt;</span><span class="ident">rkv::backend::SafeModeEnvironment</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// cbindgen:ignore</span>
-    <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">SingleStore</span> <span class="op">=</span> <span class="ident">rkv::SingleStore</span><span class="op">&lt;</span><span class="ident">rkv::backend::SafeModeDatabase</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// cbindgen:ignore</span>
-    <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Writer</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">rkv::Writer</span><span class="op">&lt;</span><span class="ident">rkv::backend::SafeModeRwTransaction</span><span class="op">&lt;</span><span class="lifetime">&#39;t</span><span class="op">&gt;</span><span class="op">&gt;</span>;
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rkv_new</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Rkv</span>, <span class="ident">rkv::StoreError</span><span class="op">&gt;</span> {
-        <span class="kw">match</span> <span class="ident">Rkv::new</span>::<span class="op">&lt;</span><span class="ident">rkv::backend::SafeMode</span><span class="op">&gt;</span>(<span class="ident">path</span>) {
-            <span class="comment">// An invalid file can mean:</span>
-            <span class="comment">// 1. An empty file.</span>
-            <span class="comment">// 2. A corrupted file.</span>
-            <span class="comment">//</span>
-            <span class="comment">// In both instances there&#39;s not much we can do.</span>
-            <span class="comment">// Drop the data by removing the file, and start over.</span>
-            <span class="prelude-val">Err</span>(<span class="ident">rkv::StoreError::FileInvalid</span>) =&gt; {
-                <span class="kw">let</span> <span class="ident">safebin</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;data.safe.bin&quot;</span>);
-                <span class="ident">fs::remove_file</span>(<span class="ident">safebin</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">rkv::StoreError::FileInvalid</span>)<span class="question-mark">?</span>;
-                <span class="comment">// Now try again, we only handle that error once.</span>
-                <span class="ident">Rkv::new</span>::<span class="op">&lt;</span><span class="ident">rkv::backend::SafeMode</span><span class="op">&gt;</span>(<span class="ident">path</span>)
+<span class="kw">fn</span> <span class="ident">delete_and_log</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">fs::remove_file</span>(<span class="ident">path</span>) {
+        <span class="kw">match</span> <span class="ident">err</span>.<span class="ident">kind</span>() {
+            <span class="ident">std::io::ErrorKind::NotFound</span> =&gt; {
+                <span class="comment">// Silently drop this error, the file was already non-existing.</span>
             }
-            <span class="ident">other</span> =&gt; <span class="ident">other</span>,
+            <span class="kw">_</span> =&gt; <span class="macro">log::warn!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">msg</span>),
         }
     }
+}
 
-    <span class="kw">fn</span> <span class="ident">delete_and_log</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
-        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">fs::remove_file</span>(<span class="ident">path</span>) {
-            <span class="kw">match</span> <span class="ident">err</span>.<span class="ident">kind</span>() {
-                <span class="ident">std::io::ErrorKind::NotFound</span> =&gt; {
-                    <span class="comment">// Silently drop this error, the file was already non-existing.</span>
-                }
-                <span class="kw">_</span> =&gt; <span class="macro">log::warn!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">msg</span>),
+<span class="kw">fn</span> <span class="ident">delete_lmdb_database</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) {
+    <span class="kw">let</span> <span class="ident">datamdb</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;data.mdb&quot;</span>);
+    <span class="ident">delete_and_log</span>(<span class="kw-2">&amp;</span><span class="ident">datamdb</span>, <span class="string">&quot;Failed to delete old data.&quot;</span>);
+
+    <span class="kw">let</span> <span class="ident">lockmdb</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;lock.mdb&quot;</span>);
+    <span class="ident">delete_and_log</span>(<span class="kw-2">&amp;</span><span class="ident">lockmdb</span>, <span class="string">&quot;Failed to delete old lock.&quot;</span>);
+}
+
+<span class="doccomment">/// Migrate from LMDB storage to safe-mode storage.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This migrates the data once, then deletes the LMDB storage.</span>
+<span class="doccomment">/// The safe-mode storage must be empty for it to work.</span>
+<span class="doccomment">/// Existing data will not be overwritten.</span>
+<span class="doccomment">/// If the destination database is not empty the LMDB database is deleted</span>
+<span class="doccomment">/// without migrating data.</span>
+<span class="doccomment">/// This is a no-op if no LMDB database file exists.</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">migrate</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">dst_env</span>: <span class="kw-2">&amp;</span><span class="ident">Rkv</span>) {
+    <span class="kw">use</span> <span class="ident">rkv</span>::{<span class="ident">MigrateError</span>, <span class="ident">StoreError</span>};
+
+    <span class="macro">log::debug!</span>(<span class="string">&quot;Migrating files in {}&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>());
+
+    <span class="comment">// Shortcut if no data to migrate is around.</span>
+    <span class="kw">let</span> <span class="ident">datamdb</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;data.mdb&quot;</span>);
+    <span class="kw">if</span> <span class="op">!</span><span class="ident">datamdb</span>.<span class="ident">exists</span>() {
+        <span class="macro">log::debug!</span>(<span class="string">&quot;No data to migrate.&quot;</span>);
+        <span class="kw">return</span>;
+    }
+
+    <span class="comment">// We&#39;re handling the same error cases as `easy_migrate_lmdb_to_safe_mode`,</span>
+    <span class="comment">// but annotate each why they don&#39;t cause problems for Glean.</span>
+    <span class="comment">// Additionally for known cases we delete the LMDB database regardless.</span>
+    <span class="kw">let</span> <span class="ident">should_delete</span> <span class="op">=</span>
+        <span class="kw">match</span> <span class="ident">Migrator::open_and_migrate_lmdb_to_safe_mode</span>(<span class="ident">path</span>, <span class="op">|</span><span class="ident">builder</span><span class="op">|</span> <span class="ident">builder</span>, <span class="ident">dst_env</span>) {
+            <span class="comment">// Source environment is corrupted.</span>
+            <span class="comment">// We start fresh with the new database.</span>
+            <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="ident">StoreError::FileInvalid</span>)) =&gt; <span class="bool-val">true</span>,
+            <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="ident">StoreError::DatabaseCorrupted</span>)) =&gt; <span class="bool-val">true</span>,
+            <span class="comment">// Path not accessible.</span>
+            <span class="comment">// Somehow our directory vanished between us creating it and reading from it.</span>
+            <span class="comment">// Nothing we can do really.</span>
+            <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="ident">StoreError::IoError</span>(<span class="kw">_</span>))) =&gt; <span class="bool-val">true</span>,
+            <span class="comment">// Path accessible but incompatible for configuration.</span>
+            <span class="comment">// This should not happen, we never used storages that safe-mode doesn&#39;t understand.</span>
+            <span class="comment">// If it does happen, let&#39;s start fresh and use the safe-mode from now on.</span>
+            <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="ident">StoreError::UnsuitableEnvironmentPath</span>(<span class="kw">_</span>))) =&gt; <span class="bool-val">true</span>,
+            <span class="comment">// Nothing to migrate.</span>
+            <span class="comment">// Source database was empty. We just start fresh anyway.</span>
+            <span class="prelude-val">Err</span>(<span class="ident">MigrateError::SourceEmpty</span>) =&gt; <span class="bool-val">true</span>,
+            <span class="comment">// Migrating would overwrite.</span>
+            <span class="comment">// Either a previous migration failed and we still started writing data,</span>
+            <span class="comment">// or someone placed back an old data file.</span>
+            <span class="comment">// In any case we better stay on the new data and delete the old one.</span>
+            <span class="prelude-val">Err</span>(<span class="ident">MigrateError::DestinationNotEmpty</span>) =&gt; {
+                <span class="macro">log::warn!</span>(<span class="string">&quot;Failed to migrate old data. Destination was not empty&quot;</span>);
+                <span class="bool-val">true</span>
             }
-        }
+            <span class="comment">// An internal lock was poisoned.</span>
+            <span class="comment">// This would only happen if multiple things run concurrently and one crashes.</span>
+            <span class="prelude-val">Err</span>(<span class="ident">MigrateError::ManagerPoisonError</span>) =&gt; <span class="bool-val">false</span>,
+            <span class="comment">// Couldn&#39;t close source environment and delete files on disk (e.g. other stores still open).</span>
+            <span class="comment">// This could only happen if multiple instances are running,</span>
+            <span class="comment">// we leave files in place.</span>
+            <span class="prelude-val">Err</span>(<span class="ident">MigrateError::CloseError</span>(<span class="kw">_</span>)) =&gt; <span class="bool-val">false</span>,
+            <span class="comment">// Other store errors are never returned from the migrator.</span>
+            <span class="comment">// We need to handle them to please rustc.</span>
+            <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="kw">_</span>)) =&gt; <span class="bool-val">false</span>,
+            <span class="comment">// Other errors can&#39;t happen, so this leaves us with the Ok case.</span>
+            <span class="comment">// This already deleted the LMDB files.</span>
+            <span class="prelude-val">Ok</span>(()) =&gt; <span class="bool-val">false</span>,
+        };
+
+    <span class="kw">if</span> <span class="ident">should_delete</span> {
+        <span class="macro">log::debug!</span>(<span class="string">&quot;Need to delete remaining LMDB files.&quot;</span>);
+        <span class="ident">delete_lmdb_database</span>(<span class="ident">path</span>);
     }
 
-    <span class="kw">fn</span> <span class="ident">delete_lmdb_database</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) {
-        <span class="kw">let</span> <span class="ident">datamdb</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;data.mdb&quot;</span>);
-        <span class="ident">delete_and_log</span>(<span class="kw-2">&amp;</span><span class="ident">datamdb</span>, <span class="string">&quot;Failed to delete old data.&quot;</span>);
-
-        <span class="kw">let</span> <span class="ident">lockmdb</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;lock.mdb&quot;</span>);
-        <span class="ident">delete_and_log</span>(<span class="kw-2">&amp;</span><span class="ident">lockmdb</span>, <span class="string">&quot;Failed to delete old lock.&quot;</span>);
-    }
-
-    <span class="doccomment">/// Migrate from LMDB storage to safe-mode storage.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This migrates the data once, then deletes the LMDB storage.</span>
-    <span class="doccomment">/// The safe-mode storage must be empty for it to work.</span>
-    <span class="doccomment">/// Existing data will not be overwritten.</span>
-    <span class="doccomment">/// If the destination database is not empty the LMDB database is deleted</span>
-    <span class="doccomment">/// without migrating data.</span>
-    <span class="doccomment">/// This is a no-op if no LMDB database file exists.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">migrate</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">dst_env</span>: <span class="kw-2">&amp;</span><span class="ident">Rkv</span>) {
-        <span class="kw">use</span> <span class="ident">rkv</span>::{<span class="ident">MigrateError</span>, <span class="ident">StoreError</span>};
-
-        <span class="macro">log::debug!</span>(<span class="string">&quot;Migrating files in {}&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>());
-
-        <span class="comment">// Shortcut if no data to migrate is around.</span>
-        <span class="kw">let</span> <span class="ident">datamdb</span> <span class="op">=</span> <span class="ident">path</span>.<span class="ident">join</span>(<span class="string">&quot;data.mdb&quot;</span>);
-        <span class="kw">if</span> <span class="op">!</span><span class="ident">datamdb</span>.<span class="ident">exists</span>() {
-            <span class="macro">log::debug!</span>(<span class="string">&quot;No data to migrate.&quot;</span>);
-            <span class="kw">return</span>;
-        }
-
-        <span class="comment">// We&#39;re handling the same error cases as `easy_migrate_lmdb_to_safe_mode`,</span>
-        <span class="comment">// but annotate each why they don&#39;t cause problems for Glean.</span>
-        <span class="comment">// Additionally for known cases we delete the LMDB database regardless.</span>
-        <span class="kw">let</span> <span class="ident">should_delete</span> <span class="op">=</span>
-            <span class="kw">match</span> <span class="ident">Migrator::open_and_migrate_lmdb_to_safe_mode</span>(<span class="ident">path</span>, <span class="op">|</span><span class="ident">builder</span><span class="op">|</span> <span class="ident">builder</span>, <span class="ident">dst_env</span>) {
-                <span class="comment">// Source environment is corrupted.</span>
-                <span class="comment">// We start fresh with the new database.</span>
-                <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="ident">StoreError::FileInvalid</span>)) =&gt; <span class="bool-val">true</span>,
-                <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="ident">StoreError::DatabaseCorrupted</span>)) =&gt; <span class="bool-val">true</span>,
-                <span class="comment">// Path not accessible.</span>
-                <span class="comment">// Somehow our directory vanished between us creating it and reading from it.</span>
-                <span class="comment">// Nothing we can do really.</span>
-                <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="ident">StoreError::IoError</span>(<span class="kw">_</span>))) =&gt; <span class="bool-val">true</span>,
-                <span class="comment">// Path accessible but incompatible for configuration.</span>
-                <span class="comment">// This should not happen, we never used storages that safe-mode doesn&#39;t understand.</span>
-                <span class="comment">// If it does happen, let&#39;s start fresh and use the safe-mode from now on.</span>
-                <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="ident">StoreError::UnsuitableEnvironmentPath</span>(<span class="kw">_</span>))) =&gt; <span class="bool-val">true</span>,
-                <span class="comment">// Nothing to migrate.</span>
-                <span class="comment">// Source database was empty. We just start fresh anyway.</span>
-                <span class="prelude-val">Err</span>(<span class="ident">MigrateError::SourceEmpty</span>) =&gt; <span class="bool-val">true</span>,
-                <span class="comment">// Migrating would overwrite.</span>
-                <span class="comment">// Either a previous migration failed and we still started writing data,</span>
-                <span class="comment">// or someone placed back an old data file.</span>
-                <span class="comment">// In any case we better stay on the new data and delete the old one.</span>
-                <span class="prelude-val">Err</span>(<span class="ident">MigrateError::DestinationNotEmpty</span>) =&gt; {
-                    <span class="macro">log::warn!</span>(<span class="string">&quot;Failed to migrate old data. Destination was not empty&quot;</span>);
-                    <span class="bool-val">true</span>
-                }
-                <span class="comment">// An internal lock was poisoned.</span>
-                <span class="comment">// This would only happen if multiple things run concurrently and one crashes.</span>
-                <span class="prelude-val">Err</span>(<span class="ident">MigrateError::ManagerPoisonError</span>) =&gt; <span class="bool-val">false</span>,
-                <span class="comment">// Couldn&#39;t close source environment and delete files on disk (e.g. other stores still open).</span>
-                <span class="comment">// This could only happen if multiple instances are running,</span>
-                <span class="comment">// we leave files in place.</span>
-                <span class="prelude-val">Err</span>(<span class="ident">MigrateError::CloseError</span>(<span class="kw">_</span>)) =&gt; <span class="bool-val">false</span>,
-                <span class="comment">// Other store errors are never returned from the migrator.</span>
-                <span class="comment">// We need to handle them to please rustc.</span>
-                <span class="prelude-val">Err</span>(<span class="ident">MigrateError::StoreError</span>(<span class="kw">_</span>)) =&gt; <span class="bool-val">false</span>,
-                <span class="comment">// Other errors can&#39;t happen, so this leaves us with the Ok case.</span>
-                <span class="comment">// This already deleted the LMDB files.</span>
-                <span class="prelude-val">Ok</span>(()) =&gt; <span class="bool-val">false</span>,
-            };
-
-        <span class="kw">if</span> <span class="ident">should_delete</span> {
-            <span class="macro">log::debug!</span>(<span class="string">&quot;Need to delete remaining LMDB files.&quot;</span>);
-            <span class="ident">delete_lmdb_database</span>(<span class="ident">path</span>);
-        }
-
-        <span class="macro">log::debug!</span>(<span class="string">&quot;Migration ended. Safe-mode database in {}&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>());
-    }
+    <span class="macro">log::debug!</span>(<span class="string">&quot;Migration ended. Safe-mode database in {}&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>());
 }
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics::Metric</span>;
@@ -1994,7 +1888,6 @@
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Glean</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Lifetime</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Result</span>;
-<span class="kw">use</span> <span class="ident">backend</span>::<span class="kw-2">*</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Database</span> {
     <span class="doccomment">/// Handle to the database environment.</span>
@@ -2068,21 +1961,6 @@
     <span class="doccomment">/// It also loads any Lifetime::Ping data that might be</span>
     <span class="doccomment">/// persisted, in case `delay_ping_lifetime_io` is set.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">data_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>, <span class="ident">delay_ping_lifetime_io</span>: <span class="ident">bool</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">windows</span>, <span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rkv-safe-mode&quot;</span>)))]</span>
-        {
-            <span class="comment">// The underlying lmdb wrapper implementation</span>
-            <span class="comment">// cannot actually handle non-UTF8 paths on Windows.</span>
-            <span class="comment">// It will unconditionally panic if passed one.</span>
-            <span class="comment">// See</span>
-            <span class="comment">// https://github.com/mozilla/lmdb-rs/blob/df1c2f56e3088f097c719c57b9925ab51e26f3f4/src/environment.rs#L43-L53</span>
-            <span class="comment">//</span>
-            <span class="comment">// To avoid this, in case we&#39;re using LMDB on Windows (that&#39;s just testing now though),</span>
-            <span class="comment">// we simply error out earlier.</span>
-            <span class="kw">if</span> <span class="ident">data_path</span>.<span class="ident">to_str</span>().<span class="ident">is_none</span>() {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident"><span class="kw">crate</span>::Error::utf8_error</span>());
-            }
-        }
-
         <span class="kw">let</span> <span class="ident">path</span> <span class="op">=</span> <span class="ident">data_path</span>.<span class="ident">join</span>(<span class="string">&quot;db&quot;</span>);
         <span class="macro">log::debug!</span>(<span class="string">&quot;Database path: {:?}&quot;</span>, <span class="ident">path</span>.<span class="ident">display</span>());
         <span class="kw">let</span> <span class="ident">file_size</span> <span class="op">=</span> <span class="ident">database_size</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>);
@@ -2657,25 +2535,12 @@
 
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">Database::new</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>, <span class="bool-val">false</span>);
 
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rkv-safe-mode&quot;</span>)]</span>
-        {
-            <span class="macro">assert!</span>(
-                <span class="ident">res</span>.<span class="ident">is_ok</span>(),
-                <span class="string">&quot;Database should succeed at {}: {:?}&quot;</span>,
-                <span class="ident">path</span>.<span class="ident">display</span>(),
-                <span class="ident">res</span>
-            );
-        }
-
-        <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rkv-safe-mode&quot;</span>))]</span>
-        {
-            <span class="macro">assert!</span>(
-                <span class="ident">res</span>.<span class="ident">is_err</span>(),
-                <span class="string">&quot;Database should fail at {}: {:?}&quot;</span>,
-                <span class="ident">path</span>.<span class="ident">display</span>(),
-                <span class="ident">res</span>
-            );
-        }
+        <span class="macro">assert!</span>(
+            <span class="ident">res</span>.<span class="ident">is_ok</span>(),
+            <span class="string">&quot;Database should succeed at {}: {:?}&quot;</span>,
+            <span class="ident">path</span>.<span class="ident">display</span>(),
+            <span class="ident">res</span>
+        );
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -3309,27 +3174,6 @@
         );
     }
 
-    <span class="doccomment">/// LDMB ignores an empty database file just fine.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rkv-safe-mode&quot;</span>))]</span>
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">empty_data_file</span>() {
-        <span class="kw">let</span> <span class="ident">dir</span> <span class="op">=</span> <span class="ident">tempdir</span>().<span class="ident">unwrap</span>();
-
-        <span class="comment">// Create database directory structure.</span>
-        <span class="kw">let</span> <span class="ident">database_dir</span> <span class="op">=</span> <span class="ident">dir</span>.<span class="ident">path</span>().<span class="ident">join</span>(<span class="string">&quot;db&quot;</span>);
-        <span class="ident">fs::create_dir_all</span>(<span class="kw-2">&amp;</span><span class="ident">database_dir</span>).<span class="ident">expect</span>(<span class="string">&quot;create database dir&quot;</span>);
-
-        <span class="comment">// Create empty database file.</span>
-        <span class="kw">let</span> <span class="ident">datamdb</span> <span class="op">=</span> <span class="ident">database_dir</span>.<span class="ident">join</span>(<span class="string">&quot;data.mdb&quot;</span>);
-        <span class="kw">let</span> <span class="ident">f</span> <span class="op">=</span> <span class="ident">fs::File::create</span>(<span class="ident">datamdb</span>).<span class="ident">expect</span>(<span class="string">&quot;create database file&quot;</span>);
-        <span class="ident">drop</span>(<span class="ident">f</span>);
-
-        <span class="ident">Database::new</span>(<span class="ident">dir</span>.<span class="ident">path</span>(), <span class="bool-val">false</span>).<span class="ident">unwrap</span>();
-
-        <span class="macro">assert!</span>(<span class="ident">dir</span>.<span class="ident">path</span>().<span class="ident">exists</span>());
-    }
-
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rkv-safe-mode&quot;</span>)]</span>
     <span class="kw">mod</span> <span class="ident">safe_mode</span> {
         <span class="kw">use</span> <span class="ident">std::fs::File</span>;
 
