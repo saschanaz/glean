@@ -912,10 +912,6 @@ All locations need to be updated on upgrades:</p>
 <li>publish library snapshot to the local Maven repository</li>
 <li>consume library snapshot in application</li>
 </ol>
-<blockquote>
-<p><strong>Note</strong>: this substitution-based approach will not work for testing updates to <code>glean_parser</code> as shipped in the Glean Gradle Plugin.
-For replacing <code>glean_parser</code> in a local build, see <a href="android/glean-parser-substitution.html">Substituting <code>glean_parser</code></a>.</p>
-</blockquote>
 <h2 id="preparation"><a class="header" href="#preparation">Preparation</a></h2>
 <p>Clone the Glean SDK and android-components repositories:</p>
 <pre><code class="language-sh">git clone https://github.com/mozilla/glean
@@ -939,9 +935,43 @@ rust.targets=x86
 <p>android-components has custom build logic for dealing with composite builds,
 so you should be able to configure it by simply adding the path to the Glean repository in the correct <code>local.properties</code> file:</p>
 <p>In <code>android-components/local.properties</code>:</p>
-<pre><code class="language-groovy">localProperties.autoPublish.glean.dir=../glean
+<pre><code class="language-groovy">autoPublish.glean.dir=../glean
 </code></pre>
 <p>This will auto-publish Glean SDK changes to a local repository and consume them in android-components.</p>
+<h3 id="replacing-the-glean-gradle-plugin"><a class="header" href="#replacing-the-glean-gradle-plugin">Replacing the Glean Gradle plugin</a></h3>
+<blockquote>
+<p><strong>Note</strong>: If you only need to replace the <code>glean_parser</code> used in the build see <a href="android/glean-parser-substitution.html">Substituting <code>glean_parser</code></a>.
+This is only necessary if you changed <code>GleanGradlePlugin.groovy</code>.</p>
+</blockquote>
+<p>If you need to replace the Glean Gradle Plugin used by other components within Android Components, follow these steps:</p>
+<ol>
+<li>
+<p>In your Glean repository increment the version number in <code>.buildconfig.yml</code></p>
+<pre><code class="language-yaml">libraryVersion: 60.0.0
+</code></pre>
+</li>
+<li>
+<p>Build and publish the plugin locally:</p>
+<pre><code>./gradlew publishToMavenLocal
+</code></pre>
+</li>
+<li>
+<p>In the Android Components repository change the required Glean version <code>buildSrc/src/main/java/Dependencies.kt</code>:</p>
+<pre><code class="language-kotlin">const val mozilla_glean = &quot;60.0.0&quot;
+</code></pre>
+</li>
+<li>
+<p>In the Android Components repository add the following at the top of the <code>settings.gradle</code> file:</p>
+<pre><code class="language-gradle">pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+    }
+}
+</code></pre>
+</li>
+</ol>
+<p>Building any component will now use your locally published Glean Gradle Plugin (and Glean SDK).</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/dev/android/development-with-android-components.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="using-locally-published-glean-in-fenix"><a class="header" href="#using-locally-published-glean-in-fenix">Using locally-published Glean in Fenix</a></h1>
 <blockquote>
 <p><strong>Note</strong>: this substitution-based approach will not work for testing updates to <code>glean_parser</code> as shipped in the Glean Gradle Plugin.
@@ -956,7 +986,7 @@ git clone https://github.com/mozilla-mobile/fenix
 <p>android-components has custom build logic for dealing with composite builds,
 so you should be able to configure it by simply adding the path to the Glean repository in the correct <code>local.properties</code> file:</p>
 <p>In <code>fenix/local.properties</code>:</p>
-<pre><code class="language-groovy">localProperties.autoPublish.glean.dir=../glean
+<pre><code class="language-groovy">autoPublish.glean.dir=../glean
 </code></pre>
 <p>This will auto-publish Glean SDK changes to a local repository and consume them in Fenix.
 You should now be able to build and run Fenix (assuming you could before all this).</p>

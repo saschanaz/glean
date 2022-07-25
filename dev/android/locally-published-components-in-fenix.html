@@ -163,7 +163,7 @@ git clone https://github.com/mozilla-mobile/fenix
 <p>android-components has custom build logic for dealing with composite builds,
 so you should be able to configure it by simply adding the path to the Glean repository in the correct <code>local.properties</code> file:</p>
 <p>In <code>fenix/local.properties</code>:</p>
-<pre><code class="language-groovy">localProperties.autoPublish.glean.dir=../glean
+<pre><code class="language-groovy">autoPublish.glean.dir=../glean
 </code></pre>
 <p>This will auto-publish Glean SDK changes to a local repository and consume them in Fenix.
 You should now be able to build and run Fenix (assuming you could before all this).</p>
