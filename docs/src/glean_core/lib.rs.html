@@ -1764,7 +1764,7 @@
 
 <span class="doccomment">/// Get the next upload task</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glean_get_upload_task</span>() -&gt; <span class="ident">PingUploadTask</span> {
-    <span class="ident">core::with_glean</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="ident">glean</span>.<span class="ident">get_upload_task</span>())
+    <span class="ident">core::with_opt_glean</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="ident">glean</span>.<span class="ident">get_upload_task</span>()).<span class="ident">unwrap_or_else</span>(<span class="ident">PingUploadTask::done</span>)
 }
 
 <span class="doccomment">/// Processes the response from an attempt to upload a ping.</span>

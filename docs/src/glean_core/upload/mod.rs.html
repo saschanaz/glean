@@ -1755,7 +1755,7 @@
         <span class="macro">matches!</span>(<span class="self">self</span>, <span class="ident">PingUploadTask::Wait</span> { .. })
     }
 
-    <span class="kw">fn</span> <span class="ident">done</span>() -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">done</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">PingUploadTask::Done</span> { <span class="ident">unused</span>: <span class="number">0</span> }
     }
 }
