@@ -150,16 +150,20 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
-<p><a href="https://github.com/mozilla/glean/compare/v51.0.1...main">Full changelog</a></p>
+<p><a href="https://github.com/mozilla/glean/compare/v51.1.0...main">Full changelog</a></p>
+<h1 id="v5110-2022-08-08"><a class="header" href="#v5110-2022-08-08">v51.1.0 (2022-08-08)</a></h1>
+<p><a href="https://github.com/mozilla/glean/compare/v51.0.1...v51.1.0">Full changelog</a></p>
 <ul>
 <li>General
 <ul>
 <li>BUGFIX: Handle that Glean might be uninitialized when an upload task is requested (<a href="https://github.com/mozilla/glean/pull/2131">#2131</a>)</li>
+<li>Updated the glean_parser to version 6.1.2</li>
 </ul>
 </li>
 <li>Kotlin
 <ul>
 <li>BUGFIX: When setting a local endpoint in testing check for testing mode, not initialization (<a href="https://github.com/mozilla/glean/pull/2145/">#2145</a>)</li>
+<li>Gradle plugin: Remove the version conflict check. Now the consuming module need to ensure it uses a single version across all dependencies (<a href="https://github.com/mozilla/glean/pull/2143">#2143</a>)</li>
 </ul>
 </li>
 </ul>
