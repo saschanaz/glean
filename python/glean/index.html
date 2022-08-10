@@ -38,6 +38,7 @@ import warnings
 
 
 from pkg_resources import get_distribution, DistributionNotFound
+from semver import VersionInfo  # type: ignore
 
 
 import glean_parser  # type: ignore
@@ -60,11 +61,14 @@ __email__ = &#34;glean-team@mozilla.com&#34;
 
 
 GLEAN_PARSER_VERSION = &#34;6.1.2&#34;
+parser_version = VersionInfo.parse(GLEAN_PARSER_VERSION)
+parser_version_next_major = parser_version.bump_major()
 
 
-if glean_parser.__version__ != GLEAN_PARSER_VERSION:
+current_parser = VersionInfo.parse(glean_parser.__version__)
+if current_parser &lt; parser_version or current_parser &gt;= parser_version_next_major:
     warnings.warn(
-        f&#34;glean_sdk expected glean_parser v{GLEAN_PARSER_VERSION}, &#34;
+        f&#34;glean_sdk expected glean_parser ~= v{GLEAN_PARSER_VERSION}, &#34;
         f&#34;found v{glean_parser.__version__}&#34;,
         Warning,
     )
