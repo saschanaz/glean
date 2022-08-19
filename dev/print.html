@@ -557,27 +557,7 @@ git push upstream support/v24.0
 </ol>
 <h2 id="upgrading-android-components-to-a-new-version-of-glean"><a class="header" href="#upgrading-android-components-to-a-new-version-of-glean">Upgrading android-components to a new version of Glean</a></h2>
 <p>On Android, Mozilla products consume the Glean SDK through its wrapper in <a href="https://github.com/mozilla-mobile/android-components"><code>android-components</code></a>.
-Therefore, when a new Glean SDK release is made, <code>android-components</code> must also be updated.</p>
-<p>After following one of the above instructions to make a Glean SDK release:</p>
-<ol>
-<li>
-<p>Ensure that CI has completed and the artifacts are published on <a href="https://maven.mozilla.org/?prefix=maven2/org/mozilla/telemetry/">Mozilla's Maven repository</a>.</p>
-</li>
-<li>
-<p>Create a pull request against <code>android-components</code> to update the Glean version with the following changes:</p>
-<ul>
-<li>
-<p>The Glean version is updated in the <code>mozilla_glean</code> variable in the <a href="https://github.com/mozilla-mobile/android-components/blob/69546999739ab19d21425e9a98e107e438a3f905/buildSrc/src/main/java/Dependencies.kt#L32"><code>buildSrc/src/main/java/Dependencies.kt</code></a> file.</p>
-</li>
-<li>
-<p>The relevant parts of the Glean changelog copied into the top part of the <a href="https://github.com/mozilla-mobile/android-components/blob/main/docs/changelog.md"><code>android-components</code> changelog</a>.
-This involves copying the Android-specific changes and the general changes to Glean, but can omit other platform-specific changes.</p>
-</li>
-</ul>
-</li>
-</ol>
-<p><strong>IMPORTANT:</strong> Until the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1592947">Glean Gradle plugin work is complete</a>, all downstream consumers of android-components will also need to update their version of Glean to match the version used in android-components so that their unit tests can run correctly.</p>
-<p>In Fenix, for example, the <a href="https://github.com/mozilla-mobile/fenix/blob/5e4ef202b85e273cf46ec5c7ec1b80f30ca4e77c/buildSrc/src/main/java/Dependencies.kt#L44">Glean version is specified here</a>.</p>
+The process of vendoring a new version of Glean in to Mozilla Central now handles the upgrade process for android-components and no manual updating is needed here.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/dev/cut-a-new-release.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="contributing-to-the-glean-sdk"><a class="header" href="#contributing-to-the-glean-sdk">Contributing to the Glean SDK</a></h1>
 <p>Anyone is welcome to help with the Glean SDK project. Feel free to get in touch with other community members on <code>chat.mozilla.org</code>
 or through issues on GitHub or Bugzilla.</p>
