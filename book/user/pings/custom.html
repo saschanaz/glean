@@ -200,6 +200,7 @@ on the <code>pings.yaml</code> file structure.</p>
 <h2 id="the-gleanrestarted-event"><a class="header" href="#the-gleanrestarted-event">The <code>glean.restarted</code> event</a></h2>
 <p>For custom pings that contain event metrics, the <code>glean.restarted</code> event is injected by Glean
 on every application restart that may happen during the pings measurement window.</p>
+<p><strong>Note</strong>: All leading and trailing <code>glean.restarted</code> events are omitted from each ping.</p>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
 <h3 id="only-applies-to-the-glean-javascript-sdk"><a class="header" href="#only-applies-to-the-glean-javascript-sdk">Only applies to the Glean JavaScript SDK</a></h3>
 <blockquote>

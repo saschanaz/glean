@@ -980,7 +980,7 @@
     <span class="ident">StringListMetric</span>, <span class="ident">StringMetric</span>, <span class="ident">TextMetric</span>, <span class="ident">TimeUnit</span>, <span class="ident">TimerId</span>, <span class="ident">TimespanMetric</span>,
     <span class="ident">TimingDistributionMetric</span>, <span class="ident">UrlMetric</span>, <span class="ident">UuidMetric</span>,
 };
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::upload</span>::{<span class="ident">PingRequest</span>, <span class="ident">PingUploadTask</span>, <span class="ident">UploadResult</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::upload</span>::{<span class="ident">PingRequest</span>, <span class="ident">PingUploadTask</span>, <span class="ident">UploadResult</span>, <span class="ident">UploadTaskAction</span>};
 
 <span class="kw">const</span> <span class="ident">GLEAN_VERSION</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="macro">env!</span>(<span class="string">&quot;CARGO_PKG_VERSION&quot;</span>);
 <span class="kw">const</span> <span class="ident">GLEAN_SCHEMA_VERSION</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1</span>;
@@ -1768,7 +1768,7 @@
 }
 
 <span class="doccomment">/// Processes the response from an attempt to upload a ping.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glean_process_ping_upload_response</span>(<span class="ident">uuid</span>: <span class="ident">String</span>, <span class="ident">result</span>: <span class="ident">UploadResult</span>) {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glean_process_ping_upload_response</span>(<span class="ident">uuid</span>: <span class="ident">String</span>, <span class="ident">result</span>: <span class="ident">UploadResult</span>) -&gt; <span class="ident">UploadTaskAction</span> {
     <span class="ident">core::with_glean</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="ident">glean</span>.<span class="ident">process_ping_upload_response</span>(<span class="kw-2">&amp;</span><span class="ident">uuid</span>, <span class="ident">result</span>))
 }
 

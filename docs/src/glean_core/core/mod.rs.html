@@ -917,6 +917,10 @@
 <span id="912">912</span>
 <span id="913">913</span>
 <span id="914">914</span>
+<span id="915">915</span>
+<span id="916">916</span>
+<span id="917">917</span>
+<span id="918">918</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
 <span class="kw">use</span> <span class="ident">std::path</span>::{<span class="ident">Path</span>, <span class="ident">PathBuf</span>};
 <span class="kw">use</span> <span class="ident">std::sync::Mutex</span>;
@@ -932,7 +936,7 @@
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics</span>::{<span class="self">self</span>, <span class="ident">ExperimentMetric</span>, <span class="ident">Metric</span>, <span class="ident">MetricType</span>, <span class="ident">PingType</span>, <span class="ident">RecordedExperiment</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ping::PingMaker</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::storage</span>::{<span class="ident">StorageManager</span>, <span class="ident">INTERNAL_STORAGE</span>};
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::upload</span>::{<span class="ident">PingUploadManager</span>, <span class="ident">PingUploadTask</span>, <span class="ident">UploadResult</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::upload</span>::{<span class="ident">PingUploadManager</span>, <span class="ident">PingUploadTask</span>, <span class="ident">UploadResult</span>, <span class="ident">UploadTaskAction</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::util</span>::{<span class="ident">local_now_with_offset</span>, <span class="ident">sanitize_application_id</span>};
 <span class="kw">use</span> <span class="kw">crate</span>::{
     <span class="ident">scheduler</span>, <span class="ident">system</span>, <span class="ident">CommonMetricData</span>, <span class="ident">ErrorKind</span>, <span class="ident">InternalConfiguration</span>, <span class="ident">Lifetime</span>, <span class="prelude-ty">Result</span>,
@@ -1484,9 +1488,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// * `uuid` - The UUID of the ping in question.</span>
     <span class="doccomment">/// * `status` - The upload result.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process_ping_upload_response</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">uuid</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">status</span>: <span class="ident">UploadResult</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process_ping_upload_response</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">uuid</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+        <span class="ident">status</span>: <span class="ident">UploadResult</span>,
+    ) -&gt; <span class="ident">UploadTaskAction</span> {
         <span class="self">self</span>.<span class="ident">upload_manager</span>
-            .<span class="ident">process_ping_upload_response</span>(<span class="self">self</span>, <span class="ident">uuid</span>, <span class="ident">status</span>);
+            .<span class="ident">process_ping_upload_response</span>(<span class="self">self</span>, <span class="ident">uuid</span>, <span class="ident">status</span>)
     }
 
     <span class="doccomment">/// Takes a snapshot for the given store and optionally clear it.</span>

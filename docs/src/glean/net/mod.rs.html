@@ -121,6 +121,13 @@
 <span id="116">116</span>
 <span id="117">117</span>
 <span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
+<span id="125">125</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -138,7 +145,7 @@
 <span class="kw">use</span> <span class="ident">std::time::Duration</span>;
 
 <span class="kw">use</span> <span class="ident">glean_core::upload::PingUploadTask</span>;
-<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::upload</span>::{<span class="ident">PingRequest</span>, <span class="ident">UploadResult</span>};
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">glean_core::upload</span>::{<span class="ident">PingRequest</span>, <span class="ident">UploadResult</span>, <span class="ident">UploadTaskAction</span>};
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">http_uploader</span>::<span class="kw-2">*</span>;
 
@@ -210,31 +217,38 @@
         <span class="ident">thread::Builder::new</span>()
             .<span class="ident">name</span>(<span class="string">&quot;glean.upload&quot;</span>.<span class="ident">into</span>())
             .<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
+                <span class="macro">log::trace!</span>(<span class="string">&quot;Started glean.upload thread&quot;</span>);
                 <span class="kw">loop</span> {
                     <span class="kw">let</span> <span class="ident">incoming_task</span> <span class="op">=</span> <span class="ident">glean_core::glean_get_upload_task</span>();
 
-                    <span class="macro">log::trace!</span>(<span class="string">&quot;Received upload task: {:?}&quot;</span>, <span class="ident">incoming_task</span>);
                     <span class="kw">match</span> <span class="ident">incoming_task</span> {
                         <span class="ident">PingUploadTask::Upload</span> { <span class="ident">request</span> } =&gt; {
+                            <span class="macro">log::trace!</span>(<span class="string">&quot;Received upload task with request {:?}&quot;</span>, <span class="ident">request</span>);
                             <span class="kw">let</span> <span class="ident">doc_id</span> <span class="op">=</span> <span class="ident">request</span>.<span class="ident">document_id</span>.<span class="ident">clone</span>();
                             <span class="kw">let</span> <span class="ident">upload_url</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;{}{}&quot;</span>, <span class="ident">inner</span>.<span class="ident">server_endpoint</span>, <span class="ident">request</span>.<span class="ident">path</span>);
                             <span class="kw">let</span> <span class="ident">headers</span>: <span class="ident">Vec</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> <span class="op">=</span>
                                 <span class="ident">request</span>.<span class="ident">headers</span>.<span class="ident">into_iter</span>().<span class="ident">collect</span>();
                             <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">inner</span>.<span class="ident">uploader</span>.<span class="ident">upload</span>(<span class="ident">upload_url</span>, <span class="ident">request</span>.<span class="ident">body</span>, <span class="ident">headers</span>);
                             <span class="comment">// Process the upload response.</span>
-                            <span class="ident">glean_core::glean_process_ping_upload_response</span>(<span class="ident">doc_id</span>, <span class="ident">result</span>);
+                            <span class="kw">match</span> <span class="ident">glean_core::glean_process_ping_upload_response</span>(<span class="ident">doc_id</span>, <span class="ident">result</span>) {
+                                <span class="ident">UploadTaskAction::Next</span> =&gt; <span class="kw">continue</span>,
+                                <span class="ident">UploadTaskAction::End</span> =&gt; <span class="kw">break</span>,
+                            }
                         }
                         <span class="ident">PingUploadTask::Wait</span> { <span class="ident">time</span> } =&gt; {
+                            <span class="macro">log::trace!</span>(<span class="string">&quot;Instructed to wait for {:?}ms&quot;</span>, <span class="ident">time</span>);
                             <span class="ident">thread::sleep</span>(<span class="ident">Duration::from_millis</span>(<span class="ident">time</span>));
                         }
                         <span class="ident">PingUploadTask::Done</span> { .. } =&gt; {
-                            <span class="comment">// Nothing to do here, break out of the loop and clear the</span>
-                            <span class="comment">// running flag.</span>
-                            <span class="ident">inner</span>.<span class="ident">thread_running</span>.<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering::SeqCst</span>);
-                            <span class="kw">return</span>;
+                            <span class="macro">log::trace!</span>(<span class="string">&quot;Received PingUploadTask::Done. Exiting.&quot;</span>);
+                            <span class="comment">// Nothing to do here, break out of the loop.</span>
+                            <span class="kw">break</span>;
                         }
                     }
                 }
+
+                <span class="comment">// Clear the running flag to signal that this thread is done.</span>
+                <span class="ident">inner</span>.<span class="ident">thread_running</span>.<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering::SeqCst</span>);
             })
             .<span class="ident">expect</span>(<span class="string">&quot;Failed to spawn Glean&#39;s uploader thread&quot;</span>);
     }
