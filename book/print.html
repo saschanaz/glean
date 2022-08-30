@@ -10863,6 +10863,12 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li>BUGFIX: Gradle plugin: Correctly remove the version conflict check. Now the consuming module need to ensure it uses a single version across all dependencies (<a href="https://github.com/mozilla/glean/pull/2155">#2155</a>)</li>
 <li>Upgrade dependencies and increase to Android target/compile SDK version 32 (<a href="https://github.com/mozilla/glean/pull/2150">#2150</a>)</li>
 <li>Upgrade Android NDK to r25 (<a href="https://github.com/mozilla/glean/pull/2159">#2159</a>)</li>
+<li>BUGFIX: Correctly set <code>os_version</code> and <code>architecture</code> again (<a href="https://github.com/mozilla/glean/pull/2174">#2174</a>)</li>
+</ul>
+</li>
+<li>iOS
+<ul>
+<li>BUGFIX: Correctly set <code>os_version</code> and <code>architecture</code> again (<a href="https://github.com/mozilla/glean/pull/2174">#2174</a>)</li>
 </ul>
 </li>
 </ul>
@@ -12972,6 +12978,8 @@ This is a major milestone in using a cross-platform implementation of Glean on t
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/sdk.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes-1"><a class="header" href="#unreleased-changes-1">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean.js/compare/v1.1.0...main">Full changelog</a></p>
 <ul>
+<li><a href="https://github.com/mozilla/glean.js/pull/1457">#1457</a>: Update <code>ts-node</code> to 10.8.0 to resolve ESM issues when running tests inside of <code>webext</code> sample project.</li>
+<li><a href="https://github.com/mozilla/glean.js/pull/1452">#1452</a>: Remove <code>glean.restarted</code> trailing events from events list.</li>
 <li><a href="https://github.com/mozilla/glean.js/pull/1450">#1450</a>: Update <code>ts-node</code> to 10.8.0 to resolve ESM issues when running tests.</li>
 <li><a href="https://github.com/mozilla/glean.js/pull/1449">#1449</a>: BUGFIX: Add missing quotes to <code>prepare-release</code> script to fix issues with version numbers in Qt sample README &amp; circle ci config.</li>
 <li><a href="https://github.com/mozilla/glean.js/pull/1449">#1449</a>: Update Qt sample project docs to include note about problems with different version numbers of Qt commands.</li>
