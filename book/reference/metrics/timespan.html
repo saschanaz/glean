@@ -150,7 +150,8 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="timespan"><a class="header" href="#timespan">Timespan</a></h1>
-<p>Timespans are used to make a measurement of how much time is spent in a particular task.</p>
+<p>Timespans are used to make a measurement of how much time is spent in a particular task.
+Irrespective of the timespan's <code>lifetime</code>, both <code>start</code> and <code>stop</code> must occur within the same application session.</p>
 <p>To measure the distribution of multiple timespans,
 see <a href="timing_distribution.html">Timing Distributions</a>.
 To record absolute times, see <a href="datetime.html">Datetimes</a>.</p>
@@ -338,7 +339,8 @@ void OnLogin() {
 <h4 id="recorded-errors-1"><a class="header" href="#recorded-errors-1">Recorded errors</a></h4>
 <ul>
 <li><a href="../../user/metrics/error-reporting.html"><code>invalid_state</code></a>:
-Calling <code>stop</code> without calling <code>start</code> first.</li>
+Calling <code>stop</code> without calling <code>start</code> first,
+e.g. if the <code>start</code> happened on a previous application run.</li>
 </ul>
 <h3 id="cancel"><a class="header" href="#cancel"><code>cancel</code></a></h3>
 <p>Cancels a previous <code>start</code>.
