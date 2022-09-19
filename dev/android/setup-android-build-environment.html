@@ -165,8 +165,8 @@ Once this is installed, start Android Studio and open the Glean project.
 If Android Studio asks you to upgrade the version of Gradle, decline.</p>
 <p>The following dependencies can be installed in Android Studio through <code>Tools &gt; SDK Manager &gt; SDK Tools</code>:</p>
 <ul>
-<li>Android SDK Tools (may already be selected)</li>
-<li>NDK r25</li>
+<li>Android SDK Tools (may already be selected) (<a href="sdk-ndk-versions.html">check here for the version requirements</a>)</li>
+<li>NDK (<a href="sdk-ndk-versions.html">check here for the version requirements</a>)</li>
 <li>CMake</li>
 <li>LLDB</li>
 </ul>
@@ -179,9 +179,9 @@ If installed through Android Studio you will find the <code>Android SDK Location
 Alternatively add the following line to the <code>local.properties</code> file in the root of the Glean checkout (create the file if it does not exist):</p>
 <pre><code>sdk.dir=/path/to/sdk
 </code></pre>
-<p>For the Android NDK:</p>
+<p>For the Android NDK (<a href="sdk-ndk-versions.html">check here for the version requirements</a>):</p>
 <ol>
-<li>Download NDK r21 from <a href="https://developer.android.com/ndk/downloads">https://developer.android.com/ndk/downloads</a>.</li>
+<li>Download NDK from <a href="https://developer.android.com/ndk/downloads">https://developer.android.com/ndk/downloads</a>.</li>
 <li>Extract it and put it somewhere (<code>$HOME/.android-ndk-r25</code> is a reasonable choice, but it doesn't matter).</li>
 <li>Add the following line to the <code>local.properties</code> file in the root of the Glean checkout (create the file if it does not exist):
 <pre><code>ndk.dir=/path/to/.android-ndk-r25
