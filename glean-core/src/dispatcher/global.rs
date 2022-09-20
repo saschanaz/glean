@@ -6,11 +6,14 @@ use once_cell::sync::Lazy;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::RwLock;
 
-use super::{DispatchError, DispatchGuard, Dispatcher};
+use super::{Bounded, DispatchError, DispatchGuard, Dispatcher};
 
 pub const GLOBAL_DISPATCHER_LIMIT: usize = 1000;
-static GLOBAL_DISPATCHER: Lazy<RwLock<Option<Dispatcher>>> =
-    Lazy::new(|| RwLock::new(Some(Dispatcher::new(GLOBAL_DISPATCHER_LIMIT))));
+static GLOBAL_DISPATCHER: Lazy<RwLock<Option<Dispatcher>>> = Lazy::new(|| {
+    RwLock::new(Some(Dispatcher::new(Bounded::Bounded(
+        GLOBAL_DISPATCHER_LIMIT,
+    ))))
+});
 pub static TESTING_MODE: AtomicBool = AtomicBool::new(false);
 pub static QUEUE_TASKS: AtomicBool = AtomicBool::new(true);
 
@@ -128,7 +131,7 @@ pub(crate) fn reset_dispatcher() {
     // 2. Replace the global one
     // 3. Only then return (and thus release the lock)
     let mut lock = GLOBAL_DISPATCHER.write().unwrap();
-    let new_dispatcher = Some(Dispatcher::new(GLOBAL_DISPATCHER_LIMIT));
+    let new_dispatcher = Some(Dispatcher::new(Bounded::Bounded(GLOBAL_DISPATCHER_LIMIT)));
     *lock = new_dispatcher;
 }
 
