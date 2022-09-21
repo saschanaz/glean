@@ -12996,6 +12996,7 @@ This is a major milestone in using a cross-platform implementation of Glean on t
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/sdk.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes-1"><a class="header" href="#unreleased-changes-1">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean.js/compare/v1.1.0...main">Full changelog</a></p>
 <ul>
+<li><a href="https://github.com/mozilla/glean.js/pull/1513">#1513</a>: Bump URL metric character limit to 8k to support longer URLs. URLs that are too long now are truncated to <code>URL_MAX_LENGTH</code> and still recorded along with an Overflow error.</li>
 <li><a href="https://github.com/mozilla/glean.js/pull/1500">#1500</a>: BUGFIX: Update how we invoke CLI python script to fix <code>npm run glean</code> behavior on Windows.</li>
 <li><a href="https://github.com/mozilla/glean.js/pull/1457">#1457</a>: Update <code>ts-node</code> to 10.8.0 to resolve ESM issues when running tests inside of <code>webext</code> sample project.</li>
 <li><a href="https://github.com/mozilla/glean.js/pull/1452">#1452</a>: Remove <code>glean.restarted</code> trailing events from events list.</li>

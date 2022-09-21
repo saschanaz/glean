@@ -2005,7 +2005,7 @@
 
     <span class="doccomment">/// Creates the storage directories and inits rkv.</span>
     <span class="kw">fn</span> <span class="ident">open_rkv</span>(<span class="ident">path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Rkv</span><span class="op">&gt;</span> {
-        <span class="ident">fs::create_dir_all</span>(<span class="kw-2">&amp;</span><span class="ident">path</span>)<span class="question-mark">?</span>;
+        <span class="ident">fs::create_dir_all</span>(<span class="ident">path</span>)<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">rkv</span> <span class="op">=</span> <span class="ident">rkv_new</span>(<span class="ident">path</span>)<span class="question-mark">?</span>;
         <span class="ident">migrate</span>(<span class="ident">path</span>, <span class="kw-2">&amp;</span><span class="ident">rkv</span>);
@@ -2360,10 +2360,10 @@
         <span class="self">self</span>.<span class="ident">write_with_store</span>(<span class="ident">Lifetime::Ping</span>, <span class="op">|</span><span class="kw-2">mut</span> <span class="ident">writer</span>, <span class="ident">store</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">metrics</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
             {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <span class="ident">store</span>.<span class="ident">iter_from</span>(<span class="kw-2">&amp;</span><span class="ident">writer</span>, <span class="kw-2">&amp;</span><span class="ident">storage_name</span>)<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">iter</span> <span class="op">=</span> <span class="ident">store</span>.<span class="ident">iter_from</span>(<span class="kw-2">&amp;</span><span class="ident">writer</span>, <span class="ident">storage_name</span>)<span class="question-mark">?</span>;
                 <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>((<span class="ident">metric_id</span>, <span class="kw">_</span>))) <span class="op">=</span> <span class="ident">iter</span>.<span class="ident">next</span>() {
                     <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">metric_id</span>) <span class="op">=</span> <span class="ident">std::str::from_utf8</span>(<span class="ident">metric_id</span>) {
-                        <span class="kw">if</span> <span class="op">!</span><span class="ident">metric_id</span>.<span class="ident">starts_with</span>(<span class="kw-2">&amp;</span><span class="ident">storage_name</span>) {
+                        <span class="kw">if</span> <span class="op">!</span><span class="ident">metric_id</span>.<span class="ident">starts_with</span>(<span class="ident">storage_name</span>) {
                             <span class="kw">break</span>;
                         }
                         <span class="ident">metrics</span>.<span class="ident">push</span>(<span class="ident">metric_id</span>.<span class="ident">to_owned</span>());
@@ -2493,7 +2493,7 @@
                     <span class="comment">// There is no need for `get_storage_key` here because</span>
                     <span class="comment">// the key is already formatted from when it was saved</span>
                     <span class="comment">// to ping_lifetime_data.</span>
-                    <span class="ident">store</span>.<span class="ident">put</span>(<span class="kw-2">&amp;mut</span> <span class="ident">writer</span>, <span class="kw-2">&amp;</span><span class="ident">key</span>, <span class="kw-2">&amp;</span><span class="ident">rkv::Value::Blob</span>(<span class="kw-2">&amp;</span><span class="ident">encoded</span>))<span class="question-mark">?</span>;
+                    <span class="ident">store</span>.<span class="ident">put</span>(<span class="kw-2">&amp;mut</span> <span class="ident">writer</span>, <span class="ident">key</span>, <span class="kw-2">&amp;</span><span class="ident">rkv::Value::Blob</span>(<span class="kw-2">&amp;</span><span class="ident">encoded</span>))<span class="question-mark">?</span>;
                 }
                 <span class="ident">writer</span>.<span class="ident">commit</span>()<span class="question-mark">?</span>;
                 <span class="prelude-val">Ok</span>(())
