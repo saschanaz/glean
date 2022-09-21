@@ -87,7 +87,7 @@ pub enum DispatchError {
 }
 
 /// What size should the pre-initialization queue be?
-enum Bounded {
+pub enum Bounded {
     /// Unbounded; grows when channel is insufficiently long
     Unbounded,
 
@@ -95,7 +95,7 @@ enum Bounded {
     Zero,
 
     /// Positive integer for normal bounded cases
-    Bounded(Some(usize)),
+    Bounded(usize),
 }
 
 impl From<TrySendError<Command>> for DispatchError {
@@ -262,8 +262,7 @@ impl Dispatcher {
         let (preinit_sender, preinit_receiver) = match max_queue_size {
             Bounded::Unbounded => unbounded(),
             Bounded::Zero => bounded(0),
-            Bounded::Bounded(Some(i)) => bounded(i),
-            Bounded::Bounded(None) => unbounded(),
+            Bounded::Bounded(i) => bounded(i),
         };
 
         let queue_preinit = Arc::new(AtomicBool::new(true));
@@ -393,7 +392,7 @@ mod test {
         let main_thread_id = thread::current().id();
         let thread_canary = Arc::new(AtomicBool::new(false));
 
-        let mut dispatcher = Dispatcher::new(100);
+        let mut dispatcher = Dispatcher::new(Bounded::Bounded(100));
 
         // Force the Dispatcher out of the pre-init queue mode.
         dispatcher
@@ -424,7 +423,7 @@ mod test {
         let main_thread_id = thread::current().id();
         let thread_canary = Arc::new(AtomicU8::new(0));
 
-        let mut dispatcher = Dispatcher::new(100);
+        let mut dispatcher = Dispatcher::new(Bounded::Bounded(100));
 
         // Add 3 tasks to queue each one increasing thread_canary by 1 to
         // signal that the tasks ran.
@@ -455,7 +454,7 @@ mod test {
     fn preinit_tasks_are_processed_after_flush() {
         enable_test_logging();
 
-        let mut dispatcher = Dispatcher::new(10);
+        let mut dispatcher = Dispatcher::new(Bounded::Bounded(10));
 
         let result = Arc::new(Mutex::new(vec![]));
         for i in 1..=5 {
@@ -493,7 +492,7 @@ mod test {
     fn tasks_after_shutdown_are_not_processed() {
         enable_test_logging();
 
-        let mut dispatcher = Dispatcher::new(10);
+        let mut dispatcher = Dispatcher::new(Bounded::Bounded(10));
 
         let result = Arc::new(Mutex::new(vec![]));
 
@@ -519,7 +518,7 @@ mod test {
     fn preinit_buffer_fills_up() {
         enable_test_logging();
 
-        let mut dispatcher = Dispatcher::new(5);
+        let mut dispatcher = Dispatcher::new(Bounded::Bounded(5));
 
         let result = Arc::new(Mutex::new(vec![]));
 
@@ -566,7 +565,7 @@ mod test {
         // but we can quickly queue more slow tasks than the pre-init buffer holds
         // and then guarantuee they all run.
 
-        let mut dispatcher = Dispatcher::new(5);
+        let mut dispatcher = Dispatcher::new(Bounded::Bounded(5));
 
         let result = Arc::new(Mutex::new(vec![]));
 
