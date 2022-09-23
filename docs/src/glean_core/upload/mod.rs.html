@@ -1586,8 +1586,6 @@
 <span id="1581">1581</span>
 <span id="1582">1582</span>
 <span id="1583">1583</span>
-<span id="1584">1584</span>
-<span id="1585">1585</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -1715,8 +1713,6 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// When asking for the next ping request to upload,</span>
 <span class="doccomment">/// the requester may receive one out of three possible tasks.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// If new variants are added, this should be reflected in `glean-core/ffi/src/upload.rs` as well.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">PingUploadTask</span> {
     <span class="doccomment">/// An upload task</span>

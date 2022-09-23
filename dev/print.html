@@ -2073,7 +2073,7 @@ All language bindings implement ping uploading around a common API and protocol.
 <ul>
 <li>Every Glean instance will always have a single <code>BaseUploader</code> instance.</li>
 <li>The <code>BaseUploader</code> is fed, at Glean initialization, with an instance of an implementation of the <code>PingUploader</code> interface.</li>
-<li>Whenever <code>BaseUploader</code> thinks it should perform an upload, it will call the provided instance of the <code>PingUploader</code> interface and call <code>upload</code> with the data it's getting from the glean-core/FFI.</li>
+<li>Whenever <code>BaseUploader</code> thinks it should perform an upload, it will call the provided instance of the <code>PingUploader</code> interface and call <code>upload</code> with the data it's getting from Glean.</li>
 <li>Any throttling happens at this layer: the core will orchestrate the throttling, while this layer will be responsible to abide to what the core is telling it to do.</li>
 <li>Any logic for aborting uploads or triggering uploads is provided by this object.</li>
 </ul>

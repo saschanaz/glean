@@ -8143,12 +8143,12 @@ search.template.setUrl(new URL(&quot;https://mysearchengine.com/&quot;));
 <li>If the URL passed uses the <code>data:</code> protocol.</li>
 </ul>
 </li>
-<li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if the URL passed is longer than 2048 characters (before encoding).</li>
+<li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if the URL passed is longer than 8192 characters (before encoding).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string value is given.</li>
 </ul>
 <h4 id="limits-13"><a class="header" href="#limits-13">Limits</a></h4>
 <ul>
-<li>Fixed maximum URL length: 2048. Longer URLs are dropped.</li>
+<li>Fixed maximum URL length: 8192. Longer URLs are truncated and recorded along with an <code>invalid_overflow</code> error.</li>
 </ul>
 <h2 id="testing-api-13"><a class="header" href="#testing-api-13">Testing API</a></h2>
 <h3 id="testgetvalue-11"><a class="header" href="#testgetvalue-11"><code>testGetValue</code></a></h3>
@@ -10853,6 +10853,11 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.2.0...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>Update URL metric character limit to 8k to support longer URLs. URLs that are too long now are truncated to <code>MAX_URL_LENGTH</code> and still recorded along with an Overflow error. (<a href="https://github.com/mozilla/glean/pull/2199">#2199</a>)</li>
+</ul>
+</li>
 <li>Kotlin
 <ul>
 <li>Gradle plugin: Fix quoting issue in Python wrapper code (<a href="https://github.com/mozilla/glean/pull/2193">#2193</a>)</li>

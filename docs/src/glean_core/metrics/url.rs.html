@@ -310,6 +310,10 @@
 <span id="305">305</span>
 <span id="306">306</span>
 <span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -320,11 +324,12 @@
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics::Metric</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics::MetricType</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::storage::StorageManager</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::util::truncate_string_at_boundary_with_error</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::CommonMetricData</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Glean</span>;
 
 <span class="comment">// The maximum number of characters a URL Metric may have, before encoding.</span>
-<span class="kw">const</span> <span class="ident">MAX_URL_LENGTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">2048</span>;
+<span class="kw">const</span> <span class="ident">MAX_URL_LENGTH</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">8192</span>;
 
 <span class="doccomment">/// A URL metric.</span>
 <span class="doccomment">///</span>
@@ -392,16 +397,7 @@
             <span class="kw">return</span>;
         }
 
-        <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">value</span>.<span class="ident">into</span>();
-        <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">MAX_URL_LENGTH</span> {
-            <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="macro">format!</span>(
-                <span class="string">&quot;Value length {} exceeds maximum of {}&quot;</span>,
-                <span class="ident">s</span>.<span class="ident">len</span>(),
-                <span class="ident">MAX_URL_LENGTH</span>
-            );
-            <span class="ident">record_error</span>(<span class="ident">glean</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">meta</span>, <span class="ident">ErrorType::InvalidOverflow</span>, <span class="ident">msg</span>, <span class="prelude-val">None</span>);
-            <span class="kw">return</span>;
-        }
+        <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">truncate_string_at_boundary_with_error</span>(<span class="ident">glean</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">meta</span>, <span class="ident">value</span>, <span class="ident">MAX_URL_LENGTH</span>);
 
         <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">starts_with</span>(<span class="string">&quot;data:&quot;</span>) {
             <span class="ident">record_error</span>(
@@ -516,12 +512,24 @@
             <span class="ident">dynamic_label</span>: <span class="prelude-val">None</span>,
         });
 
-        <span class="kw">let</span> <span class="ident">long_path</span> <span class="op">=</span> <span class="string">&quot;testing&quot;</span>.<span class="ident">repeat</span>(<span class="number">2000</span>);
-        <span class="kw">let</span> <span class="ident">test_url</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;glean://{}&quot;</span>, <span class="ident">long_path</span>);
+        <span class="comment">// Whenever the URL is longer than our MAX_URL_LENGTH, we truncate the URL to the</span>
+        <span class="comment">// MAX_URL_LENGTH.</span>
+        <span class="comment">//</span>
+        <span class="comment">// This 8-character string was chosen so we could have an even number that is</span>
+        <span class="comment">// a divisor of our MAX_URL_LENGTH.</span>
+        <span class="kw">let</span> <span class="ident">long_path_base</span> <span class="op">=</span> <span class="string">&quot;abcdefgh&quot;</span>;
+
+        <span class="comment">// Using 2000 creates a string &gt; 16000 characters, well over MAX_URL_LENGTH.</span>
+        <span class="kw">let</span> <span class="ident">test_url</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;glean://{}&quot;</span>, <span class="ident">long_path_base</span>.<span class="ident">repeat</span>(<span class="number">2000</span>));
         <span class="ident">metric</span>.<span class="ident">set_sync</span>(<span class="kw-2">&amp;</span><span class="ident">glean</span>, <span class="ident">test_url</span>);
 
-        <span class="macro">assert!</span>(<span class="ident">metric</span>.<span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="ident">glean</span>, <span class="string">&quot;store1&quot;</span>).<span class="ident">is_none</span>());
+        <span class="comment">// &quot;glean://&quot; is 8 characters</span>
+        <span class="comment">// &quot;abcdefgh&quot; (long_path_base) is 8 characters</span>
+        <span class="comment">// `long_path_base` is repeated 1023 times (8184)</span>
+        <span class="comment">// 8 + 8184 = 8192 (MAX_URL_LENGTH)</span>
+        <span class="kw">let</span> <span class="ident">expected</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;glean://{}&quot;</span>, <span class="ident">long_path_base</span>.<span class="ident">repeat</span>(<span class="number">1023</span>));
 
+        <span class="macro">assert_eq!</span>(<span class="ident">metric</span>.<span class="ident">get_value</span>(<span class="kw-2">&amp;</span><span class="ident">glean</span>, <span class="string">&quot;store1&quot;</span>).<span class="ident">unwrap</span>(), <span class="ident">expected</span>);
         <span class="macro">assert_eq!</span>(
             <span class="number">1</span>,
             <span class="ident">test_get_num_recorded_errors</span>(<span class="kw-2">&amp;</span><span class="ident">glean</span>, <span class="ident">metric</span>.<span class="ident">meta</span>(), <span class="ident">ErrorType::InvalidOverflow</span>)

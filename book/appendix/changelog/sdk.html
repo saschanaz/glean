@@ -152,6 +152,11 @@
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.2.0...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>Update URL metric character limit to 8k to support longer URLs. URLs that are too long now are truncated to <code>MAX_URL_LENGTH</code> and still recorded along with an Overflow error. (<a href="https://github.com/mozilla/glean/pull/2199">#2199</a>)</li>
+</ul>
+</li>
 <li>Kotlin
 <ul>
 <li>Gradle plugin: Fix quoting issue in Python wrapper code (<a href="https://github.com/mozilla/glean/pull/2193">#2193</a>)</li>

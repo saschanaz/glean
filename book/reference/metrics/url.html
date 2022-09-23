@@ -247,12 +247,12 @@ search.template.setUrl(new URL(&quot;https://mysearchengine.com/&quot;));
 <li>If the URL passed uses the <code>data:</code> protocol.</li>
 </ul>
 </li>
-<li><a href="../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if the URL passed is longer than 2048 characters (before encoding).</li>
+<li><a href="../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if the URL passed is longer than 8192 characters (before encoding).</li>
 <li><a href="../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string value is given.</li>
 </ul>
 <h4 id="limits"><a class="header" href="#limits">Limits</a></h4>
 <ul>
-<li>Fixed maximum URL length: 2048. Longer URLs are dropped.</li>
+<li>Fixed maximum URL length: 8192. Longer URLs are truncated and recorded along with an <code>invalid_overflow</code> error.</li>
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
