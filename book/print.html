@@ -6972,15 +6972,7 @@ fn on_page_start() {
 }
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab">
-<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
-
-function onPageStart() {
-    // store this ID, you will need it later to stop or cancel your timer
-    const timerId = pages.pageLoad.start();
-}
-</code></pre>
-</div>
+<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7041,14 +7033,7 @@ fn on_page_loaded() {
 }
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab">
-<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
-
-function onPageLoaded() {
-    pages.pageLoad.stopAndAccumulate(timerId);
-}
-</code></pre>
-</div>
+<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7098,7 +7083,7 @@ with metrics.pages.page_load.measure():
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab"></div>
+<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
@@ -7149,14 +7134,7 @@ fn on_page_error() {
 }
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab">
-<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
-
-function onPageError() {
-    pages.pageLoad.cancel(timerId);
-}
-</code></pre>
-</div>
+<div data-lang="JavaScript" class="tab"></div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7247,16 +7225,7 @@ assert_eq!(11, snapshot.sum);
 assert_eq!(2, snapshot.count);
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab">
-<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
-
-const snapshot = await pages.pageLoad.testGetValue();
-
-// Usually you don't know the exact timing values,
-// but how many should have been recorded.
-assert.equal(1, snapshot.count);
-</code></pre>
-</div>
+<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7321,13 +7290,7 @@ assert_eq!(
 );
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab">
-<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
-
-assert.equal(1, await pages.pageLoad.testGetNumRecordedErrors(ErrorType.InvalidValue));
-</code></pre>
-</div>
+<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
