@@ -234,6 +234,9 @@ val snapshot = Graphics.checkerboardPeak.testGetValue()
 // Does the sum have the expected value?
 assertEquals(23, snapshot.sum)
 
+// Does the count have the expected value?
+assertEquals(1L, snapshot.count)
+
 // Buckets are indexed by their lower bound.
 assertEquals(1L, snapshot.values[19])
 </code></pre>
@@ -246,15 +249,20 @@ val snapshot = Graphics.INSTANCE.checkerboardPeak().testGetValue();
 
 // Does the sum have the expected value?
 assertEquals(23, snapshot.sum);
+
+// Does the count have the expected value?
+assertEquals(1L, snapshot.count);
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
 <pre><code class="language-Swift">// Get snapshot.
 let snapshot = graphics.checkerboardPeak.testGetValue()
 
-// Usually you don't know the exact values,
-// but how many should have been recorded.
+// Does the sum have the expected value?
 XCTAssertEqual(23, snapshot.sum)
+
+// Does the count have the expected value?
+XCTAssertEqual(1, snapshot.count)
 
 // Buckets are indexed by their lower bound.
 XCTAssertEqual(1L, snapshot.values[19])
@@ -267,23 +275,27 @@ metrics = load_metrics(&quot;metrics.yaml&quot;)
 # Get snapshot.
 snapshot = metrics.graphics.checkerboard_peak.test_get_value()
 
-# Usually you don't know the exact values,
-# but how many should have been recorded.
+# Does the sum have the expected value?
 assert 23 == snapshot.sum
 
+# Does the count have the expected value?
+assert 1 == snapshot.count
+
 # Buckets are indexed by their lower bound.
-assertEquals(1L, snapshot.values[19])
+assert 1 == snapshot.values[19]
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
 <pre><code class="language-Rust">use glean_metrics::graphics;
 
-// Usually you don't know the exact values,
-// but how many should have been recorded.
+// Does the sum have the expected value?
 assert_eq!(23, graphics::checkerboard_peak.test_get_value(None).unwrap().sum);
 
+// Does the count have the expected value?
+assert_eq!(1, graphics::checkerboard_peak.test_get_value(None).unwrap().count);
+
 // Buckets are indexed by their lower bound.
-assert_eq(1, snapshot.values[19])
+assert_eq!(1, snapshot.values[19])
 </code></pre>
 </div>
 <div data-lang="JavaScript" class="tab"></div>

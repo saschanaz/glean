@@ -223,6 +223,7 @@
 <span id="218">218</span>
 <span id="219">219</span>
 <span id="220">220</span>
+<span id="221">221</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -259,6 +260,7 @@
             .<span class="ident">map</span>(<span class="op">|</span>(<span class="ident">k</span>, <span class="ident">v</span>)<span class="op">|</span> (<span class="ident">k</span> <span class="kw">as</span> <span class="ident">i64</span>, <span class="ident">v</span> <span class="kw">as</span> <span class="ident">i64</span>))
             .<span class="ident">collect</span>(),
         <span class="ident">sum</span>: <span class="ident">hist</span>.<span class="ident">sum</span>() <span class="kw">as</span> <span class="ident">i64</span>,
+        <span class="ident">count</span>: <span class="ident">hist</span>.<span class="ident">count</span>() <span class="kw">as</span> <span class="ident">i64</span>,
     }
 }
 
