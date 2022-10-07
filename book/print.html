@@ -6972,7 +6972,15 @@ fn on_page_start() {
 }
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
+
+function onPageStart() {
+    // store this ID, you will need it later to stop or cancel your timer
+    const timerId = pages.pageLoad.start();
+}
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7033,7 +7041,14 @@ fn on_page_loaded() {
 }
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
+
+function onPageLoaded() {
+    pages.pageLoad.stopAndAccumulate(timerId);
+}
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7083,7 +7098,7 @@ with metrics.pages.page_load.measure():
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
+<div data-lang="JavaScript" class="tab"></div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
@@ -7134,7 +7149,14 @@ fn on_page_error() {
 }
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
+
+function onPageError() {
+    pages.pageLoad.cancel(timerId);
+}
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7225,7 +7247,16 @@ assert_eq!(11, snapshot.sum);
 assert_eq!(2, snapshot.count);
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
+
+const snapshot = await pages.pageLoad.testGetValue();
+
+// Usually you don't know the exact timing values,
+// but how many should have been recorded.
+assert.equal(1, snapshot.count);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7290,7 +7321,13 @@ assert_eq!(
 );
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab" data-bug="1716954"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
+import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+
+assert.equal(1, await pages.pageLoad.testGetNumRecordedErrors(ErrorType.InvalidValue));
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
@@ -7491,7 +7528,15 @@ fn allocate_memory(bytes: u64) {
 }
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab" data-bug="1716952"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as memory from &quot;./path/to/generated/files/memory.js&quot;;
+
+function allocateMemory() {
+    // ...
+    memory.heapAllocated.accumulate(nbytes / 1024);
+}
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7587,7 +7632,20 @@ assert_eq!(11, snapshot.sum);
 assert_eq!(2, snapshot.count);
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"  data-bug="1716952"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as memory from &quot;./path/to/generated/files/memory.js&quot;;
+
+// Get snapshot
+const snapshot = await memory.heapAllocated.testGetValue();
+
+// Does the sum have the expected value?
+assert.equal(11, snapshot.sum);
+
+// Usually you don't know the exact memory values,
+// but know how many should have been recorded.
+assert.equal(2, snapshot.count);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -7653,7 +7711,17 @@ assert_eq!(
 );
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"  data-bug="1716952"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as memory from &quot;./path/to/generated/files/memory.js&quot;;
+import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+
+// Did this record a negative value?
+assert.equal(
+    0,
+    await memory.heapAllocated.testGetNumRecordedErrors(ErrorType.InvalidValue)
+);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
@@ -9014,7 +9082,12 @@ metrics.graphics.checkerboard_peak.accumulate_samples([23])
 graphics::checkerboard_peak.accumulate_samples_signed(vec![23]);
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as graphics from &quot;./path/to/generated/files/graphics.js&quot;;
+
+graphics.checkerboardPeak.accumulateSamples([23]);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-cpp">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -9117,7 +9190,19 @@ assert_eq!(1, graphics::checkerboard_peak.test_get_value(None).unwrap().count);
 assert_eq!(1, snapshot.values[19])
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as graphics from &quot;./path/to/generated/files/graphics.js&quot;;
+
+// Get snapshot
+const snapshot = await graphics.checkerboardPeak.testGetValue();
+
+// Does the sum have the expected value?
+assert.equal(23, snapshot.sum);
+
+// Buckets are indexed by their lower bound.
+assert.equal(1, snapshot.values[19]);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-cpp">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -9188,7 +9273,17 @@ assert_eq!(
 );
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as graphics from &quot;./path/to/generated/files/graphics.js&quot;;
+import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+
+// Did the metric receive a negative value?
+assert.equal(
+    0,
+    graphics.checkerboardPeak.testGetNumRecordedErrors(ErrorType.InvalidValue)
+);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
@@ -13046,6 +13141,8 @@ This is a major milestone in using a cross-platform implementation of Glean on t
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/sdk.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes-1"><a class="header" href="#unreleased-changes-1">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean.js/compare/v1.2.0...main">Full changelog</a></p>
 <ul>
+<li><a href="https://github.com/mozilla/glean.js/pull/1516">#1516</a>: Implement the Custom Distribution metric type.</li>
+<li><a href="https://github.com/mozilla/glean.js/pull/1514">#1514</a>: Implement the Memory Distribution metric type.</li>
 <li><a href="https://github.com/mozilla/glean.js/pull/1475">#1475</a>: Implement the Timing Distribution metric type.</li>
 </ul>
 <h1 id="v120-2022-09-21"><a class="header" href="#v120-2022-09-21">v1.2.0 (2022-09-21)</a></h1>

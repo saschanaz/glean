@@ -209,7 +209,15 @@ fn allocate_memory(bytes: u64) {
 }
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab" data-bug="1716952"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as memory from &quot;./path/to/generated/files/memory.js&quot;;
+
+function allocateMemory() {
+    // ...
+    memory.heapAllocated.accumulate(nbytes / 1024);
+}
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -305,7 +313,20 @@ assert_eq!(11, snapshot.sum);
 assert_eq!(2, snapshot.count);
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"  data-bug="1716952"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as memory from &quot;./path/to/generated/files/memory.js&quot;;
+
+// Get snapshot
+const snapshot = await memory.heapAllocated.testGetValue();
+
+// Does the sum have the expected value?
+assert.equal(11, snapshot.sum);
+
+// Usually you don't know the exact memory values,
+// but know how many should have been recorded.
+assert.equal(2, snapshot.count);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-c++">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -371,7 +392,17 @@ assert_eq!(
 );
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"  data-bug="1716952"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as memory from &quot;./path/to/generated/files/memory.js&quot;;
+import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+
+// Did this record a negative value?
+assert.equal(
+    0,
+    await memory.heapAllocated.testGetNumRecordedErrors(ErrorType.InvalidValue)
+);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>

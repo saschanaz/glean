@@ -195,7 +195,12 @@ metrics.graphics.checkerboard_peak.accumulate_samples([23])
 graphics::checkerboard_peak.accumulate_samples_signed(vec![23]);
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as graphics from &quot;./path/to/generated/files/graphics.js&quot;;
+
+graphics.checkerboardPeak.accumulateSamples([23]);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-cpp">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -298,7 +303,19 @@ assert_eq!(1, graphics::checkerboard_peak.test_get_value(None).unwrap().count);
 assert_eq!(1, snapshot.values[19])
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as graphics from &quot;./path/to/generated/files/graphics.js&quot;;
+
+// Get snapshot
+const snapshot = await graphics.checkerboardPeak.testGetValue();
+
+// Does the sum have the expected value?
+assert.equal(23, snapshot.sum);
+
+// Buckets are indexed by their lower bound.
+assert.equal(1, snapshot.values[19]);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab">
 <p><strong>C++</strong></p>
 <pre><code class="language-cpp">#include &quot;mozilla/glean/GleanMetrics.h&quot;
@@ -369,7 +386,17 @@ assert_eq!(
 );
 </code></pre>
 </div>
-<div data-lang="JavaScript" class="tab"></div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-js">import * as graphics from &quot;./path/to/generated/files/graphics.js&quot;;
+import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+
+// Did the metric receive a negative value?
+assert.equal(
+    0,
+    graphics.checkerboardPeak.testGetNumRecordedErrors(ErrorType.InvalidValue)
+);
+</code></pre>
+</div>
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>

@@ -393,6 +393,7 @@ For some developer workflows, <code>upstream</code> can be the same as <code>ori
 <li>Enter <code>v&lt;myversion&gt;</code> as the tag. It's important this is the same as the version you specified to the <code>prepare_release.sh</code> script, with the <code>v</code> prefix added.</li>
 <li>Select the <code>release</code> branch as the target.</li>
 <li>Under the description, paste the contents of the release notes from <code>CHANGELOG.md</code>.</li>
+<li>Click the green <code>Publish Release</code> button.</li>
 </ol>
 </li>
 <li>Wait for the CI build to complete for the tag.
@@ -407,6 +408,7 @@ You can safely rerun them on CircleCI by selecting <em>Rerun</em>, then <em>Reru
 <ul>
 <li>This is important so that no changes are lost.</li>
 <li>If this PR is &quot;trivial&quot; (no bugfixes or merge conflicts of note from earlier steps) you may land it without review.</li>
+<li>There is a separate CircleCI task for the release branch, ensure that it also completes.</li>
 </ul>
 </li>
 <li>Once the above pull request lands, delete the specific release branch.</li>
