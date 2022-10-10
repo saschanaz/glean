@@ -4911,7 +4911,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as accessibility from &quot;./path/to/generated/files/acessibility.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 assert(
   1,
@@ -5176,8 +5176,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as controls from &quot;./path/to/generated/files/controls.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
-
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 assert.strictEqual(
   0,
   await controls.refreshPressed.testGetNumRecordedErrors(ErrorType.InvalidValue)
@@ -5434,7 +5433,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as stability from &quot;./path/to/generated/files/stability.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 // Were there any invalid labels?
 assert(
@@ -5719,7 +5718,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as searchDefault from &quot;./path/to/generated/files/searchDefault.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 // Was the string truncated, and an error reported?
 assert.strictEqual(
@@ -5957,7 +5956,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as login from &quot;./path/to/generated/files/login.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 // Were there any invalid labels?
 assert(
@@ -6821,7 +6820,7 @@ assert_eq!(1, auth::login_time.test_get_num_recorded_errors(ErrorType::InvalidVa
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as auth from &quot;./path/to/generated/files/auth.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;;
 
 assert.strictEqual(
   1,
@@ -8086,7 +8085,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as user from &quot;./path/to/generated/files/user.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 // Was the string truncated, and an error reported?
 assert.strictEqual(
@@ -8344,7 +8343,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as search from &quot;./path/to/generated/files/search.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 assert.strictEqual(
   0,
@@ -8642,7 +8641,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as install from &quot;./path/to/generated/files/install.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 assert.strictEqual(
   0,
@@ -8966,7 +8965,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as views from &quot;./path/to/generated/files/views.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 assert.strictEqual(
   0,
@@ -9575,7 +9574,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as display from &quot;./path/to/generated/files/display.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 assert.strictEqual(
   0,
@@ -9909,7 +9908,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as network from &quot;./path/to/generated/files/network.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 assert.strictEqual(
   1,
@@ -10145,7 +10144,7 @@ assert_eq!(
 </div>
 <div data-lang="JavaScript" class="tab">
 <pre><code class="language-js">import * as article from &quot;./path/to/generated/files/article.js&quot;;
-import { ErrorType } from &quot;@mozilla/glean/&lt;platform&gt;&quot;;
+import { ErrorType } from &quot;@mozilla/glean/error&quot;;
 
 assert.strictEqual(
   0,
