@@ -2305,140 +2305,140 @@
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4317,
+      "line": 4340,
       "symbol": "gleanEnableLogging()",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4327,
+      "line": 4350,
       "symbol": "gleanEnableLoggingToFd(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4338,
+      "line": 4361,
       "symbol": "gleanInitialize(_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4351,
+      "line": 4374,
       "symbol": "gleanInitializeForSubprocess(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4365,
+      "line": 4388,
       "symbol": "gleanSetUploadEnabled(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4376,
+      "line": 4399,
       "symbol": "gleanSetExperimentActive(_:_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4389,
+      "line": 4412,
       "symbol": "gleanSetExperimentInactive(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4400,
+      "line": 4423,
       "symbol": "gleanTestGetExperimentData(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4414,
+      "line": 4437,
       "symbol": "gleanSetDebugViewTag(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4428,
+      "line": 4451,
       "symbol": "gleanSetSourceTags(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4442,
+      "line": 4465,
       "symbol": "gleanSetLogPings(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4453,
+      "line": 4476,
       "symbol": "gleanHandleClientActive()",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4463,
+      "line": 4486,
       "symbol": "gleanHandleClientInactive()",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4473,
+      "line": 4496,
       "symbol": "gleanSubmitPingByName(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4485,
+      "line": 4508,
       "symbol": "gleanSubmitPingByNameSync(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4500,
+      "line": 4523,
       "symbol": "gleanSetTestMode(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4511,
+      "line": 4534,
       "symbol": "gleanTestDestroyGlean(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4522,
+      "line": 4545,
       "symbol": "gleanSetDirtyFlag(_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4533,
+      "line": 4556,
       "symbol": "gleanGetUploadTask()",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Generated/uniffi/glean.swift",
-      "line": 4546,
+      "line": 4569,
       "symbol": "gleanProcessPingUploadResponse(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.free",
       "warning": "undocumented"

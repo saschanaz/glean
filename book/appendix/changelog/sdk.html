@@ -150,25 +150,37 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
-<p><a href="https://github.com/mozilla/glean/compare/v51.4.0...main">Full changelog</a></p>
+<p><a href="https://github.com/mozilla/glean/compare/v51.5.0...main">Full changelog</a></p>
+<h1 id="v5150-2022-10-18"><a class="header" href="#v5150-2022-10-18">v51.5.0 (2022-10-18)</a></h1>
+<p><a href="https://github.com/mozilla/glean/compare/v51.4.0...v51.5.0">Full changelog</a></p>
 <ul>
-<li>Kotlin
+<li>General
 <ul>
-<li>Downgrade Android NDK to r21 to mitigate a crash on <code>x86(_64)</code> (<a href="https://github.com/mozilla/glean/pull/2227">#2227</a>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1791842">bug 1791842</a>)</li>
+<li>Add <code>count</code> to <code>DistributionData</code> payload (<a href="https://github.com/mozilla/glean/pull/2196">#2196</a>)</li>
+<li>Update to UniFFI 0.21.0 (<a href="https://github.com/mozilla/glean/pull/2229">#2229</a>)</li>
+</ul>
+</li>
+<li>Android
+<ul>
+<li>Synchronize AndroidX dependencies with AC (<a href="https://github.com/mozilla/glean/pull/2219">#2219</a>)</li>
+<li>Bump <code>jna</code> to 5.12.1 #2221 (<a href="https://github.com/mozilla/glean/pull/2221">#2221</a>)</li>
+</ul>
+</li>
+<li>iOS
+<ul>
+<li>Glean for iOS is now being built with Xcode 14.0 (<a href="https://github.com/mozilla/glean/pull/2188">#2188</a>)</li>
 </ul>
 </li>
 </ul>
 <h1 id="v5140-2022-10-04"><a class="header" href="#v5140-2022-10-04">v51.4.0 (2022-10-04)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.3.0...v51.4.0">Full changelog</a></p>
 <ul>
-<li>
-<p>Kotlin</p>
+<li>Kotlin
 <ul>
 <li>Update Kotlin and Android Gradle Plugin to the latest releases (<a href="https://github.com/mozilla/glean/pull/2211">#2211</a>)</li>
 </ul>
 </li>
-<li>
-<p>Swift</p>
+<li>Swift
 <ul>
 <li>Fix for iOS startup crash caused by Glean (<a href="https://github.com/mozilla/glean/pull/2206">#2206</a>)</li>
 </ul>
@@ -177,23 +189,15 @@
 <h1 id="v5130-2022-09-28"><a class="header" href="#v5130-2022-09-28">v51.3.0 (2022-09-28)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.2.0...v51.3.0">Full changelog</a></p>
 <ul>
-<li>
-<p>General</p>
+<li>General
 <ul>
 <li>Update URL metric character limit to 8k to support longer URLs. URLs that are too long now are truncated to <code>MAX_URL_LENGTH</code> and still recorded along with an Overflow error. (<a href="https://github.com/mozilla/glean/pull/2199">#2199</a>)</li>
 </ul>
 </li>
-<li>
-<p>Kotlin</p>
+<li>Kotlin
 <ul>
 <li>Gradle plugin: Fix quoting issue in Python wrapper code (<a href="https://github.com/mozilla/glean/pull/2193">#2193</a>)</li>
 <li>Bumped the required Android NDK to version 25.1.8937393 (<a href="https://github.com/mozilla/glean/pull/2195">#2195</a>)</li>
-</ul>
-</li>
-<li>
-<p>iOS</p>
-<ul>
-<li>Glean for iOS is now being built with Xcode 14.0.0 (<a href="https://github.com/mozilla/glean/pull/2188">#2188</a>).</li>
 </ul>
 </li>
 </ul>
