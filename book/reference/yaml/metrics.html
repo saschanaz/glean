@@ -276,6 +276,16 @@ this form should be used so that the metric automatically &quot;sunsets&quot; af
 Emails will be sent to the <code>notification_emails</code> addresses when the metric is about to expire.
 Generally, when a metric is no longer needed, it should simply be removed.
 This does not affect the availability of data already collected by the pipeline.</li>
+<li><code>&lt;major version&gt;</code>: An integer greater than 0 representing the major version the metric expires in,
+For example, <code>11</code>.
+The version is checked at build time against the major provided to the glean_parser
+(see e.g.
+<a href="../../language-bindings/android/android-build-configuration-options.html#gleanexpirebyversion">Build configuration for Android</a>,
+<a href="../../language-bindings/ios/ios-build-configuration-options.html#--expire-by-version-integer">Build configuration for iOS</a>)
+and is only valid if a major version is provided at built time.
+If no major version is provided at build time
+and expiration by major version is used for a metric, an error is raised.
+Note that mixing expiration by date and version is not allowed within a product.</li>
 <li><code>never</code>: This metric never expires.</li>
 <li><code>expired</code>: This metric is manually expired.</li>
 </ul>
@@ -299,7 +309,7 @@ In practice, these metrics are generally set during application startup.  A comm
 using the ping lifetime for these type of metrics---means that they will only be included
 in the first ping sent during a particular run of the application.</p>
 <h5 id="user"><a class="header" href="#user"><code>user</code></a></h5>
-<p><strong>Reach out to the Glean team before using this.</strong></p>
+<p><strong>NOTE: Reach out to the Glean team before using this.</strong></p>
 <p>The metric is part of the user's profile and will live as long as the profile lives.
 This is often not the best choice unless the metric records a value that <em>really</em> needs
 to be persisted for the full lifetime of the user profile, e.g. an identifier like the <code>client_id</code>,

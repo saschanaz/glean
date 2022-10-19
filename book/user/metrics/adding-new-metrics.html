@@ -246,7 +246,7 @@ In practice, these metrics are generally set during application startup.  A comm
 using the ping lifetime for these type of metrics---means that they will only be included
 in the first ping sent during a particular run of the application.</p>
 <h5 id="user"><a class="header" href="#user"><code>user</code></a></h5>
-<p><strong>Reach out to the Glean team before using this.</strong></p>
+<p><strong>NOTE: Reach out to the Glean team before using this.</strong></p>
 <p>The metric is part of the user's profile and will live as long as the profile lives.
 This is often not the best choice unless the metric records a value that <em>really</em> needs
 to be persisted for the full lifetime of the user profile, e.g. an identifier like the <code>client_id</code>,
