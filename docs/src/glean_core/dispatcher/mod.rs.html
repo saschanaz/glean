@@ -580,16 +580,6 @@
 <span id="575">575</span>
 <span id="576">576</span>
 <span id="577">577</span>
-<span id="578">578</span>
-<span id="579">579</span>
-<span id="580">580</span>
-<span id="581">581</span>
-<span id="582">582</span>
-<span id="583">583</span>
-<span id="584">584</span>
-<span id="585">585</span>
-<span id="586">586</span>
-<span id="587">587</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -627,7 +617,7 @@
     <span class="ident">thread</span>::{<span class="self">self</span>, <span class="ident">JoinHandle</span>},
 };
 
-<span class="kw">use</span> <span class="ident">crossbeam_channel</span>::{<span class="ident">bounded</span>, <span class="ident">unbounded</span>, <span class="ident">SendError</span>, <span class="ident">Sender</span>, <span class="ident">TrySendError</span>};
+<span class="kw">use</span> <span class="ident">crossbeam_channel</span>::{<span class="ident">bounded</span>, <span class="ident">unbounded</span>, <span class="ident">SendError</span>, <span class="ident">Sender</span>};
 <span class="kw">use</span> <span class="ident">thiserror::Error</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">global</span>::<span class="kw-2">*</span>;
@@ -678,15 +668,6 @@
     <span class="ident">RecvError</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">crossbeam_channel::RecvError</span>),
 }
 
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">TrySendError</span><span class="op">&lt;</span><span class="ident">Command</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DispatchError</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">err</span>: <span class="ident">TrySendError</span><span class="op">&lt;</span><span class="ident">Command</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="kw">match</span> <span class="ident">err</span> {
-            <span class="ident">TrySendError::Full</span>(<span class="kw">_</span>) =&gt; <span class="ident">DispatchError::QueueFull</span>,
-            <span class="kw">_</span> =&gt; <span class="ident">DispatchError::SendError</span>,
-        }
-    }
-}
-
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">SendError</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">DispatchError</span> {
     <span class="kw">fn</span> <span class="ident">from</span>(<span class="kw">_</span>: <span class="ident">SendError</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">DispatchError::SendError</span>
@@ -701,6 +682,9 @@
 
     <span class="doccomment">/// The number of items that were added to the queue after it filled up.</span>
     <span class="ident">overflow_count</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">AtomicUsize</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// The maximum pre-init queue size</span>
+    <span class="ident">max_queue_size</span>: <span class="ident">usize</span>,
 
     <span class="doccomment">/// Used to unblock the worker thread initially.</span>
     <span class="ident">block_sender</span>: <span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">Blocked</span><span class="op">&gt;</span>,
@@ -727,20 +711,15 @@
 
     <span class="kw">fn</span> <span class="ident">send</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">task</span>: <span class="ident">Command</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">DispatchError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">queue_preinit</span>.<span class="ident">load</span>(<span class="ident">Ordering::SeqCst</span>) {
-            <span class="kw">match</span> <span class="self">self</span>
-                .<span class="ident">preinit_sender</span>
-                .<span class="ident">try_send</span>(<span class="ident">task</span>)
-                .<span class="ident">map_err</span>(<span class="ident">DispatchError::from</span>)
-            {
-                <span class="prelude-val">Err</span>(<span class="ident">err</span> @ <span class="ident">DispatchError::QueueFull</span>) =&gt; {
-                    <span class="comment">// This value ends up in the `preinit_tasks_overflow` metric, but we</span>
-                    <span class="comment">// can&#39;t record directly there, because that would only add</span>
-                    <span class="comment">// the recording to an already-overflowing task queue and would be</span>
-                    <span class="comment">// silently dropped.</span>
-                    <span class="self">self</span>.<span class="ident">overflow_count</span>.<span class="ident">fetch_add</span>(<span class="number">1</span>, <span class="ident">Ordering::SeqCst</span>);
-                    <span class="prelude-val">Err</span>(<span class="ident">err</span>)
-                }
-                <span class="ident">err</span> =&gt; <span class="ident">err</span>,
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">preinit_sender</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">max_queue_size</span> {
+                <span class="self">self</span>.<span class="ident">preinit_sender</span>.<span class="ident">send</span>(<span class="ident">task</span>)<span class="question-mark">?</span>;
+                <span class="prelude-val">Ok</span>(())
+            } <span class="kw">else</span> {
+                <span class="self">self</span>.<span class="ident">overflow_count</span>.<span class="ident">fetch_add</span>(<span class="number">1</span>, <span class="ident">Ordering::SeqCst</span>);
+                <span class="comment">// Instead of using a bounded queue, we are handling the bounds</span>
+                <span class="comment">// checking ourselves. If a bounded queue were full, we would return</span>
+                <span class="comment">// a QueueFull DispatchError, so we do the same here.</span>
+                <span class="prelude-val">Err</span>(<span class="ident">DispatchError::QueueFull</span>)
             }
         } <span class="kw">else</span> {
             <span class="self">self</span>.<span class="ident">sender</span>.<span class="ident">send</span>(<span class="ident">task</span>)<span class="question-mark">?</span>;
@@ -837,7 +816,7 @@
     <span class="doccomment">/// [`flush_init`]: #method.flush_init</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">max_queue_size</span>: <span class="ident">usize</span>) -&gt; <span class="self">Self</span> {
         <span class="kw">let</span> (<span class="ident">block_sender</span>, <span class="ident">block_receiver</span>) <span class="op">=</span> <span class="ident">bounded</span>(<span class="number">1</span>);
-        <span class="kw">let</span> (<span class="ident">preinit_sender</span>, <span class="ident">preinit_receiver</span>) <span class="op">=</span> <span class="ident">bounded</span>(<span class="ident">max_queue_size</span>);
+        <span class="kw">let</span> (<span class="ident">preinit_sender</span>, <span class="ident">preinit_receiver</span>) <span class="op">=</span> <span class="ident">unbounded</span>();
         <span class="kw">let</span> (<span class="ident">sender</span>, <span class="kw-2">mut</span> <span class="ident">unbounded_receiver</span>) <span class="op">=</span> <span class="ident">unbounded</span>();
 
         <span class="kw">let</span> <span class="ident">queue_preinit</span> <span class="op">=</span> <span class="ident">Arc::new</span>(<span class="ident">AtomicBool::new</span>(<span class="bool-val">true</span>));
@@ -907,6 +886,7 @@
         <span class="kw">let</span> <span class="ident">guard</span> <span class="op">=</span> <span class="ident">DispatchGuard</span> {
             <span class="ident">queue_preinit</span>,
             <span class="ident">overflow_count</span>,
+            <span class="ident">max_queue_size</span>,
             <span class="ident">block_sender</span>,
             <span class="ident">preinit_sender</span>,
             <span class="ident">sender</span>,
