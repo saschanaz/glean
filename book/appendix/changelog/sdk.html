@@ -150,7 +150,29 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
-<p><a href="https://github.com/mozilla/glean/compare/v51.5.0...main">Full changelog</a></p>
+<p><a href="https://github.com/mozilla/glean/compare/v51.6.0...main">Full changelog</a></p>
+<h1 id="v5160-2022-10-24"><a class="header" href="#v5160-2022-10-24">v51.6.0 (2022-10-24)</a></h1>
+<p><a href="https://github.com/mozilla/glean/compare/v51.5.0...v51.6.0">Full changelog</a></p>
+<ul>
+<li>
+<p>General</p>
+<ul>
+<li>The internal glean-core dispatch queue changed from <code>unbounded</code> to <code>bounded</code>, while still behaving as a bounded queue.</li>
+</ul>
+</li>
+<li>
+<p>iOS</p>
+<ul>
+<li>BUGFIX: Additional work to address an iOS crash due to an invalidated session (<a href="https://github.com/mozilla/glean/pull/2235">#2235</a>)</li>
+</ul>
+</li>
+<li>
+<p>Rust</p>
+<ul>
+<li>Add cargo feature <code>preinit_million_queue</code> to up the preinit queue length from 10^3 to 10^6 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1796258">bug 1796258</a>)</li>
+</ul>
+</li>
+</ul>
 <h1 id="v5150-2022-10-18"><a class="header" href="#v5150-2022-10-18">v51.5.0 (2022-10-18)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.4.0...v51.5.0">Full changelog</a></p>
 <ul>

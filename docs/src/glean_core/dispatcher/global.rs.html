@@ -218,6 +218,10 @@
 <span id="213">213</span>
 <span id="214">214</span>
 <span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -228,7 +232,11 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">DispatchError</span>, <span class="ident">DispatchGuard</span>, <span class="ident">Dispatcher</span>};
 
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;preinit_million_queue&quot;</span>)]</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">GLOBAL_DISPATCHER_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">1000000</span>;
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;preinit_million_queue&quot;</span>))]</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">GLOBAL_DISPATCHER_LIMIT</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">1000</span>;
+
 <span class="kw">static</span> <span class="ident">GLOBAL_DISPATCHER</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Dispatcher</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span>
     <span class="ident">Lazy::new</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">RwLock::new</span>(<span class="prelude-val">Some</span>(<span class="ident">Dispatcher::new</span>(<span class="ident">GLOBAL_DISPATCHER_LIMIT</span>))));
 <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">TESTING_MODE</span>: <span class="ident">AtomicBool</span> <span class="op">=</span> <span class="ident">AtomicBool::new</span>(<span class="bool-val">false</span>);
