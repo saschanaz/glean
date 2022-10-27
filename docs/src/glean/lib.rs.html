@@ -277,6 +277,8 @@
 <span id="272">272</span>
 <span id="273">273</span>
 <span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -360,8 +362,9 @@
         <span class="comment">// intentionally left empty</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">trigger_upload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="kw">fn</span> <span class="ident">trigger_upload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glean_core::CallbackError</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">upload_manager</span>.<span class="ident">trigger_upload</span>();
+        <span class="prelude-val">Ok</span>(())
     }
 
     <span class="kw">fn</span> <span class="ident">start_metrics_ping_scheduler</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
@@ -370,8 +373,9 @@
         <span class="bool-val">true</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">cancel_uploads</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    <span class="kw">fn</span> <span class="ident">cancel_uploads</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">glean_core::CallbackError</span><span class="op">&gt;</span> {
         <span class="comment">// intentionally left empty</span>
+        <span class="prelude-val">Ok</span>(())
     }
 }
 

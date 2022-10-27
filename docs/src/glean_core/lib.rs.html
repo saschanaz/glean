@@ -916,6 +916,42 @@
 <span id="911">911</span>
 <span id="912">912</span>
 <span id="913">913</span>
+<span id="914">914</span>
+<span id="915">915</span>
+<span id="916">916</span>
+<span id="917">917</span>
+<span id="918">918</span>
+<span id="919">919</span>
+<span id="920">920</span>
+<span id="921">921</span>
+<span id="922">922</span>
+<span id="923">923</span>
+<span id="924">924</span>
+<span id="925">925</span>
+<span id="926">926</span>
+<span id="927">927</span>
+<span id="928">928</span>
+<span id="929">929</span>
+<span id="930">930</span>
+<span id="931">931</span>
+<span id="932">932</span>
+<span id="933">933</span>
+<span id="934">934</span>
+<span id="935">935</span>
+<span id="936">936</span>
+<span id="937">937</span>
+<span id="938">938</span>
+<span id="939">939</span>
+<span id="940">940</span>
+<span id="941">941</span>
+<span id="942">942</span>
+<span id="943">943</span>
+<span id="944">944</span>
+<span id="945">945</span>
+<span id="946">946</span>
+<span id="947">947</span>
+<span id="948">948</span>
+<span id="949">949</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -933,6 +969,7 @@
 <span class="doccomment">//! ## [The Glean SDK Book](https://mozilla.github.io/glean)</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
+<span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident">std::sync::atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>};
 <span class="kw">use</span> <span class="ident">std::sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>};
 
@@ -1107,6 +1144,25 @@
     }
 }
 
+<span class="doccomment">/// An error returned from callbacks.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">CallbackError</span> {
+    <span class="doccomment">/// An unexpected error occured.</span>
+    <span class="ident">UnexpectedError</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">fmt::Display</span> <span class="kw">for</span> <span class="ident">CallbackError</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">fmt::Result</span> {
+        <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;Unexpected error&quot;</span>)
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">uniffi::UnexpectedUniFFICallbackError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">CallbackError</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="kw">_</span>: <span class="ident">uniffi::UnexpectedUniFFICallbackError</span>) -&gt; <span class="ident">CallbackError</span> {
+        <span class="ident">CallbackError::UnexpectedError</span>
+    }
+}
+
 <span class="doccomment">/// A callback object used to trigger actions on the foreign-language side.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// A callback object is stored in glean-core for the entire lifetime of the application.</span>
@@ -1122,13 +1178,13 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This should not block.</span>
     <span class="doccomment">/// The uploader needs to asynchronously poll Glean for new pings to upload.</span>
-    <span class="kw">fn</span> <span class="ident">trigger_upload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    <span class="kw">fn</span> <span class="ident">trigger_upload</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">CallbackError</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Start the Metrics Ping Scheduler.</span>
     <span class="kw">fn</span> <span class="ident">start_metrics_ping_scheduler</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span>;
 
     <span class="doccomment">/// Called when upload is disabled and uploads should be stopped</span>
-    <span class="kw">fn</span> <span class="ident">cancel_uploads</span>(<span class="kw-2">&amp;</span><span class="self">self</span>);
+    <span class="kw">fn</span> <span class="ident">cancel_uploads</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">CallbackError</span><span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// Initializes Glean.</span>
@@ -1266,7 +1322,9 @@
                 <span class="comment">// 1. Pings were submitted through Glean and it is ready to upload those pings;</span>
                 <span class="comment">// 2. Upload is disabled, to upload a possible deletion-request ping.</span>
                 <span class="kw">if</span> <span class="ident">pings_submitted</span> <span class="op">|</span><span class="op">|</span> <span class="op">!</span><span class="ident">upload_enabled</span> {
-                    <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>();
+                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>() {
+                        <span class="macro">log::error!</span>(<span class="string">&quot;Triggering upload failed. Error: {}&quot;</span>, <span class="ident">e</span>);
+                    }
                 }
             }
 
@@ -1289,7 +1347,9 @@
                 <span class="comment">// ping startup check should be performed before any other ping, since it relies</span>
                 <span class="comment">// on being dispatched to the API context before any other metric.</span>
                 <span class="kw">if</span> <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">start_metrics_ping_scheduler</span>() {
-                    <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>();
+                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>() {
+                        <span class="macro">log::error!</span>(<span class="string">&quot;Triggering upload failed. Error: {}&quot;</span>, <span class="ident">e</span>);
+                    }
                 }
             }
 
@@ -1306,7 +1366,9 @@
                     <span class="comment">// Note that unwrapping below is safe: the function will return an</span>
                     <span class="comment">// `Ok` value for a known ping.</span>
                     <span class="kw">if</span> <span class="ident">glean</span>.<span class="ident">submit_ping_by_name</span>(<span class="string">&quot;baseline&quot;</span>, <span class="prelude-val">Some</span>(<span class="string">&quot;dirty_startup&quot;</span>)) {
-                        <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>();
+                        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>() {
+                            <span class="macro">log::error!</span>(<span class="string">&quot;Triggering upload failed. Error: {}&quot;</span>, <span class="ident">e</span>);
+                        }
                     }
                 }
 
@@ -1517,7 +1579,9 @@
             <span class="comment">// Stop the MPS if its handled within Rust.</span>
             <span class="ident">glean</span>.<span class="ident">cancel_metrics_ping_scheduler</span>();
             <span class="comment">// Stop wrapper-controlled uploader.</span>
-            <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">cancel_uploads</span>();
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">cancel_uploads</span>() {
+                <span class="macro">log::error!</span>(<span class="string">&quot;Canceling upload failed. Error: {}&quot;</span>, <span class="ident">e</span>);
+            }
         }
 
         <span class="ident">glean</span>.<span class="ident">set_upload_enabled</span>(<span class="ident">enabled</span>);
@@ -1527,7 +1591,9 @@
         }
 
         <span class="kw">if</span> <span class="ident">original_enabled</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="ident">enabled</span> {
-            <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>();
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>() {
+                <span class="macro">log::error!</span>(<span class="string">&quot;Triggering upload failed. Error: {}&quot;</span>, <span class="ident">e</span>);
+            }
         }
     })
 }
@@ -1674,7 +1740,9 @@
         <span class="comment">// the uploader. It&#39;s fine to trigger it if no ping was generated:</span>
         <span class="comment">// it will bail out.</span>
         <span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">global_state</span>().<span class="ident">lock</span>().<span class="ident">unwrap</span>();
-        <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>();
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>() {
+            <span class="macro">log::error!</span>(<span class="string">&quot;Triggering upload failed. Error: {}&quot;</span>, <span class="ident">e</span>);
+        }
     });
 
     <span class="comment">// The previous block of code may send a ping containing the `duration` metric,</span>
@@ -1705,7 +1773,9 @@
         <span class="comment">// the uploader. It&#39;s fine to trigger it if no ping was generated:</span>
         <span class="comment">// it will bail out.</span>
         <span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">global_state</span>().<span class="ident">lock</span>().<span class="ident">unwrap</span>();
-        <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>();
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>() {
+            <span class="macro">log::error!</span>(<span class="string">&quot;Triggering upload failed. Error: {}&quot;</span>, <span class="ident">e</span>);
+        }
     })
 }
 
@@ -1717,7 +1787,9 @@
 
         <span class="kw">if</span> <span class="ident">sent</span> {
             <span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">global_state</span>().<span class="ident">lock</span>().<span class="ident">unwrap</span>();
-            <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>();
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">state</span>.<span class="ident">callbacks</span>.<span class="ident">trigger_upload</span>() {
+                <span class="macro">log::error!</span>(<span class="string">&quot;Triggering upload failed. Error: {}&quot;</span>, <span class="ident">e</span>);
+            }
         }
     })
 }
