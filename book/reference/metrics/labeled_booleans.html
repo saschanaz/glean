@@ -214,13 +214,26 @@ Glean.accessibility.features[&quot;high_contrast&quot;].set(false);
 </div>
 <h4 id="recorded-errors"><a class="header" href="#recorded-errors">Recorded Errors</a></h4>
 <ul>
+<li><a href="../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-boolean value is given.</li>
 <li><a href="../../user/metrics/error-reporting.html"><code>invalid_label</code></a>:
 <ul>
 <li>If the label contains invalid characters. Data is still recorded to the special label <code>__other__</code>.</li>
 <li>If the label exceeds the maximum number of allowed characters. Data is still recorded to the special label <code>__other__</code>.</li>
 </ul>
 </li>
-<li><a href="../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-boolean value is given.</li>
+</ul>
+<h4 id="limits"><a class="header" href="#limits">Limits</a></h4>
+<ul>
+<li>Labels must conform to the <a href="index.html#label-format">label formatting regular expression</a>.</li>
+<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>The list of labels is limited to:
+<ul>
+<li>16 different dynamic labels if no static labels are defined.
+Additional labels will all record to the special label <code>__other__</code>.</li>
+<li>100 labels if specified as static labels in <code>metrics.yaml</code>, see <a href="#labels">Labels</a>.
+Unknown labels will be recorded under the special label <code>__other__</code>.</li>
+</ul>
+</li>
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
@@ -384,15 +397,9 @@ assert(
 <p>Labeled metrics may have an optional <code>labels</code> parameter, containing a list of known labels.
 The labels in this list must match the following requirements:</p>
 <ul>
-<li>
-<p>Conform to the <a href="index.html#label-format">label formatting regular expression</a>.</p>
-</li>
-<li>
-<p>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</p>
-</li>
-<li>
-<p>This list itself is limited to 100 labels.</p>
-</li>
+<li>Conform to the <a href="index.html#label-format">label formatting regular expression</a>.</li>
+<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>This list itself is limited to 100 labels.</li>
 </ul>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
 <h5 id="important"><a class="header" href="#important">Important</a></h5>
