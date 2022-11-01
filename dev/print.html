@@ -558,7 +558,7 @@ git push upstream support/v24.0
 <li>Once the above pull request lands, delete the support branch.</li>
 </ol>
 <h2 id="upgrading-android-components-to-a-new-version-of-glean"><a class="header" href="#upgrading-android-components-to-a-new-version-of-glean">Upgrading android-components to a new version of Glean</a></h2>
-<p>On Android, Mozilla products consume the Glean SDK through its wrapper in <a href="https://github.com/mozilla-mobile/android-components"><code>android-components</code></a>.
+<p>On Android, Mozilla products consume the Glean SDK through its wrapper in <a href="https://github.com/mozilla-mobile/firefox-android/tree/main/android-components/"><code>android-components</code></a>.
 The process of vendoring a new version of Glean in to Mozilla Central now handles the upgrade process for android-components and no manual updating is needed here.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/dev/cut-a-new-release.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="contributing-to-the-glean-sdk"><a class="header" href="#contributing-to-the-glean-sdk">Contributing to the Glean SDK</a></h1>
 <p>Anyone is welcome to help with the Glean SDK project. Feel free to get in touch with other community members on <code>chat.mozilla.org</code>
@@ -897,7 +897,7 @@ All locations need to be updated on upgrades:</p>
 <h2 id="preparation"><a class="header" href="#preparation">Preparation</a></h2>
 <p>Clone the Glean SDK and android-components repositories:</p>
 <pre><code class="language-sh">git clone https://github.com/mozilla/glean
-git clone https://github.com/mozilla-mobile/android-components
+git clone https://github.com/mozilla-mobile/firefox-android
 </code></pre>
 <h2 id="cargo-build-targets"><a class="header" href="#cargo-build-targets">Cargo build targets</a></h2>
 <p>By default when building Android Components using gradle, the rust-android plugin will compile Glean for every possible platform,
@@ -916,7 +916,7 @@ rust.targets=x86
 <h2 id="substituting-projects"><a class="header" href="#substituting-projects">Substituting projects</a></h2>
 <p>android-components has custom build logic for dealing with composite builds,
 so you should be able to configure it by simply adding the path to the Glean repository in the correct <code>local.properties</code> file:</p>
-<p>In <code>android-components/local.properties</code>:</p>
+<p>In <code>firefox-android/android-components/local.properties</code>:</p>
 <pre><code class="language-groovy">autoPublish.glean.dir=../glean
 </code></pre>
 <p>This will auto-publish Glean SDK changes to a local repository and consume them in android-components.</p>

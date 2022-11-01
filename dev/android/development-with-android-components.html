@@ -160,7 +160,7 @@
 <h2 id="preparation"><a class="header" href="#preparation">Preparation</a></h2>
 <p>Clone the Glean SDK and android-components repositories:</p>
 <pre><code class="language-sh">git clone https://github.com/mozilla/glean
-git clone https://github.com/mozilla-mobile/android-components
+git clone https://github.com/mozilla-mobile/firefox-android
 </code></pre>
 <h2 id="cargo-build-targets"><a class="header" href="#cargo-build-targets">Cargo build targets</a></h2>
 <p>By default when building Android Components using gradle, the rust-android plugin will compile Glean for every possible platform,
@@ -179,7 +179,7 @@ rust.targets=x86
 <h2 id="substituting-projects"><a class="header" href="#substituting-projects">Substituting projects</a></h2>
 <p>android-components has custom build logic for dealing with composite builds,
 so you should be able to configure it by simply adding the path to the Glean repository in the correct <code>local.properties</code> file:</p>
-<p>In <code>android-components/local.properties</code>:</p>
+<p>In <code>firefox-android/android-components/local.properties</code>:</p>
 <pre><code class="language-groovy">autoPublish.glean.dir=../glean
 </code></pre>
 <p>This will auto-publish Glean SDK changes to a local repository and consume them in android-components.</p>

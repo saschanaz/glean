@@ -301,7 +301,7 @@ Add this to your Gradle configuration:</p>
 <blockquote>
 <p>The <code>{latest-version}</code> placeholder in the above link should be replaced with the version of Android Components used by the project.</p>
 </blockquote>
-<p>The Glean Kotlin SDK is released as part of <a href="https://github.com/mozilla-mobile/android-components">android-components</a>. Therefore, it follows android-components' versions.
+<p>The Glean Kotlin SDK is released as part of <a href="https://github.com/mozilla-mobile/firefox-android/tree/main/android-components/">android-components</a>. Therefore, it follows android-components' versions.
 The <a href="https://github.com/mozilla-mobile/android-components/releases/">android-components release page</a> can be used to determine the latest version.</p>
 <p>For example, if version <em>33.0.0</em> is used, then the include directive becomes:</p>
 <pre><code class="language-Groovy">implementation &quot;org.mozilla.components:service-glean:33.0.0&quot;
@@ -10498,7 +10498,7 @@ It does not assume an interaction model and the integrating application is respo
 It assumes a common interaction model for mobile applications.
 It sends builtin pings at startup of the integrating application.</p>
 <p>It is available standalone as <code>org.mozilla.telemetry:glean</code>
-or via <a href="https://github.com/mozilla-mobile/android-components/">Android Components</a> as <code>org.mozilla.components:service-glean</code>
+or via <a href="https://github.com/mozilla-mobile/firefox-android/tree/main/android-components/">Android Components</a> as <code>org.mozilla.components:service-glean</code>
 from the <a href="https://maven.mozilla.org/?prefix=maven2">Mozilla Maven instance</a>.</p>
 <p>The Kotlin SDK can also be used from Java.</p>
 <p>See <a href="language-bindings/android/">Android</a> for more on integrating Glean on Android.</p>
@@ -10648,7 +10648,7 @@ basic strategy for instrumenting an Android application with crash telemetry usi
 <p><strong>Note:</strong>  This is a <em>very</em> simple example of instrumenting crashes using the Glean SDK.  There will be challenges to
 using this approach in a production application that should be considered.  For instance, when an app crashes it can be in an
 unknown state and may not be able to do things like upload data to a server.  The recommended way of instrumenting crashes with
-Android Components is called <a href="https://github.com/mozilla-mobile/android-components/tree/HEAD/components/lib/crash">lib-crash</a>, which takes into consideration things like multiple processes and persistence.</p>
+Android Components is called <a href="https://github.com/mozilla-mobile/firefox-android/tree/main/android-components/components/lib/crash">lib-crash</a>, which takes into consideration things like multiple processes and persistence.</p>
 <h2 id="before-you-start"><a class="header" href="#before-you-start">Before You Start</a></h2>
 <p>There are a few things that need to be installed in order to proceed, mainly <a href="https://developer.android.com/studio/">Android Studio</a>.  If you include the Android SDK,
 Android Studio can take a little while to download and get installed.  This walk-through assumes some knowledge of Android
