@@ -152,9 +152,20 @@
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.7.0...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>Upgrade to <code>glean_parser</code> v6.3.0, increases the event extra limit to 15 (<a href="https://github.com/mozilla/glean/issues/2255">#2255</a>)</li>
+<li>Increase event extras value limit to 500 bytes (<a href="https://github.com/mozilla/glean/issues/2255">#2255</a>)</li>
+</ul>
+</li>
 <li>Kotlin
 <ul>
 <li>Increase to Android target/compile SDK version 33 (<a href="https://github.com/mozilla/glean/pull/2246">#2246</a>)</li>
+</ul>
+</li>
+<li>iOS
+<ul>
+<li>Try to avoid a crash by not invalidating upload sessions (<a href="https://github.com/mozilla/glean/pull/2254">#2254</a>)</li>
 </ul>
 </li>
 </ul>

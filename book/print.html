@@ -8857,7 +8857,7 @@ views.loginOpened.record({ sourceOfLogin: &quot;toolbar&quot; });
 <h4 id="recorded-errors-17"><a class="header" href="#recorded-errors-17">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>:
-if any of the values in the <code>extras</code> object are greater than 100 bytes in length.
+if any of the values in the <code>extras</code> object are greater than 500 bytes in length.
 (Prior to Glean 31.5.0, this recorded an <code>invalid_value</code>).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if there is an attempt to record to an extra key which is not allowed i.e. an extra key that has not been listed in the YAML registry file.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if the extra value given is not the expected type.</li>
@@ -9050,7 +9050,7 @@ A maximum of 10 extra keys is allowed.</p>
 <li>When 500 events are queued on the client an events ping is immediately sent.</li>
 <li>The <code>extra_keys</code> allows for a maximum of 10 keys.</li>
 <li>The keys in the <code>extra_keys</code> list must be in dotted snake case, with a maximum length of 40 bytes, when encoded as UTF-8.</li>
-<li>The values in the <code>extras</code> object have a maximum length of 100 bytes when serialized and encoded as UTF-8.
+<li>The values in the <code>extras</code> object have a maximum length of 500 bytes when serialized and encoded as UTF-8.
 Longer values are truncated, and an error is recorded.</li>
 </ul>
 <h2 id="reference-17"><a class="header" href="#reference-17">Reference</a></h2>
@@ -10999,9 +10999,20 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.7.0...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>Upgrade to <code>glean_parser</code> v6.3.0, increases the event extra limit to 15 (<a href="https://github.com/mozilla/glean/issues/2255">#2255</a>)</li>
+<li>Increase event extras value limit to 500 bytes (<a href="https://github.com/mozilla/glean/issues/2255">#2255</a>)</li>
+</ul>
+</li>
 <li>Kotlin
 <ul>
 <li>Increase to Android target/compile SDK version 33 (<a href="https://github.com/mozilla/glean/pull/2246">#2246</a>)</li>
+</ul>
+</li>
+<li>iOS
+<ul>
+<li>Try to avoid a crash by not invalidating upload sessions (<a href="https://github.com/mozilla/glean/pull/2254">#2254</a>)</li>
 </ul>
 </li>
 </ul>
