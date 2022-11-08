@@ -57,7 +57,7 @@ class Configuration:
 
     def __init__(
         self,
-        server_endpoint: str = None,
+        server_endpoint: Optional[str] = None,
         channel: Optional[str] = None,
         max_events: int = DEFAULT_MAX_EVENTS,
         ping_uploader: Optional[net.BaseUploader] = None,
@@ -139,7 +139,7 @@ __all__ = [&#34;Configuration&#34;]</code></pre>
 <dl>
 <dt id="glean.config.Configuration"><code class="flex name class">
 <span>class <span class="ident">Configuration</span></span>
-<span>(</span><span>server_endpoint: str = None, channel: Optional[str] = None, max_events: int = 500, ping_uploader: Optional[<a title="glean.net.base_uploader.BaseUploader" href="net/base_uploader.html#glean.net.base_uploader.BaseUploader">BaseUploader</a>] = None, allow_multiprocessing: bool = True)</span>
+<span>(</span><span>server_endpoint: Optional[str] = None, channel: Optional[str] = None, max_events: int = 500, ping_uploader: Optional[<a title="glean.net.base_uploader.BaseUploader" href="net/base_uploader.html#glean.net.base_uploader.BaseUploader">BaseUploader</a>] = None, allow_multiprocessing: bool = True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configuration values for Glean.</p>
@@ -172,7 +172,7 @@ to offload some work (such as ping uploading).</dd>
 
     def __init__(
         self,
-        server_endpoint: str = None,
+        server_endpoint: Optional[str] = None,
         channel: Optional[str] = None,
         max_events: int = DEFAULT_MAX_EVENTS,
         ping_uploader: Optional[net.BaseUploader] = None,

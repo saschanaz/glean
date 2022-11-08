@@ -156,7 +156,7 @@ class Glean:
         application_version: str,
         upload_enabled: bool,
         configuration: Optional[Configuration] = None,
-        data_dir: Path = None,
+        data_dir: Optional[Path] = None,
         application_build_id: Optional[str] = None,
         log_level: Optional[int] = None,
     ) -&gt; None:
@@ -545,7 +545,7 @@ initialized from the application.</p>
         application_version: str,
         upload_enabled: bool,
         configuration: Optional[Configuration] = None,
-        data_dir: Path = None,
+        data_dir: Optional[Path] = None,
         application_build_id: Optional[str] = None,
         log_level: Optional[int] = None,
     ) -&gt; None:
@@ -895,7 +895,7 @@ def handle_client_inactive(cls):
 </details>
 </dd>
 <dt id="glean.glean.Glean.initialize"><code class="name flex">
-<span>def <span class="ident">initialize</span></span>(<span>application_id: str, application_version: str, upload_enabled: bool, configuration: Optional[<a title="glean.config.Configuration" href="config.html#glean.config.Configuration">Configuration</a>] = None, data_dir: pathlib.Path = None, application_build_id: Optional[str] = None, log_level: Optional[int] = None) ‑> None</span>
+<span>def <span class="ident">initialize</span></span>(<span>application_id: str, application_version: str, upload_enabled: bool, configuration: Optional[<a title="glean.config.Configuration" href="config.html#glean.config.Configuration">Configuration</a>] = None, data_dir: Optional[pathlib.Path] = None, application_build_id: Optional[str] = None, log_level: Optional[int] = None) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Initialize the Glean SDK.</p>
@@ -946,7 +946,7 @@ def initialize(
     application_version: str,
     upload_enabled: bool,
     configuration: Optional[Configuration] = None,
-    data_dir: Path = None,
+    data_dir: Optional[Path] = None,
     application_build_id: Optional[str] = None,
     log_level: Optional[int] = None,
 ) -&gt; None:
