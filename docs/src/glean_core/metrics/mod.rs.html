@@ -226,6 +226,11 @@
 <span id="221">221</span>
 <span id="222">222</span>
 <span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -296,6 +301,10 @@
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">recorded_experiment::RecordedExperiment</span>;
 
 <span class="doccomment">/// A snapshot of all buckets and the accumulated sum of a distribution.</span>
+<span class="comment">//</span>
+<span class="comment">// Note: Be careful when changing this structure.</span>
+<span class="comment">// The serialized form ends up in the ping payload.</span>
+<span class="comment">// New fields might require to be skipped on serialization.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Serialize</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DistributionData</span> {
     <span class="doccomment">/// A map containig the bucket index mapped to the accumulated count.</span>
@@ -307,6 +316,7 @@
     <span class="kw">pub</span> <span class="ident">sum</span>: <span class="ident">i64</span>,
 
     <span class="doccomment">/// The total number of entries in the distribution.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip</span>)]</span>
     <span class="kw">pub</span> <span class="ident">count</span>: <span class="ident">i64</span>,
 }
 
