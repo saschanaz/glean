@@ -424,11 +424,10 @@ assert.equal(
 </code></pre>
 <h3 id="extra-metric-parameters"><a class="header" href="#extra-metric-parameters">Extra metric parameters</a></h3>
 <h4 id="memory_unit"><a class="header" href="#memory_unit"><code>memory_unit</code></a></h4>
-<p>Memory distributions have a required <code>memory_unit</code> parameter,
-which specifies the unit the incoming memory size values are recorded in.
-The allowed values for <code>time_unit</code> are:</p>
+<p>Memory distributions have an optional <code>memory_unit</code> parameter, which specifies the unit the incoming memory size values are recorded in.
+The allowed values for <code>memory_unit</code> are:</p>
 <ul>
-<li><code>byte</code></li>
+<li><code>byte</code> (default)</li>
 <li><code>kilobyte</code> (<code>= 2^10 = 1,024 bytes</code>)</li>
 <li><code>megabyte</code> (<code>= 2^20 = 1,048,576 bytes</code>)</li>
 <li><code>gigabyte</code> (<code>= 2^30 = 1,073,741,824 bytes</code>)</li>

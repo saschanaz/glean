@@ -613,10 +613,10 @@ assert.equal(1, await pages.pageLoad.testGetNumRecordedErrors(ErrorType.InvalidV
 </code></pre>
 <h3 id="extra-metric-parameters"><a class="header" href="#extra-metric-parameters">Extra metric parameters</a></h3>
 <h4 id="time_unit"><a class="header" href="#time_unit"><code>time_unit</code></a></h4>
-<p>Timing distributions have a required <code>time_unit</code> parameter to specify the smallest unit of resolution that the timespan will record.
+<p>Timing distributions have an optional <code>time_unit</code> parameter to specify the smallest unit of resolution that the timespan will record.
 The allowed values for <code>time_unit</code> are:</p>
 <ul>
-<li><code>nanosecond</code></li>
+<li><code>nanosecond</code> (default)</li>
 <li><code>microsecond</code></li>
 <li><code>millisecond</code></li>
 <li><code>second</code></li>

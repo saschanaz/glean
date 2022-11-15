@@ -427,11 +427,12 @@ assert.strictEqual(
 refer to the <a href="../yaml/metrics.html">metrics YAML registry format</a> reference page.</p>
 <h3 id="extra-metric-parameters"><a class="header" href="#extra-metric-parameters">Extra metric parameters</a></h3>
 <h4 id="time_unit"><a class="header" href="#time_unit"><code>time_unit</code></a></h4>
-<p>Datetimes have a required <code>time_unit</code> parameter to specify the smallest unit of resolution that the metric will record. The allowed values for <code>time_unit</code> are:</p>
+<p>Datetimes have an optional <code>time_unit</code> parameter to specify the smallest unit of resolution that the metric will record.
+The allowed values for <code>time_unit</code> are:</p>
 <ul>
 <li><code>nanosecond</code></li>
 <li><code>microsecond</code></li>
-<li><code>millisecond</code></li>
+<li><code>millisecond</code> (default)</li>
 <li><code>second</code></li>
 <li><code>minute</code></li>
 <li><code>hour</code></li>
