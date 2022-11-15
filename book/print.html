@@ -4518,6 +4518,9 @@ Only the first 16 labels seen by Glean will be tracked. After that, any addition
 <p>Specifically, they must conform to this regular expression:</p>
 <pre><code>^[a-z_][a-z0-9_-]{0,29}(\\.[a-z_][a-z0-9_-]{0,29})*$
 </code></pre>
+<p>Check your label:
+<input type="text" label="Label" id="label">
+<span id="result">unchecked</span></p>
 <h2 id="adding-or-changing-metric-types"><a class="header" href="#adding-or-changing-metric-types">Adding or changing metric types</a></h2>
 <p>Glean has a <a href="https://wiki.mozilla.org/Glean/Adding_or_changing_Glean_metric_types">well-defined process</a> for requesting changes to existing metric types or suggesting the implementation of new metric types:</p>
 <ol>
@@ -14094,6 +14097,7 @@ and also no header at all.</p>
 
         <!-- Custom JS scripts -->
         <script type="text/javascript" src="../shared/tabs.js"></script>
+        <script type="text/javascript" src="../shared/label-check.js"></script>
         <script type="text/javascript" src="../shared/mermaid.min.js"></script>
         <script type="text/javascript" src="../shared/mermaid-init.js"></script>
         <script type="text/javascript" src="chart.min.js"></script>
