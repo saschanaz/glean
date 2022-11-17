@@ -748,7 +748,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">clear_pending_pings</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">data_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">pings_dir</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_pings_dir</span>(<span class="ident">data_path</span>, <span class="prelude-val">None</span>)<span class="question-mark">?</span>;
 
-        <span class="ident">std::fs::remove_dir_all</span>(<span class="kw-2">&amp;</span><span class="ident">pings_dir</span>)<span class="question-mark">?</span>;
+        <span class="ident">remove_dir_all::remove_dir_all</span>(<span class="kw-2">&amp;</span><span class="ident">pings_dir</span>)<span class="question-mark">?</span>;
         <span class="ident">create_dir_all</span>(<span class="kw-2">&amp;</span><span class="ident">pings_dir</span>)<span class="question-mark">?</span>;
 
         <span class="macro">log::debug!</span>(<span class="string">&quot;All pending pings deleted&quot;</span>);
