@@ -10999,6 +10999,14 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.8.2...main">Full changelog</a></p>
+<ul>
+<li>iOS
+<ul>
+<li>Avoid building a dynamic library (<a href="https://github.com/mozilla/glean/pull/2285">#2285</a>).
+Note: v51.8.1 and 51.8.2 are <strong>not</strong> working on iOS and will break the build due to accidentally including a link to a dynamic library.</li>
+</ul>
+</li>
+</ul>
 <h1 id="v5182-2022-11-17"><a class="header" href="#v5182-2022-11-17">v51.8.2 (2022-11-17)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.8.1...v51.8.2">Full changelog</a></p>
 <ul>
