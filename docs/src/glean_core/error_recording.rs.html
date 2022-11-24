@@ -240,6 +240,7 @@
 <span id="235">235</span>
 <span id="236">236</span>
 <span id="237">237</span>
+<span id="238">238</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -269,6 +270,7 @@
 <span class="doccomment">/// in the platform-specific code (e.g. `ErrorType.kt`) and with the</span>
 <span class="doccomment">/// metrics in the registry files.</span>
 <span class="comment">// When adding a new error type ensure it&#39;s also added to `ErrorType::iter()` below.</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ErrorType</span> {
     <span class="doccomment">/// For when the value to be recorded does not match the metric-specific restrictions</span>
