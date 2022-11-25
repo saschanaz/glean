@@ -152,6 +152,11 @@
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.8.2...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>Upgrade to rkv 0.18.3. This comes with a bug fix that ensures that interrupted database writes don't corrupt/truncate the database file (<a href="https://github.com/mozilla/glean/pull/2288">#2288</a>)</li>
+</ul>
+</li>
 <li>iOS
 <ul>
 <li>Avoid building a dynamic library (<a href="https://github.com/mozilla/glean/pull/2285">#2285</a>).
