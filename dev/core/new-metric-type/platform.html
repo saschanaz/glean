@@ -176,7 +176,7 @@ These schemas are written using a simple custom templating system to give more s
         },
 </code></pre>
 <p>After updating the templates, you need to regenerate the fully-qualified schema using <a href="https://github.com/mozilla-services/mozilla-pipeline-schemas#build">these instructions</a>.</p>
-<p>The fully-qualified Glean schema is also used by the Glean SDK's unit test suite to make sure that ping payloads validate against the schema. Therefore, whenever the Glean JSON schema is updated, it should also be copied and checked in to the <a href="https://github.com/mozilla/glean">Glean SDK repository</a>. Specifically, copy the generated schema in <code>mozilla-pipeline-schemas/schemas/glean/glean.1.schema.json</code> to the root of the Glean SDK repository. </p>
+<p>The fully-qualified Glean schema is also used by the Glean SDK's unit test suite to make sure that ping payloads validate against the schema. Therefore, whenever the Glean JSON schema is updated, it should also be copied and checked in to the <a href="https://github.com/mozilla/glean">Glean SDK repository</a>. Specifically, copy the generated schema in <code>mozilla-pipeline-schemas/schemas/glean/glean.1.schema.json</code> to the root of the Glean SDK repository.</p>
 <h2 id="adding-a-new-metric-type-to-mozilla-schema-generator"><a class="header" href="#adding-a-new-metric-type-to-mozilla-schema-generator">Adding a new metric type to <code>mozilla-schema-generator</code></a></h2>
 <p>Each new metric type also needs an entry in the Glean configuration in <a href="https://github.com/mozilla/mozilla-schema-generator"><code>mozilla-schema-generator</code></a>. The config file for Glean is in <a href="https://github.com/mozilla/mozilla-schema-generator/blob/7276cfb3b14440f8cb93e57d9f167d7588092dae/mozilla_schema_generator/configs/glean.yaml#L1"><code>glean.yaml</code></a>. Each entry in that file just needs some boilerplate for each metric type. For example, the snippet for the Counter metric type is:</p>
 <pre><code class="language-yaml">  counter:
@@ -185,6 +185,15 @@ These schemas are written using a simple custom templating system to give more s
         not:
           - glean_ping_info
       type: counter
+</code></pre>
+<h2 id="adding-a-new-metric-type-to-lookml-generator"><a class="header" href="#adding-a-new-metric-type-to-lookml-generator">Adding a new metric type to <code>lookml-generator</code></a></h2>
+<p>Each new metric type needs to be enabled in the <a href="https://github.com/mozilla/lookml-generator"><code>lookml-generator</code></a>.
+The list of allowed Glean metric types is in <a href="https://github.com/mozilla/lookml-generator/blob/3e4a8fdca43bd96635be477c7418bbf996801eaf/generator/views/glean_ping_view.py#L21"><code>generator/views/glean_ping_view.py.yaml</code></a>.
+Add the new metric type to <code>ALLOWED_TYPES</code>:</p>
+<pre><code class="language-python">ALLOWED_TYPES = DISTRIBUTION_TYPES | {
+    # ...
+    &quot;counter&quot;,
+}
 </code></pre>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/dev/core/new-metric-type/platform.md">Edit this file on GitHub.</a></footer>
                     </main>
