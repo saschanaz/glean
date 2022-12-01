@@ -3668,7 +3668,41 @@ def fixture_reset_glean():
     testing.reset_glean(application_id=&quot;my-app-id&quot;, application_version=&quot;0.1.0&quot;)
 </code></pre>
 </div>
-<div data-lang="Rust" class="tab"></div>
+<div data-lang="Rust" class="tab">
+<div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
+<h5 id="note"><a class="header" href="#note">Note</a></h5>
+<blockquote>
+<p>Glean uses a global singleton object. Tests need to run single-threaded or need to ensure exclusivity using a lock.</p>
+</blockquote>
+<p>The Glean Rust SDK contains a helper function <code>test_reset_glean()</code> for resetting Glean for tests.
+It has three required arguments:</p>
+<ol>
+<li>the configuration to use</li>
+<li>the client info to use</li>
+<li>whether to clear stores before initialization</li>
+</ol>
+<p>You can call it like below in every test:</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let dir = tempfile::tempdir().unwrap();
+let tmpname = dir.path().to_path_buf();
+
+let glean::Configuration {
+  data_path: tmpname,
+  application_id: &quot;app-id&quot;.into(),
+  upload_enabled: true,
+  max_events: None,
+  delay_ping_lifetime_io: false,
+  server_endpoint: Some(&quot;invalid-test-host&quot;.into()),
+  uploader: None,
+  use_core_mps: false,
+};
+let client_info = glean::ClientInfoMetrics::unknown();
+glean::test_reset_glean(cfg, client_info, false);
+<span class="boring">}
+</span></code></pre></pre>
+</div>
 <div data-lang="JavaScript" class="tab">
 <p>The Glean JavaScript SDK contains a helper function <code>testResetGlean()</code> for resetting Glean for tests.
 It expects the same list of arguments as <code>Glean.initialize</code>.</p>
