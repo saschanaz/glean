@@ -160,12 +160,12 @@ provide some form of user interface to allow for toggling the upload status.</p>
 <li>Submit a <a href="../../user/pings/deletion-request.html"><code>deletion-request</code></a> ping.</li>
 <li>Cancel scheduled ping uploads.</li>
 <li>Clear metrics and pings data from the client, except for the
-<a href="../../user/pings/index.html#the-client_info-section"><code>first_run_date</code> and <code>first_run_hour</code></a> metrics.</li>
+<a href="../../user/pings/index.html#the-client_info-section"><code>first_run_date</code></a> metric.</li>
 </ol>
 <p>While upload is disabled, metrics aren't recorded and no data is uploaded.</p>
 <h2 id="enabling-upload"><a class="header" href="#enabling-upload">Enabling upload</a></h2>
 <p>When upload is enabled, the Glean SDK will re-initialize its <a href="../../user/collected-metrics/metrics.html">core metrics</a>.
-The only core metrics that are not re-initialized are the <a href="../../user/pings/index.html#the-client_info-section"><code>first_run_date</code> and <code>first_run_hour</code></a> metrics.</p>
+The only core metric that is not re-initialized is the <a href="../../user/pings/index.html#the-client_info-section"><code>first_run_date</code></a> metric.</p>
 <p>While upload is enabled all metrics are recorded as expected
 and pings are sent to the telemetry servers.</p>
 <h2 id="api"><a class="header" href="#api">API</a></h2>

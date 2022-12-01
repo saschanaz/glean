@@ -155,7 +155,7 @@ of accidentally sending them.
 There are a couple of exceptions to this:</p>
 <ul>
 <li>
-<p><code>first_run_date</code> and <code>first_run_hour</code> are retained so they aren't reset if metrics are later re-enabled.</p>
+<p><code>first_run_date</code> is retained so it isn't reset if metrics are later re-enabled.</p>
 </li>
 <li>
 <p><code>client_id</code> is set to the special value <code>&quot;c0ffeec0-ffee-c0ff-eec0-ffeec0ffeec0&quot;</code>. This should make it possible to detect the error case when metrics are sent from a client that has been disabled.</p>
@@ -164,7 +164,7 @@ There are a couple of exceptions to this:</p>
 <p>When re-enabling metrics:</p>
 <ul>
 <li>
-<p><code>first_run_date</code> and <code>first_run_hour</code> are left as-is. (They should remain a correct time of first run of the application, unaffected by disabling/enabling the Glean SDK).</p>
+<p><code>first_run_date</code> is left as-is. (It should remain a correct time of first run of the application, unaffected by disabling/enabling the Glean SDK).</p>
 </li>
 <li>
 <p>The <code>client_id</code> is set to a newly-generated random UUID. It has no connection to the <code>client_id</code> used prior to disabling the Glean SDK.</p>

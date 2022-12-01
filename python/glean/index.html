@@ -510,7 +510,7 @@ initialized from the application.</p>
                 meaningful.
             upload_enabled (bool): Controls whether telemetry is enabled. If
                 disabled, all persisted metrics, events and queued pings
-                (except first_run_date and first_run_hour) are cleared.
+                (except first_run_date) are cleared.
             configuration (glean.config.Configuration): (optional) An object with
                 global settings.
             data_dir (pathlib.Path): The path to the Glean data directory.
@@ -860,7 +860,7 @@ meaningful.</dd>
 <dt><strong><code>upload_enabled</code></strong> :&ensp;<code>bool</code></dt>
 <dd>Controls whether telemetry is enabled. If
 disabled, all persisted metrics, events and queued pings
-(except first_run_date and first_run_hour) are cleared.</dd>
+(except first_run_date) are cleared.</dd>
 <dt><strong><code>configuration</code></strong> :&ensp;<code><a title="glean.config.Configuration" href="config.html#glean.config.Configuration">Configuration</a></code></dt>
 <dd>(optional) An object with
 global settings.</dd>
@@ -911,7 +911,7 @@ def initialize(
             meaningful.
         upload_enabled (bool): Controls whether telemetry is enabled. If
             disabled, all persisted metrics, events and queued pings
-            (except first_run_date and first_run_hour) are cleared.
+            (except first_run_date) are cleared.
         configuration (glean.config.Configuration): (optional) An object with
             global settings.
         data_dir (pathlib.Path): The path to the Glean data directory.

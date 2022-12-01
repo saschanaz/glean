@@ -911,16 +911,6 @@
 <span id="906">906</span>
 <span id="907">907</span>
 <span id="908">908</span>
-<span id="909">909</span>
-<span id="910">910</span>
-<span id="911">911</span>
-<span id="912">912</span>
-<span id="913">913</span>
-<span id="914">914</span>
-<span id="915">915</span>
-<span id="916">916</span>
-<span id="917">917</span>
-<span id="918">918</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
 <span class="kw">use</span> <span class="ident">std::path</span>::{<span class="ident">Path</span>, <span class="ident">PathBuf</span>};
 <span class="kw">use</span> <span class="ident">std::sync::Mutex</span>;
@@ -1245,7 +1235,6 @@
             .<span class="ident">is_none</span>()
         {
             <span class="self">self</span>.<span class="ident">core_metrics</span>.<span class="ident">first_run_date</span>.<span class="ident">set_sync</span>(<span class="self">self</span>, <span class="prelude-val">None</span>);
-            <span class="self">self</span>.<span class="ident">core_metrics</span>.<span class="ident">first_run_hour</span>.<span class="ident">set_sync</span>(<span class="self">self</span>, <span class="prelude-val">None</span>);
             <span class="comment">// The `first_run_date` field is generated on the very first run</span>
             <span class="comment">// and persisted across upload toggling. We can assume that, the only</span>
             <span class="comment">// time it is set, that&#39;s indeed our &quot;first run&quot;.</span>
@@ -1369,15 +1358,13 @@
         <span class="comment">// so that it can&#39;t be accessed until this function is done.</span>
         <span class="kw">let</span> <span class="ident">_lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">upload_manager</span>.<span class="ident">clear_ping_queue</span>();
 
-        <span class="comment">// There are only two metrics that we want to survive after clearing all</span>
-        <span class="comment">// metrics: first_run_date and first_run_hour. Here, we store their values</span>
-        <span class="comment">// so we can restore them after clearing the metrics.</span>
+        <span class="comment">// There is only one metric that we want to survive after clearing all</span>
+        <span class="comment">// metrics: first_run_date. Here, we store its value so we can restore</span>
+        <span class="comment">// it after clearing the metrics.</span>
         <span class="kw">let</span> <span class="ident">existing_first_run_date</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">core_metrics</span>
             .<span class="ident">first_run_date</span>
             .<span class="ident">get_value</span>(<span class="self">self</span>, <span class="string">&quot;glean_client_info&quot;</span>);
-
-        <span class="kw">let</span> <span class="ident">existing_first_run_hour</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">core_metrics</span>.<span class="ident">first_run_hour</span>.<span class="ident">get_value</span>(<span class="self">self</span>, <span class="string">&quot;metrics&quot;</span>);
 
         <span class="comment">// Clear any pending pings.</span>
         <span class="kw">let</span> <span class="ident">ping_maker</span> <span class="op">=</span> <span class="ident">PingMaker::new</span>();
@@ -1421,13 +1408,6 @@
                 <span class="self">self</span>.<span class="ident">core_metrics</span>
                     .<span class="ident">first_run_date</span>
                     .<span class="ident">set_sync_chrono</span>(<span class="self">self</span>, <span class="ident">existing_first_run_date</span>);
-            }
-
-            <span class="comment">// Restore the first_run_hour.</span>
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">existing_first_run_hour</span>) <span class="op">=</span> <span class="ident">existing_first_run_hour</span> {
-                <span class="self">self</span>.<span class="ident">core_metrics</span>
-                    .<span class="ident">first_run_hour</span>
-                    .<span class="ident">set_sync_chrono</span>(<span class="self">self</span>, <span class="ident">existing_first_run_hour</span>);
             }
 
             <span class="self">self</span>.<span class="ident">upload_enabled</span> <span class="op">=</span> <span class="bool-val">false</span>;
