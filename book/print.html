@@ -2108,13 +2108,6 @@ on the <code>pings.yaml</code> file structure.</p>
 <p>For custom pings that contain event metrics, the <code>glean.restarted</code> event is injected by Glean
 on every application restart that may happen during the pings measurement window.</p>
 <p><strong>Note</strong>: All leading and trailing <code>glean.restarted</code> events are omitted from each ping.</p>
-<div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
-<h3 id="only-applies-to-the-glean-javascript-sdk"><a class="header" href="#only-applies-to-the-glean-javascript-sdk">Only applies to the Glean JavaScript SDK</a></h3>
-<blockquote>
-<p>The behavior described in this section only applies to custom pings sent by
-the Glean JavaScript SDK. Follow the implementation of this feature on the other
-SDKs through <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1716725">Bug 1716725</a>.</p>
-</blockquote>
 <h3 id="event-timestamps-throughout-application-restarts"><a class="header" href="#event-timestamps-throughout-application-restarts">Event timestamps throughout application restarts</a></h3>
 <p>Event timestamps are always calculated relative to the first event in a ping. The first event
 will always have timestamp <code>0</code> and subsequent events will have timestamps corresponding to the
@@ -8834,7 +8827,6 @@ Glean.views.loginOpened.record(extra);
 </div>
 <h3 id="recordmap-deprecated"><a class="header" href="#recordmap-deprecated"><code>record(map)</code> (<em>deprecated</em>)</a></h3>
 <p><em>Deprecated in: <a href="reference/metrics/../../appendix/changelog/sdk.html#v3800-2021-05-12">v38.0.0</a></em></p>
-<!-- FIXME: Update anchor when v38.0.0 is actually released -->
 <p>Record a new event, with optional extra values.</p>
 <div class="special-quote special-quote-info fa fa-info-circle"></div>
 <h5 id="deprecation-notice"><a class="header" href="#deprecation-notice">Deprecation notice</a></h5>
@@ -9080,11 +9072,11 @@ A maximum of 10 extra keys is allowed.</p>
 </ul>
 <h2 id="limits-15"><a class="header" href="#limits-15">Limits</a></h2>
 <ul>
-<li>When 500 events are queued on the client an events ping is immediately sent.</li>
-<li>The <code>extra_keys</code> allows for a maximum of 10 keys.</li>
+<li>When 500 events are queued on the client an &quot;events&quot; ping is immediately sent.</li>
+<li>The <code>extra_keys</code> allows for a maximum of 15 keys.</li>
 <li>The keys in the <code>extra_keys</code> list must be in dotted snake case, with a maximum length of 40 bytes, when encoded as UTF-8.</li>
 <li>The values in the <code>extras</code> object have a maximum length of 500 bytes when serialized and encoded as UTF-8.
-Longer values are truncated, and an error is recorded.</li>
+Longer values are truncated, and an <code>invalid_overflow</code> error is recorded.</li>
 </ul>
 <h2 id="reference-17"><a class="header" href="#reference-17">Reference</a></h2>
 <ul>
@@ -11035,6 +11027,12 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li>General
 <ul>
 <li>Remove the metric <code>glean.validation.first_run_hour</code>. Note that this will mean no <code>reason=upgrade</code> metrics pings from freshly installed clients anymore. (<a href="https://github.com/mozilla/glean/pull/2271">#2271</a>)</li>
+<li>BEHAVIOUR CHANGE: Events in Custom Pings no longer trigger their submission. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1716725">bug 1716725</a>)
+<ul>
+<li>Custom Pings with unsent events will no longer be sent at startup with reason <code>startup</code>.</li>
+<li><code>glean.restarted</code> events will be included in Custom Pings with other events to rationalize event timestamps across restarts.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

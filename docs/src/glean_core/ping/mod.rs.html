@@ -454,9 +454,7 @@
     }
 
     <span class="doccomment">/// Gets, and then increments, the sequence number for a given ping.</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This is crate-internal exclusively for enabling the migration tests.</span>
-    <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn</span> <span class="ident">get_ping_seq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>, <span class="ident">storage_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">usize</span> {
+    <span class="kw">fn</span> <span class="ident">get_ping_seq</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>, <span class="ident">storage_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">usize</span> {
         <span class="comment">// Sequence numbers are stored as a counter under a name that includes the storage name</span>
         <span class="kw">let</span> <span class="ident">seq</span> <span class="op">=</span> <span class="ident">CounterMetric::new</span>(<span class="ident">CommonMetricData</span> {
             <span class="ident">name</span>: <span class="macro">format!</span>(<span class="string">&quot;{}#sequence&quot;</span>, <span class="ident">storage_name</span>),
@@ -618,7 +616,9 @@
         <span class="macro">info!</span>(<span class="string">&quot;Collecting {}&quot;</span>, <span class="ident">ping</span>.<span class="ident">name</span>());
 
         <span class="kw">let</span> <span class="ident">metrics_data</span> <span class="op">=</span> <span class="ident">StorageManager</span>.<span class="ident">snapshot_as_json</span>(<span class="ident">glean</span>.<span class="ident">storage</span>(), <span class="ident">ping</span>.<span class="ident">name</span>(), <span class="bool-val">true</span>);
-        <span class="kw">let</span> <span class="ident">events_data</span> <span class="op">=</span> <span class="ident">glean</span>.<span class="ident">event_storage</span>().<span class="ident">snapshot_as_json</span>(<span class="ident">ping</span>.<span class="ident">name</span>(), <span class="bool-val">true</span>);
+        <span class="kw">let</span> <span class="ident">events_data</span> <span class="op">=</span> <span class="ident">glean</span>
+            .<span class="ident">event_storage</span>()
+            .<span class="ident">snapshot_as_json</span>(<span class="ident">glean</span>, <span class="ident">ping</span>.<span class="ident">name</span>(), <span class="bool-val">true</span>);
 
         <span class="kw">let</span> <span class="ident">is_empty</span> <span class="op">=</span> <span class="ident">metrics_data</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="ident">events_data</span>.<span class="ident">is_none</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">ping</span>.<span class="ident">send_if_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">is_empty</span> {

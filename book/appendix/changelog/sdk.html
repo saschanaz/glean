@@ -155,6 +155,12 @@
 <li>General
 <ul>
 <li>Remove the metric <code>glean.validation.first_run_hour</code>. Note that this will mean no <code>reason=upgrade</code> metrics pings from freshly installed clients anymore. (<a href="https://github.com/mozilla/glean/pull/2271">#2271</a>)</li>
+<li>BEHAVIOUR CHANGE: Events in Custom Pings no longer trigger their submission. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1716725">bug 1716725</a>)
+<ul>
+<li>Custom Pings with unsent events will no longer be sent at startup with reason <code>startup</code>.</li>
+<li><code>glean.restarted</code> events will be included in Custom Pings with other events to rationalize event timestamps across restarts.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

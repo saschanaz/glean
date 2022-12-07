@@ -201,13 +201,6 @@ on the <code>pings.yaml</code> file structure.</p>
 <p>For custom pings that contain event metrics, the <code>glean.restarted</code> event is injected by Glean
 on every application restart that may happen during the pings measurement window.</p>
 <p><strong>Note</strong>: All leading and trailing <code>glean.restarted</code> events are omitted from each ping.</p>
-<div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
-<h3 id="only-applies-to-the-glean-javascript-sdk"><a class="header" href="#only-applies-to-the-glean-javascript-sdk">Only applies to the Glean JavaScript SDK</a></h3>
-<blockquote>
-<p>The behavior described in this section only applies to custom pings sent by
-the Glean JavaScript SDK. Follow the implementation of this feature on the other
-SDKs through <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1716725">Bug 1716725</a>.</p>
-</blockquote>
 <h3 id="event-timestamps-throughout-application-restarts"><a class="header" href="#event-timestamps-throughout-application-restarts">Event timestamps throughout application restarts</a></h3>
 <p>Event timestamps are always calculated relative to the first event in a ping. The first event
 will always have timestamp <code>0</code> and subsequent events will have timestamps corresponding to the
