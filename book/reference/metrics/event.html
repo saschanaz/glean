@@ -172,9 +172,7 @@ say every time a view was open and from where.</p>
 </blockquote>
 <h2 id="recording-api"><a class="header" href="#recording-api">Recording API</a></h2>
 <h3 id="recordobject"><a class="header" href="#recordobject"><code>record(object)</code></a></h3>
-<p><em>Added in: <a href="../../appendix/changelog/sdk.html#v3800-2021-05-12">v38.0.0</a></em></p>
 <p>Record a new event, with optional typed extra values.
-This requires <code>type</code> annotations in the definition.
 See <a href="#extra-metric-parameters">Extra metrics parameters</a>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -193,11 +191,11 @@ Views.loginOpened.record(Views.loginOpenedExtra(sourceOfLogin = &quot;toolbar&qu
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
-<p>Note that an <code>enum</code> has been generated for handling the <code>extra_keys</code>: it has the same name as the event metric, with <code>_extra</code> added.</p>
+<p>Note that a <code>class</code> has been generated for handling the <code>extra_keys</code>: it has the same name as the event metric, with <code>Extra</code> added.</p>
 <pre><code class="language-Python">from glean import load_metrics
 metrics = load_metrics(&quot;metrics.yaml&quot;)
 
-metrics.views.login_opened.record(LoginOpenedExtra(sourceOfLogin=&quot;toolbar&quot;))
+metrics.views.login_opened.record(metrics.views.LoginOpenedExtra(sourceOfLogin=&quot;toolbar&quot;))
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
@@ -229,60 +227,6 @@ Glean.views.loginOpened.record(extra);
 </div>
 </div>
 </div>
-<h3 id="recordmap-deprecated"><a class="header" href="#recordmap-deprecated"><code>record(map)</code> (<em>deprecated</em>)</a></h3>
-<p><em>Deprecated in: <a href="../../appendix/changelog/sdk.html#v3800-2021-05-12">v38.0.0</a></em></p>
-<p>Record a new event, with optional extra values.</p>
-<div class="special-quote special-quote-info fa fa-info-circle"></div>
-<h5 id="deprecation-notice"><a class="header" href="#deprecation-notice">Deprecation notice</a></h5>
-<blockquote>
-<p>This API is used in v38.0.0 if an event has no <code>type</code> annotations in the definition.
-See <a href="#extra-metric-parameters">Extra metrics parameters</a>.</p>
-<p>In future versions extra values will default to a <code>string</code> type and this API will be removed.<br />
-In Rust and Firefox Desktop this API is not supported.</p>
-</blockquote>
-<div class="tabs">
-<div class="tabbar"></div>
-<div class="tabcontents">
-<div data-lang="Kotlin" class="tab">
-<p>Note that an <code>enum</code> has been generated for handling the <code>extra_keys</code>: it has the same name as the event metric, with <code>Keys</code> added.</p>
-<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Views
-
-Views.loginOpened.record(mapOf(Views.loginOpenedKeys.sourceOfLogin to &quot;toolbar&quot;))
-</code></pre>
-</div>
-<div data-lang="Java" class="tab">
-<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Views;
-
-Views.INSTANCE.loginOpened().record();
-</code></pre>
-</div>
-<div data-lang="Swift" class="tab">
-<p>Note that an <code>enum</code> has been generated for handling the <code>extra_keys</code>: it has the same name as the event metric, with <code>Keys</code> added.</p>
-<pre><code class="language-Swift">Views.loginOpened.record(extra: [.sourceOfLogin: &quot;toolbar&quot;])
-</code></pre>
-</div>
-<div data-lang="Python" class="tab">
-<p>Note that an <code>enum</code> has been generated for handling the <code>extra_keys</code>: it has the same name as the event metric, with <code>_keys</code> added.</p>
-<pre><code class="language-Python">from glean import load_metrics
-metrics = load_metrics(&quot;metrics.yaml&quot;)
-
-metrics.views.login_opened.record(
-    {
-        metrics.views.login_opened_keys.SOURCE_OF_LOGIN: &quot;toolbar&quot;
-    }
-)
-</code></pre>
-</div>
-<div data-lang="Rust" class="tab"></div>
-<div data-lang="JavaScript" class="tab">
-<pre><code class="language-js">import * as views from &quot;./path/to/generated/files/views.js&quot;;
-
-views.loginOpened.record({ sourceOfLogin: &quot;toolbar&quot; });
-</code></pre>
-</div>
-<div data-lang="Firefox Desktop" class="tab"></div>
-</div>
-</div>
 <h4 id="recorded-errors"><a class="header" href="#recorded-errors">Recorded errors</a></h4>
 <ul>
 <li><a href="../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>:
@@ -293,7 +237,7 @@ if any of the values in the <code>extras</code> object are greater than 500 byte
 </ul>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
-<p>Get the list of recorded events.<br />
+<p>Get the list of recorded events.
 Returns a language-specific empty/null value if no data is stored.</p>
 <div class="tabs">
 <div class="tabbar"></div>

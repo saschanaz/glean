@@ -2501,7 +2501,7 @@
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/EventMetric.swift",
-      "line": 87,
+      "line": 75,
       "symbol": "EventMetricType.record(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

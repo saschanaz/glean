@@ -767,9 +767,7 @@ enforced.</p></div>
     ):
         self._inner = EventMetric(common_metric_data, allowed_extra_keys)
 
-    def record(
-        self, extra: Optional[Union[Dict[str, str], EventExtras]] = None
-    ) -&gt; None:
+    def record(self, extra: Optional[EventExtras] = None) -&gt; None:
         &#34;&#34;&#34;
         Record an event by using the information provided by the instance of
         this class.
@@ -780,20 +778,11 @@ enforced.</p></div>
         &#34;&#34;&#34;
 
         if isinstance(extra, EventExtras):
-            extra = extra.to_ffi_extra()
-        elif isinstance(extra, dict):
-
-            def key_to_str(key):
-                if isinstance(key, enum.Enum):
-                    return key.value
-                else:
-                    return str(key)
-
-            extra = {key_to_str(k): v for k, v in extra.items()}
+            inner_extra = extra.to_ffi_extra()
         else:
-            extra = {}
+            inner_extra = {}
 
-        self._inner.record(extra)
+        self._inner.record(inner_extra)
 
     def test_get_value(
         self, ping_name: Optional[str] = None
@@ -836,7 +825,7 @@ enforced.</p></div>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.metrics.EventMetricType.record"><code class="name flex">
-<span>def <span class="ident">record</span></span>(<span>self, extra: Union[Dict[str, str], <a title="glean.metrics.event.EventExtras" href="event.html#glean.metrics.event.EventExtras">EventExtras</a>, None] = None) ‑> None</span>
+<span>def <span class="ident">record</span></span>(<span>self, extra: Optional[<a title="glean.metrics.event.EventExtras" href="event.html#glean.metrics.event.EventExtras">EventExtras</a>] = None) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Record an event by using the information provided by the instance of
@@ -851,9 +840,7 @@ The maximum length for values is 100.</dd>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def record(
-    self, extra: Optional[Union[Dict[str, str], EventExtras]] = None
-) -&gt; None:
+<pre><code class="python">def record(self, extra: Optional[EventExtras] = None) -&gt; None:
     &#34;&#34;&#34;
     Record an event by using the information provided by the instance of
     this class.
@@ -864,20 +851,11 @@ The maximum length for values is 100.</dd>
     &#34;&#34;&#34;
 
     if isinstance(extra, EventExtras):
-        extra = extra.to_ffi_extra()
-    elif isinstance(extra, dict):
-
-        def key_to_str(key):
-            if isinstance(key, enum.Enum):
-                return key.value
-            else:
-                return str(key)
-
-        extra = {key_to_str(k): v for k, v in extra.items()}
+        inner_extra = extra.to_ffi_extra()
     else:
-        extra = {}
+        inner_extra = {}
 
-    self._inner.record(extra)</code></pre>
+    self._inner.record(inner_extra)</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.EventMetricType.test_get_num_recorded_errors"><code class="name flex">
