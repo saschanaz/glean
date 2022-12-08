@@ -952,6 +952,12 @@
 <span id="947">947</span>
 <span id="948">948</span>
 <span id="949">949</span>
+<span id="950">950</span>
+<span id="951">951</span>
+<span id="952">952</span>
+<span id="953">953</span>
+<span id="954">954</span>
+<span id="955">955</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -1815,7 +1821,7 @@
 <span class="doccomment">/// **TEST-ONLY Method**</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Destroy the underlying database.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glean_test_destroy_glean</span>(<span class="ident">clear_stores</span>: <span class="ident">bool</span>) {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glean_test_destroy_glean</span>(<span class="ident">clear_stores</span>: <span class="ident">bool</span>, <span class="ident">data_path</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>) {
     <span class="kw">if</span> <span class="ident">was_initialize_called</span>() {
         <span class="comment">// Just because initialize was called doesn&#39;t mean it&#39;s done.</span>
         <span class="ident">join_init</span>();
@@ -1833,6 +1839,12 @@
 
         <span class="comment">// Allow us to go through initialization again.</span>
         <span class="ident">INITIALIZE_CALLED</span>.<span class="ident">store</span>(<span class="bool-val">false</span>, <span class="ident">Ordering::SeqCst</span>);
+    } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">clear_stores</span> {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">data_path</span>) <span class="op">=</span> <span class="ident">data_path</span> {
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">remove_dir_all::remove_dir_all</span>(<span class="ident">data_path</span>).<span class="ident">ok</span>();
+        } <span class="kw">else</span> {
+            <span class="macro">log::warn!</span>(<span class="string">&quot;Asked to clear stores before initialization, but no data path given.&quot;</span>);
+        }
     }
 }
 

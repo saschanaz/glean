@@ -279,6 +279,8 @@
 <span id="274">274</span>
 <span id="275">275</span>
 <span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -318,6 +320,7 @@
 <span class="doccomment">//! ```</span>
 
 <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
+<span class="kw">use</span> <span class="ident">std::path::Path</span>;
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">configuration::Configuration</span>;
 <span class="kw">use</span> <span class="ident">configuration::DEFAULT_GLEAN_ENDPOINT</span>;
@@ -484,14 +487,15 @@
 }
 
 <span class="doccomment">/// Destroy the global Glean state.</span>
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">destroy_glean</span>(<span class="ident">clear_stores</span>: <span class="ident">bool</span>) {
-    <span class="ident">glean_core::glean_test_destroy_glean</span>(<span class="ident">clear_stores</span>)
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">destroy_glean</span>(<span class="ident">clear_stores</span>: <span class="ident">bool</span>, <span class="ident">data_path</span>: <span class="kw-2">&amp;</span><span class="ident">Path</span>) {
+    <span class="kw">let</span> <span class="ident">data_path</span> <span class="op">=</span> <span class="ident">data_path</span>.<span class="ident">display</span>().<span class="ident">to_string</span>();
+    <span class="ident">glean_core::glean_test_destroy_glean</span>(<span class="ident">clear_stores</span>, <span class="prelude-val">Some</span>(<span class="ident">data_path</span>))
 }
 
 <span class="doccomment">/// TEST ONLY FUNCTION.</span>
 <span class="doccomment">/// Resets the Glean state and triggers init again.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_reset_glean</span>(<span class="ident">cfg</span>: <span class="ident">Configuration</span>, <span class="ident">client_info</span>: <span class="ident">ClientInfoMetrics</span>, <span class="ident">clear_stores</span>: <span class="ident">bool</span>) {
-    <span class="ident">destroy_glean</span>(<span class="ident">clear_stores</span>);
+    <span class="ident">destroy_glean</span>(<span class="ident">clear_stores</span>, <span class="kw-2">&amp;</span><span class="ident">cfg</span>.<span class="ident">data_path</span>);
     <span class="ident">initialize_internal</span>(<span class="ident">cfg</span>, <span class="ident">client_info</span>);
     <span class="ident">glean_core::join_init</span>();
 }
