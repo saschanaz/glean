@@ -2206,7 +2206,8 @@ of the previous run, in order to keep the monotonically increasing nature of the
 <ul>
 <li><a href="user/pings/baseline.html"><code>baseline</code> ping</a>: A small ping sent every time the application goes to foreground and background. Going to foreground also includes when the application starts.</li>
 <li><a href="user/pings/deletion-request.html"><code>deletion-request</code> ping</a>: Sent when the user disables telemetry in order to request a deletion of their data.</li>
-<li><a href="user/pings/events.html"><code>events</code> ping</a>: The default ping for events. Sent every time the application goes to background or a certain number of events is reached.</li>
+<li><a href="user/pings/events.html"><code>events</code> ping</a>: The default ping for events. Sent every time the application goes to background or a certain number of events is reached.
+Is not sent when there are no events recorded, even if there are other metrics with values.</li>
 <li><a href="user/pings/metrics.html"><code>metrics</code> ping</a>: The default ping for metrics. Sent approximately daily.</li>
 </ul>
 <p>Applications can also define and send their own <a href="user/pings/custom.html">custom pings</a> when the schedules of these pings is not suitable.</p>
@@ -10978,6 +10979,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li><code>test_reset_glean</code> will remove all previous data if asked to clear stores, even if Glean never has been initialized (<a href="https://github.com/mozilla/glean/pull/2294">#2294</a>)</li>
 <li>Upgrade to <code>glean_parser</code> v6.5.0, with support for <code>Cow</code> in Rust code (<a href="https://github.com/mozilla/glean/issues/2300">#2300</a>)</li>
 <li>API REMOVED: The deprecated-since-v38 <code>event</code> metric <code>record(map)</code> API has been removed (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1802550">bug 1802550</a>)</li>
+<li>BEHAVIOUR CHANGE: &quot;events&quot; pings will no longer be sent if they have metrics but no events (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1803513">bug 1803513</a>)</li>
 </ul>
 </li>
 <li>Rust

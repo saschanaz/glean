@@ -391,6 +391,9 @@
 <span id="386">386</span>
 <span id="387">387</span>
 <span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -623,6 +626,9 @@
         <span class="kw">let</span> <span class="ident">is_empty</span> <span class="op">=</span> <span class="ident">metrics_data</span>.<span class="ident">is_none</span>() <span class="op">&amp;&amp;</span> <span class="ident">events_data</span>.<span class="ident">is_none</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">ping</span>.<span class="ident">send_if_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">is_empty</span> {
             <span class="macro">info!</span>(<span class="string">&quot;Storage for {} empty. Bailing out.&quot;</span>, <span class="ident">ping</span>.<span class="ident">name</span>());
+            <span class="kw">return</span> <span class="prelude-val">None</span>;
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">ping</span>.<span class="ident">name</span>() <span class="op">==</span> <span class="string">&quot;events&quot;</span> <span class="op">&amp;&amp;</span> <span class="ident">events_data</span>.<span class="ident">is_none</span>() {
+            <span class="macro">info!</span>(<span class="string">&quot;No events for &#39;events&#39; ping. Bailing out.&quot;</span>);
             <span class="kw">return</span> <span class="prelude-val">None</span>;
         } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">is_empty</span> {
             <span class="macro">info!</span>(

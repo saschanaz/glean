@@ -154,7 +154,8 @@
 <ul>
 <li><a href="baseline.html"><code>baseline</code> ping</a>: A small ping sent every time the application goes to foreground and background. Going to foreground also includes when the application starts.</li>
 <li><a href="deletion-request.html"><code>deletion-request</code> ping</a>: Sent when the user disables telemetry in order to request a deletion of their data.</li>
-<li><a href="events.html"><code>events</code> ping</a>: The default ping for events. Sent every time the application goes to background or a certain number of events is reached.</li>
+<li><a href="events.html"><code>events</code> ping</a>: The default ping for events. Sent every time the application goes to background or a certain number of events is reached.
+Is not sent when there are no events recorded, even if there are other metrics with values.</li>
 <li><a href="metrics.html"><code>metrics</code> ping</a>: The default ping for metrics. Sent approximately daily.</li>
 </ul>
 <p>Applications can also define and send their own <a href="custom.html">custom pings</a> when the schedules of these pings is not suitable.</p>
