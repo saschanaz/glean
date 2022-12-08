@@ -958,6 +958,21 @@
 <span id="953">953</span>
 <span id="954">954</span>
 <span id="955">955</span>
+<span id="956">956</span>
+<span id="957">957</span>
+<span id="958">958</span>
+<span id="959">959</span>
+<span id="960">960</span>
+<span id="961">961</span>
+<span id="962">962</span>
+<span id="963">963</span>
+<span id="964">964</span>
+<span id="965">965</span>
+<span id="966">966</span>
+<span id="967">967</span>
+<span id="968">968</span>
+<span id="969">969</span>
+<span id="970">970</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -974,6 +989,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ## [The Glean SDK Book](https://mozilla.github.io/glean)</span>
 
+<span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
 <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident">std::sync::atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>};
@@ -1906,6 +1922,20 @@
 <span class="kw">mod</span> <span class="ident">ffi</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
     <span class="macro">uniffi_macros::include_scaffolding!</span>(<span class="string">&quot;glean&quot;</span>);
+
+    <span class="kw">type</span> <span class="ident">CowString</span> <span class="op">=</span> <span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;static</span>, <span class="ident">str</span><span class="op">&gt;</span>;
+
+    <span class="kw">impl</span> <span class="ident">UniffiCustomTypeConverter</span> <span class="kw">for</span> <span class="ident">CowString</span> {
+        <span class="kw">type</span> <span class="ident">Builtin</span> <span class="op">=</span> <span class="ident">String</span>;
+
+        <span class="kw">fn</span> <span class="ident">into_custom</span>(<span class="ident">val</span>: <span class="ident"><span class="self">Self</span>::Builtin</span>) -&gt; <span class="ident">uniffi::Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">Cow::from</span>(<span class="ident">val</span>))
+        }
+
+        <span class="kw">fn</span> <span class="ident">from_custom</span>(<span class="ident">obj</span>: <span class="self">Self</span>) -&gt; <span class="ident"><span class="self">Self</span>::Builtin</span> {
+            <span class="ident">obj</span>.<span class="ident">into_owned</span>()
+        }
+    }
 }
 <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ffi</span>::<span class="kw-2">*</span>;
 

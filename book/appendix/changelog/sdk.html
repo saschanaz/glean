@@ -166,6 +166,11 @@
 <li>API REMOVED: The deprecated-since-v38 <code>event</code> metric <code>record(map)</code> API has been removed (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1802550">bug 1802550</a>)</li>
 </ul>
 </li>
+<li>Rust
+<ul>
+<li>Static labels for labeled metrics are now <code>Cow&lt;'static, str&gt;</code> to reduce heap allocations (<a href="https://github.com/mozilla/glean/pull/2272">#2272</a>)</li>
+</ul>
+</li>
 </ul>
 <h1 id="v5183-2022-11-25"><a class="header" href="#v5183-2022-11-25">v51.8.3 (2022-11-25)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.8.2...v51.8.3">Full changelog</a></p>
