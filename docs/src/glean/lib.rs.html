@@ -281,6 +281,13 @@
 <span id="276">276</span>
 <span id="277">277</span>
 <span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -451,6 +458,13 @@
 <span class="doccomment">/// See [`glean_core::Glean::set_experiment_inactive`].</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_experiment_inactive</span>(<span class="ident">experiment_id</span>: <span class="ident">String</span>) {
     <span class="ident">glean_core::glean_set_experiment_inactive</span>(<span class="ident">experiment_id</span>)
+}
+
+<span class="doccomment">/// Set the remote configuration values for the metrics&#39; disabled property</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// See [`glean_core::Glean::set_metrics_disabled_config`].</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glean_set_metrics_disabled_config</span>(<span class="ident">json</span>: <span class="ident">String</span>) {
+    <span class="ident">glean_core::glean_set_metrics_disabled_config</span>(<span class="ident">json</span>)
 }
 
 <span class="doccomment">/// Performs the collection/cleanup operations required by becoming active.</span>

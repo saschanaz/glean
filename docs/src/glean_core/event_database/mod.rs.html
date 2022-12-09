@@ -1180,6 +1180,8 @@
 <span id="1175">1175</span>
 <span id="1176">1176</span>
 <span id="1177">1177</span>
+<span id="1178">1178</span>
+<span id="1179">1179</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -1200,6 +1202,7 @@
 <span class="kw">use</span> <span class="ident">serde</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">serde_json</span>::{<span class="ident">json</span>, <span class="ident">Value</span> <span class="kw">as</span> <span class="ident">JsonValue</span>};
 
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::common_metric_data::CommonMetricDataInternal</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::coverage::record_coverage</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error_recording</span>::{<span class="ident">record_error</span>, <span class="ident">ErrorType</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics</span>::{<span class="ident">DatetimeMetric</span>, <span class="ident">TimeUnit</span>};
@@ -1366,7 +1369,7 @@
                     <span class="kw">let</span> <span class="ident">extra</span> <span class="op">=</span> [(<span class="string">&quot;glean.startup.date&quot;</span>.<span class="ident">into</span>(), <span class="ident">startup</span>)].<span class="ident">into</span>();
                     <span class="self">self</span>.<span class="ident">record</span>(
                         <span class="ident">glean</span>,
-                        <span class="kw-2">&amp;</span><span class="ident">glean_restarted</span>,
+                        <span class="kw-2">&amp;</span><span class="ident">glean_restarted</span>.<span class="ident">into</span>(),
                         <span class="ident"><span class="kw">crate</span>::get_timestamp_ms</span>(),
                         <span class="prelude-val">Some</span>(<span class="ident">extra</span>),
                     );
@@ -1419,7 +1422,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">record</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>,
-        <span class="ident">meta</span>: <span class="kw-2">&amp;</span><span class="ident">CommonMetricData</span>,
+        <span class="ident">meta</span>: <span class="kw-2">&amp;</span><span class="ident">CommonMetricDataInternal</span>,
         <span class="ident">timestamp</span>: <span class="ident">u64</span>,
         <span class="ident">extra</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     ) {
@@ -1431,7 +1434,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">submit_max_capacity_event_ping</span> <span class="op">=</span> <span class="bool-val">false</span>;
         {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">db</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">event_stores</span>.<span class="ident">write</span>().<span class="ident">unwrap</span>(); <span class="comment">// safe unwrap, only error case is poisoning</span>
-            <span class="kw">for</span> <span class="ident">store_name</span> <span class="kw">in</span> <span class="ident">meta</span>.<span class="ident">send_in_pings</span>.<span class="ident">iter</span>() {
+            <span class="kw">for</span> <span class="ident">store_name</span> <span class="kw">in</span> <span class="ident">meta</span>.<span class="ident">inner</span>.<span class="ident">send_in_pings</span>.<span class="ident">iter</span>() {
                 <span class="kw">let</span> <span class="ident">store</span> <span class="op">=</span> <span class="ident">db</span>.<span class="ident">entry</span>(<span class="ident">store_name</span>.<span class="ident">to_string</span>()).<span class="ident">or_insert_with</span>(<span class="ident">Vec::new</span>);
                 <span class="kw">let</span> <span class="ident">execution_counter</span> <span class="op">=</span> <span class="ident">CounterMetric::new</span>(<span class="ident">CommonMetricData</span> {
                     <span class="ident">name</span>: <span class="string">&quot;execution_counter&quot;</span>.<span class="ident">into</span>(),
@@ -1445,8 +1448,8 @@
                 <span class="kw">let</span> <span class="ident">event</span> <span class="op">=</span> <span class="ident">StoredEvent</span> {
                     <span class="ident">event</span>: <span class="ident">RecordedEvent</span> {
                         <span class="ident">timestamp</span>,
-                        <span class="ident">category</span>: <span class="ident">meta</span>.<span class="ident">category</span>.<span class="ident">to_string</span>(),
-                        <span class="ident">name</span>: <span class="ident">meta</span>.<span class="ident">name</span>.<span class="ident">to_string</span>(),
+                        <span class="ident">category</span>: <span class="ident">meta</span>.<span class="ident">inner</span>.<span class="ident">category</span>.<span class="ident">to_string</span>(),
+                        <span class="ident">name</span>: <span class="ident">meta</span>.<span class="ident">inner</span>.<span class="ident">name</span>.<span class="ident">to_string</span>(),
                         <span class="ident">extra</span>: <span class="ident">extra</span>.<span class="ident">clone</span>(),
                     },
                     <span class="ident">execution_counter</span>,
@@ -1586,7 +1589,7 @@
                                 .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> {
                                     <span class="ident">record_error</span>(
                                         <span class="ident">glean</span>,
-                                        <span class="kw-2">&amp;</span><span class="ident">glean_restarted_meta</span>(<span class="ident">store_name</span>),
+                                        <span class="kw-2">&amp;</span><span class="ident">glean_restarted_meta</span>(<span class="ident">store_name</span>).<span class="ident">into</span>(),
                                         <span class="ident">ErrorType::InvalidState</span>,
                                         <span class="macro">format!</span>(<span class="string">&quot;Unparseable glean.startup.date &#39;{}&#39;&quot;</span>, <span class="ident">date_str</span>),
                                         <span class="prelude-val">None</span>,
@@ -1626,7 +1629,7 @@
                 <span class="kw">if</span> <span class="ident">inter_group_offset</span> <span class="op">&lt;</span> <span class="ident">highest_ts</span> {
                     <span class="ident">record_error</span>(
                         <span class="ident">glean</span>,
-                        <span class="kw-2">&amp;</span><span class="ident">glean_restarted_meta</span>(<span class="ident">store_name</span>),
+                        <span class="kw-2">&amp;</span><span class="ident">glean_restarted_meta</span>(<span class="ident">store_name</span>).<span class="ident">into</span>(),
                         <span class="ident">ErrorType::InvalidValue</span>,
                         <span class="macro">format!</span>(<span class="string">&quot;Time between restart and ping start {} indicates client clock weirdness.&quot;</span>, <span class="ident">time_from_ping_start_to_glean_restarted</span>),
                         <span class="prelude-val">None</span>,
@@ -1642,7 +1645,7 @@
             <span class="kw">if</span> <span class="ident">execution_counter</span> <span class="op">!</span><span class="op">=</span> <span class="ident">cur_ec</span> {
                 <span class="ident">record_error</span>(
                     <span class="ident">glean</span>,
-                    <span class="kw-2">&amp;</span><span class="ident">glean_restarted_meta</span>(<span class="ident">store_name</span>),
+                    <span class="kw-2">&amp;</span><span class="ident">glean_restarted_meta</span>(<span class="ident">store_name</span>).<span class="ident">into</span>(),
                     <span class="ident">ErrorType::InvalidState</span>,
                     <span class="macro">format!</span>(
                         <span class="string">&quot;Inconsistent execution counter {} (expected {})&quot;</span>,
@@ -1658,7 +1661,7 @@
                 <span class="comment">// execution_counter or glean.startup.date math went awry.</span>
                 <span class="ident">record_error</span>(
                     <span class="ident">glean</span>,
-                    <span class="kw-2">&amp;</span><span class="ident">glean_restarted_meta</span>(<span class="ident">store_name</span>),
+                    <span class="kw-2">&amp;</span><span class="ident">glean_restarted_meta</span>(<span class="ident">store_name</span>).<span class="ident">into</span>(),
                     <span class="ident">ErrorType::InvalidState</span>,
                     <span class="macro">format!</span>(
                         <span class="string">&quot;Inconsistent previous highest timestamp {} (expected &lt;= {})&quot;</span>,
@@ -1753,7 +1756,7 @@
     <span class="doccomment">/// This doesn&#39;t clear the stored value.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">test_get_value</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>,
-        <span class="ident">meta</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">CommonMetricData</span>,
+        <span class="ident">meta</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">CommonMetricDataInternal</span>,
         <span class="ident">store_name</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
     ) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RecordedEvent</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="ident">record_coverage</span>(<span class="kw-2">&amp;</span><span class="ident">meta</span>.<span class="ident">base_identifier</span>());
@@ -1766,7 +1769,7 @@
             .<span class="ident">into_iter</span>()
             .<span class="ident">flatten</span>()
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">stored_event</span><span class="op">|</span> <span class="ident">stored_event</span>.<span class="ident">event</span>.<span class="ident">clone</span>())
-            .<span class="ident">filter</span>(<span class="op">|</span><span class="ident">event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">name</span> <span class="op">==</span> <span class="ident">meta</span>.<span class="ident">name</span> <span class="op">&amp;&amp;</span> <span class="ident">event</span>.<span class="ident">category</span> <span class="op">==</span> <span class="ident">meta</span>.<span class="ident">category</span>)
+            .<span class="ident">filter</span>(<span class="op">|</span><span class="ident">event</span><span class="op">|</span> <span class="ident">event</span>.<span class="ident">name</span> <span class="op">==</span> <span class="ident">meta</span>.<span class="ident">inner</span>.<span class="ident">name</span> <span class="op">&amp;&amp;</span> <span class="ident">event</span>.<span class="ident">category</span> <span class="op">==</span> <span class="ident">meta</span>.<span class="ident">inner</span>.<span class="ident">category</span>)
             .<span class="ident">collect</span>();
         <span class="kw">if</span> <span class="op">!</span><span class="ident">value</span>.<span class="ident">is_empty</span>() {
             <span class="prelude-val">Some</span>(<span class="ident">value</span>)
@@ -1904,7 +1907,7 @@
         <span class="kw">let</span> <span class="ident">test_category</span> <span class="op">=</span> <span class="string">&quot;category&quot;</span>;
         <span class="kw">let</span> <span class="ident">test_name</span> <span class="op">=</span> <span class="string">&quot;name&quot;</span>;
         <span class="kw">let</span> <span class="ident">test_timestamp</span> <span class="op">=</span> <span class="number">2</span>;
-        <span class="kw">let</span> <span class="ident">test_meta</span> <span class="op">=</span> <span class="ident">CommonMetricData::new</span>(<span class="ident">test_category</span>, <span class="ident">test_name</span>, <span class="ident">test_storage</span>);
+        <span class="kw">let</span> <span class="ident">test_meta</span> <span class="op">=</span> <span class="ident">CommonMetricDataInternal::new</span>(<span class="ident">test_category</span>, <span class="ident">test_name</span>, <span class="ident">test_storage</span>);
         <span class="kw">let</span> <span class="ident">event_data</span> <span class="op">=</span> <span class="ident">RecordedEvent</span> {
             <span class="ident">timestamp</span>: <span class="ident">test_timestamp</span>,
             <span class="ident">category</span>: <span class="ident">test_category</span>.<span class="ident">to_string</span>(),
@@ -2351,7 +2354,8 @@
                     <span class="ident">send_in_pings</span>: <span class="macro">vec!</span>[<span class="ident">store_name</span>.<span class="ident">into</span>()],
                     <span class="ident">lifetime</span>: <span class="ident">Lifetime::Ping</span>,
                     ..<span class="ident">Default::default</span>()
-                },
+                }
+                .<span class="ident">into</span>(),
                 <span class="ident">ErrorType::InvalidValue</span>
             )
         );

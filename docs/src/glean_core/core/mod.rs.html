@@ -911,9 +911,33 @@
 <span id="906">906</span>
 <span id="907">907</span>
 <span id="908">908</span>
+<span id="909">909</span>
+<span id="910">910</span>
+<span id="911">911</span>
+<span id="912">912</span>
+<span id="913">913</span>
+<span id="914">914</span>
+<span id="915">915</span>
+<span id="916">916</span>
+<span id="917">917</span>
+<span id="918">918</span>
+<span id="919">919</span>
+<span id="920">920</span>
+<span id="921">921</span>
+<span id="922">922</span>
+<span id="923">923</span>
+<span id="924">924</span>
+<span id="925">925</span>
+<span id="926">926</span>
+<span id="927">927</span>
+<span id="928">928</span>
+<span id="929">929</span>
+<span id="930">930</span>
+<span id="931">931</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
 <span class="kw">use</span> <span class="ident">std::path</span>::{<span class="ident">Path</span>, <span class="ident">PathBuf</span>};
-<span class="kw">use</span> <span class="ident">std::sync::Mutex</span>;
+<span class="kw">use</span> <span class="ident">std::sync::atomic</span>::{<span class="ident">AtomicU8</span>, <span class="ident">Ordering</span>};
+<span class="kw">use</span> <span class="ident">std::sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>};
 
 <span class="kw">use</span> <span class="ident">chrono</span>::{<span class="ident">DateTime</span>, <span class="ident">FixedOffset</span>};
 <span class="kw">use</span> <span class="ident">once_cell::sync::OnceCell</span>;
@@ -923,7 +947,9 @@
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::event_database::EventDatabase</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::internal_metrics</span>::{<span class="ident">AdditionalMetrics</span>, <span class="ident">CoreMetrics</span>, <span class="ident">DatabaseMetrics</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::internal_pings::InternalPings</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics</span>::{<span class="self">self</span>, <span class="ident">ExperimentMetric</span>, <span class="ident">Metric</span>, <span class="ident">MetricType</span>, <span class="ident">PingType</span>, <span class="ident">RecordedExperiment</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics</span>::{
+    <span class="self">self</span>, <span class="ident">ExperimentMetric</span>, <span class="ident">Metric</span>, <span class="ident">MetricType</span>, <span class="ident">MetricsDisabledConfig</span>, <span class="ident">PingType</span>, <span class="ident">RecordedExperiment</span>,
+};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ping::PingMaker</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::storage</span>::{<span class="ident">StorageManager</span>, <span class="ident">INTERNAL_STORAGE</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::upload</span>::{<span class="ident">PingUploadManager</span>, <span class="ident">PingUploadTask</span>, <span class="ident">UploadResult</span>, <span class="ident">UploadTaskAction</span>};
@@ -1061,6 +1087,8 @@
     <span class="ident">debug</span>: <span class="ident">DebugOptions</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">app_build</span>: <span class="ident">String</span>,
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">schedule_metrics_pings</span>: <span class="ident">bool</span>,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">remote_settings_epoch</span>: <span class="ident">AtomicU8</span>,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">remote_settings_metrics_config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Mutex</span><span class="op">&lt;</span><span class="ident">MetricsDisabledConfig</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Glean</span> {
@@ -1113,6 +1141,8 @@
             <span class="ident">app_build</span>: <span class="ident">cfg</span>.<span class="ident">app_build</span>.<span class="ident">to_string</span>(),
             <span class="comment">// Subprocess doesn&#39;t use &quot;metrics&quot; pings so has no need for a scheduler.</span>
             <span class="ident">schedule_metrics_pings</span>: <span class="bool-val">false</span>,
+            <span class="ident">remote_settings_epoch</span>: <span class="ident">AtomicU8::new</span>(<span class="number">0</span>),
+            <span class="ident">remote_settings_metrics_config</span>: <span class="ident">Arc::new</span>(<span class="ident">Mutex::new</span>(<span class="ident">MetricsDisabledConfig::new</span>())),
         };
 
         <span class="comment">// Ensuring these pings are registered.</span>
@@ -1600,6 +1630,22 @@
         <span class="ident">metric</span>.<span class="ident">test_get_value</span>(<span class="self">self</span>)
     }
 
+    <span class="doccomment">/// Set configuration for metrics&#39; disabled property, typically from a remote_settings experiment</span>
+    <span class="doccomment">/// or rollout</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Arguments</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// * `json` - The stringified JSON representation of a `MetricsDisabledConfig` object</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_metrics_disabled_config</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cfg</span>: <span class="ident">MetricsDisabledConfig</span>) {
+        <span class="comment">// Set the current MetricsDisabledConfig, keeping the lock until the epoch is</span>
+        <span class="comment">// updated to prevent against reading a &quot;new&quot; config but an &quot;old&quot; epoch</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lock</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">remote_settings_metrics_config</span>.<span class="ident">lock</span>().<span class="ident">unwrap</span>();
+        <span class="kw-2">*</span><span class="ident">lock</span> <span class="op">=</span> <span class="ident">cfg</span>;
+
+        <span class="comment">// Update remote_settings epoch</span>
+        <span class="self">self</span>.<span class="ident">remote_settings_epoch</span>.<span class="ident">fetch_add</span>(<span class="number">1</span>, <span class="ident">Ordering::SeqCst</span>);
+    }
+
     <span class="doccomment">/// Persists [`Lifetime::Ping`] data that might be in memory in case</span>
     <span class="doccomment">/// [`delay_ping_lifetime_io`](InternalConfiguration::delay_ping_lifetime_io) is set</span>
     <span class="doccomment">/// or was set at a previous time.</span>
@@ -1742,7 +1788,7 @@
             <span class="self">self</span>.<span class="ident">storage</span>(),
             <span class="ident">INTERNAL_STORAGE</span>,
             <span class="kw-2">&amp;</span><span class="ident">dirty_bit_metric</span>.<span class="ident">meta</span>().<span class="ident">identifier</span>(<span class="self">self</span>),
-            <span class="ident">dirty_bit_metric</span>.<span class="ident">meta</span>().<span class="ident">lifetime</span>,
+            <span class="ident">dirty_bit_metric</span>.<span class="ident">meta</span>().<span class="ident">inner</span>.<span class="ident">lifetime</span>,
         ) {
             <span class="prelude-val">Some</span>(<span class="ident">Metric::Boolean</span>(<span class="ident">b</span>)) =&gt; <span class="ident">b</span>,
             <span class="kw">_</span> =&gt; <span class="bool-val">false</span>,

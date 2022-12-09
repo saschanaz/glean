@@ -973,6 +973,22 @@
 <span id="968">968</span>
 <span id="969">969</span>
 <span id="970">970</span>
+<span id="971">971</span>
+<span id="972">972</span>
+<span id="973">973</span>
+<span id="974">974</span>
+<span id="975">975</span>
+<span id="976">976</span>
+<span id="977">977</span>
+<span id="978">978</span>
+<span id="979">979</span>
+<span id="980">980</span>
+<span id="981">981</span>
+<span id="982">982</span>
+<span id="983">983</span>
+<span id="984">984</span>
+<span id="985">985</span>
+<span id="986">986</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -991,10 +1007,12 @@
 
 <span class="kw">use</span> <span class="ident">std::borrow::Cow</span>;
 <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
+<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident">std::sync::atomic</span>::{<span class="ident">AtomicBool</span>, <span class="ident">Ordering</span>};
 <span class="kw">use</span> <span class="ident">std::sync</span>::{<span class="ident">Arc</span>, <span class="ident">Mutex</span>};
 
+<span class="kw">use</span> <span class="ident">metrics::MetricsDisabledConfig</span>;
 <span class="kw">use</span> <span class="ident">once_cell::sync</span>::{<span class="ident">Lazy</span>, <span class="ident">OnceCell</span>};
 <span class="kw">use</span> <span class="ident">uuid::Uuid</span>;
 
@@ -1668,6 +1686,20 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glean_test_get_experiment_data</span>(<span class="ident">experiment_id</span>: <span class="ident">String</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RecordedExperiment</span><span class="op">&gt;</span> {
     <span class="ident">block_on_dispatcher</span>();
     <span class="ident">core::with_glean</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> <span class="ident">glean</span>.<span class="ident">test_get_experiment_data</span>(<span class="ident">experiment_id</span>.<span class="ident">to_owned</span>()))
+}
+
+<span class="doccomment">/// Sets a remote configuration for the metrics&#39; disabled property</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// See [`core::Glean::set_metrics_disabled_config`].</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glean_set_metrics_disabled_config</span>(<span class="ident">json</span>: <span class="ident">String</span>) {
+    <span class="kw">match</span> <span class="ident">MetricsDisabledConfig::try_from</span>(<span class="ident">json</span>) {
+        <span class="prelude-val">Ok</span>(<span class="ident">cfg</span>) =&gt; <span class="ident">launch_with_glean</span>(<span class="op">|</span><span class="ident">glean</span><span class="op">|</span> {
+            <span class="ident">glean</span>.<span class="ident">set_metrics_disabled_config</span>(<span class="ident">cfg</span>);
+        }),
+        <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; {
+            <span class="macro">log::error!</span>(<span class="string">&quot;Error setting metrics feature config: {:?}&quot;</span>, <span class="ident">e</span>);
+        }
+    }
 }
 
 <span class="doccomment">/// Sets a debug view tag.</span>

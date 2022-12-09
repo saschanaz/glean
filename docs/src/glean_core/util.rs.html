@@ -321,9 +321,9 @@
 
 <span class="kw">use</span> <span class="ident">chrono</span>::{<span class="ident">DateTime</span>, <span class="ident">FixedOffset</span>, <span class="ident">Local</span>};
 
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::common_metric_data::CommonMetricDataInternal</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error_recording</span>::{<span class="ident">record_error</span>, <span class="ident">ErrorType</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics::TimeUnit</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::CommonMetricData</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Glean</span>;
 
 <span class="doccomment">/// Generates a pipeline-friendly string</span>
@@ -453,7 +453,7 @@
 <span class="doccomment">/// A string, with at most `length` bytes.</span>
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">truncate_string_at_boundary_with_error</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>(
     <span class="ident">glean</span>: <span class="kw-2">&amp;</span><span class="ident">Glean</span>,
-    <span class="ident">meta</span>: <span class="kw-2">&amp;</span><span class="ident">CommonMetricData</span>,
+    <span class="ident">meta</span>: <span class="kw-2">&amp;</span><span class="ident">CommonMetricDataInternal</span>,
     <span class="ident">value</span>: <span class="ident">S</span>,
     <span class="ident">length</span>: <span class="ident">usize</span>,
 ) -&gt; <span class="ident">String</span> {
