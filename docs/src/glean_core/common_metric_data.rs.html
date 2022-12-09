@@ -238,7 +238,7 @@
     <span class="kw">pub</span> <span class="ident">dynamic_label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>, <span class="ident">Debug</span>, <span class="ident">Deserialize</span>, <span class="ident">Serialize</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Default</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">CommonMetricDataInternal</span> {
     <span class="kw">pub</span> <span class="ident">inner</span>: <span class="ident">CommonMetricData</span>,
     <span class="kw">pub</span> <span class="ident">disabled</span>: <span class="ident">AtomicU8</span>,
