@@ -156,7 +156,7 @@ A program with high test coverage, measured as a percentage, has had more of its
 which suggests it has a lower chance of containing undetected software bugs compared to a program with low test coverage.
 (<a href="https://en.wikipedia.org/wiki/Code_coverage">Wikipedia</a>)</p>
 </blockquote>
-<p>This chapter describes how to generate a traditional code coverage report over the Kotlin, Rust, Swift and Python code in the Glean SDK repository. To learn how to generate a coverage report about what metrics your project is testing, see the user documentation on <a href="https://mozilla.github.io/glean/book/user/testing-metrics.html#generating-testing-coverage-reports">generating testing coverage reports</a>.</p>
+<p>This chapter describes how to generate a traditional code coverage report over the Kotlin, Swift and Python code in the Glean SDK repository. To learn how to generate a coverage report about what metrics your project is testing, see the user documentation on <a href="https://mozilla.github.io/glean/book/user/testing-metrics.html#generating-testing-coverage-reports">generating testing coverage reports</a>.</p>
 <h2 id="generating-kotlin-reports-locally"><a class="header" href="#generating-kotlin-reports-locally">Generating Kotlin reports locally</a></h2>
 <p>Locally you can generate a coverage report with the following command:</p>
 <pre><code class="language-bash">./gradlew -Pcoverage :glean:build
@@ -164,29 +164,13 @@ which suggests it has a lower chance of containing undetected software bugs comp
 <p>After that you'll find an HTML report at the following location:</p>
 <pre><code>glean-core/android/build/reports/jacoco/jacocoTestReport/jacocoTestReport/html/index.html
 </code></pre>
-<h2 id="generating-rust-reports-locally"><a class="header" href="#generating-rust-reports-locally">Generating Rust reports locally</a></h2>
-<blockquote>
-<p>Generating the Rust coverage report requires a significant amount of RAM during the build.</p>
-</blockquote>
-<p>We use <a href="https://github.com/mozilla/grcov">grcov</a> to collect and aggregate code coverage information.
-Releases can be found on the <a href="https://github.com/mozilla/grcov/releases">grcov Release page</a>.</p>
-<p>The build process requires a Rust Nightly version. Install it using <code>rustup</code>:</p>
-<pre><code class="language-bash">rustup toolchain add nightly
-</code></pre>
-<p>To generate an HTML report, <code>genhtml</code> from the <code>lcov</code> package is required. Install it through your system's package manager.</p>
-<p>After installation you can build the Rust code and generate a report:</p>
-<pre><code class="language-bash">make rust-coverage
-</code></pre>
-<p>After that you'll find an HTML report at the following location:</p>
-<pre><code>report/index.html
-</code></pre>
 <h2 id="generating-swift-reports-locally"><a class="header" href="#generating-swift-reports-locally">Generating Swift reports locally</a></h2>
 <p>Xcode automatically generates code coverage when running tests.
 You can find the report in the Report Navigator (<code>View -&gt; Navigators -&gt; Show Report Navigator -&gt; Coverage</code>).</p>
 <h2 id="generating-python-reports-locally"><a class="header" href="#generating-python-reports-locally">Generating Python reports locally</a></h2>
 <p>Python code coverage is determined using the <a href="https://coverage.readthedocs.io/en/latest/">coverage.py</a> library.</p>
 <p>Run</p>
-<pre><code class="language-bash">make python-coverage
+<pre><code class="language-bash">make coverage-python
 </code></pre>
 <p>to generate code coverage reports in the Glean virtual environment.</p>
 <p>After running, the report will be in <code>htmlcov</code>.</p>

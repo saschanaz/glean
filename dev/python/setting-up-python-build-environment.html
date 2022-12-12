@@ -189,13 +189,13 @@ The command to use depends on your shell environment.</p>
 pip install -r requirements_dev.txt
 </code></pre>
 <h3 id="makefile-method"><a class="header" href="#makefile-method">Makefile method</a></h3>
-<pre><code class="language-bash">  $ make python-setup
+<pre><code class="language-bash">  $ make setup-python
 </code></pre>
 <p>The default location of the virtual environment used by the make file is <code>glean-core/python/.venvX.Y</code>, where <code>X.Y</code> is the version of Python in use. This makes it possible to build and test for multiple versions of Python in the same checkout.</p>
 <blockquote>
-<p><em>Note:</em> If you wish to change the location of the virtual environment that the <code>Makefile</code> uses, pass the <code>GLEAN_PYENV</code> environment variable: <code>make python-setup GLEAN_PYENV=mypyenv</code>.</p>
+<p><em>Note:</em> If you wish to change the location of the virtual environment that the <code>Makefile</code> uses, pass the <code>GLEAN_PYENV</code> environment variable: <code>make setup-python GLEAN_PYENV=mypyenv</code>.</p>
 </blockquote>
-<p>By default, the <code>Makefile</code> installs the latest version available of each of Glean's dependencies.  If you wish to install the minimum required versions instead, (useful primarily to ensure that Glean doesn't unintentionally use newer APIs in its dependencies) pass the <code>GLEAN_PYDEPS=min</code> environment variable: <code>make python-setup GLEAN_PYDEPS=min</code>.</p>
+<p>By default, the <code>Makefile</code> installs the latest version available of each of Glean's dependencies.  If you wish to install the minimum required versions instead, (useful primarily to ensure that Glean doesn't unintentionally use newer APIs in its dependencies) pass the <code>GLEAN_PYDEPS=min</code> environment variable: <code>make setup-python GLEAN_PYDEPS=min</code>.</p>
 <h2 id="build-the-python-bindings"><a class="header" href="#build-the-python-bindings">Build the Python bindings</a></h2>
 <h3 id="manual-method-1"><a class="header" href="#manual-method-1">Manual method</a></h3>
 <p>Building the Python bindings also builds the Rust shared object for the Glean SDK core.</p>
