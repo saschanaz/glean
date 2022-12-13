@@ -992,6 +992,11 @@
 <span id="987">987</span>
 <span id="988">988</span>
 <span id="989">989</span>
+<span id="990">990</span>
+<span id="991">991</span>
+<span id="992">992</span>
+<span id="993">993</span>
+<span id="994">994</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -1334,7 +1339,6 @@
                 <span class="comment">// send a dirty startup baseline ping below.  Immediately set it to</span>
                 <span class="comment">// `false` so that dirty startup pings won&#39;t be sent if Glean</span>
                 <span class="comment">// initialization does not complete successfully.</span>
-                <span class="comment">// TODO Bug 1672956 will decide where to set this flag again.</span>
                 <span class="ident">dirty_flag</span> <span class="op">=</span> <span class="ident">glean</span>.<span class="ident">is_dirty_flag_set</span>();
                 <span class="ident">glean</span>.<span class="ident">set_dirty_flag</span>(<span class="bool-val">false</span>);
 
@@ -1930,11 +1934,17 @@
 <span class="doccomment">/// `fd` is a writable file descriptor (on Unix) or file handle (on Windows).</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Safety</span>
-<span class="doccomment">/// Unsafe because the fd u64 passed in will be interpreted as either a file</span>
-<span class="doccomment">/// descriptor (Unix) or file handle (Windows) without any checking.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// `fd` MUST be a valid open file descriptor (Unix) or file handle (Windows).</span>
+<span class="doccomment">/// This function is marked safe,</span>
+<span class="doccomment">/// because we can&#39;t call unsafe functions from generated UniFFI code.</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>), <span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">glean_enable_logging_to_fd</span>(<span class="ident">fd</span>: <span class="ident">u64</span>) {
-    <span class="comment">// SAFETY: TODO.</span>
+    <span class="comment">// SAFETY:</span>
+    <span class="comment">// This functions is unsafe.</span>
+    <span class="comment">// Due to UniFFI restrictions we cannot mark it as such.</span>
+    <span class="comment">//</span>
+    <span class="comment">// `fd` MUST be a valid open file descriptor (Unix) or file handle (Windows).</span>
     <span class="kw">unsafe</span> {
         <span class="comment">// Set up logging to a file descriptor/handle. For this usage, the</span>
         <span class="comment">// language binding should setup a pipe and pass in the descriptor to</span>
