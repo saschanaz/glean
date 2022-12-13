@@ -989,6 +989,9 @@
 <span id="984">984</span>
 <span id="985">985</span>
 <span id="986">986</span>
+<span id="987">987</span>
+<span id="988">988</span>
+<span id="989">989</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -1109,6 +1112,8 @@
     <span class="kw">pub</span> <span class="ident">app_build</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Whether Glean should schedule &quot;metrics&quot; pings.</span>
     <span class="kw">pub</span> <span class="ident">use_core_mps</span>: <span class="ident">bool</span>,
+    <span class="doccomment">/// Whether Glean should, on init, trim its event storage to only the registered pings.</span>
+    <span class="kw">pub</span> <span class="ident">trim_data_to_registered_pings</span>: <span class="ident">bool</span>,
 }
 
 <span class="doccomment">/// Launches a new task on the global dispatch queue with a reference to the Glean singleton.</span>
@@ -1276,6 +1281,7 @@
         .<span class="ident">name</span>(<span class="string">&quot;glean.init&quot;</span>.<span class="ident">into</span>())
         .<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
             <span class="kw">let</span> <span class="ident">upload_enabled</span> <span class="op">=</span> <span class="ident">cfg</span>.<span class="ident">upload_enabled</span>;
+            <span class="kw">let</span> <span class="ident">trim_data_to_registered_pings</span> <span class="op">=</span> <span class="ident">cfg</span>.<span class="ident">trim_data_to_registered_pings</span>;
 
             <span class="kw">let</span> <span class="ident">glean</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">Glean::new</span>(<span class="ident">cfg</span>) {
                 <span class="prelude-val">Ok</span>(<span class="ident">glean</span>) =&gt; <span class="ident">glean</span>,
@@ -1353,7 +1359,7 @@
                 }
 
                 <span class="comment">// Deal with any pending events so we can start recording new ones</span>
-                <span class="ident">pings_submitted</span> <span class="op">=</span> <span class="ident">glean</span>.<span class="ident">on_ready_to_submit_pings</span>();
+                <span class="ident">pings_submitted</span> <span class="op">=</span> <span class="ident">glean</span>.<span class="ident">on_ready_to_submit_pings</span>(<span class="ident">trim_data_to_registered_pings</span>);
             });
 
             {

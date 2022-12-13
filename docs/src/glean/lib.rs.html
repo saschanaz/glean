@@ -288,6 +288,8 @@
 <span id="283">283</span>
 <span id="284">284</span>
 <span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -318,6 +320,7 @@
 <span class="doccomment">//!     server_endpoint: None,</span>
 <span class="doccomment">//!     uploader: None,</span>
 <span class="doccomment">//!     use_core_mps: false,</span>
+<span class="doccomment">//!     trim_data_to_registered_pings: false,</span>
 <span class="doccomment">//! };</span>
 <span class="doccomment">//! glean::initialize(cfg, ClientInfoMetrics::unknown());</span>
 <span class="doccomment">//!</span>
@@ -410,6 +413,7 @@
         <span class="ident">delay_ping_lifetime_io</span>: <span class="ident">cfg</span>.<span class="ident">delay_ping_lifetime_io</span>,
         <span class="ident">app_build</span>: <span class="ident">client_info</span>.<span class="ident">app_build</span>.<span class="ident">clone</span>(),
         <span class="ident">use_core_mps</span>: <span class="ident">cfg</span>.<span class="ident">use_core_mps</span>,
+        <span class="ident">trim_data_to_registered_pings</span>: <span class="ident">cfg</span>.<span class="ident">trim_data_to_registered_pings</span>,
     };
 
     <span class="ident">glean_core::glean_initialize</span>(<span class="ident">core_cfg</span>, <span class="ident">client_info</span>.<span class="ident">into</span>(), <span class="ident">callbacks</span>);

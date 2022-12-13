@@ -11024,6 +11024,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li>Rust
 <ul>
 <li>Static labels for labeled metrics are now <code>Cow&lt;'static, str&gt;</code> to reduce heap allocations (<a href="https://github.com/mozilla/glean/pull/2272">#2272</a>)</li>
+<li>NEW INTERNAL CONFIGURATION OPTION: <code>trim_data_to_registered_pings</code> will trim event storage to just the registered pings. Consult with the Glean Team before using. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1804915">bug 1804915</a>)</li>
 </ul>
 </li>
 </ul>

@@ -36,6 +36,10 @@
 <span id="31">31</span>
 <span id="32">32</span>
 <span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -68,6 +72,10 @@
     <span class="kw">pub</span> <span class="ident">uploader</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PingUploader</span> <span class="op">+</span> <span class="lifetime">&#39;static</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Whether Glean should schedule &quot;metrics&quot; pings for you.</span>
     <span class="kw">pub</span> <span class="ident">use_core_mps</span>: <span class="ident">bool</span>,
+    <span class="doccomment">/// Whether Glean should limit its storage to only that of registered pings.</span>
+    <span class="doccomment">/// Unless you know that all your and your libraries&#39; pings are appropriately registered</span>
+    <span class="doccomment">/// _before_ init, you shouldn&#39;t use this.</span>
+    <span class="kw">pub</span> <span class="ident">trim_data_to_registered_pings</span>: <span class="ident">bool</span>,
 }
 </code></pre></div>
 </section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="glean" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
