@@ -997,6 +997,10 @@
 <span id="992">992</span>
 <span id="993">993</span>
 <span id="994">994</span>
+<span id="995">995</span>
+<span id="996">996</span>
+<span id="997">997</span>
+<span id="998">998</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -1600,10 +1604,14 @@
         };
     }
 
-    <span class="comment">// Make sure logging does something on non Android platforms as well.</span>
+    <span class="comment">// When specifically requested make sure logging does something on non-Android platforms as well.</span>
     <span class="comment">// Use the RUST_LOG environment variable to set the desired log level,</span>
     <span class="comment">// e.g. setting RUST_LOG=debug sets the log level to debug.</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>), <span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>)))]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(
+        <span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;android&quot;</span>),
+        <span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;ios&quot;</span>),
+        <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;enable_env_logger&quot;</span>
+    ))]</span>
     {
         <span class="kw">match</span> <span class="ident">env_logger::try_init</span>() {
             <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; <span class="macro">log::trace!</span>(<span class="string">&quot;stdout logging should be hooked up!&quot;</span>),
