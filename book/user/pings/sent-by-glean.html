@@ -161,7 +161,7 @@ Is not sent when there are no events recorded, even if there are other metrics w
 <p>Applications can also define and send their own <a href="custom.html">custom pings</a> when the schedules of these pings is not suitable.</p>
 <p>There is also a <a href="ping-schedules-and-timings.html">high-level overview</a> of how the <code>metrics</code> and <code>baseline</code> pings relate and the timings they record.</p>
 <h3 id="available-pings-per-platform"><a class="header" href="#available-pings-per-platform">Available pings per platform</a></h3>
-<table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center"><a href="baseline.html"><code>baseline</code></a></th><th style="text-align: center"><a href="deletion-request.html"><code>deletion-request</code></a></th><th style="text-align: center"><a href="events.html"><code>events</code></a></th><th style="text-align: center"><a href="metrics.html"><code>metrics</code></a></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center"><a href="baseline.html"><code>baseline</code></a></th><th style="text-align: center"><a href="deletion-request.html"><code>deletion-request</code></a></th><th style="text-align: center"><a href="events.html"><code>events</code></a></th><th style="text-align: center"><a href="metrics.html"><code>metrics</code></a></th></tr></thead><tbody>
 <tr><td style="text-align: right">Kotlin</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td></tr>
 <tr><td style="text-align: right">Swift</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td></tr>
 <tr><td style="text-align: right">Python</td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#1">1</a></sup></td><td style="text-align: center">✅</td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#2">2</a></sup></td><td style="text-align: center">❌</td></tr>
@@ -169,6 +169,7 @@ Is not sent when there are no events recorded, even if there are other metrics w
 <tr><td style="text-align: right">JavaScript</td><td style="text-align: center">❌</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">❌</td></tr>
 <tr><td style="text-align: right">Firefox Desktop</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td></tr>
 </tbody></table>
+</div>
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>Not sent automatically. Use the <a href="../../../python/glean/#glean.Glean.handle_client_active"><code>handle_client_active</code></a> and <a href="../../../python/glean/#glean.Glean.handle_client_inactive"><code>handle_client_inactive</code></a> API.</p>
 </div>
@@ -207,7 +208,7 @@ means.</p>
 </div>
 </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/sent-by-glean.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/sent-by-glean.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

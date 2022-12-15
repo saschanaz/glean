@@ -188,7 +188,7 @@ for detailed information on how to use them.</p>
 <li><a href="./javascript.html">Debugging JavaScript applications using Glean.js</a></li>
 </ol>
 <h3 id="available-debugging-methods-per-platform"><a class="header" href="#available-debugging-methods-per-platform">Available debugging methods per platform</a></h3>
-<table><thead><tr><th style="text-align: right"></th><th style="text-align: center">Glean API</th><th style="text-align: center">Environment Variables</th><th style="text-align: center">Platform Specific Tooling</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right"></th><th style="text-align: center">Glean API</th><th style="text-align: center">Environment Variables</th><th style="text-align: center">Platform Specific Tooling</th></tr></thead><tbody>
 <tr><td style="text-align: right">Kotlin</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#1">1</a></sup></td></tr>
 <tr><td style="text-align: right">Swift</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#2">2</a></sup></td></tr>
 <tr><td style="text-align: right">Python</td><td style="text-align: center"></td><td style="text-align: center">✅</td><td style="text-align: center"></td></tr>
@@ -196,6 +196,7 @@ for detailed information on how to use them.</p>
 <tr><td style="text-align: right">JavaScript</td><td style="text-align: center">✅</td><td style="text-align: center"></td><td style="text-align: center"></td></tr>
 <tr><td style="text-align: right">Firefox Desktop</td><td style="text-align: center"></td><td style="text-align: center">✅</td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#3">3</a></sup></td></tr>
 </tbody></table>
+</div>
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>The Glean Kotlin SDK exposes the <a href="./android.html"><code>GleanDebugActivity</code></a> for interacting with debug features. Although it is technically possible to also use environment variables in Android, the Glean team is not aware of a proper way to set environment variables in Android devices or emulators.</p>
 </div>
@@ -205,7 +206,7 @@ for detailed information on how to use them.</p>
 <div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
 <p>In Firefox Desktop, developers may use the interface exposed through <code>about:glean</code> to log, tag or send pings.</p>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/index.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/index.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

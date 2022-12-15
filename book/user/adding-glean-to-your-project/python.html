@@ -226,7 +226,7 @@ This handler will wait up to 30 seconds for any pending work to complete.</p>
 The Glean Python SDK can not wait to finish its work in a <code>multiprocessing</code> subprocess, since <code>atexit</code> handlers are not supported in that context.<br />
 Therefore, if the Glean Python SDK detects that it is running in a <code>multiprocessing</code> subprocess, all of its work that would normally run on a worker thread will run on the main thread.
 In practice, this should not be a performance issue: since the work is already in a subprocess, it will not block the main process of your application.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/python.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/python.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

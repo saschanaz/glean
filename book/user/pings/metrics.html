@@ -159,9 +159,10 @@ Data in the <a href="index.html#the-ping_info-section"><code>ping_info</code></a
 If the application crashes, unsent recorded metrics are sent along with the next <code>metrics</code> ping.</p>
 <p>Additionally, it is undesirable to mix metric recording from different versions of the application. Therefore, if a version upgrade is detected, the <code>metrics</code> ping is collected immediately before further metrics from the new version are recorded.</p>
 <h3 id="platform-availability"><a class="header" href="#platform-availability">Platform availability</a></h3>
-<table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
 <tr><td style="text-align: right"><a href="metrics.html"><code>metrics</code> ping</a></td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">❌</td><td style="text-align: center">✅</td><td style="text-align: center">❌</td><td style="text-align: center">✅</td></tr>
 </tbody></table>
+</div>
 <h2 id="scheduling"><a class="header" href="#scheduling">Scheduling</a></h2>
 <p>The desired behavior is to collect the ping at the first available opportunity after 04:00 local time on a new calendar day, but given constraints of the platform, it can only be submitted while the application is running.
 This breaks down into three scenarios:</p>
@@ -353,7 +354,7 @@ The next ping is scheduled for 04:00 the next calendar day (reason code <code>re
 </ul>
 </li>
 </ol>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/metrics.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/metrics.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

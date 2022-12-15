@@ -278,7 +278,7 @@ can be found on the specific integration guides:</p>
 <li><a href="user/adding-glean-to-your-project/./qt.html">Qt/QML</a></li>
 </ul>
 </blockquote>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-kotlin-project"><a class="header" href="#adding-glean-to-your-kotlin-project">Adding Glean to your Kotlin project</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-kotlin-project"><a class="header" href="#adding-glean-to-your-kotlin-project">Adding Glean to your Kotlin project</a></h1>
 <p>This page provides a step-by-step guide on how to integrate the Glean library into a Kotlin project.</p>
 <p>Nevertheless this is just one of the required steps for integrating Glean successfully into a project. Check you the full <a href="user/adding-glean-to-your-project/./index.html">Glean integration checklist</a> for a comprehensive list of all the steps involved in doing so.</p>
 <p>Currently, this SDK only supports the Android platform.</p>
@@ -374,7 +374,7 @@ apply plugin: &quot;org.mozilla.telemetry.glean-gradle-plugin&quot;
 <blockquote>
 <p>The Glean Gradle plugin has limited support for <a href="user/adding-glean-to-your-project/../../language-bindings/android/android-offline-builds.html">offline builds</a> of applications that use the Glean SDK.</p>
 </blockquote>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/kotlin.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-swift-project"><a class="header" href="#adding-glean-to-your-swift-project">Adding Glean to your Swift project</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/kotlin.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-swift-project"><a class="header" href="#adding-glean-to-your-swift-project">Adding Glean to your Swift project</a></h1>
 <p>This page provides a step-by-step guide on how to integrate the Glean library into a Swift project.</p>
 <p>Nevertheless this is just one of the required steps for integrating Glean successfully into a project. Check you the full <a href="user/adding-glean-to-your-project/./index.html">Glean integration checklist</a> for a comprehensive list of all the steps involved in doing so.</p>
 <p>Currently, this SDK only supports the iOS platform.</p>
@@ -444,7 +444,7 @@ They don't need to be kept in version control, as they can be re-generated from 
 <blockquote>
 <p>Metric collection is a no-op in <a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/ExtensionOverview.html#//apple_ref/doc/uid/TP40014214-CH2-SW2">application extensions</a> and Glean will not run. Since extensions run in a separate sandbox and process from the application, Glean would run in an extension as if it were a completely separate application with different client ids and storage. This complicates things because Glean doesn’t know or care about other processes. Because of this, Glean is purposefully prevented from running in an application extension and if metrics need to be collected from extensions, it's up to the integrating application to pass the information to the base application to record in Glean.</p>
 </blockquote>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/swift.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-python-project"><a class="header" href="#adding-glean-to-your-python-project">Adding Glean to your Python project</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/swift.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-python-project"><a class="header" href="#adding-glean-to-your-python-project">Adding Glean to your Python project</a></h1>
 <p>This page provides a step-by-step guide on how to integrate the Glean library into a Python project.</p>
 <p>Nevertheless this is just one of the required steps for integrating Glean successfully into a project. Check you the full <a href="user/adding-glean-to-your-project/./index.html">Glean integration checklist</a> for a comprehensive list of all the steps involved in doing so.</p>
 <h2 id="setting-up-the-dependency-2"><a class="header" href="#setting-up-the-dependency-2">Setting up the dependency</a></h2>
@@ -521,7 +521,7 @@ This handler will wait up to 30 seconds for any pending work to complete.</p>
 The Glean Python SDK can not wait to finish its work in a <code>multiprocessing</code> subprocess, since <code>atexit</code> handlers are not supported in that context.<br />
 Therefore, if the Glean Python SDK detects that it is running in a <code>multiprocessing</code> subprocess, all of its work that would normally run on a worker thread will run on the main thread.
 In practice, this should not be a performance issue: since the work is already in a subprocess, it will not block the main process of your application.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/python.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-rust-project"><a class="header" href="#adding-glean-to-your-rust-project">Adding Glean to your Rust project</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/python.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-rust-project"><a class="header" href="#adding-glean-to-your-rust-project">Adding Glean to your Rust project</a></h1>
 <p>This page provides a step-by-step guide on how to integrate the Glean library into a Rust project.</p>
 <p>Nevertheless this is just one of the required steps for integrating Glean successfully into a project.
 Check you the full <a href="user/adding-glean-to-your-project/./index.html">Glean integration checklist</a> for a comprehensive list of all the steps involved in doing so.</p>
@@ -573,7 +573,7 @@ To do so add the following lines of code in your <code>src/lib.rs</code> file:</
 <pre><code class="language-Rust">metrics::your_category::metric_name.set(true);
 </code></pre>
 <p>See <a href="user/adding-glean-to-your-project/../../reference/metrics/index.html">the metric API reference</a> for details.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/rust.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-javascript-project"><a class="header" href="#adding-glean-to-your-javascript-project">Adding Glean to your JavaScript project</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/rust.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-javascript-project"><a class="header" href="#adding-glean-to-your-javascript-project">Adding Glean to your JavaScript project</a></h1>
 <p>This page provides a step-by-step guide on how to integrate
 the Glean JavaScript SDK into a JavaScript project.</p>
 <p>Nevertheless this is just one of the required steps for integrating Glean successfully into a project. Check you the full <a href="user/adding-glean-to-your-project/./index.html">Glean integration checklist</a> for a comprehensive list of all the steps involved in doing so.</p>
@@ -729,7 +729,7 @@ To run the linter use the <code>glinter</code> command.</p>
 <p>Then run this script by calling:</p>
 <pre><code class="language-bash">npm run lint:glean
 </code></pre>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/javascript.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-qtqml-project"><a class="header" href="#adding-glean-to-your-qtqml-project">Adding Glean to your Qt/QML project</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/javascript.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-glean-to-your-qtqml-project"><a class="header" href="#adding-glean-to-your-qtqml-project">Adding Glean to your Qt/QML project</a></h1>
 <p>This page provides a step-by-step guide on how to integrate the <a href="https://github.com/mozilla/glean.js/">Glean.js</a> library into a Qt/QML project.</p>
 <p>Nevertheless this is just one of the required steps for integrating Glean successfully into a project. Check you the full <a href="user/adding-glean-to-your-project/./index.html">Glean integration checklist</a> for a comprehensive list of all the steps involved in doing so.</p>
 <h2 id="requirements-2"><a class="header" href="#requirements-2">Requirements</a></h2>
@@ -820,7 +820,7 @@ In order to use it, open the <code>glean.js</code> file inside the included modu
 <strong>only happens when using the Qt debug library for iOS</strong>.</p>
 <p>There is no way around this bug other than avoiding the Qt debug library for iOS altogether until
 it is fixed. Refer to the <a href="https://doc.qt.io/qt-5/debug.html#debugging-in-macos-and-xcode">the Qt debugging documentation</a> on how to do that.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/qt.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="enabling-data-to-be-ingested-by-the-data-platform"><a class="header" href="#enabling-data-to-be-ingested-by-the-data-platform">Enabling data to be ingested by the data platform</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/qt.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="enabling-data-to-be-ingested-by-the-data-platform"><a class="header" href="#enabling-data-to-be-ingested-by-the-data-platform">Enabling data to be ingested by the data platform</a></h1>
 <p>This page provides a step-by-step guide on how to enable data from your product to be ingested by the data platform.</p>
 <p>This is just one of the required steps for integrating Glean successfully into a product.
 Check the full <a href="user/adding-glean-to-your-project/./index.html">Glean integration checklist</a> for a comprehensive list of all the steps involved in doing so.</p>
@@ -845,7 +845,7 @@ jobs:
   glean-probe-scraper:
     uses: mozilla/probe-scraper/.github/workflows/glean.yaml@main
 </code></pre>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/enable-data-ingestion.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="integrating-glean-for-product-managers"><a class="header" href="#integrating-glean-for-product-managers">Integrating Glean for product managers</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/adding-glean-to-your-project/enable-data-ingestion.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="integrating-glean-for-product-managers"><a class="header" href="#integrating-glean-for-product-managers">Integrating Glean for product managers</a></h1>
 <p>This chapter provides guidance for planning the work involved in integrating Glean into your product, for internal Mozilla customers.
 For a technical coding perspective, see <a href="user/adding-glean-to-your-project/index.html">adding Glean to your project</a>.</p>
 <p>Glean is the standard telemetry platform required for all new Mozilla products.
@@ -881,7 +881,7 @@ Having a telemetry plan (see above) will help to identify this work early.</p>
 <h2 id="integrating-glean-into-glam"><a class="header" href="#integrating-glean-into-glam">Integrating Glean into GLAM</a></h2>
 <p>To use GLAM for analysis of your application's data <a href="https://github.com/mozilla/glam/issues/new?assignees=&amp;labels=&amp;template=add_to_glam.md&amp;title=">file a ticket in the GLAM repository</a>.</p>
 <p>A data engineer from the GLAM team will reach out to you if further information is required.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/integrating-glean-for-product-managers.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-new-metrics"><a class="header" href="#adding-new-metrics">Adding new metrics</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/integrating-glean-for-product-managers.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-new-metrics"><a class="header" href="#adding-new-metrics">Adding new metrics</a></h1>
 <h2 id="table-of-contents"><a class="header" href="#table-of-contents">Table of Contents</a></h2>
 <ul>
 <li><a href="user/metrics/adding-new-metrics.html#process-overview">Process overview</a></li>
@@ -1172,7 +1172,7 @@ mozilla::glean::compound_category::metric_name...
 </div>
 </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/adding-new-metrics.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-new-metrics-1"><a class="header" href="#adding-new-metrics-1">Adding new metrics</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/adding-new-metrics.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="adding-new-metrics-1"><a class="header" href="#adding-new-metrics-1">Adding new metrics</a></h1>
 <h2 id="table-of-contents-1"><a class="header" href="#table-of-contents-1">Table of Contents</a></h2>
 <ul>
 <li><a href="user/metrics/adding-new-metrics.html#process-overview">Process overview</a></li>
@@ -1463,7 +1463,7 @@ mozilla::glean::compound_category::metric_name...
 </div>
 </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/adding-new-metrics.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unit-testing-glean-metrics"><a class="header" href="#unit-testing-glean-metrics">Unit testing Glean metrics</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/adding-new-metrics.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unit-testing-glean-metrics"><a class="header" href="#unit-testing-glean-metrics">Unit testing Glean metrics</a></h1>
 <p>In order to support unit testing inside of client applications using the Glean SDK,
 a set of testing API functions have been included.
 The intent is to make the Glean SDKs easier to test 'out of the box'
@@ -1565,7 +1565,7 @@ It is good practice to set it to the absolute path to a file, since some testing
 <p>If using <code>codecov.io</code>, the uploader doesn't send coverage results for YAML files by default. Pass the <code>-X yaml</code> option to the uploader to make sure they are included:</p>
 <pre><code class="language-bash">bash &lt;(curl -s https://codecov.io/bash) -X yaml
 </code></pre>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/testing-metrics.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="validating-the-collected-data"><a class="header" href="#validating-the-collected-data">Validating the collected data</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/testing-metrics.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="validating-the-collected-data"><a class="header" href="#validating-the-collected-data">Validating the collected data</a></h1>
 <p>It is worth investing time when instrumentation is added to the product to understand if the data looks reasonable and expected, and to take action if it does not.
 It is important to highlight that an automated rigorous test suite for <a href="user/metrics/testing-metrics.html">testing metrics</a> is an important precondition for building confidence in newly collected data (especially business-critical ones).</p>
 <p>The following checklist could help guide this validation effort.</p>
@@ -1598,7 +1598,7 @@ It is important to highlight that an automated rigorous test suite for <a href="
 <p>In case of multiple distinct product populations, the above checklist should be ideally run against all of them.
 For example, in case of <em>Firefox</em>, the checklist should be run for the Nightly population first, then on the other channels as the collection moves across the release trains.</p>
 </blockquote>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/validation-checklist.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="error-reporting"><a class="header" href="#error-reporting">Error reporting</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/validation-checklist.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="error-reporting"><a class="header" href="#error-reporting">Error reporting</a></h1>
 <p>The Glean SDKs record the number of errors that occur when metrics are passed invalid data or are otherwise used incorrectly.
 This information is reported back in special labeled counter metrics in the <code>glean.error</code> category.
 Error metrics are included in the same pings as the metric that caused the error.
@@ -1629,7 +1629,7 @@ Additionally, error metrics are always sent in the <a href="user/metrics/../ping
 }
 </code></pre>
 <p>If you have a debug build of the Glean SDK, details about the errors being recorded are included in the logs. This detailed information is not included in Glean pings.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/error-reporting.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><div class="special-quote special-quote-info fa fa-info-circle"></div>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/error-reporting.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><div class="special-quote special-quote-info fa fa-info-circle"></div>
 <h1 id="the-glean-javascript-sdk-provides-a-slightly-different-set-of-metrics-and-pings"><a class="header" href="#the-glean-javascript-sdk-provides-a-slightly-different-set-of-metrics-and-pings">The Glean JavaScript SDK provides a slightly different set of metrics and pings</a></h1>
 <blockquote>
 <p>If you are looking for the metrics collected by Glean.js,
@@ -1651,12 +1651,13 @@ This means you might have to go searching through the dependency tree to get a f
 <p>These metrics are sent in every ping.</p>
 <p>All Glean pings contain built-in metrics in the <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-ping_info-section"><code>ping_info</code></a> and <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-client_info-section"><code>client_info</code></a> sections.</p>
 <p>In addition to those built-in metrics, the following metrics are added to the ping:</p>
-<table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
 <tr><td>glean.error.invalid_label</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>Counts the number of times a metric was set with an invalid label. The labels are the <code>category.name</code> identifier of the metric.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1499761#c5">Bug 1499761</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.invalid_overflow</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>Counts the number of times a metric was set a value that overflowed. The labels are the <code>category.name</code> identifier of the metric.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1591912#c3">Bug 1591912</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.invalid_state</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>Counts the number of times a timing metric was used incorrectly. The labels are the <code>category.name</code> identifier of the metric.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1499761#c5">Bug 1499761</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.invalid_value</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>Counts the number of times a metric was set to an invalid value. The labels are the <code>category.name</code> identifier of the metric.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1499761#c5">Bug 1499761</a></td><td></td><td>never</td><td>1</td></tr>
 </tbody></table>
+</div>
 <h2 id="baseline"><a class="header" href="#baseline">baseline</a></h2>
 <p>This is a built-in ping that is assembled out of the box by the Glean SDK.</p>
 <p>See the Glean SDK documentation for the <a href="https://mozilla.github.io/glean/book/user/pings/baseline.html"><code>baseline</code> ping</a>.</p>
@@ -1695,10 +1696,11 @@ was called <code>background</code>.</p>
 </ul>
 <p>All Glean pings contain built-in metrics in the <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-ping_info-section"><code>ping_info</code></a> and <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-client_info-section"><code>client_info</code></a> sections.</p>
 <p>In addition to those built-in metrics, the following metrics are added to the ping:</p>
-<table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
 <tr><td>glean.baseline.duration</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/timespan.html">timespan</a></td><td>The duration of the last foreground session.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1512938#c3">Bug 1512938</a></td><td></td><td>never</td><td>1, 2</td></tr>
 <tr><td>glean.validation.pings_submitted</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>A count of the pings submitted, by ping type.  This metric appears in both the metrics and baseline pings.  - On the metrics ping, the counts include the number of pings sent since   the last metrics ping (including the last metrics ping) - On the baseline ping, the counts include the number of pings send since   the last baseline ping (including the last baseline ping)</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1586764#c3">Bug 1586764</a></td><td></td><td>never</td><td>1</td></tr>
 </tbody></table>
+</div>
 <h2 id="deletion-request"><a class="header" href="#deletion-request">deletion-request</a></h2>
 <p>This is a built-in ping that is assembled out of the box by the Glean SDK.</p>
 <p>See the Glean SDK documentation for the <a href="https://mozilla.github.io/glean/book/user/pings/deletion-request.html"><code>deletion-request</code> ping</a>.</p>
@@ -1768,7 +1770,7 @@ upgraded.</p>
 </ul>
 <p>All Glean pings contain built-in metrics in the <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-ping_info-section"><code>ping_info</code></a> and <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-client_info-section"><code>client_info</code></a> sections.</p>
 <p>In addition to those built-in metrics, the following metrics are added to the ping:</p>
-<table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
 <tr><td>glean.database.size</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/memory_distribution.html">memory_distribution</a></td><td>The size of the database file at startup.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1656589#c7">Bug 1656589</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.io</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/counter.html">counter</a></td><td>The number of times we encountered an IO error when writing a pending ping to disk.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1686233#c2">Bug 1686233</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.preinit_tasks_overflow</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/counter.html">counter</a></td><td>The number of tasks that overflowed the pre-initialization buffer. Only sent if the buffer ever overflows.  In Version 0 this reported the total number of tasks enqueued.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1609482#c3">Bug 1609482</a></td><td></td><td>never</td><td>1</td></tr>
@@ -1780,9 +1782,10 @@ upgraded.</p>
 <tr><td>glean.validation.foreground_count</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/counter.html">counter</a></td><td>On mobile, the number of times the application went to foreground.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1683707#c2">Bug 1683707</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.validation.pings_submitted</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>A count of the pings submitted, by ping type.  This metric appears in both the metrics and baseline pings.  - On the metrics ping, the counts include the number of pings sent since   the last metrics ping (including the last metrics ping) - On the baseline ping, the counts include the number of pings send since   the last baseline ping (including the last baseline ping)</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1586764#c3">Bug 1586764</a></td><td></td><td>never</td><td>1</td></tr>
 </tbody></table>
+</div>
 <p>Data categories are <a href="https://wiki.mozilla.org/Firefox/Data_Collection">defined here</a>.</p>
 <!-- AUTOGENERATED BY glean_parser v6.3.0. DO NOT EDIT. -->
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/collected-metrics/metrics.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="remote-configuration-of-metrics"><a class="header" href="#remote-configuration-of-metrics">Remote Configuration of Metrics</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/collected-metrics/metrics.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="remote-configuration-of-metrics"><a class="header" href="#remote-configuration-of-metrics">Remote Configuration of Metrics</a></h1>
 <h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
 <blockquote>
 <p><strong>Important:</strong> This functionality is experimental and is not ready for production use without coordination with the Glean Team.</p>
@@ -1816,7 +1819,7 @@ Through this, event metrics can be instrumented in areas of high activity and on
 </ul>
 </li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/metrics-remote-settings.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-1"><a class="header" href="#pings-1">Pings</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/metrics-remote-settings.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-1"><a class="header" href="#pings-1">Pings</a></h1>
 <p>A ping is a bundle of related metrics, gathered in a payload to be transmitted.
 The ping payload is encoded in JSON format and contains one or more of the
 <a href="user/pings/index.html#payload-structure">common sections</a> with shared information data.</p>
@@ -2088,7 +2091,7 @@ e.g. <code>test-tag</code>.</p>
 <p>A list of tags to associate with the ping, useful for clustering pings at analysis time,
 for example to tell data generated from CI from other data e.g. <code>automation, perf</code>.</p>
 <p>This header is attached to Glean pings by using the <a href="user/pings/../../reference/debug/sourceTags.html">debug APIs</a>.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="custom-pings"><a class="header" href="#custom-pings">Custom pings</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="custom-pings"><a class="header" href="#custom-pings">Custom pings</a></h1>
 <p>Applications can define metrics that are sent in custom pings. Unlike the built-in pings, custom pings are sent explicitly by the application.</p>
 <p>This is useful when the scheduling of the built-in pings (<a href="user/pings/metrics.html">metrics</a>, <a href="user/pings/baseline.html">baseline</a> and <a href="user/pings/events.html">events</a>) are not appropriate for your data.  Since the timing of the submission of custom pings is handled by the application, the measurement window is under the application's control.</p>
 <p>This is especially useful when metrics need to be tightly related to one another, for example when you need to measure the distribution of frame paint times when a particular rendering backend is in use.  If these metrics were in different pings, with different measurement windows, it is much harder to do that kind of reasoning with much certainty.</p>
@@ -2226,7 +2229,7 @@ of the previous run, in order to keep the monotonically increasing nature of the
   ]
 }
 </code></pre>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/custom.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="testing-custom-pings"><a class="header" href="#testing-custom-pings">Testing custom pings</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/custom.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="testing-custom-pings"><a class="header" href="#testing-custom-pings">Testing custom pings</a></h1>
 <p>Applications defining <a href="user/pings/custom.html">custom pings</a> can use use the <a href="user/pings/../../reference/pings/index.html#testing-api">ping testing API</a> to test these pings in unit tests.</p>
 <h2 id="general-testing-strategy"><a class="header" href="#general-testing-strategy">General testing strategy</a></h2>
 <p>The schedule of custom pings depends on the specific application implementation, since it is up to the SDK user to define the ping semantics. This makes the testing strategy a bit more complex, but usually boiling down to:</p>
@@ -2235,7 +2238,7 @@ of the previous run, in order to keep the monotonically increasing nature of the
 <li>Defining a callback validation function using the <a href="user/pings/../../reference/pings/index.html#testbeforenextsubmit">ping testing API</a>.</li>
 <li>Finally triggering the code path that submits the custom ping or submitting the ping using the <a href="user/pings/../../reference/pings/index.html#submit"><code>submit</code> API</a>.</li>
 </ol>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/testing-custom-pings.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-sent-by-glean"><a class="header" href="#pings-sent-by-glean">Pings sent by Glean</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/testing-custom-pings.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-sent-by-glean"><a class="header" href="#pings-sent-by-glean">Pings sent by Glean</a></h1>
 <p>If data collection is enabled, the Glean SDKs provide a set of built-in pings that are assembled out of the box without any developer intervention.  The following is a list of these built-in pings:</p>
 <ul>
 <li><a href="user/pings/baseline.html"><code>baseline</code> ping</a>: A small ping sent every time the application goes to foreground and background. Going to foreground also includes when the application starts.</li>
@@ -2247,7 +2250,7 @@ Is not sent when there are no events recorded, even if there are other metrics w
 <p>Applications can also define and send their own <a href="user/pings/custom.html">custom pings</a> when the schedules of these pings is not suitable.</p>
 <p>There is also a <a href="user/pings/ping-schedules-and-timings.html">high-level overview</a> of how the <code>metrics</code> and <code>baseline</code> pings relate and the timings they record.</p>
 <h3 id="available-pings-per-platform"><a class="header" href="#available-pings-per-platform">Available pings per platform</a></h3>
-<table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center"><a href="user/pings/baseline.html"><code>baseline</code></a></th><th style="text-align: center"><a href="user/pings/deletion-request.html"><code>deletion-request</code></a></th><th style="text-align: center"><a href="user/pings/events.html"><code>events</code></a></th><th style="text-align: center"><a href="user/pings/metrics.html"><code>metrics</code></a></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center"><a href="user/pings/baseline.html"><code>baseline</code></a></th><th style="text-align: center"><a href="user/pings/deletion-request.html"><code>deletion-request</code></a></th><th style="text-align: center"><a href="user/pings/events.html"><code>events</code></a></th><th style="text-align: center"><a href="user/pings/metrics.html"><code>metrics</code></a></th></tr></thead><tbody>
 <tr><td style="text-align: right">Kotlin</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td></tr>
 <tr><td style="text-align: right">Swift</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td></tr>
 <tr><td style="text-align: right">Python</td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#1">1</a></sup></td><td style="text-align: center">✅</td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#2">2</a></sup></td><td style="text-align: center">❌</td></tr>
@@ -2255,6 +2258,7 @@ Is not sent when there are no events recorded, even if there are other metrics w
 <tr><td style="text-align: right">JavaScript</td><td style="text-align: center">❌</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">❌</td></tr>
 <tr><td style="text-align: right">Firefox Desktop</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td></tr>
 </tbody></table>
+</div>
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>Not sent automatically. Use the <a href="user/pings/../../../python/glean/#glean.Glean.handle_client_active"><code>handle_client_active</code></a> and <a href="user/pings/../../../python/glean/#glean.Glean.handle_client_inactive"><code>handle_client_inactive</code></a> API.</p>
 </div>
@@ -2293,13 +2297,14 @@ means.</p>
 </div>
 </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/sent-by-glean.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-baseline-ping"><a class="header" href="#the-baseline-ping">The <code>baseline</code> ping</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/sent-by-glean.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-baseline-ping"><a class="header" href="#the-baseline-ping">The <code>baseline</code> ping</a></h1>
 <h2 id="description"><a class="header" href="#description">Description</a></h2>
 <p>This ping is intended to provide metrics that are managed by the Glean SDKs themselves, and not explicitly set by the application or included in the application's <code>metrics.yaml</code> file.</p>
 <h3 id="platform-availability"><a class="header" href="#platform-availability">Platform availability</a></h3>
-<table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
 <tr><td style="text-align: right"><a href="user/pings/baseline.html"><code>baseline</code> ping</a></td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">❌</td><td style="text-align: center">✅</td><td style="text-align: center">❌</td><td style="text-align: center">✅</td></tr>
 </tbody></table>
+</div>
 <h2 id="scheduling"><a class="header" href="#scheduling">Scheduling</a></h2>
 <p>The <code>baseline</code> ping is automatically submitted with a <code>reason: active</code> when the application becomes active (on mobile it means getting to <a href="user/pings/sent-by-glean.html#defining-foreground-and-background-state">foreground</a>).  These baseline pings do not contain <code>duration</code>.</p>
 <p>The <code>baseline</code> ping is automatically submitted with a <code>reason: inactive</code> when the application becomes inactive (on mobile it means getting to <a href="user/pings/sent-by-glean.html#defining-foreground-and-background-state">background</a>).
@@ -2346,7 +2351,7 @@ If no <code>baseline</code> ping is triggered when becoming inactive (e.g. the p
   }
 }
 </code></pre>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/baseline.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-deletion-request-ping"><a class="header" href="#the-deletion-request-ping">The <code>deletion-request</code> ping</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/baseline.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-deletion-request-ping"><a class="header" href="#the-deletion-request-ping">The <code>deletion-request</code> ping</a></h1>
 <h2 id="description-1"><a class="header" href="#description-1">Description</a></h2>
 <p>This ping is submitted when a user opts out of sending technical and interaction data.</p>
 <p>This ping contains the client id.</p>
@@ -2369,9 +2374,10 @@ entry for the id to be added with a <code>send_in_pings</code> value of <code>de
 </code></pre>
 </blockquote>
 <h3 id="platform-availability-1"><a class="header" href="#platform-availability-1">Platform availability</a></h3>
-<table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
 <tr><td style="text-align: right"><a href="user/pings/deletion-request.html"><code>deletion-request</code> ping</a></td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td></tr>
 </tbody></table>
+</div>
 <h2 id="scheduling-1"><a class="header" href="#scheduling-1">Scheduling</a></h2>
 <p>The <code>deletion-request</code> ping is automatically submitted when upload is disabled in Glean.
 If upload fails, it is retried after Glean is initialized.</p>
@@ -2404,14 +2410,15 @@ If upload fails, it is retried after Glean is initialized.</p>
   }
 }
 </code></pre>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/deletion-request.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-events-ping"><a class="header" href="#the-events-ping">The <code>events</code> ping</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/deletion-request.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-events-ping"><a class="header" href="#the-events-ping">The <code>events</code> ping</a></h1>
 <h2 id="description-2"><a class="header" href="#description-2">Description</a></h2>
 <p>The events ping's purpose is to transport event metric information.</p>
 <p>If the application crashes, an <code>events</code> ping is generated next time the application starts with events that were not sent before the crash.</p>
 <h3 id="platform-availability-2"><a class="header" href="#platform-availability-2">Platform availability</a></h3>
-<table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
 <tr><td style="text-align: right"><a href="user/pings/events.html"><code>events</code> ping</a></td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td></tr>
 </tbody></table>
+</div>
 <h2 id="scheduling-2"><a class="header" href="#scheduling-2">Scheduling</a></h2>
 <p>The <code>events</code> ping is automatically submitted under the following circumstances:</p>
 <ol>
@@ -2506,7 +2513,7 @@ API to let Glean know the app is inactive and that will trigger submission of th
   ]
 }
 </code></pre>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/events.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-metrics-ping"><a class="header" href="#the-metrics-ping">The <code>metrics</code> ping</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/events.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-metrics-ping"><a class="header" href="#the-metrics-ping">The <code>metrics</code> ping</a></h1>
 <h2 id="description-3"><a class="header" href="#description-3">Description</a></h2>
 <p>The <code>metrics</code> ping is intended for all of the metrics that are explicitly set by the application or are included in the application's <code>metrics.yaml</code> file (except events). 
 The reported data is tied to the ping's <em>measurement window</em>, which is the time between the collection of two <code>metrics</code> pings. 
@@ -2516,9 +2523,10 @@ Data in the <a href="user/pings/index.html#the-ping_info-section"><code>ping_inf
 If the application crashes, unsent recorded metrics are sent along with the next <code>metrics</code> ping.</p>
 <p>Additionally, it is undesirable to mix metric recording from different versions of the application. Therefore, if a version upgrade is detected, the <code>metrics</code> ping is collected immediately before further metrics from the new version are recorded.</p>
 <h3 id="platform-availability-3"><a class="header" href="#platform-availability-3">Platform availability</a></h3>
-<table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right">SDK</th><th style="text-align: center">Kotlin</th><th style="text-align: center">Swift</th><th style="text-align: center">Python</th><th style="text-align: center">Rust</th><th style="text-align: center">JavaScript</th><th style="text-align: center">Firefox Desktop</th></tr></thead><tbody>
 <tr><td style="text-align: right"><a href="user/pings/metrics.html"><code>metrics</code> ping</a></td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">❌</td><td style="text-align: center">✅</td><td style="text-align: center">❌</td><td style="text-align: center">✅</td></tr>
 </tbody></table>
+</div>
 <h2 id="scheduling-3"><a class="header" href="#scheduling-3">Scheduling</a></h2>
 <p>The desired behavior is to collect the ping at the first available opportunity after 04:00 local time on a new calendar day, but given constraints of the platform, it can only be submitted while the application is running.
 This breaks down into three scenarios:</p>
@@ -2710,7 +2718,7 @@ The next ping is scheduled for 04:00 the next calendar day (reason code <code>re
 </ul>
 </li>
 </ol>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/metrics.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="ping-schedules-and-timings-overview"><a class="header" href="#ping-schedules-and-timings-overview">Ping schedules and timings overview</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/metrics.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="ping-schedules-and-timings-overview"><a class="header" href="#ping-schedules-and-timings-overview">Ping schedules and timings overview</a></h1>
 <p>Full reference details about the <a href="user/pings/metrics.html"><code>metrics</code></a> and <a href="user/pings/baseline.html"><code>baseline</code></a> ping schedules are detailed elsewhere.</p>
 <p>The following diagram shows a typical timeline of a mobile application, when pings are sent and what timing-related information is included.</p>
 <p><img src="user/pings/ping_timing.svg" alt="ping timeline diagram" /></p>
@@ -2721,7 +2729,7 @@ The next ping is scheduled for 04:00 the next calendar day (reason code <code>re
 <p>The <code>submission_timestamp</code> is the time the ping was received at the telemetry endpoint, added by the ingestion pipeline.  It is not exactly the same as <code>ping_info.end_time</code>, since there may be various networking and system latencies both on the client and in the ingestion pipeline (represented by the dotted horizontal line, not to scale).  Also of note is that <code>start_time</code>/<code>end_time</code> are measured using the client's real-time clock in its local timezone, which is not a fully reliable source of time.</p>
 <p>The &quot;Baseline 4&quot; ping illustrates an important corner case. When &quot;Session 2&quot; ended, the OS also shut down the entire process, and the Glean SDK did not have an opportunity to send a <code>baseline</code> ping immediately.  In this case, it is sent at the next available opportunity when the application starts up again in &quot;Run 2&quot;.  This <code>baseline</code> ping is annotated with the reason code <code>dirty_startup</code>.</p>
 <p>The &quot;Metrics 2&quot; ping likewise illustrates another important corner case. &quot;Metrics 1&quot; was able to be sent at the target time of 04:00 (local device time) because the application was currently running.  However, the next time 04:00 came around, the application was not active, so the Glean SDK was unable to send a <code>metrics</code> ping.  It is sent at the next available opportunity, when the application starts up again in &quot;Run 2&quot;.  This <code>metrics</code> ping is annotated with the reason code <code>overdue</code>.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/ping-schedules-and-timings.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-products-using-the-glean-sdk"><a class="header" href="#debugging-products-using-the-glean-sdk">Debugging products using the Glean SDK</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/ping-schedules-and-timings.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-products-using-the-glean-sdk"><a class="header" href="#debugging-products-using-the-glean-sdk">Debugging products using the Glean SDK</a></h1>
 <p>Glean provides a few debugging features to assist with debugging a product using Glean.</p>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <h3 id="log-pings"><a class="header" href="#log-pings">Log Pings</a></h3>
@@ -2760,7 +2768,7 @@ for detailed information on how to use them.</p>
 <li><a href="user/debugging/./javascript.html">Debugging JavaScript applications using Glean.js</a></li>
 </ol>
 <h3 id="available-debugging-methods-per-platform"><a class="header" href="#available-debugging-methods-per-platform">Available debugging methods per platform</a></h3>
-<table><thead><tr><th style="text-align: right"></th><th style="text-align: center">Glean API</th><th style="text-align: center">Environment Variables</th><th style="text-align: center">Platform Specific Tooling</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: right"></th><th style="text-align: center">Glean API</th><th style="text-align: center">Environment Variables</th><th style="text-align: center">Platform Specific Tooling</th></tr></thead><tbody>
 <tr><td style="text-align: right">Kotlin</td><td style="text-align: center"></td><td style="text-align: center"></td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#1">1</a></sup></td></tr>
 <tr><td style="text-align: right">Swift</td><td style="text-align: center">✅</td><td style="text-align: center">✅</td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#2">2</a></sup></td></tr>
 <tr><td style="text-align: right">Python</td><td style="text-align: center"></td><td style="text-align: center">✅</td><td style="text-align: center"></td></tr>
@@ -2768,6 +2776,7 @@ for detailed information on how to use them.</p>
 <tr><td style="text-align: right">JavaScript</td><td style="text-align: center">✅</td><td style="text-align: center"></td><td style="text-align: center"></td></tr>
 <tr><td style="text-align: right">Firefox Desktop</td><td style="text-align: center"></td><td style="text-align: center">✅</td><td style="text-align: center">✅ <sup class="footnote-reference"><a href="#3">3</a></sup></td></tr>
 </tbody></table>
+</div>
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
 <p>The Glean Kotlin SDK exposes the <a href="user/debugging/./android.html"><code>GleanDebugActivity</code></a> for interacting with debug features. Although it is technically possible to also use environment variables in Android, the Glean team is not aware of a proper way to set environment variables in Android devices or emulators.</p>
 </div>
@@ -2777,7 +2786,7 @@ for detailed information on how to use them.</p>
 <div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
 <p>In Firefox Desktop, developers may use the interface exposed through <code>about:glean</code> to log, tag or send pings.</p>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-android-applications-using-the-glean-sdk"><a class="header" href="#debugging-android-applications-using-the-glean-sdk">Debugging Android applications using the Glean SDK</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-android-applications-using-the-glean-sdk"><a class="header" href="#debugging-android-applications-using-the-glean-sdk">Debugging Android applications using the Glean SDK</a></h1>
 <p>The Glean Kotlin SDK exports the <code>GleanDebugActivity</code> that can be used to toggle debugging features on or off.
 Users can invoke this special activity, at run-time, using the following <a href="https://developer.android.com/studio/command-line/adb"><code>adb</code></a> command:</p>
 <pre><code class="language-bash">adb shell am start -n [applicationId]/mozilla.telemetry.glean.debug.GleanDebugActivity [extra keys]
@@ -2791,13 +2800,14 @@ Users can invoke this special activity, at run-time, using the following <a href
 <p><code>[extra keys]</code> is a list of extra keys to be passed to the debug activity. See the <a href="https://developer.android.com/studio/command-line/adb#IntentSpec">documentation</a> for the command line switches used to pass the extra keys. These are the currently supported keys:</p>
 </li>
 </ul>
-<table><thead><tr><th>key</th><th>type</th><th>description</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>key</th><th>type</th><th>description</th></tr></thead><tbody>
 <tr><td><code>logPings</code></td><td>boolean (<code>--ez</code>)</td><td>If set to <code>true</code>, pings are dumped to logcat; defaults to <code>false</code></td></tr>
 <tr><td><code>debugViewTag</code></td><td>string (<code>--es</code>)</td><td>Tags all outgoing pings as debug pings to make them available for real-time validation, on the <a href="user/debugging/./index.html#glean-debug-view">Glean Debug View</a>. The value must match the pattern <code>[a-zA-Z0-9-]{1,20}</code>. <strong>Important</strong>: in older versions of the Glean SDK, this was named <code>tagPings</code></td></tr>
 <tr><td><code>sourceTags</code></td><td>string array (<code>--esa</code>)</td><td>Tags outgoing pings with a maximum of 5 comma-separated tags. The tags must match the pattern <code>[a-zA-Z0-9-]{1,20}</code>. The <code>automation</code> tag is meant for tagging pings generated on automation: such pings will be specially handled on the pipeline (i.e. discarded from <a href="https://docs.telemetry.mozilla.org/cookbooks/bigquery/querying.html#table-layout-and-naming">non-live views</a>). Tags starting with <code>glean</code> are reserved for future use. Subsequent calls of this overwrite any previously stored tag</td></tr>
 <tr><td><code>sendPing</code></td><td>string (<code>--es</code>)</td><td>Sends the ping with the given name immediately</td></tr>
 <tr><td><code>startNext</code></td><td>string (<code>--es</code>)</td><td>The name of an exported Android <code>Activity</code>, as defined in the product manifest file, to start right after the <code>GleanDebugActivity</code> completes. All the options provided are propagated to this next activity as well. When omitted, the default launcher activity for the product is started instead.</td></tr>
 </tbody></table>
+</div>
 <p>All <a href="https://developer.android.com/studio/command-line/adb#am">the options</a> provided to start the activity are passed over to the main activity for the application to process.
 This is useful if SDK users wants to debug telemetry while providing additional options to the product to enable specific behaviors.</p>
 <blockquote>
@@ -2842,7 +2852,7 @@ Run it like this to filter for an application:</p>
 <pre><code class="language-shell">pidcat [applicationId]
 </code></pre>
 <p>In the above <code>[applicationId]</code> is the product's application id as defined in the manifest file and/or build script. For the Glean sample application, this is <code>org.mozilla.samples.gleancore</code> for a release build and <code>org.mozilla.samples.gleancore.debug</code> for a debug build.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/android.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-ios-applications-using-the-glean-sdk"><a class="header" href="#debugging-ios-applications-using-the-glean-sdk">Debugging iOS applications using the Glean SDK</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/android.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-ios-applications-using-the-glean-sdk"><a class="header" href="#debugging-ios-applications-using-the-glean-sdk">Debugging iOS applications using the Glean SDK</a></h1>
 <h2 id="enabling-debugging-features-in-ios-through-environment-variables"><a class="header" href="#enabling-debugging-features-in-ios-through-environment-variables">Enabling debugging features in iOS through environment variables</a></h2>
 <p>Debugging features in iOS can be enabled using environment variables.
 For more information on the available features accessible through this method
@@ -2931,7 +2941,7 @@ Run the following in a shell:</p>
 <pre><code>log stream --predicate 'category contains &quot;glean&quot;'
 </code></pre>
 <p>See <a href="https://developer.apple.com/library/archive/qa/qa1747/_index.html">Diagnosing Issues Using Crash Reports and Device Logs</a> for more information about debugging deployed iOS apps.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/ios.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-python-applications-using-the-glean-sdk"><a class="header" href="#debugging-python-applications-using-the-glean-sdk">Debugging Python applications using the Glean SDK</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/ios.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-python-applications-using-the-glean-sdk"><a class="header" href="#debugging-python-applications-using-the-glean-sdk">Debugging Python applications using the Glean SDK</a></h1>
 <p>Debugging features in Python can be enabled using environment variables.
 For more information on the available features and how to enable them,
 see the <a href="user/debugging/../../reference/debug/index.html">Debugging API reference</a>.</p>
@@ -2964,7 +2974,7 @@ logging.basicConfig(level=logging.DEBUG)
 </code></pre>
 <p>The flexible logging API is unable to display networking-related log messages or ping contents with <code>GLEAN_LOG_PINGS</code> set to true.</p>
 <p>See the <a href="https://docs.python.org/3.8/library/logging.html">Python logging documentation</a> for more information.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/python.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-javascript-applications-using-gleanjs"><a class="header" href="#debugging-javascript-applications-using-gleanjs">Debugging JavaScript applications using Glean.js</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/python.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-javascript-applications-using-gleanjs"><a class="header" href="#debugging-javascript-applications-using-gleanjs">Debugging JavaScript applications using Glean.js</a></h1>
 <p>Debugging features in JavaScript can be enabled through APIs exposed on the Glean object.
 For more information on the available features and how to enable them,
 see the <a href="user/debugging/../../reference/debug/index.html">Debugging API reference</a>.</p>
@@ -2989,7 +2999,7 @@ Glean internal pings are not exposed to users.</p>
 <li>Find the extension you want to see the logs for;</li>
 <li>Click on <code>background page</code>.</li>
 </ol>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/javascript.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="yaml-registry-format"><a class="header" href="#yaml-registry-format">YAML Registry Format</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/debugging/javascript.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="yaml-registry-format"><a class="header" href="#yaml-registry-format">YAML Registry Format</a></h1>
 <p>User defined Glean pings and metrics are declared in YAML files, which must be parsed by
 <a href="https://pypi.org/project/glean-parser/"><code>glean_parser</code></a> to generate public APIs
 for said metrics and pings.</p>
@@ -3010,7 +3020,7 @@ of the <code>translate</code> command, by running in your terminal:</p>
 <h2 id="tagsyaml-file"><a class="header" href="#tagsyaml-file"><code>tags.yaml</code> file</a></h2>
 <p>For a full reference on the <code>tags.yaml</code> format, refer to the
 <a href="reference/yaml/tags.html">Tags YAML Registry Format</a> page.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/yaml/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="metrics-yaml-registry-format"><a class="header" href="#metrics-yaml-registry-format">Metrics YAML Registry Format</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/yaml/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="metrics-yaml-registry-format"><a class="header" href="#metrics-yaml-registry-format">Metrics YAML Registry Format</a></h1>
 <p>Metrics sent by an application or library are defined in YAML files which follow
 the <a href="https://mozilla.github.io/glean_parser/metrics-yaml.html"><code>metrics.yaml</code> JSON schema</a>.</p>
 <p>This files must be parsed by <a href="https://pypi.org/project/glean-parser/"><code>glean_parser</code></a> at build time
@@ -3230,7 +3240,7 @@ Examples include e-mail, usernames, identifiers such as google ad id, apple id, 
 city or country (unless small ones are explicitly filtered out), or certain cookies.
 It may be embedded within specific website content, such as memory contents, dumps,
 captures of screen data, or DOM data.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/yaml/metrics.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-yaml-registry-format"><a class="header" href="#pings-yaml-registry-format">Pings YAML Registry Format</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/yaml/metrics.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-yaml-registry-format"><a class="header" href="#pings-yaml-registry-format">Pings YAML Registry Format</a></h1>
 <p>Custom pings sent by an application or library are defined in YAML files which follow
 the <a href="https://mozilla.github.io/glean_parser/pings-yaml.html"><code>pings.yaml</code> JSON schema</a>.</p>
 <p>This files must be parsed by <a href="https://pypi.org/project/glean-parser/"><code>glean_parser</code></a> at build time
@@ -3318,7 +3328,7 @@ The use of numbers alone is deprecated and will be an error in the future.</p>
 <p>The reasons that this ping may be sent. The keys are the reason codes,
 and the values are a textual description of each reason.
 The ping payload will (optionally) contain one of these reasons in the <code>ping_info.reason</code> field.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/yaml/pings.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="tags-yaml-registry-format"><a class="header" href="#tags-yaml-registry-format">Tags YAML Registry Format</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/yaml/pings.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="tags-yaml-registry-format"><a class="header" href="#tags-yaml-registry-format">Tags YAML Registry Format</a></h1>
 <p>Any number of custom &quot;tags&quot; can be added to any metric or ping.
 This can be useful in data discovery tools like the <a href="https://dictionary.telemetry.mozilla.org">Glean Dictionary</a>.
 The tags for an application are defined in YAML files which follow
@@ -3353,7 +3363,7 @@ One single definition file may contain multiple tag declarations.</p>
 <h4 id="description-6"><a class="header" href="#description-6"><code>description</code></a></h4>
 <p>A textual description of the tag.
 It may contain <a href="https://www.markdownguide.org/basic-syntax/">markdown syntax</a>.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/yaml/tags.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-general-api"><a class="header" href="#the-general-api">The General API</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/yaml/tags.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="the-general-api"><a class="header" href="#the-general-api">The General API</a></h1>
 <p>The Glean SDKs have a minimal API available on their top-level <code>Glean</code> object called the General API.
 This API allows, among other things, to enable and disable upload, register <a href="reference/general/../../user/pings/custom.html">custom pings</a> and set <a href="reference/general/./experiments-api.html">experiment data</a>.</p>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
@@ -3364,14 +3374,14 @@ If you are adding Glean support to a library, you can safely skip this section.<
 </blockquote>
 <h2 id="the-api"><a class="header" href="#the-api">The API</a></h2>
 <p>The Glean SDKs provide a general API that supports the following operations. See API reference pages for SDK-specific details.</p>
-<table><thead><tr><th>Operation</th><th>Description</th><th>Notes</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Operation</th><th>Description</th><th>Notes</th></tr></thead><tbody>
 <tr><td><code>initialize</code></td><td>Configure and initialize the Glean SDK.</td><td><a href="reference/general/./initializing.html">Initializing the Glean SDK</a></td></tr>
 <tr><td><code>setUploadEnabled</code></td><td>Enable or disable Glean collection and upload.</td><td><a href="reference/general/./toggling-upload-status.html">Toggling upload status</a></td></tr>
 <tr><td><code>registerPings</code></td><td>Register custom pings generated from <code>pings.yaml</code>.</td><td><a href="reference/general/../../user/pings/custom.html">Custom pings</a></td></tr>
 <tr><td><code>setExperimentActive</code></td><td>Indicate that an experiment is running.</td><td><a href="reference/general/./experiments-api.html">Using the Experiments API</a></td></tr>
 <tr><td><code>setExperimentInactive</code></td><td>Indicate that an experiment is no longer running..</td><td><a href="reference/general/./experiments-api.html">Using the Experiments API</a></td></tr>
 </tbody></table>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="initializing"><a class="header" href="#initializing">Initializing</a></h1>
+</div><footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="initializing"><a class="header" href="#initializing">Initializing</a></h1>
 <p>Glean needs to be initialized in order to be able to send pings,
 record metrics and perform maintenance tasks. Thus it is advised that Glean be initialized as
 soon as possible in an application's lifetime and importantly, before any other libraries in the
@@ -3708,8 +3718,7 @@ It has three required arguments:</p>
 <li>whether to clear stores before initialization</li>
 </ol>
 <p>You can call it like below in every test:</p>
-<pre><pre class="playground"><code class="language-rust">
-<span class="boring">#![allow(unused)]
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let dir = tempfile::tempdir().unwrap();
 let tmpname = dir.path().to_path_buf();
@@ -3755,7 +3764,7 @@ describe(&quot;myTestSuite&quot;, () =&gt; {
 <li><a href="reference/general/../../../docs/glean/fn.initialize.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/modules/core_glean.default.html#initialize">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/initializing.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="toggling-upload-status"><a class="header" href="#toggling-upload-status">Toggling upload status</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/initializing.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="toggling-upload-status"><a class="header" href="#toggling-upload-status">Toggling upload status</a></h1>
 <p>The Glean SDKs provide an API for toggling Glean's upload status after initialization.</p>
 <p>Applications instrumented with Glean
 <a href="reference/general/../../user/adding-glean-to-your-project/index.html#glean-integration-checklist">are expected to</a>
@@ -3856,7 +3865,7 @@ uploadSwitch.addEventListener(&quot;change&quot;, event =&gt; {
 <li><a href="reference/general/../../../docs/glean/fn.set_upload_enabled.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_glean.default.html#setUploadEnabled">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/toggling-upload-status.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="using-the-experiments-api"><a class="header" href="#using-the-experiments-api">Using the experiments API</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/toggling-upload-status.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="using-the-experiments-api"><a class="header" href="#using-the-experiments-api">Using the experiments API</a></h1>
 <p>The Glean SDKs support tagging all their pings with experiments annotations. The annotations are useful to report that experiments were active at the time the measurement were collected. The annotations are reported in the optional <code>experiments</code> entry in the <a href="reference/general/../../user/pings/index.html"><code>ping_info</code> section</a> of all pings.</p>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
 <h5 id="experiment-annotations-are-not-persisted"><a class="header" href="#experiment-annotations-are-not-persisted">Experiment annotations are not persisted</a></h5>
@@ -4084,7 +4093,7 @@ Assert.equals(
 <li><a href="reference/general/../../../python/glean/metrics/quantity.html">Python API docs</a></li>
 <li><a href="reference/general/../../../docs/glean/private/quantity/struct.QuantityMetric.html">Rust API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/experiments-api.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="registering-custom-pings"><a class="header" href="#registering-custom-pings">Registering custom pings</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/experiments-api.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="registering-custom-pings"><a class="header" href="#registering-custom-pings">Registering custom pings</a></h1>
 <p>After defining <a href="reference/general/../../user/pings/custom.html">custom pings</a> <code>glean_parser</code> is able to generate code from
 <code>pings.yaml</code> files in a <code>Pings</code> object, which must be instantiated so Glean can send pings by name.</p>
 <h2 id="api-2"><a class="header" href="#api-2">API</a></h2>
@@ -4156,7 +4165,7 @@ glean::initialize(cfg, client_info);
 </div>
 </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/register-custom-pings.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="shut-down"><a class="header" href="#shut-down">Shut down</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/register-custom-pings.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="shut-down"><a class="header" href="#shut-down">Shut down</a></h1>
 <p>Provides a way for users to gracefully shut down Glean,
 by blocking until it is finished performing pending tasks
 such as recording metrics and uploading pings.</p>
@@ -4224,7 +4233,7 @@ is explicitly using the <code>webext</code> target.</p>
 <li><a href="reference/general/../../../docs/glean/fn.shutdown.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_glean.default.html#shutdown">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/shutdown.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-1"><a class="header" href="#debugging-1">Debugging</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/shutdown.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-1"><a class="header" href="#debugging-1">Debugging</a></h1>
 <p>Different platforms have different ways to enable each debug functionality. They may be
 enabled</p>
 <ul>
@@ -4251,7 +4260,7 @@ enabled</p>
 <h3 id="send-pings"><a class="header" href="#send-pings">Send Pings</a></h3>
 <p><em>This feature is only available for the Kotlin and Swift SDKs and in Firefox Desktop via <code>about:glean</code>.</em></p>
 <p>This expects the name of a ping and forces its immediate submission.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/debug/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="log-pings-2"><a class="header" href="#log-pings-2">Log pings</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/debug/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="log-pings-2"><a class="header" href="#log-pings-2">Log pings</a></h1>
 <p>This flag causes all subsequent pings that are submitted to also be echoed to the product's log.</p>
 <p>Once enabled, the only way to disable this feature is to restart or manually reset the application.</p>
 <div class="special-quote special-quote-info fa fa-info-circle"></div>
@@ -4324,7 +4333,7 @@ It will be checked upon Glean initialization.</p>
 </div>
 </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/debug/logPings.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debug-view-tag-2"><a class="header" href="#debug-view-tag-2">Debug View Tag</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/debug/logPings.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debug-view-tag-2"><a class="header" href="#debug-view-tag-2">Debug View Tag</a></h1>
 <p>Tag all subsequent outgoing pings with a given value, in order to redirect
 them to the <a href="reference/debug/../../user/debugging/index.html#glean-debug-view">Glean Debug View</a>.</p>
 <p>&quot;To tag&quot; a ping with the Debug View Tag means that the ping request
@@ -4394,7 +4403,7 @@ It will be checked upon Glean initialization.</p>
 </div>
 </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/debug/debugViewTag.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="source-tags-2"><a class="header" href="#source-tags-2">Source Tags</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/debug/debugViewTag.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="source-tags-2"><a class="header" href="#source-tags-2">Source Tags</a></h1>
 <p>Tag all subsequent outgoing pings with a maximum of 5 comma-separated tags.</p>
 <p>&quot;To tag&quot; a ping with Source Tags means that the ping request
 will contain the <code>X-Source-Tags</code> header with a comma separated list of the given tags.</p>
@@ -4481,7 +4490,7 @@ It will be checked upon Glean initialization.</p>
 </div>
 </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/debug/sourceTags.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="metrics-2"><a class="header" href="#metrics-2">Metrics</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/debug/sourceTags.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="metrics-2"><a class="header" href="#metrics-2">Metrics</a></h1>
 <blockquote>
 <p><strong>Not sure which metric type to use?</strong> These docs contain a <a href="reference/metrics/../../user/metrics/adding-new-metrics.html#choosing-a-metric-type">series of questions</a> that can help. Reference information about each metric type is linked below.</p>
 </blockquote>
@@ -4589,7 +4598,7 @@ Only the first 16 labels seen by Glean will be tracked. After that, any addition
 <ul>
 <li><a href="https://docs.google.com/document/d/1nntNIiE6braTGzoKf-lx21OVDd8ssyeIeJu3jnQQfEE/edit?usp=sharing">JWE</a>: Deprecated in <a href="https://github.com/mozilla/glean/blob/main/CHANGELOG.md#v3700-2021-04-30">v37.0.0</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="boolean"><a class="header" href="#boolean">Boolean</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="boolean"><a class="header" href="#boolean">Boolean</a></h1>
 <p>Boolean metrics are used for reporting simple flags.</p>
 <h2 id="recording-api-1"><a class="header" href="#recording-api-1">Recording API</a></h2>
 <h3 id="set"><a class="header" href="#set"><code>set</code></a></h3>
@@ -4781,7 +4790,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <li><a href="reference/metrics/../../../docs/glean/private/boolean/struct.BooleanMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_boolean.default.html">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/boolean.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="labeled-booleans"><a class="header" href="#labeled-booleans">Labeled Booleans</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/boolean.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="labeled-booleans"><a class="header" href="#labeled-booleans">Labeled Booleans</a></h1>
 <p>Labeled booleans are used to record different related boolean flags.</p>
 <h2 id="recording-api-2"><a class="header" href="#recording-api-2">Recording API</a></h2>
 <h3 id="set-1"><a class="header" href="#set-1"><code>set</code></a></h3>
@@ -5057,7 +5066,7 @@ index of the labels is used to report Gecko data through the Glean SDK.</p>
 <li>Rust API docs: <a href="reference/metrics/../../../docs/glean/private/struct.LabeledMetric.html"><code>LabeledMetric</code></a>, <a href="reference/metrics/../../../docs/glean/private/struct.BooleanMetric.html"><code>BooleanMetricType</code></a></li>
 <li>JavaScript API docs: <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_labeled.default.html"><code>LabeledMetricType</code></a>, <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_boolean.default.html"><code>BooleanMetricType</code></a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/labeled_booleans.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="counter"><a class="header" href="#counter">Counter</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/labeled_booleans.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="counter"><a class="header" href="#counter">Counter</a></h1>
 <p>Used to count how often something happens, say how often a certain button was pressed.
 A counter always starts from <code>0</code>.
 Each time you record to a counter, its value is incremented.
@@ -5293,7 +5302,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <li><a href="reference/metrics/../../../docs/glean/private/counter/struct.CounterMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_counter.default.html">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/counter.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="labeled-counters"><a class="header" href="#labeled-counters">Labeled Counters</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/counter.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="labeled-counters"><a class="header" href="#labeled-counters">Labeled Counters</a></h1>
 <p>Labeled counters are used to record different related counts that should sum up to a total.
 Each counter always starts from <code>0</code>.
 Each time you record to a labeled counter, its value is incremented.
@@ -5584,7 +5593,7 @@ index of the labels is used to report Gecko data through the Glean SDK.</p>
 <li>Rust API docs: <a href="reference/metrics/../../../docs/glean/private/struct.LabeledMetric.html"><code>LabeledMetric</code></a>, <a href="reference/metrics/../../../docs/glean/private/struct.CounterMetric.html"><code>CounterMetricType</code></a></li>
 <li>JavaScript API docs: <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_labeled.default.html"><code>LabeledMetricType</code></a>, <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_counter.default.html"><code>CounterMetricType</code></a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/labeled_counters.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="strings"><a class="header" href="#strings">Strings</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/labeled_counters.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="strings"><a class="header" href="#strings">Strings</a></h1>
 <p>String metrics allow recording a Unicode string value with arbitrary content.</p>
 <p>This metric type does not support recording JSON blobs</p>
 <ul>
@@ -5846,7 +5855,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <li><a href="reference/metrics/../../../docs/glean/private/struct.StringMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_string.default.html#set">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/string.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="labeled-strings"><a class="header" href="#labeled-strings">Labeled Strings</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/string.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="labeled-strings"><a class="header" href="#labeled-strings">Labeled Strings</a></h1>
 <p>Labeled strings record multiple Unicode string values, each under a different label.</p>
 <h2 id="recording-api-6"><a class="header" href="#recording-api-6">Recording API</a></h2>
 <h3 id="set-3"><a class="header" href="#set-3"><code>set</code></a></h3>
@@ -6110,7 +6119,7 @@ index of the labels is used to report Gecko data through the Glean SDK.</p>
 <li>Rust API docs: <a href="reference/metrics/../../../docs/glean/private/struct.LabeledMetric.html"><code>LabeledMetric</code></a>, <a href="reference/metrics/../../../docs/glean/private/struct.StringMetric.html"><code>StringMetricType</code></a></li>
 <li>JavaScript API docs: <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_labeled.default.html"><code>LabeledMetricType</code></a>, <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_string.default.html"><code>StringMetricType</code></a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/labeled_strings.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="string-list"><a class="header" href="#string-list">String List</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/labeled_strings.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="string-list"><a class="header" href="#string-list">String List</a></h1>
 <p>Strings lists are used for recording a list of Unicode string values, such as the names of the enabled search engines.</p>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
 <h5 id="important-7"><a class="header" href="#important-7">Important</a></h5>
@@ -6396,7 +6405,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <li><a href="reference/metrics/../../../python/glean/metrics/string_list.html">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/struct.StringListMetric.html">Rust API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/string_list.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="timespan"><a class="header" href="#timespan">Timespan</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/string_list.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="timespan"><a class="header" href="#timespan">Timespan</a></h1>
 <p>Timespans are used to make a measurement of how much time is spent in a particular task.
 Irrespective of the timespan's <code>lifetime</code>, both <code>start</code> and <code>stop</code> must occur within the same application session.</p>
 <p>To measure the distribution of multiple timespans,
@@ -6968,7 +6977,7 @@ Therefore, a measurement of 500 nanoseconds will be truncated to 0 microseconds.
 <li><a href="reference/metrics/../../../docs/glean/private/struct.TimespanMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_timespan.default.html">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/timespan.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="timing-distribution"><a class="header" href="#timing-distribution">Timing Distribution</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/timespan.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="timing-distribution"><a class="header" href="#timing-distribution">Timing Distribution</a></h1>
 <p>Timing distributions are used to accumulate and store time measurement, for analyzing distributions of the timing data.</p>
 <p>To measure the distribution of single timespans, see <a href="reference/metrics/timespan.html">Timespans</a>.
 To record absolute times, see <a href="reference/metrics/datetime.html">Datetimes</a>.</p>
@@ -7551,7 +7560,7 @@ which is not guaranteed to have nanosecond resolution.</p>
 <p><strong>Note</strong> The data <em>provided</em>, is assumed to be in the configured time unit. The data <em>recorded</em>, on the other hand, is always in <strong>nanoseconds</strong>.
 This means that, if the configured time unit is not <code>nanoseconds</code>, the data will be transformed before being recorded. Notice this, by using the select field above to change the time unit and see the mean of the data recorded changing.</p>
 </blockquote>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/timing_distribution.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="memory-distribution"><a class="header" href="#memory-distribution">Memory Distribution</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/timing_distribution.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="memory-distribution"><a class="header" href="#memory-distribution">Memory Distribution</a></h1>
 <p>Memory distributions are used to accumulate and store memory sizes.</p>
 <p>Memory distributions are recorded in a histogram where the buckets have an exponential distribution, specifically with 16 buckets for every power of 2.
 That is, the function from a value \( x \) to a bucket index is:</p>
@@ -7915,7 +7924,7 @@ Larger sizes will be truncated to 1 Terabyte.</li>
 <p><strong>Note</strong> The data <em>provided</em>, is assumed to be in the configured memory unit. The data <em>recorded</em>, on the other hand, is always in <strong>bytes</strong>.
 This means that, if the configured memory unit is not <code>byte</code>, the data will be transformed before being recorded. Notice this, by using the select field above to change the memory unit and see the mean of the data recorded changing.</p>
 </blockquote>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/memory_distribution.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="uuid"><a class="header" href="#uuid">UUID</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/memory_distribution.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="uuid"><a class="header" href="#uuid">UUID</a></h1>
 <p>UUIDs metrics are used to record values that uniquely identify some entity, such as a client id.</p>
 <h2 id="recording-api-11"><a class="header" href="#recording-api-11">Recording API</a></h2>
 <h3 id="generateandset"><a class="header" href="#generateandset"><code>generateAndSet</code></a></h3>
@@ -8210,7 +8219,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <li><a href="reference/metrics/../../../docs/glean/private/uuid/struct.UuidMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_uuid.default.html#set">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/uuid.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="url-1"><a class="header" href="#url-1">URL</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/uuid.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="url-1"><a class="header" href="#url-1">URL</a></h1>
 <p>URL metrics allow recording URL-like<sup class="footnote-reference"><a href="#1">1</a></sup> strings.</p>
 <p>This metric type does not support recording <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs">data URLs</a> - please get in contact with the Glean team if you're missing a type.</p>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
@@ -8477,7 +8486,7 @@ refer to the metrics <a href="reference/metrics/../yaml/index.html">YAML format<
 <ul>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_url.default.html">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/url.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="datetime"><a class="header" href="#datetime">Datetime</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/url.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="datetime"><a class="header" href="#datetime">Datetime</a></h1>
 <p>Datetimes are used to record an absolute date and time,
 for example the date and time that the application was first run.</p>
 <p>The device's offset from UTC is recorded and sent with the Datetime value in the ping.</p>
@@ -8778,7 +8787,7 @@ The allowed values for <code>time_unit</code> are:</p>
 <li><a href="reference/metrics/../../../docs/glean/private/struct.DatetimeMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_datetime.default.html">Datetime API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/datetime.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="events"><a class="header" href="#events">Events</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/datetime.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="events"><a class="header" href="#events">Events</a></h1>
 <p>Events allow recording of e.g. individual occurrences of user actions,
 say every time a view was open and from where.</p>
 <p>Each event contains the following data:</p>
@@ -9062,7 +9071,7 @@ Longer values are truncated, and an <code>invalid_overflow</code> error is recor
 <li><a href="reference/metrics/../../../docs/glean/private/event/struct.EventMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_event.default.html">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/event.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="custom-distribution"><a class="header" href="#custom-distribution">Custom Distribution</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/event.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="custom-distribution"><a class="header" href="#custom-distribution">Custom Distribution</a></h1>
 <p>Custom distributions are used to record the distribution of arbitrary values.</p>
 <p>It should be used only when direct control over how the histogram buckets are computed is required.
 Otherwise, look at the standard distribution metric types:</p>
@@ -9415,7 +9424,7 @@ when using a Glean SDK in a product using GeckoView.</li>
         </div>
     </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/custom_distribution.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="quantity"><a class="header" href="#quantity">Quantity</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/custom_distribution.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="quantity"><a class="header" href="#quantity">Quantity</a></h1>
 <p>Used to record a single non-negative integer value or 0.
 For example, the width of the display in pixels.</p>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
@@ -9644,7 +9653,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <li><a href="reference/metrics/../../../docs/glean/private/quantity/struct.QuantityMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_quantity.default.html#set">JavaScript API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/quantity.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="rate"><a class="header" href="#rate">Rate</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/quantity.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="rate"><a class="header" href="#rate">Rate</a></h1>
 <p>Used to count how often something happens relative to how often something else happens.
 Like how many documents use a particular CSS Property,
 or how many HTTP connections had an error.
@@ -10003,7 +10012,7 @@ on that features development.</p>
 <ul>
 <li><a href="reference/metrics/../../../docs/glean/private/rate/struct.RateMetric.html">Rust API docs</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/rate.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="text"><a class="header" href="#text">Text</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/rate.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="text"><a class="header" href="#text">Text</a></h1>
 <p>Records a single long Unicode text, used when the limits on <code>String</code> are too low.</p>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
 <h2 id="important-9"><a class="header" href="#important-9">Important</a></h2>
@@ -10208,7 +10217,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <ul>
 <li>What article content was displayed to the user?</li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/text.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-2"><a class="header" href="#pings-2">Pings</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/text.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-2"><a class="header" href="#pings-2">Pings</a></h1>
 <div class="special-quote special-quote-info fa fa-info-circle"></div>
 <h4 id="glean-owned-pings-are-submitted-automatically"><a class="header" href="#glean-owned-pings-are-submitted-automatically">Glean-owned pings are submitted automatically</a></h4>
 <blockquote>
@@ -10452,7 +10461,7 @@ ASSERT_TRUE(submitted);
 </div>
 </div>
 </div>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/pings/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="overview-1"><a class="header" href="#overview-1">Overview</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/pings/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="overview-1"><a class="header" href="#overview-1">Overview</a></h1>
 <p>The Glean SDKs are available for several programming languages and development environments.</p>
 <p>Although there are different SDKs, each of them is based off of either
 a JavaScript core or a Rust core. These cores contain the bulk of the logic
@@ -10536,11 +10545,11 @@ This package has different entry points to access the different SDKs.</p>
 <p>It is available as a compressed file attached to each new Glean.js release
 and may be downloaded from the project
 <a href="https://github.com/mozilla/glean.js/releases/">GitHub releases page</a>.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="android-specific-information"><a class="header" href="#android-specific-information">Android-specific information</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="android-specific-information"><a class="header" href="#android-specific-information">Android-specific information</a></h1>
 <p>The Glean Kotlin SDK can be used in Android applications.
 The integration into the build system for Android applications can be tuned to your needs.
 See the following chapters for details.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/android/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="android-build-script-configuration-options"><a class="header" href="#android-build-script-configuration-options">Android build script configuration options</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/android/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="android-build-script-configuration-options"><a class="header" href="#android-build-script-configuration-options">Android build script configuration options</a></h1>
 <p>This chapter describes build configuration options that control the behavior of the Glean Kotlin SDK's Gradle plugin.
 These options are not usually required for normal use.</p>
 <p>Options can be turned on by setting a variable on the Gradle <a href="https://docs.gradle.org/current/dsl/org.gradle.api.plugins.ExtraPropertiesExtension.html"><code>ext</code></a> object <em>before</em> applying the Glean Gradle plugin.</p>
@@ -10587,7 +10596,7 @@ To override this, <code>ext.gleanYamlFiles</code> may be set to a list of explic
 <p>Different products have different ways to compute the product version at build-time.
 For this reason the Glean Gradle plugin cannot provide an automated way to detect the product major version at build time.
 When using the expiration by version feature in Android, products must provide the major version by themselves.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/android/android-build-configuration-options.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h2 id="offline-builds-of-android-applications-that-use-glean"><a class="header" href="#offline-builds-of-android-applications-that-use-glean">Offline builds of Android applications that use Glean</a></h2>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/android/android-build-configuration-options.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h2 id="offline-builds-of-android-applications-that-use-glean"><a class="header" href="#offline-builds-of-android-applications-that-use-glean">Offline builds of Android applications that use Glean</a></h2>
 <p>The Glean Kotlin SDK has basic support for building Android applications that use Glean in offline mode.</p>
 <p>The Glean Kotlin SDK uses a Python script, <a href="https://github.com/mozilla/glean_parser/"><code>glean_parser</code></a> to generate code for metrics from the <code>metrics.yaml</code> and <code>pings.yaml</code> files when Glean-using applications are built. When online, the pieces necessary to run this script are installed automatically.</p>
 <p>For offline builds, the Python environment, and packages of <code>glean_parser</code> and its dependencies must be provided prior to building the Glean-using application.</p>
@@ -10644,7 +10653,7 @@ Requires glean_parser==1.28.1
 <p>To override the location of the downloaded Python wheels, set the <code>GLEAN_PYTHON_WHEELS_DIR</code> environment variable.  If unset <code>${projectDir}/glean-wheels</code> will be used.</p>
 </li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/android/android-offline-builds.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="instrumenting-android-crashes-with-the-glean-sdk"><a class="header" href="#instrumenting-android-crashes-with-the-glean-sdk">Instrumenting Android crashes with the Glean SDK</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/android/android-offline-builds.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="instrumenting-android-crashes-with-the-glean-sdk"><a class="header" href="#instrumenting-android-crashes-with-the-glean-sdk">Instrumenting Android crashes with the Glean SDK</a></h1>
 <p>One of the things that might be useful to collect data on in an Android application is crashes.  This guide will walk through a
 basic strategy for instrumenting an Android application with crash telemetry using a custom ping.</p>
 <p><strong>Note:</strong>  This is a <em>very</em> simple example of instrumenting crashes using the Glean SDK.  There will be challenges to
@@ -10776,11 +10785,11 @@ sent.</p>
 application was already known.  In order to collect telemetry from a new application, there is additional work that is
 necessary that is beyond the scope of this example.  In order for data to be collected from your project, metadata must be
 added to the <code>probe_scraper</code>.  The instructions for accomplishing this can be found in the <a href="https://github.com/mozilla/probe-scraper#adding-a-new-glean-repository"><code>probe_scraper</code> documentation</a>.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/android/instrument-android-crashes-example.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="ios-specific-information"><a class="header" href="#ios-specific-information">iOS-specific information</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/android/instrument-android-crashes-example.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="ios-specific-information"><a class="header" href="#ios-specific-information">iOS-specific information</a></h1>
 <p>The Glean Swift SDK can be used in iOS applications.
 The integration into the build system for iOS applications can be tuned to your needs.
 See the following chapters for details.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/ios/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="ios-build-script-configuration-options"><a class="header" href="#ios-build-script-configuration-options">iOS build script configuration options</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/ios/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="ios-build-script-configuration-options"><a class="header" href="#ios-build-script-configuration-options">iOS build script configuration options</a></h1>
 <p>This chapter describes build configuration options that control the behavior of the Glean Swift SDK's <code>sdk_generator.sh</code>.
 These options are not usually required for normal use.</p>
 <p>Options can be passed as command-line flags.</p>
@@ -10822,7 +10831,7 @@ in those cases human-readable documentation will automatically be viewable via t
 <p>If you are using the combined release of application-services and the Glean Swift SDK you need to set the namespace to <code>MozillaAppServices</code>, e.g.:</p>
 <pre><code class="language-sh">bash sdk_generator.sh --glean-namespace MozillaAppServices
 </code></pre>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/ios/ios-build-configuration-options.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="glean-javascript-sdk"><a class="header" href="#glean-javascript-sdk">Glean JavaScript SDK</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/ios/ios-build-configuration-options.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="glean-javascript-sdk"><a class="header" href="#glean-javascript-sdk">Glean JavaScript SDK</a></h1>
 <p>The Glean JavaScript SDK allows integration with three distinct JavaScript environments: websites,
 web extension and Node.js.</p>
 <p>It is available as <a href="https://www.npmjs.com/package/@mozilla/glean"><code>@mozilla/glean</code> on npm</a>.
@@ -10832,7 +10841,7 @@ This package has different entry points to access the different SDKs.</p>
 <li><code>@mozilla/glean/webext</code> gives access to the web extension SDK</li>
 <li><code>@mozilla/glean/node</code> gives access to the Node.js SDK</li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/javascript/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="command-line-interface"><a class="header" href="#command-line-interface">Command Line Interface</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/javascript/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="command-line-interface"><a class="header" href="#command-line-interface">Command Line Interface</a></h1>
 <p>The <code>@mozilla/glean</code> package exposes the <code>glean</code> CLI.
 This utility installs <code>glean_parser</code> in a virtual environment
 and allows users to execute <code>glean_parser</code> command through it.</p>
@@ -10858,7 +10867,7 @@ for such use cases.</p>
 <p>With this command it is possible to something like:</p>
 <pre><code class="language-bash">pip install -U glean_parser==$(npx glean --glean-parser-version)
 </code></pre>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/javascript/cli.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="plugins"><a class="header" href="#plugins">Plugins</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/javascript/cli.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="plugins"><a class="header" href="#plugins">Plugins</a></h1>
 <p>The Glean JavaScript SDK accepts a plugin array as an initialization parameter.</p>
 <pre><code class="language-js">import Glean from &quot;@mozilla/glean/webext&quot;
 // This is not a real available plugin,
@@ -10886,7 +10895,7 @@ as this feature is still in its infancy.</p>
 <h2 id="available-plugins"><a class="header" href="#available-plugins">Available plugins</a></h2>
 <h3 id="pingencryptionplugin"><a class="header" href="#pingencryptionplugin"><a href="language-bindings/javascript/plugins/./encryption.html">PingEncryptionPlugin</a></a></h3>
 <p>The <code>PingEncryptionPlugin</code> encrypts the pings payloads before pings are sent.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/javascript/plugins/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pingencryptionplugin-1"><a class="header" href="#pingencryptionplugin-1">PingEncryptionPlugin</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/javascript/plugins/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pingencryptionplugin-1"><a class="header" href="#pingencryptionplugin-1">PingEncryptionPlugin</a></h1>
 <p>The <code>PingEncryptionPlugin</code> encrypts the pings payloads before pings are sent.</p>
 <p>The encryption happens after a ping is collected and before it is sent, the scope
 of this plugin does not include data encryption <em>before</em> collection. In other words,
@@ -10944,7 +10953,7 @@ This JWK is the key provided by Data SRE during the
 ping encryption is turned on. Pings will be logged in their plain format,
 right before encryption happens.</p>
 </blockquote>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/javascript/plugins/encryption.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="glossary-1"><a class="header" href="#glossary-1">Glossary</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/language-bindings/javascript/plugins/encryption.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="glossary-1"><a class="header" href="#glossary-1">Glossary</a></h1>
 <p>A glossary with explanations and background for wording used in the Glean project.</p>
 <h2 id="glean"><a class="header" href="#glean">Glean</a></h2>
 <p>According to the <a href="https://www.merriam-webster.com/dictionary/glean">dictionary</a> the word “glean” means:</p>
@@ -10993,12 +11002,12 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <p>The measurement window end time is the moment the current ping gets submitted. Any new metric recorded after submission will be part of the next ping, so this pings measurement window is over.</p>
 <h2 id="this-week-in-glean-twig"><a class="header" href="#this-week-in-glean-twig">This Week in Glean (TWiG)</a></h2>
 <p><a href="appendix/twig.html">This Week in Glean</a> is a series of blog posts that the Glean Team at Mozilla is using to try to communicate better about our work.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/glossary.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="changelog-1"><a class="header" href="#changelog-1">Changelog</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/glossary.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="changelog-1"><a class="header" href="#changelog-1">Changelog</a></h1>
 <ul>
 <li><a href="appendix/changelog/./sdk.html"><code>mozilla/glean</code></a></li>
 <li><a href="appendix/changelog/./js.html"><code>mozilla/glean.js</code></a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v52.0.0...main">Full changelog</a></p>
 <h1 id="v5200-2022-12-13"><a class="header" href="#v5200-2022-12-13">v52.0.0 (2022-12-13)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v51.8.3...v52.0.0">Full changelog</a></p>
@@ -13296,7 +13305,7 @@ This is a major milestone in using a cross-platform implementation of Glean on t
 <p><a href="https://github.com/mozilla/glean/compare/95b6bcc03616c8d7c3e3e64e99ee9953aa06a474...v0.0.1-TESTING1">Full changelog</a></p>
 <h3 id="general"><a class="header" href="#general">General</a></h3>
 <p>First testing release.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/sdk.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes-1"><a class="header" href="#unreleased-changes-1">Unreleased changes</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/sdk.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes-1"><a class="header" href="#unreleased-changes-1">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean.js/compare/v1.3.0...main">Full changelog</a></p>
 <h1 id="v130-2022-10-18"><a class="header" href="#v130-2022-10-18">v1.3.0 (2022-10-18)</a></h1>
 <p><a href="https://github.com/mozilla/glean.js/compare/v1.2.0...v1.3.0">Full changelog</a></p>
@@ -13821,7 +13830,7 @@ logic, which allows for reliable sorting of events throughout restarts.</p>
 <li><a href="https://github.com/mozilla/glean.js/pull/8">#8</a>: Implement a web extension version of the underlying storage module.</li>
 <li><a href="https://github.com/mozilla/glean.js/pull/6">#6</a>: Implement an abstract underlying storage module.</li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/js.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="this-week-in-glean-twig-1"><a class="header" href="#this-week-in-glean-twig-1">This Week in Glean (TWiG)</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/js.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="this-week-in-glean-twig-1"><a class="header" href="#this-week-in-glean-twig-1">This Week in Glean (TWiG)</a></h1>
 <p>“This Week in Glean” is a series of blog posts that the Glean Team at Mozilla is using to try to communicate better about our work.
 They could be release notes, documentation, hopes, dreams, or whatever: so long as it is inspired by Glean.</p>
 <h2 id="blog-posts"><a class="header" href="#blog-posts">Blog posts</a></h2>
@@ -13888,7 +13897,7 @@ They could be release notes, documentation, hopes, dreams, or whatever: so long 
 <li>2022-02-25: <a href="https://blog.mozilla.org/data/2022/02/25/this-week-in-glean-your-personal-glean-data-pipeline/">Your personal Glean data pipeline</a></li>
 <li>2022-10-27: <a href="https://blog.mozilla.org/data/2022/10/27/this-week-in-glean-page-load-data-three-ways-or-how-expensive-are-events/">Page Load Data, Three Ways (Or, How Expensive Are Events?)</a></li>
 </ul>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/twig.md">Edit this file on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="contribution-guidelines-1"><a class="header" href="#contribution-guidelines-1">Contribution Guidelines</a></h1>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/twig.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="contribution-guidelines-1"><a class="header" href="#contribution-guidelines-1">Contribution Guidelines</a></h1>
 <p>There are two important questions to answer before adding new content to this book:</p>
 <ul>
 <li>Where to include this content?</li>
@@ -14125,7 +14134,7 @@ a more emphatic format. Use these sparingly.</p>
 </code></pre>
 <p>It is possible to use any level header with these special block quotes
 and also no header at all.</p>
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/contribution-guidelines.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/contribution-guidelines.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

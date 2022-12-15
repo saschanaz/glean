@@ -171,12 +171,13 @@ This means you might have to go searching through the dependency tree to get a f
 <p>These metrics are sent in every ping.</p>
 <p>All Glean pings contain built-in metrics in the <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-ping_info-section"><code>ping_info</code></a> and <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-client_info-section"><code>client_info</code></a> sections.</p>
 <p>In addition to those built-in metrics, the following metrics are added to the ping:</p>
-<table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
 <tr><td>glean.error.invalid_label</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>Counts the number of times a metric was set with an invalid label. The labels are the <code>category.name</code> identifier of the metric.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1499761#c5">Bug 1499761</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.invalid_overflow</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>Counts the number of times a metric was set a value that overflowed. The labels are the <code>category.name</code> identifier of the metric.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1591912#c3">Bug 1591912</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.invalid_state</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>Counts the number of times a timing metric was used incorrectly. The labels are the <code>category.name</code> identifier of the metric.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1499761#c5">Bug 1499761</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.invalid_value</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>Counts the number of times a metric was set to an invalid value. The labels are the <code>category.name</code> identifier of the metric.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1499761#c5">Bug 1499761</a></td><td></td><td>never</td><td>1</td></tr>
 </tbody></table>
+</div>
 <h2 id="baseline"><a class="header" href="#baseline">baseline</a></h2>
 <p>This is a built-in ping that is assembled out of the box by the Glean SDK.</p>
 <p>See the Glean SDK documentation for the <a href="https://mozilla.github.io/glean/book/user/pings/baseline.html"><code>baseline</code> ping</a>.</p>
@@ -215,10 +216,11 @@ was called <code>background</code>.</p>
 </ul>
 <p>All Glean pings contain built-in metrics in the <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-ping_info-section"><code>ping_info</code></a> and <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-client_info-section"><code>client_info</code></a> sections.</p>
 <p>In addition to those built-in metrics, the following metrics are added to the ping:</p>
-<table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
 <tr><td>glean.baseline.duration</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/timespan.html">timespan</a></td><td>The duration of the last foreground session.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1512938#c3">Bug 1512938</a></td><td></td><td>never</td><td>1, 2</td></tr>
 <tr><td>glean.validation.pings_submitted</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>A count of the pings submitted, by ping type.  This metric appears in both the metrics and baseline pings.  - On the metrics ping, the counts include the number of pings sent since   the last metrics ping (including the last metrics ping) - On the baseline ping, the counts include the number of pings send since   the last baseline ping (including the last baseline ping)</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1586764#c3">Bug 1586764</a></td><td></td><td>never</td><td>1</td></tr>
 </tbody></table>
+</div>
 <h2 id="deletion-request"><a class="header" href="#deletion-request">deletion-request</a></h2>
 <p>This is a built-in ping that is assembled out of the box by the Glean SDK.</p>
 <p>See the Glean SDK documentation for the <a href="https://mozilla.github.io/glean/book/user/pings/deletion-request.html"><code>deletion-request</code> ping</a>.</p>
@@ -288,7 +290,7 @@ upgraded.</p>
 </ul>
 <p>All Glean pings contain built-in metrics in the <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-ping_info-section"><code>ping_info</code></a> and <a href="https://mozilla.github.io/glean/book/user/pings/index.html#the-client_info-section"><code>client_info</code></a> sections.</p>
 <p>In addition to those built-in metrics, the following metrics are added to the ping:</p>
-<table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Data reviews</th><th>Extras</th><th>Expiration</th><th><a href="https://wiki.mozilla.org/Firefox/Data_Collection">Data Sensitivity</a></th></tr></thead><tbody>
 <tr><td>glean.database.size</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/memory_distribution.html">memory_distribution</a></td><td>The size of the database file at startup.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1656589#c7">Bug 1656589</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.io</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/counter.html">counter</a></td><td>The number of times we encountered an IO error when writing a pending ping to disk.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1686233#c2">Bug 1686233</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.error.preinit_tasks_overflow</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/counter.html">counter</a></td><td>The number of tasks that overflowed the pre-initialization buffer. Only sent if the buffer ever overflows.  In Version 0 this reported the total number of tasks enqueued.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1609482#c3">Bug 1609482</a></td><td></td><td>never</td><td>1</td></tr>
@@ -300,9 +302,10 @@ upgraded.</p>
 <tr><td>glean.validation.foreground_count</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/counter.html">counter</a></td><td>On mobile, the number of times the application went to foreground.</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1683707#c2">Bug 1683707</a></td><td></td><td>never</td><td>1</td></tr>
 <tr><td>glean.validation.pings_submitted</td><td><a href="https://mozilla.github.io/glean/book/user/metrics/labeled_counters.html">labeled_counter</a></td><td>A count of the pings submitted, by ping type.  This metric appears in both the metrics and baseline pings.  - On the metrics ping, the counts include the number of pings sent since   the last metrics ping (including the last metrics ping) - On the baseline ping, the counts include the number of pings send since   the last baseline ping (including the last baseline ping)</td><td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1586764#c3">Bug 1586764</a></td><td></td><td>never</td><td>1</td></tr>
 </tbody></table>
+</div>
 <p>Data categories are <a href="https://wiki.mozilla.org/Firefox/Data_Collection">defined here</a>.</p>
 <!-- AUTOGENERATED BY glean_parser v6.3.0. DO NOT EDIT. -->
-<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/collected-metrics/metrics.md">Edit this file on GitHub.</a></footer>
+<footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/collected-metrics/metrics.md">Edit this page on GitHub.</a></footer>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
