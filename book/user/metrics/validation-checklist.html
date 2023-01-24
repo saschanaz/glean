@@ -165,13 +165,13 @@ It is important to highlight that an automated rigorous test suite for <a href="
 <p>a. Does this organically-sent data satisfy the same quality expectations the manually-sent data did in Step 1?</p>
 <p>b. Is the metric showing up correctly in the <a href="https://dictionary.telemetry.mozilla.org/">Glean Dictionary</a>?</p>
 <p>c. Is there any new <a href="../../user/metrics/error-reporting.html">error</a> being reported for the new data points? If so, does this point to an edge case that should be documented and/or fixed in the code?</p>
-<p>d. In case of oddities in the data, how much of the product population is affected? Does this require changing the instrumentation or documenting?</p>
+<p>d. As the first three or four days pass, distributions will converge towards their final shapes. Consider extreme values; are there a very high number of zero/minimum values when there shouldn't be, or values near what you would realistically expect to be the maximum (e.g. a timespan for a single day that is reporting close to 86,400 seconds)? In case of oddities in the data, how much of the product population is affected? Does this require changing the instrumentation or documenting?</p>
 </li>
 </ol>
 <div class="special-quote special-quote-info fa fa-info-circle"></div>
 <h3 id="how-to-annotate-metrics-without-changing-the-source-code"><a class="header" href="#how-to-annotate-metrics-without-changing-the-source-code">How to annotate metrics without changing the source code?</a></h3>
 <blockquote>
-<p>Data practitioners that have no familiarity with YAML or product-specific development workflows can still document any discovered edge-cases and anomalies by identifying the metric in the <a href="https://dictionary.telemetry.mozilla.org/">Glean Dictionary</a> and initiate adding commentary from the metric page.</p>
+<p>Data practitioners that lack familiarity with YAML or product-specific development workflows can still document any discovered edge-cases and anomalies by identifying the metric in the <a href="https://dictionary.telemetry.mozilla.org/">Glean Dictionary</a> and initiate adding commentary from the metric page.</p>
 </blockquote>
 <ol start="3">
 <li>After enough data is collected from the product population, are the expectations from the previous points still met?</li>
