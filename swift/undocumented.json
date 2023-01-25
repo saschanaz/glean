@@ -3719,21 +3719,7 @@
     },
     {
       "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/EventMetric.swift",
-      "line": 11,
-      "symbol": "EventExtraKey.keyName()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/EventMetric.swift",
-      "line": 32,
-      "symbol": "NoExtraKeys.keyName()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/distiller/project/glean-core/ios/Glean/Metrics/EventMetric.swift",
-      "line": 75,
+      "line": 43,
       "symbol": "EventMetricType.record(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
