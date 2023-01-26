@@ -43,6 +43,7 @@
 <span id="38">38</span>
 <span id="39">39</span>
 <span id="40">40</span>
+<span id="41">41</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
@@ -78,6 +79,7 @@
             <span class="ident">app_display_version</span>: <span class="ident">metrics</span>.<span class="ident">app_display_version</span>,
             <span class="ident">channel</span>: <span class="ident">metrics</span>.<span class="ident">channel</span>,
             <span class="ident">os_version</span>: <span class="ident">system::get_os_version</span>(),
+            <span class="ident">windows_build_number</span>: <span class="ident">system::get_windows_build_number</span>(),
             <span class="ident">architecture</span>: <span class="ident">system::ARCH</span>.<span class="ident">to_string</span>(),
             ..<span class="ident">Default::default</span>()
         }

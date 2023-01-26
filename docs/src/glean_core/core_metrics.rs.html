@@ -193,11 +193,29 @@
 <span id="188">188</span>
 <span id="189">189</span>
 <span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public</span>
 <span class="comment">// License, v. 2.0. If a copy of the MPL was not distributed with this</span>
 <span class="comment">// file, You can obtain one at https://mozilla.org/MPL/2.0/.</span>
 
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics</span>::{<span class="ident">Datetime</span>, <span class="ident">DatetimeMetric</span>, <span class="ident">StringMetric</span>, <span class="ident">TimeUnit</span>, <span class="ident">TimespanMetric</span>};
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::metrics</span>::{
+    <span class="ident">Datetime</span>, <span class="ident">DatetimeMetric</span>, <span class="ident">QuantityMetric</span>, <span class="ident">StringMetric</span>, <span class="ident">TimeUnit</span>, <span class="ident">TimespanMetric</span>,
+};
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">CommonMetricData</span>, <span class="ident">Lifetime</span>};
 
 <span class="kw">use</span> <span class="ident">once_cell::sync::Lazy</span>;
@@ -221,6 +239,8 @@
     <span class="kw">pub</span> <span class="ident">channel</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The Android specific SDK version of the software running on this hardware device (e.g. &quot;23&quot;).</span>
     <span class="kw">pub</span> <span class="ident">android_sdk_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// The Windows specific OS build version (e.g. 19043)</span>
+    <span class="kw">pub</span> <span class="ident">windows_build_number</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i64</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The manufacturer of the device the application is running on.</span>
     <span class="doccomment">/// Not set if the device manufacturer can&#39;t be determined (e.g. on Desktop).</span>
     <span class="kw">pub</span> <span class="ident">device_manufacturer</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
@@ -245,6 +265,7 @@
             <span class="ident">os_version</span>: <span class="string">&quot;Unknown&quot;</span>.<span class="ident">to_string</span>(),
             <span class="ident">channel</span>: <span class="prelude-val">Some</span>(<span class="string">&quot;Unknown&quot;</span>.<span class="ident">to_string</span>()),
             <span class="ident">android_sdk_version</span>: <span class="prelude-val">None</span>,
+            <span class="ident">windows_build_number</span>: <span class="prelude-val">None</span>,
             <span class="ident">device_manufacturer</span>: <span class="prelude-val">None</span>,
             <span class="ident">device_model</span>: <span class="prelude-val">None</span>,
             <span class="ident">locale</span>: <span class="prelude-val">None</span>,
@@ -328,6 +349,17 @@
     <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">android_sdk_version</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">StringMetric</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy::new</span>(<span class="op">|</span><span class="op">|</span> {
         <span class="ident">StringMetric::new</span>(<span class="ident">CommonMetricData</span> {
             <span class="ident">name</span>: <span class="string">&quot;android_sdk_version&quot;</span>.<span class="ident">into</span>(),
+            <span class="ident">category</span>: <span class="string">&quot;&quot;</span>.<span class="ident">into</span>(),
+            <span class="ident">send_in_pings</span>: <span class="macro">vec!</span>[<span class="string">&quot;glean_client_info&quot;</span>.<span class="ident">into</span>()],
+            <span class="ident">lifetime</span>: <span class="ident">Lifetime::Application</span>,
+            <span class="ident">disabled</span>: <span class="bool-val">false</span>,
+            ..<span class="ident">Default::default</span>()
+        })
+    });
+
+    <span class="kw">pub</span> <span class="kw">static</span> <span class="ident">windows_build_number</span>: <span class="ident">Lazy</span><span class="op">&lt;</span><span class="ident">QuantityMetric</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Lazy::new</span>(<span class="op">|</span><span class="op">|</span> {
+        <span class="ident">QuantityMetric::new</span>(<span class="ident">CommonMetricData</span> {
+            <span class="ident">name</span>: <span class="string">&quot;windows_build_number&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">category</span>: <span class="string">&quot;&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">send_in_pings</span>: <span class="macro">vec!</span>[<span class="string">&quot;glean_client_info&quot;</span>.<span class="ident">into</span>()],
             <span class="ident">lifetime</span>: <span class="ident">Lifetime::Application</span>,

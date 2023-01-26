@@ -182,6 +182,7 @@ that are assembled out of the box without any developer intervention.</p>
 <li><a href="#os"><code>os</code></a></li>
 <li><a href="#os_version"><code>os_version</code></a></li>
 <li><a href="#android_sdk_version-optional"><code>android_sdk_version</code> (optional)</a></li>
+<li><a href="#windows_build_number-optional"><code>windows_build_number</code> (optional)</a></li>
 <li><a href="#telemetry_sdk_build"><code>telemetry_sdk_build</code></a></li>
 <li><a href="#locale-optional"><code>locale</code> (optional)</a></li>
 </ul>
@@ -347,6 +348,10 @@ If the version detection fails, this metric gets set to <code>Unknown</code>.</p
 <p><em>Type: <a href="../../reference/metrics/string.html">String</a>,
 Lifetime: <a href="../../reference/yaml/metrics.html#application">Application</a></em></p>
 <p>The Android specific SDK version of the software running on this hardware device (e.g. &quot;23&quot;).</p>
+<h4 id="windows_build_number-optional"><a class="header" href="#windows_build_number-optional"><code>windows_build_number</code> <em>(optional</em>)</a></h4>
+<p><em>Type: <a href="../../reference/metrics/quantity.html">Quantity</a>,
+Lifetime: <a href="../../reference/yaml/metrics.html#application">Application</a></em></p>
+<p>The optional Windows build number, reported by Windows (e.g. <code>22000)</code> and not set for other platforms.</p>
 <h4 id="telemetry_sdk_build"><a class="header" href="#telemetry_sdk_build"><code>telemetry_sdk_build</code></a></h4>
 <p><em>Type: <a href="../../reference/metrics/string.html">String</a>,
 Lifetime: <a href="../../reference/yaml/metrics.html#application">Application</a></em></p>
