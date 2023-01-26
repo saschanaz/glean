@@ -165,14 +165,14 @@ To measure the distribution of multiple timespans, see <a href="timing_distribut
 <pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Install
 
 Install.firstRun.set() // Records &quot;now&quot;
-Install.firstRun.set(Calendar(2019, 3, 25)) // Records a custom datetime
+Install.firstRun.set(Date(2019, 3, 25)) // Records a custom datetime
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
 <pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Install;
 
 Install.INSTANCE.firstRun().set(); // Records &quot;now&quot;
-Install.INSTANCE.firstRun().set(Calendar(2019, 3, 25)); // Records a custom datetime
+Install.INSTANCE.firstRun().set(new Date(2019, 3, 25)); // Records a custom datetime
 </code></pre>
 </div>
 <div data-lang="Swift" class="tab">
