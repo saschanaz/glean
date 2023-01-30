@@ -1,1 +1,1 @@
-initSidebarItems({"struct":[["StorageManager","Snapshot metrics from the underlying database."]]});
+window.SIDEBAR_ITEMS = {"struct":[["StorageManager","Snapshot metrics from the underlying database."]]};
