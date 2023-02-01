@@ -1575,7 +1575,7 @@
                 .build();
             android_logger::init_once(
                 android_logger::Config::default()
-                    .with_min_level(log::Level::Debug)
+                    .with_max_level(log::LevelFilter::Debug)
                     .with_filter(filter)
                     .with_tag(<span class="string">&quot;libglean_ffi&quot;</span>),
             );
