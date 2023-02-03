@@ -217,6 +217,12 @@
 <a href="#217" id="217">217</a>
 <a href="#218" id="218">218</a>
 <a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -224,6 +230,7 @@
 </span><span class="kw">use </span>once_cell::sync::Lazy;
 <span class="kw">use </span>std::sync::atomic::{AtomicBool, Ordering};
 <span class="kw">use </span>std::sync::RwLock;
+<span class="kw">use </span>std::thread;
 
 <span class="kw">use super</span>::{DispatchError, DispatchGuard, Dispatcher};
 
@@ -264,6 +271,11 @@
 ///
 /// [`flush_init`]: fn.flush_init.html
 </span><span class="kw">pub fn </span>launch(task: <span class="kw">impl </span>FnOnce() + Send + <span class="lifetime">&#39;static</span>) {
+    <span class="kw">let </span>current_thread = thread::current();
+    <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="string">&quot;glean.shutdown&quot;</span>) = current_thread.name() {
+        <span class="macro">log::error!</span>(<span class="string">&quot;Tried to launch a task from the shutdown thread. That is forbidden.&quot;</span>);
+    }
+
     <span class="kw">let </span>guard = guard();
     <span class="kw">match </span>guard.launch(task) {
         <span class="prelude-val">Ok</span>(<span class="kw">_</span>) =&gt; {}

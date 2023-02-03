@@ -123,6 +123,102 @@
 <a href="#123" id="123">123</a>
 <a href="#124" id="124">124</a>
 <a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -132,17 +228,15 @@
 //! This doesn&#39;t perform the actual upload but rather handles
 //! retries, upload limitations and error tracking.
 
-</span><span class="kw">use </span>std::sync::{
-    atomic::{AtomicBool, Ordering},
-    Arc,
-};
-<span class="kw">use </span>std::thread;
+</span><span class="kw">use </span>std::sync::{atomic::Ordering, Arc, Mutex};
+<span class="kw">use </span>std::thread::{<span class="self">self</span>, JoinHandle};
 <span class="kw">use </span>std::time::Duration;
 
 <span class="kw">use </span>glean_core::upload::PingUploadTask;
 <span class="kw">pub use </span>glean_core::upload::{PingRequest, UploadResult, UploadTaskAction};
 
 <span class="kw">pub use </span>http_uploader::<span class="kw-2">*</span>;
+<span class="kw">use </span>thread_state::{AtomicState, State};
 
 <span class="kw">mod </span>http_uploader;
 
@@ -170,7 +264,8 @@
 </span><span class="kw">struct </span>Inner {
     server_endpoint: String,
     uploader: Box&lt;<span class="kw">dyn </span>PingUploader + <span class="lifetime">&#39;static</span>&gt;,
-    thread_running: AtomicBool,
+    thread_running: AtomicState,
+    handle: Mutex&lt;<span class="prelude-ty">Option</span>&lt;JoinHandle&lt;()&gt;&gt;&gt;,
 }
 
 <span class="kw">impl </span>UploadManager {
@@ -188,7 +283,8 @@
             inner: Arc::new(Inner {
                 server_endpoint,
                 uploader: new_uploader,
-                thread_running: AtomicBool::new(<span class="bool-val">false</span>),
+                thread_running: AtomicState::new(State::Stopped),
+                handle: Mutex::new(<span class="prelude-val">None</span>),
             }),
         }
     }
@@ -201,7 +297,12 @@
         </span><span class="kw">if </span><span class="self">self
             </span>.inner
             .thread_running
-            .compare_exchange(<span class="bool-val">false</span>, <span class="bool-val">true</span>, Ordering::SeqCst, Ordering::SeqCst)
+            .compare_exchange(
+                State::Stopped,
+                State::Running,
+                Ordering::SeqCst,
+                Ordering::SeqCst,
+            )
             .is_err()
         {
             <span class="kw">return</span>;
@@ -209,7 +310,9 @@
 
         <span class="kw">let </span>inner = Arc::clone(<span class="kw-2">&amp;</span><span class="self">self</span>.inner);
 
-        thread::Builder::new()
+        <span class="comment">// Need to lock before we start so that noone thinks we&#39;re not running.
+        </span><span class="kw">let </span><span class="kw-2">mut </span>handle = <span class="self">self</span>.inner.handle.lock().unwrap();
+        <span class="kw">let </span>thread = thread::Builder::new()
             .name(<span class="string">&quot;glean.upload&quot;</span>.into())
             .spawn(<span class="kw">move </span>|| {
                 <span class="macro">log::trace!</span>(<span class="string">&quot;Started glean.upload thread&quot;</span>);
@@ -226,8 +329,14 @@
                             <span class="kw">let </span>result = inner.uploader.upload(upload_url, request.body, headers);
                             <span class="comment">// Process the upload response.
                             </span><span class="kw">match </span>glean_core::glean_process_ping_upload_response(doc_id, result) {
-                                UploadTaskAction::Next =&gt; <span class="kw">continue</span>,
+                                UploadTaskAction::Next =&gt; (),
                                 UploadTaskAction::End =&gt; <span class="kw">break</span>,
+                            }
+
+                            <span class="kw">let </span>status = inner.thread_running.load(Ordering::SeqCst);
+                            <span class="comment">// asked to shut down. let&#39;s do it.
+                            </span><span class="kw">if </span>status == State::ShuttingDown {
+                                <span class="kw">break</span>;
                             }
                         }
                         PingUploadTask::Wait { time } =&gt; {
@@ -242,10 +351,93 @@
                     }
                 }
 
-                <span class="comment">// Clear the running flag to signal that this thread is done.
-                </span>inner.thread_running.store(<span class="bool-val">false</span>, Ordering::SeqCst);
+                <span class="comment">// Clear the running flag to signal that this thread is done,
+                // but only if there&#39;s no shutdown thread.
+                </span><span class="kw">let _ </span>= inner.thread_running.compare_exchange(
+                    State::Running,
+                    State::Stopped,
+                    Ordering::SeqCst,
+                    Ordering::SeqCst,
+                );
             })
             .expect(<span class="string">&quot;Failed to spawn Glean&#39;s uploader thread&quot;</span>);
+        <span class="kw-2">*</span>handle = <span class="prelude-val">Some</span>(thread);
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>shutdown(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+        <span class="comment">// mark as shutting down.
+        </span><span class="self">self</span>.inner
+            .thread_running
+            .store(State::ShuttingDown, Ordering::SeqCst);
+
+        <span class="comment">// take the thread handle out.
+        </span><span class="kw">let </span><span class="kw-2">mut </span>handle = <span class="self">self</span>.inner.handle.lock().unwrap();
+        <span class="kw">let </span>thread = handle.take();
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(thread) = thread {
+            thread
+                .join()
+                .expect(<span class="string">&quot;couldn&#39;t join on the uploader thread.&quot;</span>);
+        }
+    }
+}
+
+<span class="kw">mod </span>thread_state {
+    <span class="kw">use </span>std::sync::atomic::{AtomicU8, Ordering};
+
+    <span class="attr">#[derive(Debug, PartialEq)]
+    #[repr(u8)]
+    </span><span class="kw">pub enum </span>State {
+        Stopped = <span class="number">0</span>,
+        Running = <span class="number">1</span>,
+        ShuttingDown = <span class="number">2</span>,
+    }
+
+    <span class="attr">#[derive(Debug)]
+    </span><span class="kw">pub struct </span>AtomicState(AtomicU8);
+
+    <span class="kw">impl </span>AtomicState {
+        <span class="kw">const fn </span>to_u8(val: State) -&gt; u8 {
+            val <span class="kw">as </span>u8
+        }
+
+        <span class="kw">fn </span>from_u8(val: u8) -&gt; State {
+            <span class="attr">#![allow(non_upper_case_globals)]
+            </span><span class="kw">const </span>U8_Stopped: u8 = State::Stopped <span class="kw">as </span>u8;
+            <span class="kw">const </span>U8_Running: u8 = State::Running <span class="kw">as </span>u8;
+            <span class="kw">const </span>U8_ShuttingDown: u8 = State::ShuttingDown <span class="kw">as </span>u8;
+            <span class="kw">match </span>val {
+                U8_Stopped =&gt; State::Stopped,
+                U8_Running =&gt; State::Running,
+                U8_ShuttingDown =&gt; State::ShuttingDown,
+                <span class="kw">_ </span>=&gt; <span class="macro">panic!</span>(<span class="string">&quot;Invalid enum discriminant&quot;</span>),
+            }
+        }
+
+        <span class="kw">pub const fn </span>new(v: State) -&gt; AtomicState {
+            AtomicState(AtomicU8::new(<span class="self">Self</span>::to_u8(v)))
+        }
+
+        <span class="kw">pub fn </span>load(<span class="kw-2">&amp;</span><span class="self">self</span>, order: Ordering) -&gt; State {
+            <span class="self">Self</span>::from_u8(<span class="self">self</span>.<span class="number">0</span>.load(order))
+        }
+
+        <span class="kw">pub fn </span>store(<span class="kw-2">&amp;</span><span class="self">self</span>, val: State, order: Ordering) {
+            <span class="self">self</span>.<span class="number">0</span>.store(<span class="self">Self</span>::to_u8(val), order)
+        }
+
+        <span class="kw">pub fn </span>compare_exchange(
+            <span class="kw-2">&amp;</span><span class="self">self</span>,
+            current: State,
+            new: State,
+            success: Ordering,
+            failure: Ordering,
+        ) -&gt; <span class="prelude-ty">Result</span>&lt;State, State&gt; {
+            <span class="self">self</span>.<span class="number">0
+                </span>.compare_exchange(<span class="self">Self</span>::to_u8(current), <span class="self">Self</span>::to_u8(new), success, failure)
+                .map(<span class="self">Self</span>::from_u8)
+                .map_err(<span class="self">Self</span>::from_u8)
+        }
     }
 }
 </code></pre></div>

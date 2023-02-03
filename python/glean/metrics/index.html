@@ -157,14 +157,14 @@ __all__ = [
     def __init__(self, meta):
         meta = meta
         
-        self._pointer = rust_call(_UniFFILib.glean_1b9d_BooleanMetric_new,
+        self._pointer = rust_call(_UniFFILib.glean_263_BooleanMetric_new,
         FfiConverterTypeCommonMetricData.lower(meta))
 
     def __del__(self):
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.ffi_glean_1b9d_BooleanMetric_object_free, pointer)
+            rust_call(_UniFFILib.ffi_glean_263_BooleanMetric_object_free, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -180,7 +180,7 @@ __all__ = [
     def set(self, value):
         value = bool(value)
         
-        rust_call(_UniFFILib.glean_1b9d_BooleanMetric_set,self._pointer,
+        rust_call(_UniFFILib.glean_263_BooleanMetric_set,self._pointer,
         FfiConverterBool.lower(value))
     
     def test_get_value(self, ping_name = DEFAULT):
@@ -190,14 +190,14 @@ __all__ = [
             ping_name = (None if ping_name is None else ping_name)
         
         return FfiConverterOptionalBool.lift(
-            rust_call(_UniFFILib.glean_1b9d_BooleanMetric_test_get_value,self._pointer,
+            rust_call(_UniFFILib.glean_263_BooleanMetric_test_get_value,self._pointer,
         FfiConverterOptionalString.lower(ping_name))
         )
     def test_get_num_recorded_errors(self, error):
         error = error
         
         return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.glean_1b9d_BooleanMetric_test_get_num_recorded_errors,self._pointer,
+            rust_call(_UniFFILib.glean_263_BooleanMetric_test_get_num_recorded_errors,self._pointer,
         FfiConverterTypeErrorType.lower(error))
         )</code></pre>
 </details>
@@ -215,7 +215,7 @@ __all__ = [
 <pre><code class="python">def set(self, value):
     value = bool(value)
     
-    rust_call(_UniFFILib.glean_1b9d_BooleanMetric_set,self._pointer,
+    rust_call(_UniFFILib.glean_263_BooleanMetric_set,self._pointer,
     FfiConverterBool.lower(value))</code></pre>
 </details>
 </dd>
@@ -232,7 +232,7 @@ __all__ = [
     error = error
     
     return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.glean_1b9d_BooleanMetric_test_get_num_recorded_errors,self._pointer,
+        rust_call(_UniFFILib.glean_263_BooleanMetric_test_get_num_recorded_errors,self._pointer,
     FfiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
@@ -253,7 +253,7 @@ __all__ = [
         ping_name = (None if ping_name is None else ping_name)
     
     return FfiConverterOptionalBool.lift(
-        rust_call(_UniFFILib.glean_1b9d_BooleanMetric_test_get_value,self._pointer,
+        rust_call(_UniFFILib.glean_263_BooleanMetric_test_get_value,self._pointer,
     FfiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
@@ -316,14 +316,14 @@ __all__ = [
     def __init__(self, meta):
         meta = meta
         
-        self._pointer = rust_call(_UniFFILib.glean_1b9d_CounterMetric_new,
+        self._pointer = rust_call(_UniFFILib.glean_263_CounterMetric_new,
         FfiConverterTypeCommonMetricData.lower(meta))
 
     def __del__(self):
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.ffi_glean_1b9d_CounterMetric_object_free, pointer)
+            rust_call(_UniFFILib.ffi_glean_263_CounterMetric_object_free, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -342,7 +342,7 @@ __all__ = [
         else:
             amount = int(amount)
         
-        rust_call(_UniFFILib.glean_1b9d_CounterMetric_add,self._pointer,
+        rust_call(_UniFFILib.glean_263_CounterMetric_add,self._pointer,
         FfiConverterInt32.lower(amount))
     
     def test_get_value(self, ping_name = DEFAULT):
@@ -352,14 +352,14 @@ __all__ = [
             ping_name = (None if ping_name is None else ping_name)
         
         return FfiConverterOptionalInt32.lift(
-            rust_call(_UniFFILib.glean_1b9d_CounterMetric_test_get_value,self._pointer,
+            rust_call(_UniFFILib.glean_263_CounterMetric_test_get_value,self._pointer,
         FfiConverterOptionalString.lower(ping_name))
         )
     def test_get_num_recorded_errors(self, error):
         error = error
         
         return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.glean_1b9d_CounterMetric_test_get_num_recorded_errors,self._pointer,
+            rust_call(_UniFFILib.glean_263_CounterMetric_test_get_num_recorded_errors,self._pointer,
         FfiConverterTypeErrorType.lower(error))
         )</code></pre>
 </details>
@@ -380,7 +380,7 @@ __all__ = [
     else:
         amount = int(amount)
     
-    rust_call(_UniFFILib.glean_1b9d_CounterMetric_add,self._pointer,
+    rust_call(_UniFFILib.glean_263_CounterMetric_add,self._pointer,
     FfiConverterInt32.lower(amount))</code></pre>
 </details>
 </dd>
@@ -397,7 +397,7 @@ __all__ = [
     error = error
     
     return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.glean_1b9d_CounterMetric_test_get_num_recorded_errors,self._pointer,
+        rust_call(_UniFFILib.glean_263_CounterMetric_test_get_num_recorded_errors,self._pointer,
     FfiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
@@ -418,7 +418,7 @@ __all__ = [
         ping_name = (None if ping_name is None else ping_name)
     
     return FfiConverterOptionalInt32.lift(
-        rust_call(_UniFFILib.glean_1b9d_CounterMetric_test_get_value,self._pointer,
+        rust_call(_UniFFILib.glean_263_CounterMetric_test_get_value,self._pointer,
     FfiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
@@ -1069,7 +1069,7 @@ metric storage and rearrange them correctly in the ping.</p></div>
         
         memory_unit = memory_unit
         
-        self._pointer = rust_call(_UniFFILib.glean_1b9d_MemoryDistributionMetric_new,
+        self._pointer = rust_call(_UniFFILib.glean_263_MemoryDistributionMetric_new,
         FfiConverterTypeCommonMetricData.lower(meta),
         FfiConverterTypeMemoryUnit.lower(memory_unit))
 
@@ -1077,7 +1077,7 @@ metric storage and rearrange them correctly in the ping.</p></div>
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.ffi_glean_1b9d_MemoryDistributionMetric_object_free, pointer)
+            rust_call(_UniFFILib.ffi_glean_263_MemoryDistributionMetric_object_free, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -1093,13 +1093,13 @@ metric storage and rearrange them correctly in the ping.</p></div>
     def accumulate(self, sample):
         sample = int(sample)
         
-        rust_call(_UniFFILib.glean_1b9d_MemoryDistributionMetric_accumulate,self._pointer,
+        rust_call(_UniFFILib.glean_263_MemoryDistributionMetric_accumulate,self._pointer,
         FfiConverterInt64.lower(sample))
     
     def accumulate_samples(self, samples):
         samples = list(int(x) for x in samples)
         
-        rust_call(_UniFFILib.glean_1b9d_MemoryDistributionMetric_accumulate_samples,self._pointer,
+        rust_call(_UniFFILib.glean_263_MemoryDistributionMetric_accumulate_samples,self._pointer,
         FfiConverterSequenceInt64.lower(samples))
     
     def test_get_value(self, ping_name = DEFAULT):
@@ -1109,14 +1109,14 @@ metric storage and rearrange them correctly in the ping.</p></div>
             ping_name = (None if ping_name is None else ping_name)
         
         return FfiConverterOptionalTypeDistributionData.lift(
-            rust_call(_UniFFILib.glean_1b9d_MemoryDistributionMetric_test_get_value,self._pointer,
+            rust_call(_UniFFILib.glean_263_MemoryDistributionMetric_test_get_value,self._pointer,
         FfiConverterOptionalString.lower(ping_name))
         )
     def test_get_num_recorded_errors(self, error):
         error = error
         
         return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.glean_1b9d_MemoryDistributionMetric_test_get_num_recorded_errors,self._pointer,
+            rust_call(_UniFFILib.glean_263_MemoryDistributionMetric_test_get_num_recorded_errors,self._pointer,
         FfiConverterTypeErrorType.lower(error))
         )</code></pre>
 </details>
@@ -1134,7 +1134,7 @@ metric storage and rearrange them correctly in the ping.</p></div>
 <pre><code class="python">def accumulate(self, sample):
     sample = int(sample)
     
-    rust_call(_UniFFILib.glean_1b9d_MemoryDistributionMetric_accumulate,self._pointer,
+    rust_call(_UniFFILib.glean_263_MemoryDistributionMetric_accumulate,self._pointer,
     FfiConverterInt64.lower(sample))</code></pre>
 </details>
 </dd>
@@ -1150,7 +1150,7 @@ metric storage and rearrange them correctly in the ping.</p></div>
 <pre><code class="python">def accumulate_samples(self, samples):
     samples = list(int(x) for x in samples)
     
-    rust_call(_UniFFILib.glean_1b9d_MemoryDistributionMetric_accumulate_samples,self._pointer,
+    rust_call(_UniFFILib.glean_263_MemoryDistributionMetric_accumulate_samples,self._pointer,
     FfiConverterSequenceInt64.lower(samples))</code></pre>
 </details>
 </dd>
@@ -1167,7 +1167,7 @@ metric storage and rearrange them correctly in the ping.</p></div>
     error = error
     
     return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.glean_1b9d_MemoryDistributionMetric_test_get_num_recorded_errors,self._pointer,
+        rust_call(_UniFFILib.glean_263_MemoryDistributionMetric_test_get_num_recorded_errors,self._pointer,
     FfiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
@@ -1188,7 +1188,7 @@ metric storage and rearrange them correctly in the ping.</p></div>
         ping_name = (None if ping_name is None else ping_name)
     
     return FfiConverterOptionalTypeDistributionData.lift(
-        rust_call(_UniFFILib.glean_1b9d_MemoryDistributionMetric_test_get_value,self._pointer,
+        rust_call(_UniFFILib.glean_263_MemoryDistributionMetric_test_get_value,self._pointer,
     FfiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
@@ -1384,14 +1384,14 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     def __init__(self, meta):
         meta = meta
         
-        self._pointer = rust_call(_UniFFILib.glean_1b9d_QuantityMetric_new,
+        self._pointer = rust_call(_UniFFILib.glean_263_QuantityMetric_new,
         FfiConverterTypeCommonMetricData.lower(meta))
 
     def __del__(self):
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.ffi_glean_1b9d_QuantityMetric_object_free, pointer)
+            rust_call(_UniFFILib.ffi_glean_263_QuantityMetric_object_free, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -1407,7 +1407,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     def set(self, value):
         value = int(value)
         
-        rust_call(_UniFFILib.glean_1b9d_QuantityMetric_set,self._pointer,
+        rust_call(_UniFFILib.glean_263_QuantityMetric_set,self._pointer,
         FfiConverterInt64.lower(value))
     
     def test_get_value(self, ping_name = DEFAULT):
@@ -1417,14 +1417,14 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
             ping_name = (None if ping_name is None else ping_name)
         
         return FfiConverterOptionalInt64.lift(
-            rust_call(_UniFFILib.glean_1b9d_QuantityMetric_test_get_value,self._pointer,
+            rust_call(_UniFFILib.glean_263_QuantityMetric_test_get_value,self._pointer,
         FfiConverterOptionalString.lower(ping_name))
         )
     def test_get_num_recorded_errors(self, error):
         error = error
         
         return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.glean_1b9d_QuantityMetric_test_get_num_recorded_errors,self._pointer,
+            rust_call(_UniFFILib.glean_263_QuantityMetric_test_get_num_recorded_errors,self._pointer,
         FfiConverterTypeErrorType.lower(error))
         )</code></pre>
 </details>
@@ -1442,7 +1442,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 <pre><code class="python">def set(self, value):
     value = int(value)
     
-    rust_call(_UniFFILib.glean_1b9d_QuantityMetric_set,self._pointer,
+    rust_call(_UniFFILib.glean_263_QuantityMetric_set,self._pointer,
     FfiConverterInt64.lower(value))</code></pre>
 </details>
 </dd>
@@ -1459,7 +1459,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     error = error
     
     return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.glean_1b9d_QuantityMetric_test_get_num_recorded_errors,self._pointer,
+        rust_call(_UniFFILib.glean_263_QuantityMetric_test_get_num_recorded_errors,self._pointer,
     FfiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
@@ -1480,7 +1480,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
         ping_name = (None if ping_name is None else ping_name)
     
     return FfiConverterOptionalInt64.lift(
-        rust_call(_UniFFILib.glean_1b9d_QuantityMetric_test_get_value,self._pointer,
+        rust_call(_UniFFILib.glean_263_QuantityMetric_test_get_value,self._pointer,
     FfiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
@@ -1561,14 +1561,14 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     def __init__(self, meta):
         meta = meta
         
-        self._pointer = rust_call(_UniFFILib.glean_1b9d_StringListMetric_new,
+        self._pointer = rust_call(_UniFFILib.glean_263_StringListMetric_new,
         FfiConverterTypeCommonMetricData.lower(meta))
 
     def __del__(self):
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.ffi_glean_1b9d_StringListMetric_object_free, pointer)
+            rust_call(_UniFFILib.ffi_glean_263_StringListMetric_object_free, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -1584,13 +1584,13 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     def add(self, value):
         value = value
         
-        rust_call(_UniFFILib.glean_1b9d_StringListMetric_add,self._pointer,
+        rust_call(_UniFFILib.glean_263_StringListMetric_add,self._pointer,
         FfiConverterString.lower(value))
     
     def set(self, value):
         value = list(x for x in value)
         
-        rust_call(_UniFFILib.glean_1b9d_StringListMetric_set,self._pointer,
+        rust_call(_UniFFILib.glean_263_StringListMetric_set,self._pointer,
         FfiConverterSequenceString.lower(value))
     
     def test_get_value(self, ping_name = DEFAULT):
@@ -1600,14 +1600,14 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
             ping_name = (None if ping_name is None else ping_name)
         
         return FfiConverterOptionalSequenceString.lift(
-            rust_call(_UniFFILib.glean_1b9d_StringListMetric_test_get_value,self._pointer,
+            rust_call(_UniFFILib.glean_263_StringListMetric_test_get_value,self._pointer,
         FfiConverterOptionalString.lower(ping_name))
         )
     def test_get_num_recorded_errors(self, error):
         error = error
         
         return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.glean_1b9d_StringListMetric_test_get_num_recorded_errors,self._pointer,
+            rust_call(_UniFFILib.glean_263_StringListMetric_test_get_num_recorded_errors,self._pointer,
         FfiConverterTypeErrorType.lower(error))
         )</code></pre>
 </details>
@@ -1625,7 +1625,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 <pre><code class="python">def add(self, value):
     value = value
     
-    rust_call(_UniFFILib.glean_1b9d_StringListMetric_add,self._pointer,
+    rust_call(_UniFFILib.glean_263_StringListMetric_add,self._pointer,
     FfiConverterString.lower(value))</code></pre>
 </details>
 </dd>
@@ -1641,7 +1641,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 <pre><code class="python">def set(self, value):
     value = list(x for x in value)
     
-    rust_call(_UniFFILib.glean_1b9d_StringListMetric_set,self._pointer,
+    rust_call(_UniFFILib.glean_263_StringListMetric_set,self._pointer,
     FfiConverterSequenceString.lower(value))</code></pre>
 </details>
 </dd>
@@ -1658,7 +1658,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     error = error
     
     return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.glean_1b9d_StringListMetric_test_get_num_recorded_errors,self._pointer,
+        rust_call(_UniFFILib.glean_263_StringListMetric_test_get_num_recorded_errors,self._pointer,
     FfiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
@@ -1679,7 +1679,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
         ping_name = (None if ping_name is None else ping_name)
     
     return FfiConverterOptionalSequenceString.lift(
-        rust_call(_UniFFILib.glean_1b9d_StringListMetric_test_get_value,self._pointer,
+        rust_call(_UniFFILib.glean_263_StringListMetric_test_get_value,self._pointer,
     FfiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
