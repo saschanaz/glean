@@ -4578,7 +4578,7 @@ For example, the number of HTTP connections that experienced an error relative t
 <li>
 <p><strong>Static labels</strong>: The labels are specified at build time in the <code>metrics.yaml</code> file, in the <code>labels</code> parameter.
 If a label that isn't part of this set is used at run time, it is converted to the special label <code>__other__</code>.
-The number of static labels is limited to 100 per metric.</p>
+The number of static labels is limited to 4096 per metric.</p>
 </li>
 <li>
 <p><strong>Dynamic labels</strong>: The labels aren't known at build time, so are set at run time.
@@ -4589,13 +4589,7 @@ Only the first 16 labels seen by Glean will be tracked. After that, any addition
 <p><strong>Note</strong>: Be careful with using arbitrary strings as labels and make sure they can't accidentally contain identifying data (like directory paths or user input).</p>
 </blockquote>
 <h3 id="label-format"><a class="header" href="#label-format">Label format</a></h3>
-<p>To ensure maximum support in database columns, labels must be made up of dot-separated identifiers with lowercase ASCII alphanumerics, containing underscores and dashes.</p>
-<p>Specifically, they must conform to this regular expression:</p>
-<pre><code>^[a-z_][a-z0-9_-]{0,29}(\\.[a-z_][a-z0-9_-]{0,29})*$
-</code></pre>
-<p>Check your label:
-<input type="text" label="Label" id="label">
-<span id="result">unchecked</span></p>
+<p>Labels must not exceed 71 characters in length, and may comprise any printable ASCII characters.</p>
 <h2 id="adding-or-changing-metric-types"><a class="header" href="#adding-or-changing-metric-types">Adding or changing metric types</a></h2>
 <p>Glean has a <a href="https://wiki.mozilla.org/Glean/Adding_or_changing_Glean_metric_types">well-defined process</a> for requesting changes to existing metric types or suggesting the implementation of new metric types:</p>
 <ol>
@@ -4874,8 +4868,9 @@ Glean.accessibility.features[&quot;high_contrast&quot;].set(false);
 </ul>
 <h4 id="limits-4"><a class="header" href="#limits-4">Limits</a></h4>
 <ul>
-<li>Labels must conform to the <a href="reference/metrics/index.html#label-format">label formatting regular expression</a>.</li>
-<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>Labels must conform to the <a href="reference/metrics/index.html#label-format">label format</a>.</li>
+<li>Each label must have a maximum of 71 characters.</li>
+<li>Each label must only contain printable ASCII characters.</li>
 <li>The list of labels is limited to:
 <ul>
 <li>16 different dynamic labels if no static labels are defined.
@@ -5047,8 +5042,9 @@ assert(
 <p>Labeled metrics may have an optional <code>labels</code> parameter, containing a list of known labels.
 The labels in this list must match the following requirements:</p>
 <ul>
-<li>Conform to the <a href="reference/metrics/index.html#label-format">label formatting regular expression</a>.</li>
-<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>Conform to the <a href="reference/metrics/index.html#label-format">label format</a>.</li>
+<li>Each label must have a maximum of 71 characters.</li>
+<li>Each label must only contain printable ASCII characters.</li>
 <li>This list itself is limited to 100 labels.</li>
 </ul>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
@@ -5398,8 +5394,9 @@ Glean.stability.crashCount[&quot;native_code_crash&quot;].add(3);
 <ul>
 <li>Only increments</li>
 <li>Saturates at the largest value that can be represented as a 32-bit signed integer.</li>
-<li>Labels must conform to the <a href="reference/metrics/index.html#label-format">label formatting regular expression</a>.</li>
-<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>Labels must conform to the <a href="reference/metrics/index.html#label-format">label format</a>.</li>
+<li>Each label must have a maximum of 71 characters.</li>
+<li>Each label must only contain printable ASCII characters.</li>
 <li>The list of labels is limited to:
 <ul>
 <li>16 different dynamic labels if no static labels are defined.
@@ -5574,8 +5571,9 @@ assert(
 <p>Labeled metrics may have an optional <code>labels</code> parameter, containing a list of known labels.
 The labels in this list must match the following requirements:</p>
 <ul>
-<li>Conform to the <a href="reference/metrics/index.html#label-format">label formatting regular expression</a>.</li>
-<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>Conform to the <a href="reference/metrics/index.html#label-format">label format</a>.</li>
+<li>Each label must have a maximum of 71 characters.</li>
+<li>Each label must only contain printable ASCII characters.</li>
 <li>This list itself is limited to 100 labels.</li>
 </ul>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
@@ -5933,8 +5931,9 @@ mozilla::glean::login::errors_by_stage.Get(&quot;server_auth&quot;_ns).Set(&quot
 <h4 id="limits-8"><a class="header" href="#limits-8">Limits</a></h4>
 <ul>
 <li>Fixed maximum string length: 100. Longer strings are truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
-<li>Labels must conform to the <a href="reference/metrics/index.html#label-format">label formatting regular expression</a>.</li>
-<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>Labels must conform to the <a href="reference/metrics/index.html#label-format">label format</a>.</li>
+<li>Each label must have a maximum of 71 characters.</li>
+<li>Each label must only contain printable ASCII characters.</li>
 <li>The list of labels is limited to:
 <ul>
 <li>16 different dynamic labels if no static labels are defined.
@@ -6100,8 +6099,9 @@ assert(
 <p>Labeled metrics may have an optional <code>labels</code> parameter, containing a list of known labels.
 The labels in this list must match the following requirements:</p>
 <ul>
-<li>Conform to the <a href="reference/metrics/index.html#label-format">label formatting regular expression</a>.</li>
-<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>Conform to the <a href="reference/metrics/index.html#label-format">label format</a>.</li>
+<li>Each label must have a maximum of 71 characters.</li>
+<li>Each label must only contain printable ASCII characters.</li>
 <li>This list itself is limited to 100 labels.</li>
 </ul>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
@@ -11024,6 +11024,11 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li>On shutdown wait up to 30s on the uploader to finish work (<a href="https://github.com/mozilla/glean/pull/2332">#2232</a>)</li>
 </ul>
 </li>
+<li>General
+<ul>
+<li>Loosen label restrictions to &quot;at most 71 characters of printable ASCII&quot; (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1672273">bug 1672273</a>)</li>
+</ul>
+</li>
 </ul>
 <h1 id="v5220-2023-01-30"><a class="header" href="#v5220-2023-01-30">v52.2.0 (2023-01-30)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v52.1.1...v52.2.0">Full changelog</a></p>
@@ -14240,7 +14245,6 @@ and also no header at all.</p>
 
         <!-- Custom JS scripts -->
         <script type="text/javascript" src="../shared/tabs.js"></script>
-        <script type="text/javascript" src="../shared/label-check.js"></script>
         <script type="text/javascript" src="../shared/mermaid.min.js"></script>
         <script type="text/javascript" src="../shared/mermaid-init.js"></script>
         <script type="text/javascript" src="chart.min.js"></script>

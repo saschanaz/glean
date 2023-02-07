@@ -224,8 +224,9 @@ Glean.accessibility.features[&quot;high_contrast&quot;].set(false);
 </ul>
 <h4 id="limits"><a class="header" href="#limits">Limits</a></h4>
 <ul>
-<li>Labels must conform to the <a href="index.html#label-format">label formatting regular expression</a>.</li>
-<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>Labels must conform to the <a href="index.html#label-format">label format</a>.</li>
+<li>Each label must have a maximum of 71 characters.</li>
+<li>Each label must only contain printable ASCII characters.</li>
 <li>The list of labels is limited to:
 <ul>
 <li>16 different dynamic labels if no static labels are defined.
@@ -397,8 +398,9 @@ assert(
 <p>Labeled metrics may have an optional <code>labels</code> parameter, containing a list of known labels.
 The labels in this list must match the following requirements:</p>
 <ul>
-<li>Conform to the <a href="index.html#label-format">label formatting regular expression</a>.</li>
-<li>Each label must have a maximum of 60 bytes, when encoded as UTF-8.</li>
+<li>Conform to the <a href="index.html#label-format">label format</a>.</li>
+<li>Each label must have a maximum of 71 characters.</li>
+<li>Each label must only contain printable ASCII characters.</li>
 <li>This list itself is limited to 100 labels.</li>
 </ul>
 <div class="special-quote special-quote-warning fa fa-exclamation-triangle"></div>
@@ -473,7 +475,6 @@ index of the labels is used to report Gecko data through the Glean SDK.</p>
 
         <!-- Custom JS scripts -->
         <script type="text/javascript" src="../../../shared/tabs.js"></script>
-        <script type="text/javascript" src="../../../shared/label-check.js"></script>
         <script type="text/javascript" src="../../../shared/mermaid.min.js"></script>
         <script type="text/javascript" src="../../../shared/mermaid-init.js"></script>
         <script type="text/javascript" src="../../chart.min.js"></script>
