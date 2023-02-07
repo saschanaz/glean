@@ -2361,7 +2361,7 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>doesnt_error_when_there_are_no_pending_pings() {
-        <span class="kw">let </span>(glean, <span class="kw">_</span>) = new_glean(<span class="prelude-val">None</span>);
+        <span class="kw">let </span>(glean, _t) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Try and get the next request.
         // Verify request was not returned
@@ -2468,7 +2468,7 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>clearing_the_queue_doesnt_clear_deletion_request_pings() {
-        <span class="kw">let </span>(<span class="kw-2">mut </span>glean, <span class="kw">_</span>) = new_glean(<span class="prelude-val">None</span>);
+        <span class="kw">let </span>(<span class="kw-2">mut </span>glean, _t) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
         </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
@@ -2590,7 +2590,7 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>processes_correctly_server_error_upload_response() {
-        <span class="kw">let </span>(<span class="kw-2">mut </span>glean, <span class="kw">_</span>) = new_glean(<span class="prelude-val">None</span>);
+        <span class="kw">let </span>(<span class="kw-2">mut </span>glean, _t) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
         </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
@@ -2708,7 +2708,7 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>adds_debug_view_header_to_requests_when_tag_is_set() {
-        <span class="kw">let </span>(<span class="kw-2">mut </span>glean, <span class="kw">_</span>) = new_glean(<span class="prelude-val">None</span>);
+        <span class="kw">let </span>(<span class="kw-2">mut </span>glean, _t) = new_glean(<span class="prelude-val">None</span>);
 
         glean.set_debug_view_tag(<span class="string">&quot;valid-tag&quot;</span>);
 

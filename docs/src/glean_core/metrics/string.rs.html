@@ -326,7 +326,7 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>setting_a_long_string_records_an_error() {
-        <span class="kw">let </span>(glean, <span class="kw">_</span>) = new_glean(<span class="prelude-val">None</span>);
+        <span class="kw">let </span>(glean, _t) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="kw">let </span>metric = StringMetric::new(CommonMetricData {
             name: <span class="string">&quot;string_metric&quot;</span>.into(),

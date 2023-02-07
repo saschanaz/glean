@@ -765,7 +765,7 @@
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>sequence_numbers_should_be_reset_when_toggling_uploading() {
-        <span class="kw">let </span>(<span class="kw-2">mut </span>glean, <span class="kw">_</span>) = new_glean(<span class="prelude-val">None</span>);
+        <span class="kw">let </span>(<span class="kw-2">mut </span>glean, _t) = new_glean(<span class="prelude-val">None</span>);
         <span class="kw">let </span>ping_maker = PingMaker::new();
 
         <span class="macro">assert_eq!</span>(<span class="number">0</span>, ping_maker.get_ping_seq(<span class="kw-2">&amp;</span>glean, <span class="string">&quot;custom&quot;</span>));
