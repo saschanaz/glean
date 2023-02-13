@@ -152,14 +152,16 @@
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v52.2.0...main">Full changelog</a></p>
 <ul>
-<li>Rust
-<ul>
-<li>On shutdown wait up to 30s on the uploader to finish work (<a href="https://github.com/mozilla/glean/pull/2332">#2232</a>)</li>
-</ul>
-</li>
 <li>General
 <ul>
 <li>Loosen label restrictions to &quot;at most 71 characters of printable ASCII&quot; (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1672273">bug 1672273</a>)</li>
+<li>Introduced 2 new Glean health metrics: <code>glean.upload.send_failure</code> and <code>glean.upload.send_success</code> to measure the time for sending a ping (<a href="https://github.com/mozilla/glean/pull/2365">#2365</a>)</li>
+<li>Introduced a new Glean metric: <code>glean.validation.shutdown_wait</code> to measure the time Glean waits for the uploader on shutdown (<a href="https://github.com/mozilla/glean/pull/2365">#2365</a>)</li>
+</ul>
+</li>
+<li>Rust
+<ul>
+<li>On shutdown wait up to 30s on the uploader to finish work (<a href="https://github.com/mozilla/glean/pull/2332">#2232</a>)</li>
 </ul>
 </li>
 </ul>

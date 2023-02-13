@@ -1046,6 +1046,33 @@
 <a href="#1046" id="1046">1046</a>
 <a href="#1047" id="1047">1047</a>
 <a href="#1048" id="1048">1048</a>
+<a href="#1049" id="1049">1049</a>
+<a href="#1050" id="1050">1050</a>
+<a href="#1051" id="1051">1051</a>
+<a href="#1052" id="1052">1052</a>
+<a href="#1053" id="1053">1053</a>
+<a href="#1054" id="1054">1054</a>
+<a href="#1055" id="1055">1055</a>
+<a href="#1056" id="1056">1056</a>
+<a href="#1057" id="1057">1057</a>
+<a href="#1058" id="1058">1058</a>
+<a href="#1059" id="1059">1059</a>
+<a href="#1060" id="1060">1060</a>
+<a href="#1061" id="1061">1061</a>
+<a href="#1062" id="1062">1062</a>
+<a href="#1063" id="1063">1063</a>
+<a href="#1064" id="1064">1064</a>
+<a href="#1065" id="1065">1065</a>
+<a href="#1066" id="1066">1066</a>
+<a href="#1067" id="1067">1067</a>
+<a href="#1068" id="1068">1068</a>
+<a href="#1069" id="1069">1069</a>
+<a href="#1070" id="1070">1070</a>
+<a href="#1071" id="1071">1071</a>
+<a href="#1072" id="1072">1072</a>
+<a href="#1073" id="1073">1073</a>
+<a href="#1074" id="1074">1074</a>
+<a href="#1075" id="1075">1075</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1296,9 +1323,10 @@
     ///   * New tasks will be ignored.
     /// * This SHOULD NOT block arbitrarily long.
     ///   * Shutdown waits for a maximum of 30 seconds.
-    </span><span class="kw">fn </span>shutdown(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+    </span><span class="kw">fn </span>shutdown(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), CallbackError&gt; {
         <span class="comment">// empty by default
-    </span>}
+        </span><span class="prelude-val">Ok</span>(())
+    }
 }
 
 <span class="doccomment">/// Initializes Glean.
@@ -1535,6 +1563,54 @@
     }
 }
 
+<span class="doccomment">/// Call the `shutdown` callback.
+///
+/// This calls the shutdown in a separate thread and waits up to 30s for it to finish.
+/// If not finished in that time frame it continues.
+///
+/// Under normal operation that is fine, as the main process will end
+/// and thus the thread will get killed.
+</span><span class="kw">fn </span>uploader_shutdown() {
+    <span class="kw">let </span>timer_id = core::with_glean(|glean| glean.additional_metrics.shutdown_wait.start_sync());
+    <span class="kw">let </span>(tx, rx) = unbounded();
+
+    <span class="kw">let </span>handle = thread::Builder::new()
+        .name(<span class="string">&quot;glean.shutdown&quot;</span>.to_string())
+        .spawn(<span class="kw">move </span>|| {
+            <span class="kw">let </span>state = global_state().lock().unwrap();
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = state.callbacks.shutdown() {
+                <span class="macro">log::error!</span>(<span class="string">&quot;Shutdown callback failed: {e:?}&quot;</span>);
+            }
+
+            <span class="comment">// Best-effort sending. The other side might have timed out already.
+            </span><span class="kw">let _ </span>= tx.send(()).ok();
+        })
+        .expect(<span class="string">&quot;Unable to spawn thread to wait on shutdown&quot;</span>);
+
+    <span class="comment">// TODO: 30 seconds? What&#39;s a good default here? Should this be configurable?
+    // Reasoning:
+    //   * If we shut down early we might still be processing pending pings.
+    //     In this case we wait at most 3 times for 1s = 3s before we upload.
+    //   * If we&#39;re rate-limited the uploader sleeps for up to 60s.
+    //     Thus waiting 30s will rarely allow another upload.
+    //   * We don&#39;t know how long uploads take until we get data from bug 1814592.
+    </span><span class="kw">let </span>result = rx.recv_timeout(Duration::from_secs(<span class="number">30</span>));
+
+    <span class="kw">let </span>stop_time = time::precise_time_ns();
+    core::with_glean(|glean| {
+        glean
+            .additional_metrics
+            .shutdown_wait
+            .set_stop_and_accumulate(glean, timer_id, stop_time);
+    });
+
+    <span class="kw">if </span>result.is_err() {
+        <span class="macro">log::warn!</span>(<span class="string">&quot;Waiting for upload failed. We&#39;re shutting down.&quot;</span>);
+    } <span class="kw">else </span>{
+        <span class="kw">let _ </span>= handle.join().ok();
+    }
+}
+
 <span class="doccomment">/// Shuts down Glean in an orderly fashion.
 </span><span class="kw">pub fn </span>shutdown() {
     <span class="comment">// Either init was never called or Glean was not fully initialized
@@ -1562,37 +1638,7 @@
         <span class="macro">log::error!</span>(<span class="string">&quot;Can&#39;t shutdown dispatcher thread: {:?}&quot;</span>, e);
     }
 
-    <span class="comment">// Call on_shutdown.
-    // Need to be done without holding a lock on the global Glean object.
-    </span>{
-        <span class="kw">let </span>(tx, rx) = unbounded();
-
-        <span class="kw">let </span>handle = thread::Builder::new()
-            .name(<span class="string">&quot;glean.shutdown&quot;</span>.to_string())
-            .spawn(<span class="kw">move </span>|| {
-                <span class="kw">let </span>state = global_state().lock().unwrap();
-                state.callbacks.shutdown();
-
-                <span class="comment">// Best-effort sending. The other side might have timed out already.
-                </span><span class="kw">let _ </span>= tx.send(()).ok();
-            })
-            .expect(<span class="string">&quot;Unable to spawn thread to wait on shutdown&quot;</span>);
-
-        <span class="comment">// TODO: 30 seconds? What&#39;s a good default here? Should this be configurable?
-        // Reasoning:
-        //   * If we shut down early we might still be processing pending pings.
-        //     In this case we wait at most 3 times for 1s = 3s before we upload.
-        //   * If we&#39;re rate-limited the uploader sleeps for up to 60s.
-        //     Thus waiting 30s will rarely allow another upload.
-        //   * We don&#39;t know how long uploads take until we get data from bug 1814592.
-        </span><span class="kw">let </span>result = rx.recv_timeout(Duration::from_secs(<span class="number">30</span>));
-
-        <span class="kw">if </span>result.is_err() {
-            <span class="macro">log::warn!</span>(<span class="string">&quot;Waiting for upload failed. We&#39;re shutting down.&quot;</span>);
-        } <span class="kw">else </span>{
-            <span class="kw">let _ </span>= handle.join().ok();
-        }
-    }
+    uploader_shutdown();
 
     <span class="comment">// Be sure to call this _after_ draining the dispatcher
     </span>core::with_glean(|glean| {
@@ -1988,6 +2034,14 @@
         </span>join_init();
 
         dispatcher::reset_dispatcher();
+
+        <span class="comment">// Only useful if Glean initialization finished successfully
+        // and set up the storage.
+        </span><span class="kw">let </span>has_storage =
+            core::with_opt_glean(|glean| glean.storage_opt().is_some()).unwrap_or(<span class="bool-val">false</span>);
+        <span class="kw">if </span>has_storage {
+            uploader_shutdown();
+        }
 
         <span class="kw">if </span>core::global_glean().is_some() {
             core::with_glean_mut(|glean| {
