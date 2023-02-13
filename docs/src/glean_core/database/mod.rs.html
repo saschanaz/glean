@@ -1748,6 +1748,16 @@
 <a href="#1748" id="1748">1748</a>
 <a href="#1749" id="1749">1749</a>
 <a href="#1750" id="1750">1750</a>
+<a href="#1751" id="1751">1751</a>
+<a href="#1752" id="1752">1752</a>
+<a href="#1753" id="1753">1753</a>
+<a href="#1754" id="1754">1754</a>
+<a href="#1755" id="1755">1755</a>
+<a href="#1756" id="1756">1756</a>
+<a href="#1757" id="1757">1757</a>
+<a href="#1758" id="1758">1758</a>
+<a href="#1759" id="1759">1759</a>
+<a href="#1760" id="1760">1760</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -2210,7 +2220,12 @@
 
         <span class="kw">for </span>ping_name <span class="kw">in </span>data.storage_names() {
             <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="self">self</span>.record_per_lifetime(data.inner.lifetime, ping_name, <span class="kw-2">&amp;</span>name, value) {
-                <span class="macro">log::error!</span>(<span class="string">&quot;Failed to record metric into {}: {:?}&quot;</span>, ping_name, e);
+                <span class="macro">log::error!</span>(
+                    <span class="string">&quot;Failed to record metric &#39;{}&#39; into {}: {:?}&quot;</span>,
+                    data.base_identifier(),
+                    ping_name,
+                    e
+                );
             }
         }
     }
@@ -2273,7 +2288,12 @@
             <span class="kw">if let </span><span class="prelude-val">Err</span>(e) =
                 <span class="self">self</span>.record_per_lifetime_with(data.inner.lifetime, ping_name, <span class="kw-2">&amp;</span>name, <span class="kw-2">&amp;mut </span>transform)
             {
-                <span class="macro">log::error!</span>(<span class="string">&quot;Failed to record metric into {}: {:?}&quot;</span>, ping_name, e);
+                <span class="macro">log::error!</span>(
+                    <span class="string">&quot;Failed to record metric &#39;{}&#39; into {}: {:?}&quot;</span>,
+                    data.base_identifier(),
+                    ping_name,
+                    e
+                );
             }
         }
     }
