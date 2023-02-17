@@ -224,6 +224,16 @@
 <a href="#224" id="224">224</a>
 <a href="#225" id="225">225</a>
 <a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -336,6 +346,7 @@
     <span class="kw">pub </span>pending_pings: CounterMetric,
     <span class="kw">pub </span>send_success: TimingDistributionMetric,
     <span class="kw">pub </span>send_failure: TimingDistributionMetric,
+    <span class="kw">pub </span>in_flight_pings_dropped: CounterMetric,
 }
 
 <span class="kw">impl </span>UploadMetrics {
@@ -424,6 +435,15 @@
                 },
                 TimeUnit::Millisecond,
             ),
+
+            in_flight_pings_dropped: CounterMetric::new(CommonMetricData {
+                name: <span class="string">&quot;in_flight_pings_dropped&quot;</span>.into(),
+                category: <span class="string">&quot;glean.upload&quot;</span>.into(),
+                send_in_pings: <span class="macro">vec!</span>[<span class="string">&quot;metrics&quot;</span>.into()],
+                lifetime: Lifetime::Ping,
+                disabled: <span class="bool-val">false</span>,
+                dynamic_label: <span class="prelude-val">None</span>,
+            }),
         }
     }
 }

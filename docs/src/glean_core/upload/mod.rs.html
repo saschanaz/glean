@@ -1671,6 +1671,8 @@
 <a href="#1671" id="1671">1671</a>
 <a href="#1672" id="1672">1672</a>
 <a href="#1673" id="1673">1673</a>
+<a href="#1674" id="1674">1674</a>
+<a href="#1675" id="1675">1675</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -2046,8 +2048,10 @@
                     document_id,
                     path
                 );
-                <span class="comment">// TODO(bug 1816401): Instrument this failure case for monitoring.
-                </span><span class="kw">return</span>;
+                <span class="self">self</span>.upload_metrics
+                    .in_flight_pings_dropped
+                    .add_sync(glean, <span class="number">0</span>);
+                <span class="kw">return</span>;
             }
         }
 
