@@ -1758,6 +1758,12 @@
 <a href="#1758" id="1758">1758</a>
 <a href="#1759" id="1759">1759</a>
 <a href="#1760" id="1760">1760</a>
+<a href="#1761" id="1761">1761</a>
+<a href="#1762" id="1762">1762</a>
+<a href="#1763" id="1763">1763</a>
+<a href="#1764" id="1764">1764</a>
+<a href="#1765" id="1765">1765</a>
+<a href="#1766" id="1766">1766</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1810,6 +1816,12 @@
             <span class="kw">let </span>safebin = path.join(<span class="string">&quot;data.safe.bin&quot;</span>);
             fs::remove_file(safebin).map_err(|<span class="kw">_</span>| rkv::StoreError::FileInvalid)<span class="question-mark">?</span>;
             <span class="comment">// Now try again, we only handle that error once.
+            </span>Rkv::new::&lt;rkv::backend::SafeMode&gt;(path)
+        }
+        <span class="prelude-val">Err</span>(rkv::StoreError::DatabaseCorrupted) =&gt; {
+            <span class="kw">let </span>safebin = path.join(<span class="string">&quot;data.safe.bin&quot;</span>);
+            fs::remove_file(safebin).map_err(|<span class="kw">_</span>| rkv::StoreError::DatabaseCorrupted)<span class="question-mark">?</span>;
+            <span class="comment">// Try again, only allowing the error once.
             </span>Rkv::new::&lt;rkv::backend::SafeMode&gt;(path)
         }
         other =&gt; other,

@@ -152,20 +152,20 @@
                         <h1 id="android-sdk--ndk-versions"><a class="header" href="#android-sdk--ndk-versions">Android SDK / NDK versions</a></h1>
 <p>The Glean SDK implementation is currently build against the following versions:</p>
 <ul>
-<li>SDK API 32
+<li>SDK API 33
 <ul>
-<li>Look for <code>android-32</code> in the SDK manager</li>
-<li>or install with: <code>sdkmanager --verbose &quot;platforms;android-32&quot;</code></li>
+<li>Look for <code>android-33</code> in the SDK manager</li>
+<li>or install with: <code>sdkmanager --verbose &quot;platforms;android-33&quot;</code></li>
 </ul>
 </li>
 <li>Android Command line tools
 <ul>
-<li>Download link: <a href="https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip">https://dl.google.com/android/repository/commandlinetools-linux-8512546_latest.zip</a></li>
+<li>Download link: <a href="https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip">https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip</a></li>
 </ul>
 </li>
 <li>NDK r25
 <ul>
-<li>Download link: <a href="https://dl.google.com/android/repository/android-ndk-r25-linux-x86_64.zip">https://dl.google.com/android/repository/android-ndk-r25-linux-x86_64.zip</a></li>
+<li>Download link: <a href="https://dl.google.com/android/repository/android-ndk-r25c-linux.zip">https://dl.google.com/android/repository/android-ndk-r25c-linux.zip</a></li>
 </ul>
 </li>
 </ul>
@@ -183,16 +183,16 @@ All locations need to be updated on upgrades:</p>
 <ul>
 <li><code>.circleci/config.yml</code>
 <ul>
-<li><code>sdkmanager 'build-tools;33.0.0'</code></li>
-<li><code>image: circleci/android:2022.07.1</code></li>
+<li><code>sdkmanager 'build-tools;33.0.2'</code></li>
+<li><code>image: circleci/android:2023.02.1</code></li>
 </ul>
 </li>
 <li><code>taskcluster/docker/linux/Dockerfile</code>.
 <ul>
-<li><code>ENV ANDROID_BUILD_TOOLS &quot;33.0.0&quot;</code></li>
+<li><code>ENV ANDROID_BUILD_TOOLS &quot;33.0.2&quot;</code></li>
 <li><code>ENV ANDROID_SDK_VERSION &quot;9477386&quot;</code></li>
-<li><code>ENV ANDROID_PLATFORM_VERSION &quot;32&quot;</code></li>
-<li><code>ENV ANDROID_NDK_VERSION &quot;25.1.8937393&quot;</code></li>
+<li><code>ENV ANDROID_PLATFORM_VERSION &quot;33&quot;</code></li>
+<li><code>ENV ANDROID_NDK_VERSION &quot;25.2.9519653&quot;</code></li>
 </ul>
 </li>
 </ul>
