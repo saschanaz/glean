@@ -147,11 +147,6 @@
 <a href="#147" id="147">147</a>
 <a href="#148" id="148">148</a>
 <a href="#149" id="149">149</a>
-<a href="#150" id="150">150</a>
-<a href="#151" id="151">151</a>
-<a href="#152" id="152">152</a>
-<a href="#153" id="153">153</a>
-<a href="#154" id="154">154</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -167,22 +162,17 @@
 <span class="doccomment">/// The supported metrics&#39; lifetimes.
 ///
 /// A metric&#39;s lifetime determines when its stored data gets reset.
-</span><span class="attr">#[derive(Copy, Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+</span><span class="attr">#[derive(Copy, Clone, Debug, PartialEq, Eq, Deserialize, Serialize, Default)]
 #[repr(i32)] </span><span class="comment">// Use i32 to be compatible with our JNA definition
 </span><span class="attr">#[serde(rename_all = <span class="string">&quot;lowercase&quot;</span>)]
 </span><span class="kw">pub enum </span>Lifetime {
     <span class="doccomment">/// The metric is reset with each sent ping
+    </span><span class="attr">#[default]
     </span>Ping,
     <span class="doccomment">/// The metric is reset on application restart
     </span>Application,
     <span class="doccomment">/// The metric is reset with each user profile
     </span>User,
-}
-
-<span class="kw">impl </span>Default <span class="kw">for </span>Lifetime {
-    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
-        Lifetime::Ping
-    }
 }
 
 <span class="kw">impl </span>Lifetime {
