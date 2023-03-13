@@ -71,6 +71,7 @@ if current_parser &lt; parser_version or current_parser &gt;= parser_version_nex
         f&#34;glean_sdk expected glean_parser ~= v{GLEAN_PARSER_VERSION}, &#34;
         f&#34;found v{glean_parser.__version__}&#34;,
         Warning,
+        stacklevel=1,
     )
 
 
