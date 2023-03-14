@@ -2056,7 +2056,7 @@
         </span>INITIALIZE_CALLED.store(<span class="bool-val">false</span>, Ordering::SeqCst);
     } <span class="kw">else if </span>clear_stores {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(data_path) = data_path {
-            <span class="kw">let _ </span>= remove_dir_all::remove_dir_all(data_path).ok();
+            <span class="kw">let _ </span>= std::fs::remove_dir_all(data_path).ok();
         } <span class="kw">else </span>{
             <span class="macro">log::warn!</span>(<span class="string">&quot;Asked to clear stores before initialization, but no data path given.&quot;</span>);
         }

@@ -749,7 +749,7 @@
     </span><span class="kw">pub fn </span>clear_pending_pings(<span class="kw-2">&amp;</span><span class="self">self</span>, data_path: <span class="kw-2">&amp;</span>Path) -&gt; <span class="prelude-ty">Result</span>&lt;()&gt; {
         <span class="kw">let </span>pings_dir = <span class="self">self</span>.get_pings_dir(data_path, <span class="prelude-val">None</span>)<span class="question-mark">?</span>;
 
-        remove_dir_all::remove_dir_all(<span class="kw-2">&amp;</span>pings_dir)<span class="question-mark">?</span>;
+        std::fs::remove_dir_all(<span class="kw-2">&amp;</span>pings_dir)<span class="question-mark">?</span>;
         create_dir_all(<span class="kw-2">&amp;</span>pings_dir)<span class="question-mark">?</span>;
 
         <span class="macro">log::debug!</span>(<span class="string">&quot;All pending pings deleted&quot;</span>);
