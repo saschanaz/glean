@@ -1800,7 +1800,11 @@ It is written as a set of <a href="https://github.com/mozilla-services/mozilla-p
 </code></pre>
 <h3 id="string-list"><a class="header" href="#string-list">String list</a></h3>
 <p>A <a href="core/internal/../../../book/reference/metrics/string_list.html">String List</a> is represented as an array of strings.</p>
+<h4 id="example-4"><a class="header" href="#example-4">Example</a></h4>
 <pre><code class="language-json">[&quot;sample string&quot;, &quot;another one&quot;]
+</code></pre>
+<p>An empty list is accepted and send as one:</p>
+<pre><code class="language-json">[]
 </code></pre>
 <h3 id="timespan"><a class="header" href="#timespan">Timespan</a></h3>
 <p>A <a href="core/internal/../../../book/reference/metrics/timespan.html">Timespan</a> is represented as an object of their duration as an integer and the time unit.</p>
@@ -1809,7 +1813,7 @@ It is written as a set of <a href="https://github.com/mozilla-services/mozilla-p
 <tr><td><code>time_unit</code></td><td>String</td><td>The <a href="core/internal/../../../book/reference/metrics/timespan.html#time_unit">time unit</a>.</td></tr>
 </tbody></table>
 </div>
-<h4 id="example-4"><a class="header" href="#example-4">Example</a></h4>
+<h4 id="example-5"><a class="header" href="#example-5">Example</a></h4>
 <pre><code class="language-json">{
     &quot;time_unit&quot;: &quot;milliseconds&quot;,
     &quot;value&quot;: 10
@@ -1828,7 +1832,7 @@ This range starts with the first bucket with a non-zero accumulation, and ends a
 <pre><code>recorded:  1024: 2, 1116: 1,                   1448: 1,
 sent:      1024: 2, 1116: 1, 1217: 0, 1327: 0, 1448: 1, 1579: 0
 </code></pre>
-<h4 id="example-5"><a class="header" href="#example-5">Example:</a></h4>
+<h4 id="example-6"><a class="header" href="#example-6">Example:</a></h4>
 <pre><code class="language-json">{
     &quot;sum&quot;: 4612,
     &quot;values&quot;: {
@@ -1850,7 +1854,7 @@ sent:      1024: 2, 1116: 1, 1217: 0, 1327: 0, 1448: 1, 1579: 0
 </div>
 <p>A contiguous range of buckets is always sent.
 See <a href="core/internal/payload.html#timing-distribution">timing distribution</a> for more details.</p>
-<h4 id="example-6"><a class="header" href="#example-6">Example:</a></h4>
+<h4 id="example-7"><a class="header" href="#example-7">Example:</a></h4>
 <pre><code class="language-json">{
     &quot;sum&quot;: 3,
     &quot;values&quot;: {
@@ -1861,18 +1865,18 @@ See <a href="core/internal/payload.html#timing-distribution">timing distribution
 </code></pre>
 <h3 id="uuid"><a class="header" href="#uuid">UUID</a></h3>
 <p>A <a href="core/internal/../../../book/reference/metrics/uuid.html">UUID</a> is represented by the string representation of the UUID.</p>
-<h4 id="example-7"><a class="header" href="#example-7">Example</a></h4>
+<h4 id="example-8"><a class="header" href="#example-8">Example</a></h4>
 <pre><code class="language-json">&quot;29711dc8-a954-11e9-898a-eb4ea7e8fd3f&quot;
 </code></pre>
 <h3 id="url"><a class="header" href="#url">URL</a></h3>
 <p>A <a href="core/internal/../../../book/reference/metrics/url.html">URL</a> is represented by the encoded string representation of the URL.</p>
-<h4 id="example-8"><a class="header" href="#example-8">Example</a></h4>
+<h4 id="example-9"><a class="header" href="#example-9">Example</a></h4>
 <pre><code class="language-json">&quot;https://mysearchengine.com/?query=%25s&quot;
 </code></pre>
 <h3 id="datetime"><a class="header" href="#datetime">Datetime</a></h3>
 <p>A <a href="core/internal/../../../book/reference/metrics/datetime.html">Datetime</a> is represented by its ISO8601 string representation, truncated to the metric's time unit.
 It always includes the timezone offset.</p>
-<h4 id="example-9"><a class="header" href="#example-9">Example</a></h4>
+<h4 id="example-10"><a class="header" href="#example-10">Example</a></h4>
 <pre><code class="language-json">&quot;2019-07-18T14:06:00.000+02:00&quot;
 </code></pre>
 <h3 id="event"><a class="header" href="#event">Event</a></h3>
@@ -1885,7 +1889,7 @@ Each event object has the following keys:</p>
 <tr><td><code>extra</code></td><td>Object (optional)</td><td>Extra data associated with the event. Both the keys and values of this object are strings. The keys must be from the set defined for this event in the <code>metrics.yaml</code> file. The values have a maximum length of 50 bytes, when encoded as UTF-8.</td></tr>
 </tbody></table>
 </div>
-<h4 id="example-10"><a class="header" href="#example-10">Example</a></h4>
+<h4 id="example-11"><a class="header" href="#example-11">Example</a></h4>
 <pre><code class="language-json">[
   {
     &quot;timestamp&quot;: 0,
@@ -1928,7 +1932,7 @@ This range starts with the first bucket (as specified in the <code>range_min</co
 <pre><code>recorded:        12: 2,                      22: 1
 sent:     10: 0, 12: 2, 14: 0, 17: 0, 19: 0, 22: 1, 24: 0
 </code></pre>
-<h4 id="example-11"><a class="header" href="#example-11">Example:</a></h4>
+<h4 id="example-12"><a class="header" href="#example-12">Example:</a></h4>
 <pre><code class="language-json">{
     &quot;sum&quot;: 3,
     &quot;values&quot;: {
@@ -1962,11 +1966,16 @@ See the individual metric types for details on the value payload:</p>
 </code></pre>
 <h3 id="rate"><a class="header" href="#rate">Rate</a></h3>
 <p>A <a href="core/internal/../../../book/reference/metrics/rate.html">Rate</a> is represented by its <code>numerator</code> and <code>denominator</code>.</p>
-<h4 id="example-12"><a class="header" href="#example-12">Example</a></h4>
+<h4 id="example-13"><a class="header" href="#example-13">Example</a></h4>
 <pre><code class="language-json">{
     &quot;numerator&quot;: 22,
     &quot;denominator&quot;: 7,
 }
+</code></pre>
+<h3 id="text"><a class="header" href="#text">Text</a></h3>
+<p>A <a href="core/internal/../../../book/reference/metrics/text.html">Text</a> is represented by its string value.</p>
+<h4 id="example-14"><a class="header" href="#example-14">Example</a></h4>
+<pre><code class="language-json">&quot;sample string&quot;
 </code></pre>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/dev/core/internal/payload.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="directory-structure"><a class="header" href="#directory-structure">Directory structure</a></h1>
 <p>This page describes the contents of the directories where Glean stores its data.</p>

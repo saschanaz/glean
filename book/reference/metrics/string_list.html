@@ -227,7 +227,8 @@ Glean.search.engines.add(&quot;duck duck go&quot;);
 <li>Fixed maximum list length: 20 items. Additional strings are dropped.</li>
 </ul>
 <h3 id="set"><a class="header" href="#set"><code>set</code></a></h3>
-<p>Set the metric to a specific list of strings.</p>
+<p>Set the metric to a specific list of strings.
+An empty list is accepted.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -278,8 +279,8 @@ mozilla::glean::search::engines.Set({&quot;wikipedia&quot;_ns, &quot;duck duck g
 </div>
 <h4 id="recorded-errors-1"><a class="header" href="#recorded-errors-1">Recorded errors</a></h4>
 <ul>
-<li><code>invalid_overflow</code>: if the string is too long. (Prior to Glean 31.5.0, this recorded an <code>invalid_value</code>).</li>
-<li><code>invalid_value</code>: if the list is too long.</li>
+<li><a href="../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if any string in the list is too long, see <a href="#limits-1">Limits</a> below. (Prior to Glean 31.5.0, this recorded an <code>invalid_value</code>).</li>
+<li><a href="../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if the list is too long, see <a href="#limits-1">Limits</a> below.</li>
 <li><a href="../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string array is given.</li>
 </ul>
 <h4 id="limits-1"><a class="header" href="#limits-1">Limits</a></h4>
