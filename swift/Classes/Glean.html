@@ -337,6 +337,9 @@
                 <a href="../Functions.html#/s:5Glean16gleanSetLogPingsyySbF">gleanSetLogPings(_:)</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Functions.html#/s:5Glean29gleanSetMetricsDisabledConfigyySSF">gleanSetMetricsDisabledConfig(_:)</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Functions.html#/s:5Glean18gleanSetSourceTagsySbSaySSGF">gleanSetSourceTags(_:)</a>
               </li>
               <li class="nav-group-task">
@@ -1131,6 +1134,53 @@ If Glean is not initialized yet, tags will not be validated at this point.</p>
                               <td>
                                 <div>
                                   <p>A list of tags, which must be valid HTTP header values.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5GleanAAC24setMetricsDisabledConfigyySSF"></a>
+                    <a name="//apple_ref/swift/Method/setMetricsDisabledConfig(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5GleanAAC24setMetricsDisabledConfigyySSF">setMetricsDisabledConfig(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set configuration for metrics&rsquo; disabled property, typically from remote_settings
+experiment or rollout.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setMetricsDisabledConfig</span><span class="p">(</span><span class="n">_</span> <span class="nv">json</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>json</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Stringified JSON map of metrics and their associated <code>disabled</code> property.</p>
                                 </div>
                               </td>
                             </tr>
