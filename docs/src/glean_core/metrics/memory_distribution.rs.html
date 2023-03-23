@@ -269,6 +269,17 @@
 <a href="#269" id="269">269</a>
 <a href="#270" id="270">270</a>
 <a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -383,9 +394,14 @@
             sample = MAX_BYTES;
         }
 
-        glean
-            .storage()
-            .record_with(glean, <span class="kw-2">&amp;</span><span class="self">self</span>.meta, |old_value| <span class="kw">match </span>old_value {
+        <span class="comment">// Let&#39;s be defensive here:
+        // The uploader tries to store some memory distribution metrics,
+        // but in tests that storage might be gone already.
+        // Let&#39;s just ignore those.
+        // We do the same for counters and timing distributions.
+        // This should never happen in real app usage.
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(storage) = glean.storage_opt() {
+            storage.record_with(glean, <span class="kw-2">&amp;</span><span class="self">self</span>.meta, |old_value| <span class="kw">match </span>old_value {
                 <span class="prelude-val">Some</span>(Metric::MemoryDistribution(<span class="kw-2">mut </span>hist)) =&gt; {
                     hist.accumulate(sample);
                     Metric::MemoryDistribution(hist)
@@ -396,6 +412,12 @@
                     Metric::MemoryDistribution(hist)
                 }
             });
+        } <span class="kw">else </span>{
+            <span class="macro">log::warn!</span>(
+                <span class="string">&quot;Couldn&#39;t get storage. Can&#39;t record memory distribution &#39;{}&#39;.&quot;</span>,
+                <span class="self">self</span>.meta.base_identifier()
+            );
+        }
     }
 
     <span class="doccomment">/// Accumulates the provided signed samples in the metric.

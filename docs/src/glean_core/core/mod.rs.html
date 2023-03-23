@@ -937,6 +937,7 @@
 <a href="#937" id="937">937</a>
 <a href="#938" id="938">938</a>
 <a href="#939" id="939">939</a>
+<a href="#940" id="940">940</a>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::path::{Path, PathBuf};
 <span class="kw">use </span>std::sync::atomic::{AtomicU8, Ordering};
@@ -1466,6 +1467,7 @@
     }
 
     <span class="doccomment">/// Gets a handle to the database.
+    </span><span class="attr">#[track_caller] </span><span class="comment">// If this fails we&#39;re interested in the caller.
     </span><span class="kw">pub fn </span>storage(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Database {
         <span class="self">self</span>.data_store.as_ref().expect(<span class="string">&quot;No database found&quot;</span>)
     }
