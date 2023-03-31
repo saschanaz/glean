@@ -286,6 +286,7 @@
 <a href="#286" id="286">286</a>
 <a href="#287" id="287">287</a>
 <a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -306,7 +307,7 @@
 </span><span class="kw">pub type </span>HeaderMap = HashMap&lt;String, String&gt;;
 
 <span class="doccomment">/// Creates a formatted date string that can be used with Date headers.
-</span><span class="kw">fn </span>create_date_header_value(current_time: DateTime&lt;Utc&gt;) -&gt; String {
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>create_date_header_value(current_time: DateTime&lt;Utc&gt;) -&gt; String {
     <span class="comment">// Date headers are required to be in the following format:
     //
     // &lt;day-name&gt;, &lt;day&gt; &lt;month&gt; &lt;year&gt; &lt;hour&gt;:&lt;minute&gt;:&lt;second&gt; GMT
@@ -356,7 +357,6 @@
     <span class="doccomment">/// Creates a new builder for a PingRequest.
     </span><span class="kw">pub fn </span>new(language_binding_name: <span class="kw-2">&amp;</span>str, body_max_size: usize) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span><span class="kw-2">mut </span>headers = HashMap::new();
-        headers.insert(<span class="string">&quot;Date&quot;</span>.to_string(), create_date_header_value(Utc::now()));
         headers.insert(
             <span class="string">&quot;X-Telemetry-Agent&quot;</span>.to_string(),
             create_x_telemetry_agent_header_value(
@@ -553,11 +553,13 @@
         <span class="macro">assert_eq!</span>(request.path, <span class="string">&quot;/random/path/doesnt/matter&quot;</span>);
 
         <span class="comment">// Make sure all the expected headers were added.
-        </span><span class="macro">assert!</span>(request.headers.contains_key(<span class="string">&quot;Date&quot;</span>));
-        <span class="macro">assert!</span>(request.headers.contains_key(<span class="string">&quot;X-Telemetry-Agent&quot;</span>));
+        </span><span class="macro">assert!</span>(request.headers.contains_key(<span class="string">&quot;X-Telemetry-Agent&quot;</span>));
         <span class="macro">assert!</span>(request.headers.contains_key(<span class="string">&quot;Content-Type&quot;</span>));
         <span class="macro">assert!</span>(request.headers.contains_key(<span class="string">&quot;Content-Length&quot;</span>));
-    }
+
+        <span class="comment">// the `Date` header is added by the `get_upload_task` just before
+        // returning the upload request
+    </span>}
 
     <span class="attr">#[test]
     </span><span class="kw">fn </span>errors_when_request_body_exceeds_max_size() {
