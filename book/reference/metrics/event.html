@@ -221,7 +221,7 @@ LoginOpenedExtra extra = { .source_of_login = Some(&quot;value&quot;_ns) };
 mozilla::glean::views::login_opened.Record(std::move(extra))
 </code></pre>
 <p><strong>JavaScript</strong></p>
-<pre><code class="language-js">const extra = { sourceOfLogin: &quot;toolbar&quot; };
+<pre><code class="language-js">const extra = { source_of_login: &quot;toolbar&quot; }; // Extra Keys are *NOT* conjugated to camelCase
 Glean.views.loginOpened.record(extra);
 </code></pre>
 </div>
