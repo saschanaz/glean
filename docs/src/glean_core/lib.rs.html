@@ -1073,6 +1073,7 @@
 <a href="#1073" id="1073">1073</a>
 <a href="#1074" id="1074">1074</a>
 <a href="#1075" id="1075">1075</a>
+<a href="#1076" id="1076">1076</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1245,6 +1246,7 @@
 <span class="doccomment">/// Get a reference to the global state object.
 ///
 /// Panics if no global state object was set.
+</span><span class="attr">#[track_caller] </span><span class="comment">// If this fails we&#39;re interested in the caller.
 </span><span class="kw">fn </span>global_state() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Mutex&lt;State&gt; {
     STATE.get().unwrap()
 }
