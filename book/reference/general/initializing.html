@@ -238,8 +238,13 @@ class SampleApplication : Application() {
     }
 }
 </code></pre>
-<p>The Glean Kotlin SDK does not support use across multiple processes, and must only be initialized on the application's main process. Initializing in other processes is a no-op.</p>
-<p>Additionally, Glean must be initialized on the main (UI) thread of the applications main process. Failure to do so will throw an <code>IllegalThreadStateException</code>.</p>
+<p>The Glean Kotlin SDK supports use across multiple processes. This is enabled by setting a <code>dataPath</code> value in the <code>Glean.Configuration</code> object passed to <code>Glean.initialize</code>. You <strong>do not</strong> need to set a <code>dataPath</code> for your main process. This configuration should only be used by a non-main process.</p>
+<p>Requirements for a non-main process</p>
+<ul>
+<li><code>Glean.initialize</code> must be called with the <code>dataPath</code> value set in the <code>Glean.Configuration</code>.</li>
+<li>The default <code>dataPath</code> for Glean is <code>{context.applicationInfo.dataDir}/glean_data</code>. If you try to use this path, <code>Glean.initialize</code> will fail and throw an error.</li>
+</ul>
+<p><strong>Note</strong>: When initializing from a non-main process with a specified <code>dataPath</code>, the lifecycle observers will not be set up. This means you will not receive otherwise scheduled <a href="../../user/pings/baseline.html">baseline</a> or <a href="../../user/pings/metrics.html">metrics</a> pings.</p>
 <h3 id="consuming-glean-through-android-components"><a class="header" href="#consuming-glean-through-android-components">Consuming Glean through Android Components</a></h3>
 <p>When the Glean Kotlin SDK is consumed through Android Components,
 it is required to configure an HTTP client to be used for upload.</p>
@@ -287,8 +292,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 </code></pre>
-<p>The Glean Swift SDK does not support use across multiple processes,
-and must only be initialized on the application's main process.</p>
+<p>The Glean Swift SDK supports use across multiple processes. This is enabled by setting a <code>dataPath</code> value in the <code>Glean.Configuration</code> object passed to <code>Glean.initialize</code>. You <strong>do not</strong> need to set a <code>dataPath</code> for your main process. This configuration should only be used by a non-main process.</p>
+<p>Requirements for a non-main process </p>
+<ul>
+<li><code>Glean.initialize</code> must be called with the <code>dataPath</code> value set in the <code>Glean.Configuration</code>.</li>
+<li>On iOS devices, Glean stores data in the Application Support directory. The default <code>dataPath</code> Glean uses is <code>{FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]}/glean_data</code>. If you try to use this path, <code>Glean.initialize</code> will fail and throw an error.</li>
+</ul>
+<p><strong>Note</strong>: When initializing from a non-main process with a specified <code>dataPath</code>, the lifecycle observers will not be set up. This means you will not receive otherwise scheduled <a href="../../user/pings/baseline.html">baseline</a> or <a href="../../user/pings/metrics.html">metrics</a> pings.</p>
 </div>
 <div data-lang="Python" class="tab">
 <p>The main control for the Glean Python SDK is on the <code>glean.Glean</code> singleton.</p>

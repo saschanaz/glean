@@ -2738,6 +2738,7 @@ The next ping is scheduled for 04:00 the next calendar day (reason code <code>re
 <p>The <code>submission_timestamp</code> is the time the ping was received at the telemetry endpoint, added by the ingestion pipeline.  It is not exactly the same as <code>ping_info.end_time</code>, since there may be various networking and system latencies both on the client and in the ingestion pipeline (represented by the dotted horizontal line, not to scale).  Also of note is that <code>start_time</code>/<code>end_time</code> are measured using the client's real-time clock in its local timezone, which is not a fully reliable source of time.</p>
 <p>The &quot;Baseline 4&quot; ping illustrates an important corner case. When &quot;Session 2&quot; ended, the OS also shut down the entire process, and the Glean SDK did not have an opportunity to send a <code>baseline</code> ping immediately.  In this case, it is sent at the next available opportunity when the application starts up again in &quot;Run 2&quot;.  This <code>baseline</code> ping is annotated with the reason code <code>dirty_startup</code>.</p>
 <p>The &quot;Metrics 2&quot; ping likewise illustrates another important corner case. &quot;Metrics 1&quot; was able to be sent at the target time of 04:00 (local device time) because the application was currently running.  However, the next time 04:00 came around, the application was not active, so the Glean SDK was unable to send a <code>metrics</code> ping.  It is sent at the next available opportunity, when the application starts up again in &quot;Run 2&quot;.  This <code>metrics</code> ping is annotated with the reason code <code>overdue</code>.</p>
+<p><strong>NOTE</strong>: Ping scheduling and other application lifecycle dependent activities are not set up when Glean is used in a non-main process. See <a href="user/pings/../../reference/general/initializing.html#gleaninitializeconfiguration">initializing</a></p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/pings/ping-schedules-and-timings.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="debugging-products-using-the-glean-sdk"><a class="header" href="#debugging-products-using-the-glean-sdk">Debugging products using the Glean SDK</a></h1>
 <p>Glean provides a few debugging features to assist with debugging a product using Glean.</p>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
@@ -3479,8 +3480,13 @@ class SampleApplication : Application() {
     }
 }
 </code></pre>
-<p>The Glean Kotlin SDK does not support use across multiple processes, and must only be initialized on the application's main process. Initializing in other processes is a no-op.</p>
-<p>Additionally, Glean must be initialized on the main (UI) thread of the applications main process. Failure to do so will throw an <code>IllegalThreadStateException</code>.</p>
+<p>The Glean Kotlin SDK supports use across multiple processes. This is enabled by setting a <code>dataPath</code> value in the <code>Glean.Configuration</code> object passed to <code>Glean.initialize</code>. You <strong>do not</strong> need to set a <code>dataPath</code> for your main process. This configuration should only be used by a non-main process.</p>
+<p>Requirements for a non-main process</p>
+<ul>
+<li><code>Glean.initialize</code> must be called with the <code>dataPath</code> value set in the <code>Glean.Configuration</code>.</li>
+<li>The default <code>dataPath</code> for Glean is <code>{context.applicationInfo.dataDir}/glean_data</code>. If you try to use this path, <code>Glean.initialize</code> will fail and throw an error.</li>
+</ul>
+<p><strong>Note</strong>: When initializing from a non-main process with a specified <code>dataPath</code>, the lifecycle observers will not be set up. This means you will not receive otherwise scheduled <a href="reference/general/../../user/pings/baseline.html">baseline</a> or <a href="reference/general/../../user/pings/metrics.html">metrics</a> pings.</p>
 <h3 id="consuming-glean-through-android-components"><a class="header" href="#consuming-glean-through-android-components">Consuming Glean through Android Components</a></h3>
 <p>When the Glean Kotlin SDK is consumed through Android Components,
 it is required to configure an HTTP client to be used for upload.</p>
@@ -3528,8 +3534,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 </code></pre>
-<p>The Glean Swift SDK does not support use across multiple processes,
-and must only be initialized on the application's main process.</p>
+<p>The Glean Swift SDK supports use across multiple processes. This is enabled by setting a <code>dataPath</code> value in the <code>Glean.Configuration</code> object passed to <code>Glean.initialize</code>. You <strong>do not</strong> need to set a <code>dataPath</code> for your main process. This configuration should only be used by a non-main process.</p>
+<p>Requirements for a non-main process </p>
+<ul>
+<li><code>Glean.initialize</code> must be called with the <code>dataPath</code> value set in the <code>Glean.Configuration</code>.</li>
+<li>On iOS devices, Glean stores data in the Application Support directory. The default <code>dataPath</code> Glean uses is <code>{FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]}/glean_data</code>. If you try to use this path, <code>Glean.initialize</code> will fail and throw an error.</li>
+</ul>
+<p><strong>Note</strong>: When initializing from a non-main process with a specified <code>dataPath</code>, the lifecycle observers will not be set up. This means you will not receive otherwise scheduled <a href="reference/general/../../user/pings/baseline.html">baseline</a> or <a href="reference/general/../../user/pings/metrics.html">metrics</a> pings.</p>
 </div>
 <div data-lang="Python" class="tab">
 <p>The main control for the Glean Python SDK is on the <code>glean.Glean</code> singleton.</p>
@@ -11024,6 +11035,16 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <ul>
 <li>On Rkv detecting a corrupted database delete the old RKV, create a new one and log the error (<a href="https://github.com/mozilla/glean/pull/2425">#2425</a>)</li>
 <li>Add the Date header as late as possible before the uploader acts (<a href="https://github.com/mozilla/glean/pull/2436">#2436</a>)</li>
+</ul>
+</li>
+<li>Kotlin
+<ul>
+<li>Adds the ability to record metrics on a non-main process. This is enabled by setting a <code>dataPath</code> in the Glean configuration (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1815233">bug 1815233</a>)</li>
+</ul>
+</li>
+<li>iOS
+<ul>
+<li>Adds the ability to record metrics on a non-main process. This is enabled by setting a <code>dataPath</code> in the Glean configuration (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1815233">bug 1815233</a>)</li>
 </ul>
 </li>
 </ul>
