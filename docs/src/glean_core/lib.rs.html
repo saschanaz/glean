@@ -1074,6 +1074,7 @@
 <a href="#1074" id="1074">1074</a>
 <a href="#1075" id="1075">1075</a>
 <a href="#1076" id="1076">1076</a>
+<a href="#1077" id="1077">1077</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1104,7 +1105,7 @@
 <span class="kw">use </span>once_cell::sync::{Lazy, OnceCell};
 <span class="kw">use </span>uuid::Uuid;
 
-<span class="kw">use </span>metrics::MetricsDisabledConfig;
+<span class="kw">use </span>metrics::MetricsEnabledConfig;
 
 <span class="kw">mod </span>common_metric_data;
 <span class="kw">mod </span>core;
@@ -1849,13 +1850,14 @@
     core::with_glean(|glean| glean.test_get_experiment_data(experiment_id.to_owned()))
 }
 
-<span class="doccomment">/// Sets a remote configuration for the metrics&#39; disabled property
+<span class="doccomment">/// Sets a remote configuration to override metrics&#39; default enabled/disabled
+/// state
 ///
-/// See [`core::Glean::set_metrics_disabled_config`].
-</span><span class="kw">pub fn </span>glean_set_metrics_disabled_config(json: String) {
-    <span class="kw">match </span>MetricsDisabledConfig::try_from(json) {
+/// See [`core::Glean::set_metrics_enabled_config`].
+</span><span class="kw">pub fn </span>glean_set_metrics_enabled_config(json: String) {
+    <span class="kw">match </span>MetricsEnabledConfig::try_from(json) {
         <span class="prelude-val">Ok</span>(cfg) =&gt; launch_with_glean(|glean| {
-            glean.set_metrics_disabled_config(cfg);
+            glean.set_metrics_enabled_config(cfg);
         }),
         <span class="prelude-val">Err</span>(e) =&gt; {
             <span class="macro">log::error!</span>(<span class="string">&quot;Error setting metrics feature config: {:?}&quot;</span>, e);

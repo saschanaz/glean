@@ -280,6 +280,9 @@
 <a href="#280" id="280">280</a>
 <a href="#281" id="281">281</a>
 <a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -303,7 +306,7 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">mod </span>labeled;
 <span class="kw">mod </span>memory_distribution;
 <span class="kw">mod </span>memory_unit;
-<span class="kw">mod </span>metrics_disabled_config;
+<span class="kw">mod </span>metrics_enabled_config;
 <span class="kw">mod </span>numerator;
 <span class="kw">mod </span>ping;
 <span class="kw">mod </span>quantity;
@@ -351,7 +354,7 @@
 <span class="kw">pub use </span><span class="kw">crate</span>::histogram::HistogramType;
 <span class="kw">pub use </span>recorded_experiment::RecordedExperiment;
 
-<span class="kw">pub use </span><span class="self">self</span>::metrics_disabled_config::MetricsDisabledConfig;
+<span class="kw">pub use </span><span class="self">self</span>::metrics_enabled_config::MetricsEnabledConfig;
 
 <span class="doccomment">/// A snapshot of all buckets and the accumulated sum of a distribution.
 </span><span class="comment">//
@@ -477,11 +480,11 @@
         }
         <span class="comment">// The epoch&#39;s didn&#39;t match so we need to look up the disabled flag
         // by the base_identifier from the in-memory HashMap
-        </span><span class="kw">let </span>metrics_disabled = <span class="kw-2">&amp;</span>glean
+        </span><span class="kw">let </span>metrics_enabled = <span class="kw-2">&amp;</span>glean
             .remote_settings_metrics_config
             .lock()
             .unwrap()
-            .metrics_disabled;
+            .metrics_enabled;
         <span class="comment">// Get the value from the remote configuration if it is there, otherwise return the default value.
         </span><span class="kw">let </span>current_disabled = {
             <span class="kw">let </span>base_id = <span class="self">self</span>.meta().base_identifier();
@@ -489,8 +492,11 @@
                 .split_once(<span class="string">&#39;/&#39;</span>)
                 .map(|split| split.<span class="number">0</span>)
                 .unwrap_or(<span class="kw-2">&amp;</span>base_id);
-            <span class="kw">if let </span><span class="prelude-val">Some</span>(is_disabled) = metrics_disabled.get(identifier) {
-                u8::from(<span class="kw-2">*</span>is_disabled)
+            <span class="comment">// NOTE: The `!` preceding the `*is_enabled` is important for inverting the logic since the
+            // underlying property in the metrics.yaml is `disabled` and the outward API is treating it as
+            // if it were `enabled` to make it easier to understand.
+            </span><span class="kw">if let </span><span class="prelude-val">Some</span>(is_enabled) = metrics_enabled.get(identifier) {
+                u8::from(!<span class="kw-2">*</span>is_enabled)
             } <span class="kw">else </span>{
                 u8::from(<span class="self">self</span>.meta().inner.disabled)
             }

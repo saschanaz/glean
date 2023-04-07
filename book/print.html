@@ -11035,6 +11035,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <ul>
 <li>On Rkv detecting a corrupted database delete the old RKV, create a new one and log the error (<a href="https://github.com/mozilla/glean/pull/2425">#2425</a>)</li>
 <li>Add the Date header as late as possible before the uploader acts (<a href="https://github.com/mozilla/glean/pull/2436">#2436</a>)</li>
+<li>The logic of the Server Knobs API has been flipped. Instead of applying a list of metrics and their <em>disabled</em> state, the API now accepts a list of metrics and their <em>enabled</em> state (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1811253">bug 1811253</a>)</li>
 </ul>
 </li>
 <li>Kotlin

@@ -4942,25 +4942,25 @@
 
 </span><span class="attr">#[allow(clippy::missing_safety_doc)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_rustbuffer_alloc(size: i32, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; uniffi::RustBuffer {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_rustbuffer_alloc(size: i32, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; uniffi::RustBuffer {
     uniffi::ffi::uniffi_rustbuffer_alloc(size, call_status)
 }
 
 <span class="attr">#[allow(clippy::missing_safety_doc)]
 #[no_mangle]
-</span><span class="kw">pub unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_rustbuffer_from_bytes(bytes: uniffi::ForeignBytes, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; uniffi::RustBuffer {
+</span><span class="kw">pub unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_rustbuffer_from_bytes(bytes: uniffi::ForeignBytes, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; uniffi::RustBuffer {
     uniffi::ffi::uniffi_rustbuffer_from_bytes(bytes, call_status)
 }
 
 <span class="attr">#[allow(clippy::missing_safety_doc)]
 #[no_mangle]
-</span><span class="kw">pub unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_rustbuffer_free(buf: uniffi::RustBuffer, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_rustbuffer_free(buf: uniffi::RustBuffer, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::ffi::uniffi_rustbuffer_free(buf, call_status)
 }
 
 <span class="attr">#[allow(clippy::missing_safety_doc)]
 #[no_mangle]
-</span><span class="kw">pub unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_rustbuffer_reserve(buf: uniffi::RustBuffer, additional: i32, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; uniffi::RustBuffer {
+</span><span class="kw">pub unsafe extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_rustbuffer_reserve(buf: uniffi::RustBuffer, additional: i32, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; uniffi::RustBuffer {
     uniffi::ffi::uniffi_rustbuffer_reserve(buf, additional, call_status)
 }
 
@@ -5675,13 +5675,13 @@
 </span><span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_enable_logging(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_enable_logging(
     
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_enable_logging&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_enable_logging&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5696,14 +5696,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_enable_logging_to_fd(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_enable_logging_to_fd(
     
         r#fd: u64,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_enable_logging_to_fd&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_enable_logging_to_fd&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5722,7 +5722,7 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_initialize(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_initialize(
     
         r#cfg: uniffi::RustBuffer,
         r#client_info: uniffi::RustBuffer,
@@ -5731,7 +5731,7 @@ uniffi::call_with_output(call_status, || {
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_initialize&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_initialize&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5758,14 +5758,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_initialize_for_subprocess(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_initialize_for_subprocess(
     
         r#cfg: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  -&gt; i8 {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_initialize_for_subprocess&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_initialize_for_subprocess&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5783,14 +5783,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_set_upload_enabled(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_set_upload_enabled(
     
         r#enabled: i8,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_set_upload_enabled&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_set_upload_enabled&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5809,7 +5809,7 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_set_experiment_active(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_set_experiment_active(
     
         r#experiment_id: uniffi::RustBuffer,
         r#branch: uniffi::RustBuffer,
@@ -5818,7 +5818,7 @@ uniffi::call_with_output(call_status, || {
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_set_experiment_active&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_set_experiment_active&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5845,14 +5845,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_set_experiment_inactive(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_set_experiment_inactive(
     
         r#experiment_id: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_set_experiment_inactive&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_set_experiment_inactive&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5871,14 +5871,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_test_get_experiment_data(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_test_get_experiment_data(
     
         r#experiment_id: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  -&gt; uniffi::RustBuffer {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_test_get_experiment_data&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_test_get_experiment_data&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5896,19 +5896,19 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_set_metrics_disabled_config(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_set_metrics_enabled_config(
     
         r#json: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_set_metrics_disabled_config&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_set_metrics_enabled_config&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
     
-    r#glean_set_metrics_disabled_config(
+    r#glean_set_metrics_enabled_config(
         <span class="kw">match</span>&lt;String <span class="kw">as </span>uniffi::FfiConverter&gt;::try_lift(r#json) {
             <span class="prelude-val">Ok</span>(val) =&gt; val,
             <span class="prelude-val">Err</span>(err) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Failed to convert arg &#39;{}&#39;: {}&quot;</span>, <span class="string">&quot;json&quot;</span>, err),
@@ -5922,14 +5922,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_set_debug_view_tag(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_set_debug_view_tag(
     
         r#tag: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  -&gt; i8 {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_set_debug_view_tag&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_set_debug_view_tag&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5947,14 +5947,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_set_source_tags(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_set_source_tags(
     
         r#tags: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  -&gt; i8 {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_set_source_tags&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_set_source_tags&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5972,14 +5972,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_set_log_pings(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_set_log_pings(
     
         r#value: i8,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_set_log_pings&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_set_log_pings&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -5998,13 +5998,13 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_handle_client_active(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_handle_client_active(
     
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_handle_client_active&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_handle_client_active&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -6019,13 +6019,13 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_handle_client_inactive(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_handle_client_inactive(
     
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_handle_client_inactive&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_handle_client_inactive&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -6040,7 +6040,7 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_submit_ping_by_name(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_submit_ping_by_name(
     
         r#ping_name: uniffi::RustBuffer,
         r#reason: uniffi::RustBuffer,
@@ -6048,7 +6048,7 @@ uniffi::call_with_output(call_status, || {
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_submit_ping_by_name&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_submit_ping_by_name&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -6071,7 +6071,7 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_submit_ping_by_name_sync(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_submit_ping_by_name_sync(
     
         r#ping_name: uniffi::RustBuffer,
         r#reason: uniffi::RustBuffer,
@@ -6079,7 +6079,7 @@ uniffi::call_with_output(call_status, || {
 )  -&gt; i8 {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_submit_ping_by_name_sync&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_submit_ping_by_name_sync&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -6101,14 +6101,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_set_test_mode(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_set_test_mode(
     
         r#enabled: i8,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_set_test_mode&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_set_test_mode&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -6127,7 +6127,7 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_test_destroy_glean(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_test_destroy_glean(
     
         r#clear_stores: i8,
         r#data_path: uniffi::RustBuffer,
@@ -6135,7 +6135,7 @@ uniffi::call_with_output(call_status, || {
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_test_destroy_glean&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_test_destroy_glean&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -6158,14 +6158,14 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_set_dirty_flag(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_set_dirty_flag(
     
         r#flag: i8,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_set_dirty_flag&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_set_dirty_flag&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -6184,13 +6184,13 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_get_upload_task(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_get_upload_task(
     
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
 )  -&gt; uniffi::RustBuffer {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_get_upload_task&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_get_upload_task&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -6204,7 +6204,7 @@ uniffi::call_with_output(call_status, || {
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
 #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_glean_process_ping_upload_response(
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_glean_process_ping_upload_response(
     
         r#uuid: uniffi::RustBuffer,
         r#result: uniffi::RustBuffer,
@@ -6212,7 +6212,7 @@ uniffi::call_with_output(call_status, || {
 )  -&gt; uniffi::RustBuffer {
     <span class="comment">// If the provided function does not match the signature specified in the UDL
     // then this attempt to call it will not compile, and will give guidance as to why.
-    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_glean_process_ping_upload_response&quot;</span>);
+    </span><span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_glean_process_ping_upload_response&quot;</span>);
     
 
 uniffi::call_with_output(call_status, || {
@@ -6254,7 +6254,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_PingType_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_PingType_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#PingType) })
@@ -6262,13 +6262,13 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_PingType_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_PingType_new(
         r#name: uniffi::RustBuffer,
         r#include_client_id: i8,
         r#send_if_empty: i8,
         r#reason_codes: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const PingType */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_PingType_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_PingType_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -6303,12 +6303,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_PingType_submit(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_PingType_submit(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#reason: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_PingType_submit&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_PingType_submit&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6350,7 +6350,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_CounterMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_CounterMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#CounterMetric) })
@@ -6358,10 +6358,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_CounterMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_CounterMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const CounterMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_CounterMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_CounterMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -6384,12 +6384,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_CounterMetric_add(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_CounterMetric_add(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#amount: i32,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_CounterMetric_add&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_CounterMetric_add&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6410,12 +6410,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_CounterMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_CounterMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_CounterMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_CounterMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6437,12 +6437,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_CounterMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_CounterMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_CounterMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_CounterMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6485,7 +6485,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_TimespanMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_TimespanMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#TimespanMetric) })
@@ -6493,11 +6493,11 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimespanMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimespanMetric_new(
         r#meta: uniffi::RustBuffer,
         r#time_unit: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const TimespanMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimespanMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimespanMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -6524,11 +6524,11 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimespanMetric_start(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimespanMetric_start(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimespanMetric_start&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimespanMetric_start&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6545,11 +6545,11 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimespanMetric_stop(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimespanMetric_stop(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimespanMetric_stop&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimespanMetric_stop&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6566,11 +6566,11 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimespanMetric_cancel(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimespanMetric_cancel(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimespanMetric_cancel&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimespanMetric_cancel&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6587,12 +6587,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimespanMetric_set_raw_nanos(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimespanMetric_set_raw_nanos(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#elapsed: i64,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimespanMetric_set_raw_nanos&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimespanMetric_set_raw_nanos&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6613,12 +6613,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimespanMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimespanMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimespanMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimespanMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6640,12 +6640,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimespanMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimespanMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimespanMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimespanMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6688,7 +6688,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_BooleanMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_BooleanMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#BooleanMetric) })
@@ -6696,10 +6696,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_BooleanMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_BooleanMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const BooleanMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_BooleanMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_BooleanMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -6722,12 +6722,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_BooleanMetric_set(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_BooleanMetric_set(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#value: i8,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_BooleanMetric_set&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_BooleanMetric_set&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6748,12 +6748,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_BooleanMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_BooleanMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_BooleanMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_BooleanMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6775,12 +6775,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_BooleanMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_BooleanMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_BooleanMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_BooleanMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6823,7 +6823,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_StringMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_StringMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#StringMetric) })
@@ -6831,10 +6831,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_StringMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_StringMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const StringMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_StringMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_StringMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -6857,12 +6857,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_StringMetric_set(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_StringMetric_set(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#value: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_StringMetric_set&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_StringMetric_set&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6883,12 +6883,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_StringMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_StringMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_StringMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_StringMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6910,12 +6910,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_StringMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_StringMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_StringMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_StringMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -6958,7 +6958,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_LabeledCounter_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_LabeledCounter_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#LabeledCounter) })
@@ -6966,11 +6966,11 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_LabeledCounter_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_LabeledCounter_new(
         r#meta: uniffi::RustBuffer,
         r#labels: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const LabeledCounter */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_LabeledCounter_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_LabeledCounter_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -6997,12 +6997,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_LabeledCounter_get(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_LabeledCounter_get(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#label: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; <span class="kw-2">*const </span>std::os::raw::c_void {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_LabeledCounter_get&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_LabeledCounter_get&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7024,12 +7024,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_LabeledCounter_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_LabeledCounter_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_LabeledCounter_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_LabeledCounter_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7072,7 +7072,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_LabeledBoolean_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_LabeledBoolean_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#LabeledBoolean) })
@@ -7080,11 +7080,11 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_LabeledBoolean_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_LabeledBoolean_new(
         r#meta: uniffi::RustBuffer,
         r#labels: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const LabeledBoolean */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_LabeledBoolean_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_LabeledBoolean_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -7111,12 +7111,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_LabeledBoolean_get(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_LabeledBoolean_get(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#label: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; <span class="kw-2">*const </span>std::os::raw::c_void {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_LabeledBoolean_get&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_LabeledBoolean_get&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7138,12 +7138,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_LabeledBoolean_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_LabeledBoolean_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_LabeledBoolean_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_LabeledBoolean_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7186,7 +7186,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_LabeledString_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_LabeledString_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#LabeledString) })
@@ -7194,11 +7194,11 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_LabeledString_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_LabeledString_new(
         r#meta: uniffi::RustBuffer,
         r#labels: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const LabeledString */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_LabeledString_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_LabeledString_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -7225,12 +7225,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_LabeledString_get(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_LabeledString_get(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#label: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; <span class="kw-2">*const </span>std::os::raw::c_void {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_LabeledString_get&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_LabeledString_get&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7252,12 +7252,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_LabeledString_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_LabeledString_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_LabeledString_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_LabeledString_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7300,7 +7300,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_StringListMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_StringListMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#StringListMetric) })
@@ -7308,10 +7308,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_StringListMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_StringListMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const StringListMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_StringListMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_StringListMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -7334,12 +7334,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_StringListMetric_add(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_StringListMetric_add(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#value: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_StringListMetric_add&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_StringListMetric_add&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7360,12 +7360,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_StringListMetric_set(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_StringListMetric_set(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#value: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_StringListMetric_set&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_StringListMetric_set&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7386,12 +7386,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_StringListMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_StringListMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_StringListMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_StringListMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7413,12 +7413,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_StringListMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_StringListMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_StringListMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_StringListMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7461,7 +7461,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_UrlMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_UrlMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#UrlMetric) })
@@ -7469,10 +7469,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_UrlMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_UrlMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const UrlMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_UrlMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_UrlMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -7495,12 +7495,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_UrlMetric_set(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_UrlMetric_set(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#value: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_UrlMetric_set&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_UrlMetric_set&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7521,12 +7521,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_UrlMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_UrlMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_UrlMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_UrlMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7548,12 +7548,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_UrlMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_UrlMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_UrlMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_UrlMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7596,7 +7596,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_UuidMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_UuidMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#UuidMetric) })
@@ -7604,10 +7604,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_UuidMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_UuidMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const UuidMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_UuidMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_UuidMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -7630,12 +7630,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_UuidMetric_set(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_UuidMetric_set(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#value: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_UuidMetric_set&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_UuidMetric_set&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7656,11 +7656,11 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_UuidMetric_generate_and_set(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_UuidMetric_generate_and_set(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_UuidMetric_generate_and_set&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_UuidMetric_generate_and_set&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7678,12 +7678,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_UuidMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_UuidMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_UuidMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_UuidMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7705,12 +7705,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_UuidMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_UuidMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_UuidMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_UuidMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7753,7 +7753,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_QuantityMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_QuantityMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#QuantityMetric) })
@@ -7761,10 +7761,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_QuantityMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_QuantityMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const QuantityMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_QuantityMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_QuantityMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -7787,12 +7787,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_QuantityMetric_set(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_QuantityMetric_set(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#value: i64,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_QuantityMetric_set&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_QuantityMetric_set&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7813,12 +7813,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_QuantityMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_QuantityMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_QuantityMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_QuantityMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7840,12 +7840,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_QuantityMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_QuantityMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_QuantityMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_QuantityMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7888,7 +7888,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_TimingDistributionMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_TimingDistributionMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#TimingDistributionMetric) })
@@ -7896,11 +7896,11 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimingDistributionMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimingDistributionMetric_new(
         r#meta: uniffi::RustBuffer,
         r#time_unit: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const TimingDistributionMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimingDistributionMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimingDistributionMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -7927,11 +7927,11 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimingDistributionMetric_start(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimingDistributionMetric_start(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimingDistributionMetric_start&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimingDistributionMetric_start&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7949,12 +7949,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimingDistributionMetric_stop_and_accumulate(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimingDistributionMetric_stop_and_accumulate(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#timer_id: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimingDistributionMetric_stop_and_accumulate&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimingDistributionMetric_stop_and_accumulate&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -7975,12 +7975,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimingDistributionMetric_cancel(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimingDistributionMetric_cancel(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#timer_id: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimingDistributionMetric_cancel&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimingDistributionMetric_cancel&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8001,12 +8001,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimingDistributionMetric_accumulate_samples(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimingDistributionMetric_accumulate_samples(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#samples: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimingDistributionMetric_accumulate_samples&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimingDistributionMetric_accumulate_samples&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8027,12 +8027,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimingDistributionMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimingDistributionMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimingDistributionMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimingDistributionMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8054,12 +8054,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TimingDistributionMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TimingDistributionMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TimingDistributionMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TimingDistributionMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8102,7 +8102,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_MemoryDistributionMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_MemoryDistributionMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#MemoryDistributionMetric) })
@@ -8110,11 +8110,11 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_MemoryDistributionMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_MemoryDistributionMetric_new(
         r#meta: uniffi::RustBuffer,
         r#memory_unit: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const MemoryDistributionMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_MemoryDistributionMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_MemoryDistributionMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -8141,12 +8141,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_MemoryDistributionMetric_accumulate(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_MemoryDistributionMetric_accumulate(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#sample: i64,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_MemoryDistributionMetric_accumulate&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_MemoryDistributionMetric_accumulate&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8167,12 +8167,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_MemoryDistributionMetric_accumulate_samples(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_MemoryDistributionMetric_accumulate_samples(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#samples: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_MemoryDistributionMetric_accumulate_samples&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_MemoryDistributionMetric_accumulate_samples&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8193,12 +8193,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_MemoryDistributionMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_MemoryDistributionMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_MemoryDistributionMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_MemoryDistributionMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8220,12 +8220,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_MemoryDistributionMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_MemoryDistributionMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_MemoryDistributionMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_MemoryDistributionMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8268,7 +8268,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_CustomDistributionMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_CustomDistributionMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#CustomDistributionMetric) })
@@ -8276,14 +8276,14 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_CustomDistributionMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_CustomDistributionMetric_new(
         r#meta: uniffi::RustBuffer,
         r#range_min: i64,
         r#range_max: i64,
         r#bucket_count: i64,
         r#histogram_type: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const CustomDistributionMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_CustomDistributionMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_CustomDistributionMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -8322,12 +8322,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_CustomDistributionMetric_accumulate_samples(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_CustomDistributionMetric_accumulate_samples(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#samples: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_CustomDistributionMetric_accumulate_samples&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_CustomDistributionMetric_accumulate_samples&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8348,12 +8348,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_CustomDistributionMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_CustomDistributionMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_CustomDistributionMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_CustomDistributionMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8375,12 +8375,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_CustomDistributionMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_CustomDistributionMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_CustomDistributionMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_CustomDistributionMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8423,7 +8423,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_DatetimeMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_DatetimeMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#DatetimeMetric) })
@@ -8431,11 +8431,11 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_DatetimeMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_DatetimeMetric_new(
         r#meta: uniffi::RustBuffer,
         r#time_unit: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const DatetimeMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_DatetimeMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_DatetimeMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -8462,12 +8462,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_DatetimeMetric_set(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_DatetimeMetric_set(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#value: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_DatetimeMetric_set&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_DatetimeMetric_set&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8488,12 +8488,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_DatetimeMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_DatetimeMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_DatetimeMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_DatetimeMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8515,12 +8515,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_DatetimeMetric_test_get_value_as_string(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_DatetimeMetric_test_get_value_as_string(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_DatetimeMetric_test_get_value_as_string&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_DatetimeMetric_test_get_value_as_string&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8542,12 +8542,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_DatetimeMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_DatetimeMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_DatetimeMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_DatetimeMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8590,7 +8590,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_EventMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_EventMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#EventMetric) })
@@ -8598,11 +8598,11 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_EventMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_EventMetric_new(
         r#meta: uniffi::RustBuffer,
         r#allowed_extra_keys: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const EventMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_EventMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_EventMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -8629,12 +8629,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_EventMetric_record(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_EventMetric_record(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#extra: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_EventMetric_record&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_EventMetric_record&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8655,12 +8655,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_EventMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_EventMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_EventMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_EventMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8682,12 +8682,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_EventMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_EventMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_EventMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_EventMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8730,7 +8730,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_RateMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_RateMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#RateMetric) })
@@ -8738,10 +8738,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_RateMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_RateMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const RateMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_RateMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_RateMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -8764,12 +8764,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_RateMetric_add_to_numerator(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_RateMetric_add_to_numerator(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#amount: i32,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_RateMetric_add_to_numerator&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_RateMetric_add_to_numerator&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8790,12 +8790,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_RateMetric_add_to_denominator(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_RateMetric_add_to_denominator(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#amount: i32,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_RateMetric_add_to_denominator&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_RateMetric_add_to_denominator&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8816,12 +8816,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_RateMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_RateMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_RateMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_RateMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8843,12 +8843,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_RateMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_RateMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_RateMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_RateMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8891,7 +8891,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_DenominatorMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_DenominatorMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#DenominatorMetric) })
@@ -8899,11 +8899,11 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_DenominatorMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_DenominatorMetric_new(
         r#meta: uniffi::RustBuffer,
         r#numerators: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const DenominatorMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_DenominatorMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_DenominatorMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -8930,12 +8930,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_DenominatorMetric_add(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_DenominatorMetric_add(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#amount: i32,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_DenominatorMetric_add&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_DenominatorMetric_add&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8956,12 +8956,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_DenominatorMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_DenominatorMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_DenominatorMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_DenominatorMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -8983,12 +8983,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_DenominatorMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_DenominatorMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_DenominatorMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_DenominatorMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -9031,7 +9031,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_NumeratorMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_NumeratorMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#NumeratorMetric) })
@@ -9039,10 +9039,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_NumeratorMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_NumeratorMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const NumeratorMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_NumeratorMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_NumeratorMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -9065,12 +9065,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_NumeratorMetric_add_to_numerator(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_NumeratorMetric_add_to_numerator(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#amount: i32,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_NumeratorMetric_add_to_numerator&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_NumeratorMetric_add_to_numerator&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -9091,12 +9091,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_NumeratorMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_NumeratorMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_NumeratorMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_NumeratorMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -9118,12 +9118,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_NumeratorMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_NumeratorMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_NumeratorMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_NumeratorMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -9166,7 +9166,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_TextMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_TextMetric_object_free(ptr: <span class="kw-2">*const </span>std::os::raw::c_void, call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     uniffi::call_with_output(call_status, || {
         <span class="macro">assert!</span>(!ptr.is_null());
         drop(<span class="kw">unsafe </span>{ std::sync::Arc::from_raw(ptr <span class="kw">as </span><span class="kw-2">*const </span>r#TextMetric) })
@@ -9174,10 +9174,10 @@ uniffi::call_with_output(call_status, || {
 }
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TextMetric_new(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TextMetric_new(
         r#meta: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) -&gt; <span class="kw-2">*const </span>std::os::raw::c_void <span class="comment">/* *const TextMetric */ </span>{
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TextMetric_new&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TextMetric_new&quot;</span>);
         
 
         <span class="comment">// If the constructor does not have the same signature as declared in the UDL, then
@@ -9200,12 +9200,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TextMetric_set(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TextMetric_set(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#value: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TextMetric_set&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TextMetric_set&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -9226,12 +9226,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TextMetric_test_get_value(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TextMetric_test_get_value(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#ping_name: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; uniffi::RustBuffer {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TextMetric_test_get_value&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TextMetric_test_get_value&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -9253,12 +9253,12 @@ uniffi::call_with_output(call_status, || {
     <span class="attr">#[doc(hidden)]
     #[no_mangle]
     #[allow(clippy::let_unit_value)] </span><span class="comment">// Sometimes we generate code that binds `_retval` to `()`.
-    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_d336_TextMetric_test_get_num_recorded_errors(
+    </span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>r#glean_7d77_TextMetric_test_get_num_recorded_errors(
         r#ptr: <span class="kw-2">*const </span>std::os::raw::c_void,
         r#error: uniffi::RustBuffer,
     call_status: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus
     )  -&gt; i32 {
-        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_d336_TextMetric_test_get_num_recorded_errors&quot;</span>);
+        <span class="macro">uniffi::deps::log::debug!</span>(<span class="string">&quot;glean_7d77_TextMetric_test_get_num_recorded_errors&quot;</span>);
         <span class="comment">// If the method does not have the same signature as declared in the UDL, then
         // this attempt to call it will fail with a (somewhat) helpful compiler error.
         
@@ -9288,7 +9288,7 @@ uniffi::call_with_output(call_status, || {
 
 <span class="attr">#[doc(hidden)]
 #[no_mangle]
-</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_d336_OnGleanEvents_init_callback(callback: uniffi::ForeignCallback, <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
+</span><span class="kw">pub extern </span><span class="string">&quot;C&quot; </span><span class="kw">fn </span>ffi_glean_7d77_OnGleanEvents_init_callback(callback: uniffi::ForeignCallback, <span class="kw">_</span>: <span class="kw-2">&amp;mut </span>uniffi::RustCallStatus) {
     FOREIGN_CALLBACK_ONGLEANEVENTS_INTERNALS.set_callback(callback);
     <span class="comment">// The call status should be initialized to CALL_SUCCESS, so no need to modify it.
 </span>}
