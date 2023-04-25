@@ -325,7 +325,79 @@ mozilla::glean::pages::page_load.StopAndAccumulate(std::move(timerId));
 </div>
 </div>
 </div>
-<h4 id="recorded-errors"><a class="header" href="#recorded-errors">Recorded errors</a></h4>
+<h3 id="accumulatesamples"><a class="header" href="#accumulatesamples"><code>accumulateSamples</code></a></h3>
+<p>Accumulates the provided signed samples in the metric.
+This is required so that the platform-specific code can provide us with
+64 bit signed integers if no <code>u64</code> comparable type is available. This
+will take care of filtering and reporting errors for any provided negative
+sample.</p>
+<p>Please note that this assumes that the provided samples are already in
+the &quot;unit&quot; declared by the instance of the metric type (e.g. if the
+instance this method was called on is using <code>TimeUnit::Second</code>, then
+<code>samples</code> are assumed to be in that unit).</p>
+<div class="tabs">
+<div class="tabbar"></div>
+<div class="tabcontents">
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">import org.mozilla.yourApplication.GleanMetrics.Pages
+
+fun onPageLoaded(e: Event) {
+    Pages.pageLoad.accumulateSamples(samples)
+}
+</code></pre>
+</div>
+<div data-lang="Java" class="tab">
+<pre><code class="language-Java">import org.mozilla.yourApplication.GleanMetrics.Pages;
+
+void onPageLoaded(Event e) {
+    Pages.INSTANCE.pageLoad().accumulateSamples(samples);
+}
+</code></pre>
+</div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">import Glean
+
+func onPageLoaded() {
+    Pages.pageLoad.accumulateSamples(samples)
+}
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import load_metrics
+metrics = load_metrics(&quot;metrics.yaml&quot;)
+
+class PageHandler:
+    def on_page_loaded(self, event):
+        metrics.pages.page_load.accumulate_samples(samples)
+</code></pre>
+</div>
+<div data-lang="Rust" class="tab">
+<p>This API is not currently exposed in Rust, see <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1829745">Bug 1829745</a>.</p>
+</div>
+<div data-lang="JavaScript" class="tab">
+<pre><code class="language-Javascript">import * as pages from &quot;./path/to/generated/files/pages.js&quot;;
+
+function onPageLoaded() {
+    pages.pageLoad.accumulateSamples(samples);
+}
+</code></pre>
+</div>
+<div data-lang="Firefox Desktop" class="tab">
+<p>This API is not currently exposed in Firefox Desktop, see <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1829745">Bug 1829745</a>.</p>
+</div>
+<h4 id="limits"><a class="header" href="#limits">Limits</a></h4>
+<ul>
+<li>Samples are limited to the maximum value for the given time unit.</li>
+<li>Only non-negative values may be recorded (<code>&gt;= 0</code>).</li>
+</ul>
+<h4 id="recorded-errors"><a class="header" href="#recorded-errors">Recorded Errors</a></h4>
+<ul>
+<li>Negative values are discarded and an <code>ErrorType::InvalidValue</code> is generated for each instance.</li>
+<li>Samples that are longer than maximum sample time for the given unit generate an <code>ErrorType::InvalidOverflow</code> error for each instance.</li>
+</ul>
+</div>
+</div>
+<h4 id="recorded-errors-1"><a class="header" href="#recorded-errors-1">Recorded errors</a></h4>
 <ul>
 <li><a href="../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: If recording a negative timespan.</li>
 <li><a href="../../user/metrics/error-reporting.html"><code>invalid_state</code></a>: If a non-existing/stopped timer is stopped again.</li>
@@ -624,7 +696,7 @@ The allowed values for <code>time_unit</code> are:</p>
 <li><code>hour</code></li>
 <li><code>day</code></li>
 </ul>
-<h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
+<h2 id="limits-1"><a class="header" href="#limits-1">Limits</a></h2>
 <ul>
 <li>
 <p>Timings are recorded in nanoseconds.</p>
