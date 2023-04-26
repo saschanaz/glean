@@ -1537,7 +1537,7 @@
                 db.insert(
                     store_name,
                     file.lines()
-                        .filter_map(|line| line.ok())
+                        .map_while(Result::ok)
                         .filter_map(|line| serde_json::from_str::&lt;StoredEvent&gt;(<span class="kw-2">&amp;</span>line).ok())
                         .collect(),
                 );
