@@ -1075,6 +1075,14 @@
 <a href="#1075" id="1075">1075</a>
 <a href="#1076" id="1076">1076</a>
 <a href="#1077" id="1077">1077</a>
+<a href="#1078" id="1078">1078</a>
+<a href="#1079" id="1079">1079</a>
+<a href="#1080" id="1080">1080</a>
+<a href="#1081" id="1081">1081</a>
+<a href="#1082" id="1082">1082</a>
+<a href="#1083" id="1083">1083</a>
+<a href="#1084" id="1084">1084</a>
+<a href="#1085" id="1085">1085</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1102,6 +1110,7 @@
 <span class="kw">use </span>std::time::Duration;
 
 <span class="kw">use </span>crossbeam_channel::unbounded;
+<span class="kw">use </span>log::{<span class="self">self</span>, LevelFilter};
 <span class="kw">use </span>once_cell::sync::{Lazy, OnceCell};
 <span class="kw">use </span>uuid::Uuid;
 
@@ -1202,6 +1211,8 @@
     </span><span class="kw">pub </span>use_core_mps: bool,
     <span class="doccomment">/// Whether Glean should, on init, trim its event storage to only the registered pings.
     </span><span class="kw">pub </span>trim_data_to_registered_pings: bool,
+    <span class="doccomment">/// The internal logging level.
+    </span><span class="kw">pub </span>log_level: <span class="prelude-ty">Option</span>&lt;LevelFilter&gt;,
 }
 
 <span class="doccomment">/// Launches a new task on the global dispatch queue with a reference to the Glean singleton.
@@ -1382,6 +1393,11 @@
         .spawn(<span class="kw">move </span>|| {
             <span class="kw">let </span>upload_enabled = cfg.upload_enabled;
             <span class="kw">let </span>trim_data_to_registered_pings = cfg.trim_data_to_registered_pings;
+
+            <span class="comment">// Set the internal logging level.
+            </span><span class="kw">if let </span><span class="prelude-val">Some</span>(level) = cfg.log_level {
+                log::set_max_level(level)
+            }
 
             <span class="kw">let </span>glean = <span class="kw">match </span>Glean::new(cfg) {
                 <span class="prelude-val">Ok</span>(glean) =&gt; glean,

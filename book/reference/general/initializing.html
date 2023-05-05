@@ -199,6 +199,7 @@ Below are listed the configuration options available on most SDKs.</p>
 <li><code>httpUploader</code>: A custom HTTP uploader instance, that will overwrite Glean's provided uploader. Useful
 for users that wish to use specific uploader implementations. See <a href="#custom-uploaders">Custom Uploaders</a>
 for more information on how and when the use this feature.</li>
+<li><code>logLevel</code>: The level for how verbose the internal logging is. The level filter options in order from least to most verbose are: <code>Off</code>, <code>Error</code>, <code>Warn</code>, <code>Info</code>, <code>Debug</code>, <code>Trace</code>. See the <a href="https://docs.rs/log/latest/log/"><code>log</code> crate docs</a> for more information.</li>
 </ul>
 <p>To learn about SDK specific configuration options available, refer to the <a href="#reference">Reference</a> section.</p>
 <div class="special-quote special-quote-stop fa fa-ban"></div>

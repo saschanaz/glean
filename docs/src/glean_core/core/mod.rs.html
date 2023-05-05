@@ -938,6 +938,8 @@
 <a href="#938" id="938">938</a>
 <a href="#939" id="939">939</a>
 <a href="#940" id="940">940</a>
+<a href="#941" id="941">941</a>
+<a href="#942" id="942">942</a>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::path::{Path, PathBuf};
 <span class="kw">use </span>std::sync::atomic::{AtomicU8, Ordering};
@@ -1052,6 +1054,7 @@
 ///     app_build: &quot;&quot;.into(),
 ///     use_core_mps: false,
 ///     trim_data_to_registered_pings: false,
+///     log_level: None,
 /// };
 /// let mut glean = Glean::new(cfg).unwrap();
 /// let ping = PingType::new(&quot;sample&quot;, true, false, vec![]);
@@ -1233,6 +1236,7 @@
             app_build: <span class="string">&quot;Unknown&quot;</span>.into(),
             use_core_mps: <span class="bool-val">false</span>,
             trim_data_to_registered_pings: <span class="bool-val">false</span>,
+            log_level: <span class="prelude-val">None</span>,
         };
 
         <span class="kw">let </span><span class="kw-2">mut </span>glean = <span class="self">Self</span>::new(cfg).unwrap();

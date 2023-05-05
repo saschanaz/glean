@@ -141,11 +141,22 @@
 <a href="#141" id="141">141</a>
 <a href="#142" id="142">142</a>
 <a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-</span><span class="kw">use </span><span class="kw">crate</span>::net::PingUploader;
+</span><span class="kw">use </span>log::LevelFilter;
+
+<span class="kw">use </span><span class="kw">crate</span>::net::PingUploader;
 
 <span class="kw">use </span>std::path::PathBuf;
 
@@ -177,6 +188,8 @@
     /// Unless you know that all your and your libraries&#39; pings are appropriately registered
     /// _before_ init, you shouldn&#39;t use this.
     </span><span class="kw">pub </span>trim_data_to_registered_pings: bool,
+    <span class="doccomment">/// The internal logging level.
+    </span><span class="kw">pub </span>log_level: <span class="prelude-ty">Option</span>&lt;LevelFilter&gt;,
 }
 
 <span class="doccomment">/// Configuration builder.
@@ -211,6 +224,9 @@
     /// _before_ init, you shouldn&#39;t use this.
     /// Default: `false`
     </span><span class="kw">pub </span>trim_data_to_registered_pings: bool,
+    <span class="doccomment">/// Optional: The internal logging level.
+    /// Default: `None`
+    </span><span class="kw">pub </span>log_level: <span class="prelude-ty">Option</span>&lt;LevelFilter&gt;,
 }
 
 <span class="kw">impl </span>Builder {
@@ -230,6 +246,7 @@
             uploader: <span class="prelude-val">None</span>,
             use_core_mps: <span class="bool-val">false</span>,
             trim_data_to_registered_pings: <span class="bool-val">false</span>,
+            log_level: <span class="prelude-val">None</span>,
         }
     }
 
@@ -245,6 +262,7 @@
             uploader: <span class="self">self</span>.uploader,
             use_core_mps: <span class="self">self</span>.use_core_mps,
             trim_data_to_registered_pings: <span class="self">self</span>.trim_data_to_registered_pings,
+            log_level: <span class="self">self</span>.log_level,
         }
     }
 

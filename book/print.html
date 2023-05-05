@@ -3441,6 +3441,7 @@ Below are listed the configuration options available on most SDKs.</p>
 <li><code>httpUploader</code>: A custom HTTP uploader instance, that will overwrite Glean's provided uploader. Useful
 for users that wish to use specific uploader implementations. See <a href="reference/general/initializing.html#custom-uploaders">Custom Uploaders</a>
 for more information on how and when the use this feature.</li>
+<li><code>logLevel</code>: The level for how verbose the internal logging is. The level filter options in order from least to most verbose are: <code>Off</code>, <code>Error</code>, <code>Warn</code>, <code>Info</code>, <code>Debug</code>, <code>Trace</code>. See the <a href="https://docs.rs/log/latest/log/"><code>log</code> crate docs</a> for more information.</li>
 </ul>
 <p>To learn about SDK specific configuration options available, refer to the <a href="reference/general/initializing.html#reference">Reference</a> section.</p>
 <div class="special-quote special-quote-stop fa fa-ban"></div>
@@ -11102,6 +11103,13 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v52.6.0...main">Full changelog</a></p>
+<ul>
+<li>General
+<ul>
+<li>Allow user to configure how verbose the internal logging is (<a href="https://github.com/mozilla/glean/pull/2459">#2459</a>)</li>
+</ul>
+</li>
+</ul>
 <h1 id="v5260-2023-04-20"><a class="header" href="#v5260-2023-04-20">v52.6.0 (2023-04-20)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v52.5.0...v52.6.0">Full changelog</a></p>
 <ul>
