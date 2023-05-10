@@ -566,6 +566,27 @@
 <a href="#566" id="566">566</a>
 <a href="#567" id="567">567</a>
 <a href="#568" id="568">568</a>
+<a href="#569" id="569">569</a>
+<a href="#570" id="570">570</a>
+<a href="#571" id="571">571</a>
+<a href="#572" id="572">572</a>
+<a href="#573" id="573">573</a>
+<a href="#574" id="574">574</a>
+<a href="#575" id="575">575</a>
+<a href="#576" id="576">576</a>
+<a href="#577" id="577">577</a>
+<a href="#578" id="578">578</a>
+<a href="#579" id="579">579</a>
+<a href="#580" id="580">580</a>
+<a href="#581" id="581">581</a>
+<a href="#582" id="582">582</a>
+<a href="#583" id="583">583</a>
+<a href="#584" id="584">584</a>
+<a href="#585" id="585">585</a>
+<a href="#586" id="586">586</a>
+<a href="#587" id="587">587</a>
+<a href="#588" id="588">588</a>
+<a href="#589" id="589">589</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -597,9 +618,10 @@
         Arc,
     },
     thread::{<span class="self">self</span>, JoinHandle},
+    time::Duration,
 };
 
-<span class="kw">use </span>crossbeam_channel::{bounded, unbounded, SendError, Sender};
+<span class="kw">use </span>crossbeam_channel::{bounded, unbounded, RecvTimeoutError, SendError, Sender};
 <span class="kw">use </span>thiserror::Error;
 
 <span class="kw">pub use </span>global::<span class="kw-2">*</span>;
@@ -727,6 +749,26 @@
 
         rx.recv()
             .expect(<span class="string">&quot;Failed to receive message on single-use channel&quot;</span>);
+    }
+
+    <span class="doccomment">/// Block on the task queue emptying, with a timeout.
+    </span><span class="kw">fn </span>block_on_queue_timeout(<span class="kw-2">&amp;</span><span class="self">self</span>, timeout: Duration) -&gt; <span class="prelude-ty">Result</span>&lt;(), RecvTimeoutError&gt; {
+        <span class="kw">let </span>(tx, rx) = crossbeam_channel::bounded(<span class="number">0</span>);
+
+        <span class="comment">// We explicitly don&#39;t use `self.launch` here.
+        // We always put this task on the unbounded queue.
+        // The pre-init queue might be full before its flushed, in which case this would panic.
+        // Blocking on the queue can only work if it is eventually flushed anyway.
+
+        </span><span class="kw">let </span>task = Command::Task(Box::new(<span class="kw">move </span>|| {
+            tx.send(())
+                .expect(<span class="string">&quot;(worker) Can&#39;t send message on single-use channel&quot;</span>);
+        }));
+        <span class="self">self</span>.sender
+            .send(task)
+            .expect(<span class="string">&quot;Failed to launch the blocking task&quot;</span>);
+
+        rx.recv_timeout(timeout)
     }
 
     <span class="kw">fn </span>kill(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span>&lt;(), DispatchError&gt; {
