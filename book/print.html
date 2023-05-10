@@ -11102,11 +11102,15 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li><a href="appendix/changelog/./js.html"><code>mozilla/glean.js</code></a></li>
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
-<p><a href="https://github.com/mozilla/glean/compare/v52.6.0...main">Full changelog</a></p>
+<p><a href="https://github.com/mozilla/glean/compare/v52.7.0...main">Full changelog</a></p>
+<h1 id="v5270-2023-05-10"><a class="header" href="#v5270-2023-05-10">v52.7.0 (2023-05-10)</a></h1>
+<p><a href="https://github.com/mozilla/glean/compare/v52.6.0...v52.7.0">Full changelog</a></p>
 <ul>
 <li>General
 <ul>
 <li>Allow user to configure how verbose the internal logging is (<a href="https://github.com/mozilla/glean/pull/2459">#2459</a>)</li>
+<li>Added a timeout waiting for the dispatcher at shutdown (<a href="https://github.com/mozilla/glean/pull/2461">#2461</a>)</li>
+<li>Added a new Glean metric <code>glean.validation.shutdown_dispatcher_wait</code> measuring the wait time at shutdown (<a href="https://github.com/mozilla/glean/pull/2461">#2461</a>)</li>
 </ul>
 </li>
 <li>Kotlin
@@ -13584,6 +13588,9 @@ This is a major milestone in using a cross-platform implementation of Glean on t
 <p>First testing release.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/sdk.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes-1"><a class="header" href="#unreleased-changes-1">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean.js/compare/v1.3.0...main">Full changelog</a></p>
+<ul>
+<li><a href="https://github.com/mozilla/glean.js/pull/1671">#1671</a>: Allow building on Windows machines.</li>
+</ul>
 <h1 id="v130-2022-10-18"><a class="header" href="#v130-2022-10-18">v1.3.0 (2022-10-18)</a></h1>
 <p><a href="https://github.com/mozilla/glean.js/compare/v1.2.0...v1.3.0">Full changelog</a></p>
 <ul>
