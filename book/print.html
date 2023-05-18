@@ -3486,6 +3486,7 @@ class SampleApplication : Application() {
 <ul>
 <li><code>Glean.initialize</code> must be called with the <code>dataPath</code> value set in the <code>Glean.Configuration</code>.</li>
 <li>The default <code>dataPath</code> for Glean is <code>{context.applicationInfo.dataDir}/glean_data</code>. If you try to use this path, <code>Glean.initialize</code> will fail and throw an error.</li>
+<li><a href="https://developer.android.com/reference/androidx/work/Configuration.Builder#setDefaultProcessName(java.lang.String)">Set the default process name</a> as your main process. If this is not set up correctly, pings from the non-main process will not send. <code>Configuration.Builder().setDefaultProcessName(&lt;main_process_name&gt;)</code></li>
 </ul>
 <p><strong>Note</strong>: When initializing from a non-main process with a specified <code>dataPath</code>, the lifecycle observers will not be set up. This means you will not receive otherwise scheduled <a href="reference/general/../../user/pings/baseline.html">baseline</a> or <a href="reference/general/../../user/pings/metrics.html">metrics</a> pings.</p>
 <h3 id="consuming-glean-through-android-components"><a class="header" href="#consuming-glean-through-android-components">Consuming Glean through Android Components</a></h3>
