@@ -1106,6 +1106,11 @@
 <a href="#1106" id="1106">1106</a>
 <a href="#1107" id="1107">1107</a>
 <a href="#1108" id="1108">1108</a>
+<a href="#1109" id="1109">1109</a>
+<a href="#1110" id="1110">1110</a>
+<a href="#1111" id="1111">1111</a>
+<a href="#1112" id="1112">1112</a>
+<a href="#1113" id="1113">1113</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1380,6 +1385,11 @@
     callbacks: Box&lt;<span class="kw">dyn </span>OnGleanEvents&gt;,
 ) {
     initialize_inner(cfg, client_info, callbacks);
+}
+
+<span class="doccomment">/// Shuts down Glean in an orderly fashion.
+</span><span class="kw">pub fn </span>glean_shutdown() {
+    shutdown();
 }
 
 <span class="doccomment">/// Creates and initializes a new Glean object for use in a subprocess.
