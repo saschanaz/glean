@@ -152,6 +152,11 @@
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v52.7.0...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>Adds the capability to merge remote metric configurations, enabling multiple Nimbus Features or components to share this functionality (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833381">Bug 1833381</a>)</li>
+</ul>
+</li>
 <li>Rust
 <ul>
 <li>Timing distribution traits now expose <code>accumulate_samples</code> and <code>accumulate_raw_samples_nanos</code>. This is a breaking change for consumers that make use of the trait as they will need to implement the new functions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1829745">Bug 1829745</a>)</li>

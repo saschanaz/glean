@@ -1845,19 +1845,18 @@ upgraded.</p>
     description: &gt;-
     &quot;Glean metric configuration&quot;
 </code></pre>
-<p>This definition allows for configuration to be set in a Nimbus rollout or experiment and fetched by the client to be applied based on the enrollment. Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API function along with the identifier for the feature. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Only the latest configuration provided will be applied. An example call to set a configuration from the “urlbar” Nimbus Feature could look like this:</p>
-<pre><code class="language-JavaScript">Services.fog.setMetricsFeatureConfig(&quot;urlbar&quot;,
-  JSON.stringify(
-    Lazy.NimbusFeatures.urlbar.getVariable(&quot;gleanMetricConfiguration&quot;)
-  )
+<p>This definition allows for configuration to be set in a Nimbus rollout or experiment and fetched by the client to be applied based on the enrollment. Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Only the latest configuration provided will be applied and any previously configured metrics that are omitted from the new configuration will not be changed. An example call to set a configuration from the “urlbar” Nimbus Feature could look like this:</p>
+<pre><code class="language-JavaScript">let cfg = lazy.NimbusFeatures.urlbar.getVariable(
+  &quot;gleanMetricConfiguration&quot;
 );
+Services.fog.setMetricsFeatureConfig(JSON.stringify(cfg));
 </code></pre>
 <p>It is also recommended to register to listen for updates for the Nimbus Feature and apply new configurations as soon as possible. The following example illustrates how the “urlbar” Nimbus Feature might register and update the metric configuration:</p>
 <pre><code class="language-JavaScript">lazy.NimbusFeatures.urlbar.onUpdate(() =&gt; {
-  let cfg = lazy.NimbusFeatures.glean.getVariable(
+  let cfg = lazy.NimbusFeatures.urlbar.getVariable(
     &quot;gleanMetricConfiguration&quot;
   );
-  Services.fog.setMetricsFeatureConfig(&quot;urlbar&quot;, JSON.stringify(cfg));
+  Services.fog.setMetricsFeatureConfig(JSON.stringify(cfg));
 });
 </code></pre>
 <h2 id="mobile-feature-integration"><a class="header" href="#mobile-feature-integration">Mobile Feature Integration</a></h2>
@@ -1874,7 +1873,7 @@ upgraded.</p>
         type: String
         default: &quot;{}&quot;
 </code></pre>
-<p>Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API function along with the identifier for the feature. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Only the latest configuration provided will be applied. An example call to set a configuration from the “homescreen” Nimbus Feature could look like this:</p>
+<p>Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Only the latest configuration provided will be applied and any previously configured metrics that are omitted from the new configuration will not be changed. An example call to set a configuration from the “homescreen” Nimbus Feature could look like this:</p>
 <pre><code class="language-Swift">Glean.setMetricsEnabledConfig(FxNimbus.features.homescreen.value().metricsEnabled)
 </code></pre>
 <p>Since mobile experiments only update on initialization of the application, it isn't necessary to register to listen for notifications for experiment updates.</p>
@@ -1895,9 +1894,7 @@ upgraded.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/data-control-plane/experimenter-configuration.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="advanced-topics"><a class="header" href="#advanced-topics">Advanced Topics</a></h1>
 <h2 id="merging-of-configurations-from-multiple-features"><a class="header" href="#merging-of-configurations-from-multiple-features">Merging of Configurations from Multiple Features</a></h2>
 <p>Since each feature defined as a Nimbus Feature can independently provide a Glean configuration, these must be merged together into a cohesive configuration for the entire set of metrics collected by Glean.</p>
-<p>In order to accomplish this, Glean uses the same feature identifier used by Nimbus. Provide this id when calling the Glean API to set the configuration.</p>
-<p>This means that any existing configuration that is associated with a particular feature identifier will be overwritten if a new configuration is provided with the same identifier.</p>
-<p>Configurations from all identifiers will be merged together along with the default values in the metrics.yaml file and applied to the appropriate metrics.</p>
+<p>Configurations will be merged together along with the default values in the metrics.yaml file and applied to the appropriate metrics. Only the latest configuration provided for a given metric will be applied and any previously configured metrics that are omitted from the new configuration will not be changed.</p>
 <h3 id="example"><a class="header" href="#example">Example</a></h3>
 <p>Imagine a situation where we have 3 features (<code>A</code>, <code>B</code>, <code>C</code>). Each of these features has an event (<code>A.event</code>, <code>B.event</code>, <code>C.event</code>) and these events all default to disabled from their definition in the metrics.yaml file.</p>
 <p>Let’s walk through an example of changing configurations for these features that illustrates how the merging will work:</p>
@@ -2064,16 +2061,16 @@ upgraded.</p>
 <p>After the new changes to the currently running rollouts and experiments, this client is now enrolled in the experiment for Feature A and the configuration is suppressing the A.event. Feature B is no longer sending B.event because it is reverting back to the defaults from the metrics.yaml file. And finally, Feature C is sending C.event with the rollout configuration applied.</p>
 <p>In each case, Glean only updates the configuration associated with the feature that provided it. Nimbus’ feature exclusion would prevent a client from being enrolled in multiple rollouts or experiments for a given feature, so no more than one configuration would be applied per feature for a given client.</p>
 <h3 id="merging-caveats"><a class="header" href="#merging-caveats">Merging Caveats</a></h3>
-<p>Because there is currently nothing that ties a particular Nimbus Feature to a set of metrics, care must be taken to avoid feature overlap over a particular metric. If two different features supply  conflicting configurations for the same metric identifier, then whether or not the metric is enabled will likely come down to a race condition of whoever set the configuration last</p>
+<p>Because there is currently nothing that ties a particular Nimbus Feature to a set of metrics, care must be taken to avoid feature overlap over a particular metric. If two different features supply conflicting configurations for the same metric, then whether or not the metric is enabled will likely come down to a race condition of whoever set the configuration last.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/data-control-plane/advanced-topics.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="frequently-asked-questions"><a class="header" href="#frequently-asked-questions">Frequently Asked Questions</a></h1>
 <ul>
-<li>
-<p>how can I tell if a given client id has the metric X on?</p>
-</li>
-<li>
-<p>why isn't some client id reporting the metric that should be enabled for all the clients for that channel? (e.g. Some fraction of population may get stuck on “default” config)</p>
-</li>
+<li>How can I tell if a given client id has the metric X on?</li>
 </ul>
+<p>Once we have established the functionality behind the data control plane, a dashboard for monitoring this will be provided. Details are to be determined.</p>
+<ul>
+<li>Why isn't some client id reporting the metric that should be enabled for all the clients for that channel? (e.g. Some fraction of population may get stuck on “default” config)</li>
+</ul>
+<p>Nimbus must be able to both reach and supply a valid configuration to the audience. For some outliers this doesn't work and so may be &quot;unreachable&quot; at times.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/data-control-plane/faq.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-1"><a class="header" href="#pings-1">Pings</a></h1>
 <p>A ping is a bundle of related metrics, gathered in a payload to be transmitted.
 The ping payload is encoded in JSON format and contains one or more of the
@@ -11356,6 +11353,11 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v52.7.0...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>Adds the capability to merge remote metric configurations, enabling multiple Nimbus Features or components to share this functionality (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833381">Bug 1833381</a>)</li>
+</ul>
+</li>
 <li>Rust
 <ul>
 <li>Timing distribution traits now expose <code>accumulate_samples</code> and <code>accumulate_raw_samples_nanos</code>. This is a breaking change for consumers that make use of the trait as they will need to implement the new functions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1829745">Bug 1829745</a>)</li>

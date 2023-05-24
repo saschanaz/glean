@@ -152,9 +152,7 @@
                         <h1 id="advanced-topics"><a class="header" href="#advanced-topics">Advanced Topics</a></h1>
 <h2 id="merging-of-configurations-from-multiple-features"><a class="header" href="#merging-of-configurations-from-multiple-features">Merging of Configurations from Multiple Features</a></h2>
 <p>Since each feature defined as a Nimbus Feature can independently provide a Glean configuration, these must be merged together into a cohesive configuration for the entire set of metrics collected by Glean.</p>
-<p>In order to accomplish this, Glean uses the same feature identifier used by Nimbus. Provide this id when calling the Glean API to set the configuration.</p>
-<p>This means that any existing configuration that is associated with a particular feature identifier will be overwritten if a new configuration is provided with the same identifier.</p>
-<p>Configurations from all identifiers will be merged together along with the default values in the metrics.yaml file and applied to the appropriate metrics.</p>
+<p>Configurations will be merged together along with the default values in the metrics.yaml file and applied to the appropriate metrics. Only the latest configuration provided for a given metric will be applied and any previously configured metrics that are omitted from the new configuration will not be changed.</p>
 <h3 id="example"><a class="header" href="#example">Example</a></h3>
 <p>Imagine a situation where we have 3 features (<code>A</code>, <code>B</code>, <code>C</code>). Each of these features has an event (<code>A.event</code>, <code>B.event</code>, <code>C.event</code>) and these events all default to disabled from their definition in the metrics.yaml file.</p>
 <p>Let’s walk through an example of changing configurations for these features that illustrates how the merging will work:</p>
@@ -321,7 +319,7 @@
 <p>After the new changes to the currently running rollouts and experiments, this client is now enrolled in the experiment for Feature A and the configuration is suppressing the A.event. Feature B is no longer sending B.event because it is reverting back to the defaults from the metrics.yaml file. And finally, Feature C is sending C.event with the rollout configuration applied.</p>
 <p>In each case, Glean only updates the configuration associated with the feature that provided it. Nimbus’ feature exclusion would prevent a client from being enrolled in multiple rollouts or experiments for a given feature, so no more than one configuration would be applied per feature for a given client.</p>
 <h3 id="merging-caveats"><a class="header" href="#merging-caveats">Merging Caveats</a></h3>
-<p>Because there is currently nothing that ties a particular Nimbus Feature to a set of metrics, care must be taken to avoid feature overlap over a particular metric. If two different features supply  conflicting configurations for the same metric identifier, then whether or not the metric is enabled will likely come down to a race condition of whoever set the configuration last</p>
+<p>Because there is currently nothing that ties a particular Nimbus Feature to a set of metrics, care must be taken to avoid feature overlap over a particular metric. If two different features supply conflicting configurations for the same metric, then whether or not the metric is enabled will likely come down to a race condition of whoever set the configuration last.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/user/metrics/data-control-plane/advanced-topics.md">Edit this page on GitHub.</a></footer>
                     </main>
 

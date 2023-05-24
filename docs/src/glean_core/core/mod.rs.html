@@ -940,6 +940,8 @@
 <a href="#940" id="940">940</a>
 <a href="#941" id="941">941</a>
 <a href="#942" id="942">942</a>
+<a href="#943" id="943">943</a>
+<a href="#944" id="944">944</a>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::path::{Path, PathBuf};
 <span class="kw">use </span>std::sync::atomic::{AtomicU8, Ordering};
@@ -1656,8 +1658,10 @@
     </span><span class="kw">pub fn </span>set_metrics_enabled_config(<span class="kw-2">&amp;</span><span class="self">self</span>, cfg: MetricsEnabledConfig) {
         <span class="comment">// Set the current MetricsEnabledConfig, keeping the lock until the epoch is
         // updated to prevent against reading a &quot;new&quot; config but an &quot;old&quot; epoch
-        </span><span class="kw">let </span><span class="kw-2">mut </span>lock = <span class="self">self</span>.remote_settings_metrics_config.lock().unwrap();
-        <span class="kw-2">*</span>lock = cfg;
+        </span><span class="kw">let </span><span class="kw-2">mut </span>metric_config = <span class="self">self</span>.remote_settings_metrics_config.lock().unwrap();
+
+        <span class="comment">// Merge the exising configuration with the supplied one
+        </span>metric_config.metrics_enabled.extend(cfg.metrics_enabled);
 
         <span class="comment">// Update remote_settings epoch
         </span><span class="self">self</span>.remote_settings_epoch.fetch_add(<span class="number">1</span>, Ordering::SeqCst);

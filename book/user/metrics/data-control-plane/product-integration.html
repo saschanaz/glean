@@ -160,19 +160,18 @@
     description: &gt;-
     &quot;Glean metric configuration&quot;
 </code></pre>
-<p>This definition allows for configuration to be set in a Nimbus rollout or experiment and fetched by the client to be applied based on the enrollment. Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API function along with the identifier for the feature. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Only the latest configuration provided will be applied. An example call to set a configuration from the “urlbar” Nimbus Feature could look like this:</p>
-<pre><code class="language-JavaScript">Services.fog.setMetricsFeatureConfig(&quot;urlbar&quot;,
-  JSON.stringify(
-    Lazy.NimbusFeatures.urlbar.getVariable(&quot;gleanMetricConfiguration&quot;)
-  )
+<p>This definition allows for configuration to be set in a Nimbus rollout or experiment and fetched by the client to be applied based on the enrollment. Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Only the latest configuration provided will be applied and any previously configured metrics that are omitted from the new configuration will not be changed. An example call to set a configuration from the “urlbar” Nimbus Feature could look like this:</p>
+<pre><code class="language-JavaScript">let cfg = lazy.NimbusFeatures.urlbar.getVariable(
+  &quot;gleanMetricConfiguration&quot;
 );
+Services.fog.setMetricsFeatureConfig(JSON.stringify(cfg));
 </code></pre>
 <p>It is also recommended to register to listen for updates for the Nimbus Feature and apply new configurations as soon as possible. The following example illustrates how the “urlbar” Nimbus Feature might register and update the metric configuration:</p>
 <pre><code class="language-JavaScript">lazy.NimbusFeatures.urlbar.onUpdate(() =&gt; {
-  let cfg = lazy.NimbusFeatures.glean.getVariable(
+  let cfg = lazy.NimbusFeatures.urlbar.getVariable(
     &quot;gleanMetricConfiguration&quot;
   );
-  Services.fog.setMetricsFeatureConfig(&quot;urlbar&quot;, JSON.stringify(cfg));
+  Services.fog.setMetricsFeatureConfig(JSON.stringify(cfg));
 });
 </code></pre>
 <h2 id="mobile-feature-integration"><a class="header" href="#mobile-feature-integration">Mobile Feature Integration</a></h2>
@@ -189,7 +188,7 @@
         type: String
         default: &quot;{}&quot;
 </code></pre>
-<p>Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API function along with the identifier for the feature. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Only the latest configuration provided will be applied. An example call to set a configuration from the “homescreen” Nimbus Feature could look like this:</p>
+<p>Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Only the latest configuration provided will be applied and any previously configured metrics that are omitted from the new configuration will not be changed. An example call to set a configuration from the “homescreen” Nimbus Feature could look like this:</p>
 <pre><code class="language-Swift">Glean.setMetricsEnabledConfig(FxNimbus.features.homescreen.value().metricsEnabled)
 </code></pre>
 <p>Since mobile experiments only update on initialization of the application, it isn't necessary to register to listen for notifications for experiment updates.</p>
