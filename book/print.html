@@ -6463,8 +6463,8 @@ Glean.search.engines.add(&quot;duck duck go&quot;);
 </ul>
 <h4 id="limits-9"><a class="header" href="#limits-9">Limits</a></h4>
 <ul>
-<li>Fixed maximum string length: 50. Longer strings are truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
-<li>Fixed maximum list length: 20 items. Additional strings are dropped.</li>
+<li>Fixed maximum string length: 100. Longer strings are truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
+<li>Fixed maximum list length: 100 items. Additional strings are dropped.</li>
 </ul>
 <h3 id="set-4"><a class="header" href="#set-4"><code>set</code></a></h3>
 <p>Set the metric to a specific list of strings.
@@ -6525,8 +6525,8 @@ mozilla::glean::search::engines.Set({&quot;wikipedia&quot;_ns, &quot;duck duck g
 </ul>
 <h4 id="limits-10"><a class="header" href="#limits-10">Limits</a></h4>
 <ul>
-<li>Fixed maximum string length: 50. Longer strings are truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
-<li>Fixed maximum list length: 20 items. Additional strings are dropped.</li>
+<li>Fixed maximum string length: 100. Longer strings are truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
+<li>Fixed maximum list length: 100 items. Additional strings are dropped.</li>
 </ul>
 <h2 id="testing-api-8"><a class="header" href="#testing-api-8">Testing API</a></h2>
 <h3 id="testgetvalue-6"><a class="header" href="#testgetvalue-6"><code>testGetValue</code></a></h3>
@@ -11356,6 +11356,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li>General
 <ul>
 <li>Adds the capability to merge remote metric configurations, enabling multiple Nimbus Features or components to share this functionality (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833381">Bug 1833381</a>)</li>
+<li>StringList metric type limits have been increased. The length of strings allowed has been increased from 50 to 100 to match the String metric type, and the list length has been increased from 20 to 100 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833870">Bug 1833870</a>)</li>
 </ul>
 </li>
 <li>Rust
