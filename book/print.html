@@ -11357,6 +11357,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <ul>
 <li>Adds the capability to merge remote metric configurations, enabling multiple Nimbus Features or components to share this functionality (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833381">Bug 1833381</a>)</li>
 <li>StringList metric type limits have been increased. The length of strings allowed has been increased from 50 to 100 to match the String metric type, and the list length has been increased from 20 to 100 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833870">Bug 1833870</a>)</li>
+<li>Make ping rate limiting configurable on Glean init. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1647630">bug 1647630</a>)</li>
 </ul>
 </li>
 <li>Rust
@@ -11364,10 +11365,11 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li>Timing distribution traits now expose <code>accumulate_samples</code> and <code>accumulate_raw_samples_nanos</code>. This is a breaking change for consumers that make use of the trait as they will need to implement the new functions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1829745">Bug 1829745</a>)</li>
 </ul>
 </li>
-<li>Swift
+<li>iOS
 <ul>
 <li>Make debugging APIs available on Swift (<a href="https://github.com/mozilla/glean/pull/2470">#2470</a>)</li>
 <li>Added a shutdown API for Swift. This should only be necessary for when Glean is running in a process other than the main process (like in the VPN daemon, for instance)(<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1832324">Bug 1832324</a>)</li>
+<li>Glean for iOS is now being built with Xcode 14.3 (<a href="https://github.com/mozilla/glean/pull/2253">#2253</a>)</li>
 </ul>
 </li>
 </ul>
@@ -14451,6 +14453,7 @@ They could be release notes, documentation, hopes, dreams, or whatever: so long 
 <li>2022-02-16: <a href="https://blog.mozilla.org/data/2022/02/16/this-week-in-glean-what-if-i-want-to-collect-all-the-data/">What If I Want To Collect All The Data?</a></li>
 <li>2022-02-25: <a href="https://blog.mozilla.org/data/2022/02/25/this-week-in-glean-your-personal-glean-data-pipeline/">Your personal Glean data pipeline</a></li>
 <li>2022-10-27: <a href="https://blog.mozilla.org/data/2022/10/27/this-week-in-glean-page-load-data-three-ways-or-how-expensive-are-events/">Page Load Data, Three Ways (Or, How Expensive Are Events?)</a></li>
+<li>2023-05-25: <a href="https://blog.mozilla.org/data/2023/05/25/this-week-in-data-reading-the-managers-path-by-camille-fournier/">Reading “The Manager’s Path” by Camille Fournier</a></li>
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/twig.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="contribution-guidelines-1"><a class="header" href="#contribution-guidelines-1">Contribution Guidelines</a></h1>
 <p>There are two important questions to answer before adding new content to this book:</p>

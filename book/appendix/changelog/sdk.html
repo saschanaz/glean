@@ -156,6 +156,7 @@
 <ul>
 <li>Adds the capability to merge remote metric configurations, enabling multiple Nimbus Features or components to share this functionality (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833381">Bug 1833381</a>)</li>
 <li>StringList metric type limits have been increased. The length of strings allowed has been increased from 50 to 100 to match the String metric type, and the list length has been increased from 20 to 100 (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1833870">Bug 1833870</a>)</li>
+<li>Make ping rate limiting configurable on Glean init. (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1647630">bug 1647630</a>)</li>
 </ul>
 </li>
 <li>Rust
@@ -163,10 +164,11 @@
 <li>Timing distribution traits now expose <code>accumulate_samples</code> and <code>accumulate_raw_samples_nanos</code>. This is a breaking change for consumers that make use of the trait as they will need to implement the new functions (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1829745">Bug 1829745</a>)</li>
 </ul>
 </li>
-<li>Swift
+<li>iOS
 <ul>
 <li>Make debugging APIs available on Swift (<a href="https://github.com/mozilla/glean/pull/2470">#2470</a>)</li>
 <li>Added a shutdown API for Swift. This should only be necessary for when Glean is running in a process other than the main process (like in the VPN daemon, for instance)(<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1832324">Bug 1832324</a>)</li>
+<li>Glean for iOS is now being built with Xcode 14.3 (<a href="https://github.com/mozilla/glean/pull/2253">#2253</a>)</li>
 </ul>
 </li>
 </ul>

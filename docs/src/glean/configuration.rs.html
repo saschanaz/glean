@@ -150,6 +150,13 @@
 <a href="#150" id="150">150</a>
 <a href="#151" id="151">151</a>
 <a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -190,6 +197,8 @@
     </span><span class="kw">pub </span>trim_data_to_registered_pings: bool,
     <span class="doccomment">/// The internal logging level.
     </span><span class="kw">pub </span>log_level: <span class="prelude-ty">Option</span>&lt;LevelFilter&gt;,
+    <span class="doccomment">/// The rate pings may be uploaded before they are throttled.
+    </span><span class="kw">pub </span>rate_limit: <span class="prelude-ty">Option</span>&lt;glean_core::PingRateLimit&gt;,
 }
 
 <span class="doccomment">/// Configuration builder.
@@ -227,6 +236,9 @@
     <span class="doccomment">/// Optional: The internal logging level.
     /// Default: `None`
     </span><span class="kw">pub </span>log_level: <span class="prelude-ty">Option</span>&lt;LevelFilter&gt;,
+    <span class="doccomment">/// Optional: The internal ping upload rate limit.
+    /// Default: `None`
+    </span><span class="kw">pub </span>rate_limit: <span class="prelude-ty">Option</span>&lt;glean_core::PingRateLimit&gt;,
 }
 
 <span class="kw">impl </span>Builder {
@@ -247,6 +259,7 @@
             use_core_mps: <span class="bool-val">false</span>,
             trim_data_to_registered_pings: <span class="bool-val">false</span>,
             log_level: <span class="prelude-val">None</span>,
+            rate_limit: <span class="prelude-val">None</span>,
         }
     }
 
@@ -263,6 +276,7 @@
             use_core_mps: <span class="self">self</span>.use_core_mps,
             trim_data_to_registered_pings: <span class="self">self</span>.trim_data_to_registered_pings,
             log_level: <span class="self">self</span>.log_level,
+            rate_limit: <span class="self">self</span>.rate_limit,
         }
     }
 

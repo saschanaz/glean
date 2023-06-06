@@ -942,6 +942,13 @@
 <a href="#942" id="942">942</a>
 <a href="#943" id="943">943</a>
 <a href="#944" id="944">944</a>
+<a href="#945" id="945">945</a>
+<a href="#946" id="946">946</a>
+<a href="#947" id="947">947</a>
+<a href="#948" id="948">948</a>
+<a href="#949" id="949">949</a>
+<a href="#950" id="950">950</a>
+<a href="#951" id="951">951</a>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::path::{Path, PathBuf};
 <span class="kw">use </span>std::sync::atomic::{AtomicU8, Ordering};
@@ -963,8 +970,8 @@
 <span class="kw">use </span><span class="kw">crate</span>::upload::{PingUploadManager, PingUploadTask, UploadResult, UploadTaskAction};
 <span class="kw">use </span><span class="kw">crate</span>::util::{local_now_with_offset, sanitize_application_id};
 <span class="kw">use crate</span>::{
-    scheduler, system, CommonMetricData, ErrorKind, InternalConfiguration, Lifetime, <span class="prelude-ty">Result</span>,
-    DEFAULT_MAX_EVENTS, GLEAN_SCHEMA_VERSION, GLEAN_VERSION, KNOWN_CLIENT_ID,
+    scheduler, system, CommonMetricData, ErrorKind, InternalConfiguration, Lifetime, PingRateLimit,
+    <span class="prelude-ty">Result</span>, DEFAULT_MAX_EVENTS, GLEAN_SCHEMA_VERSION, GLEAN_VERSION, KNOWN_CLIENT_ID,
 };
 
 <span class="kw">static </span>GLEAN: OnceCell&lt;Mutex&lt;Glean&gt;&gt; = OnceCell::new();
@@ -1057,6 +1064,7 @@
 ///     use_core_mps: false,
 ///     trim_data_to_registered_pings: false,
 ///     log_level: None,
+///     rate_limit: None,
 /// };
 /// let mut glean = Glean::new(cfg).unwrap();
 /// let ping = PingType::new(&quot;sample&quot;, true, false, vec![]);
@@ -1119,8 +1127,13 @@
 
         <span class="comment">// Create an upload manager with rate limiting of 15 pings every 60 seconds.
         </span><span class="kw">let </span><span class="kw-2">mut </span>upload_manager = PingUploadManager::new(<span class="kw-2">&amp;</span>cfg.data_path, <span class="kw-2">&amp;</span>cfg.language_binding_name);
+        <span class="kw">let </span>rate_limit = cfg.rate_limit.as_ref().unwrap_or(<span class="kw-2">&amp;</span>PingRateLimit {
+            seconds_per_interval: <span class="number">60</span>,
+            pings_per_interval: <span class="number">15</span>,
+        });
         upload_manager.set_rate_limiter(
-            <span class="comment">/* seconds per interval */ </span><span class="number">60</span>, <span class="comment">/* max pings per interval */ </span><span class="number">15</span>,
+            rate_limit.seconds_per_interval,
+            rate_limit.pings_per_interval,
         );
 
         <span class="comment">// We only scan the pending ping directories when calling this from a subprocess,
@@ -1239,6 +1252,7 @@
             use_core_mps: <span class="bool-val">false</span>,
             trim_data_to_registered_pings: <span class="bool-val">false</span>,
             log_level: <span class="prelude-val">None</span>,
+            rate_limit: <span class="prelude-val">None</span>,
         };
 
         <span class="kw">let </span><span class="kw-2">mut </span>glean = <span class="self">Self</span>::new(cfg).unwrap();

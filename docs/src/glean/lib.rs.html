@@ -282,6 +282,7 @@
 <a href="#282" id="282">282</a>
 <a href="#283" id="283">283</a>
 <a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -403,6 +404,7 @@
         use_core_mps: cfg.use_core_mps,
         trim_data_to_registered_pings: cfg.trim_data_to_registered_pings,
         log_level: cfg.log_level,
+        rate_limit: cfg.rate_limit,
     };
 
     glean_core::glean_initialize(core_cfg, client_info.into(), callbacks);

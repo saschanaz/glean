@@ -1111,6 +1111,17 @@
 <a href="#1111" id="1111">1111</a>
 <a href="#1112" id="1112">1112</a>
 <a href="#1113" id="1113">1113</a>
+<a href="#1114" id="1114">1114</a>
+<a href="#1115" id="1115">1115</a>
+<a href="#1116" id="1116">1116</a>
+<a href="#1117" id="1117">1117</a>
+<a href="#1118" id="1118">1118</a>
+<a href="#1119" id="1119">1119</a>
+<a href="#1120" id="1120">1120</a>
+<a href="#1121" id="1121">1121</a>
+<a href="#1122" id="1122">1122</a>
+<a href="#1123" id="1123">1123</a>
+<a href="#1124" id="1124">1124</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1241,6 +1252,17 @@
     </span><span class="kw">pub </span>trim_data_to_registered_pings: bool,
     <span class="doccomment">/// The internal logging level.
     </span><span class="kw">pub </span>log_level: <span class="prelude-ty">Option</span>&lt;LevelFilter&gt;,
+    <span class="doccomment">/// The rate at which pings may be uploaded before they are throttled.
+    </span><span class="kw">pub </span>rate_limit: <span class="prelude-ty">Option</span>&lt;PingRateLimit&gt;,
+}
+
+<span class="doccomment">/// How to specify the rate at which pings may be uploaded before they are throttled.
+</span><span class="attr">#[derive(Debug, Clone)]
+</span><span class="kw">pub struct </span>PingRateLimit {
+    <span class="doccomment">/// Length of time in seconds of a ping uploading interval.
+    </span><span class="kw">pub </span>seconds_per_interval: u64,
+    <span class="doccomment">/// Number of pings that may be uploaded in a ping uploading interval.
+    </span><span class="kw">pub </span>pings_per_interval: u32,
 }
 
 <span class="doccomment">/// Launches a new task on the global dispatch queue with a reference to the Glean singleton.
