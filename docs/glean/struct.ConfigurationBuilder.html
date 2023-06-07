@@ -8,7 +8,7 @@
     pub uploader: <a class="enum" href="https://doc.rust-lang.org/1.67.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.67.1/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;dyn <a class="trait" href="net/trait.PingUploader.html" title="trait glean::net::PingUploader">PingUploader</a> + 'static&gt;&gt;,
     pub use_core_mps: <a class="primitive" href="https://doc.rust-lang.org/1.67.1/std/primitive.bool.html">bool</a>,
     pub trim_data_to_registered_pings: <a class="primitive" href="https://doc.rust-lang.org/1.67.1/std/primitive.bool.html">bool</a>,
-    pub log_level: <a class="enum" href="https://doc.rust-lang.org/1.67.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="https://docs.rs/log/0.4.17/log/enum.LevelFilter.html" title="enum log::LevelFilter">LevelFilter</a>&gt;,
+    pub log_level: <a class="enum" href="https://doc.rust-lang.org/1.67.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="https://docs.rs/log/0.4.18/log/enum.LevelFilter.html" title="enum log::LevelFilter">LevelFilter</a>&gt;,
     pub rate_limit: <a class="enum" href="https://doc.rust-lang.org/1.67.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glean_core/struct.PingRateLimit.html" title="struct glean_core::PingRateLimit">PingRateLimit</a>&gt;,
 }</code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Configuration builder.</p>
 <p>Let’s you build a configuration from the required fields
@@ -30,7 +30,7 @@ Default: <code>false</code></p>
 Unless you know that all your and your libraries’ pings are appropriately registered
 <em>before</em> init, you shouldn’t use this.
 Default: <code>false</code></p>
-</div><span id="structfield.log_level" class="structfield small-section-header"><a href="#structfield.log_level" class="anchor field">§</a><code>log_level: <a class="enum" href="https://doc.rust-lang.org/1.67.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="https://docs.rs/log/0.4.17/log/enum.LevelFilter.html" title="enum log::LevelFilter">LevelFilter</a>&gt;</code></span><div class="docblock"><p>Optional: The internal logging level.
+</div><span id="structfield.log_level" class="structfield small-section-header"><a href="#structfield.log_level" class="anchor field">§</a><code>log_level: <a class="enum" href="https://doc.rust-lang.org/1.67.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="enum" href="https://docs.rs/log/0.4.18/log/enum.LevelFilter.html" title="enum log::LevelFilter">LevelFilter</a>&gt;</code></span><div class="docblock"><p>Optional: The internal logging level.
 Default: <code>None</code></p>
 </div><span id="structfield.rate_limit" class="structfield small-section-header"><a href="#structfield.rate_limit" class="anchor field">§</a><code>rate_limit: <a class="enum" href="https://doc.rust-lang.org/1.67.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../glean_core/struct.PingRateLimit.html" title="struct glean_core::PingRateLimit">PingRateLimit</a>&gt;</code></span><div class="docblock"><p>Optional: The internal ping upload rate limit.
 Default: <code>None</code></p>
