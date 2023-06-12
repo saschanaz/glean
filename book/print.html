@@ -3486,18 +3486,32 @@ used by websites, add-ons, and other 3rd-party software that interact with Firef
 <h5 id="category-2-interaction-data-interaction"><a class="header" href="#category-2-interaction-data-interaction">Category 2: Interaction Data (<code>interaction</code>)</a></h5>
 <p>Information about the user’s direct engagement with Firefox. Examples include how many tabs,
 add-ons, or windows a user has open; uses of specific Firefox features; session length,
-scrolls and clicks; and the status of discrete user preferences.</p>
-<h5 id="category-3-web-activity-data-web_activity"><a class="header" href="#category-3-web-activity-data-web_activity">Category 3: Web activity data (<code>web_activity</code>)</a></h5>
-<p>Information about user web browsing that could be considered sensitive.
-Examples include users’ specific web browsing history; general information
-about their web browsing history (such as TLDs or categories of webpages visited over time);
-and potentially certain types of interaction data about specific webpages visited.</p>
-<h5 id="category-4-highly-sensitive-data-highly_sensitive"><a class="header" href="#category-4-highly-sensitive-data-highly_sensitive">Category 4: Highly sensitive data (<code>highly_sensitive</code>)</a></h5>
+scrolls and clicks; and the status of discrete user preferences.
+It also includes information about the user's in-product journeys and product choices helpful to understand engagement (attitudes).
+For example, selections of add-ons or tiles to determine potential interest categories etc.</p>
+<h5 id="category-3-stored-content--communications-stored_content"><a class="header" href="#category-3-stored-content--communications-stored_content">Category 3: Stored Content &amp; Communications (<code>stored_content</code>)</a></h5>
+<p><em>(formerly Web activity data, <code>web_activity</code>)</em></p>
+<p>Information about what people store, sync, communicate or connect to where the information is generally considered
+to be more sensitive and personal in nature.
+Examples include users' saved URLs or URL history, specific web browsing history,
+general information about their web browsing history (such as TLDs or categories of webpages visited over time)
+and potentially certain types of interaction data about specific web pages or stories visited
+(such as highlighted portions of a story).
+It also includes information such as content saved by users to an individual account like saved URLs,
+tags, notes, passwords and files as well as communications that users have with one another through a Mozilla service.</p>
+<h5 id="category-4-highly-sensitive-data-or-clearly-identifiable-personal-data-highly_sensitive"><a class="header" href="#category-4-highly-sensitive-data-or-clearly-identifiable-personal-data-highly_sensitive">Category 4: Highly sensitive data or clearly identifiable personal data (<code>highly_sensitive</code>)</a></h5>
 <p>Information that directly identifies a person, or if combined with other data could identify a person.
-Examples include e-mail, usernames, identifiers such as google ad id, apple id, Firefox account,
-city or country (unless small ones are explicitly filtered out), or certain cookies.
-It may be embedded within specific website content, such as memory contents, dumps,
-captures of screen data, or DOM data.</p>
+This data may be embedded within specific website content, such as memory contents, dumps, captures of screen data, or DOM data.
+Examples include account registration data like name, password, and email address associated with an account,
+payment data in connection with subscriptions or donations, contact information such as phone numbers or mailing addresses,
+email addresses associated with surveys, promotions and customer support contacts.
+It also includes any data from different categories that, when combined, can identify a person, device, household or account.
+For example Category 1 log data combined with Category 3 saved URLs.
+Additional examples are: voice audio commands (including a voice audio file),
+speech-to-text or text-to-speech (including transcripts), biometric data, demographic information,
+and precise location data associated with a persistent identifier, individual or small population cohorts.
+This is location inferred or determined from mechanisms other than IP such as wi-fi access points, Bluetooth beacons,
+cell phone towers or provided directly to us, such as in a survey or a profile.</p>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/yaml/metrics.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="pings-yaml-registry-format"><a class="header" href="#pings-yaml-registry-format">Pings YAML Registry Format</a></h1>
 <p>Custom pings sent by an application or library are defined in YAML files which follow
 the <a href="https://mozilla.github.io/glean_parser/pings-yaml.html"><code>pings.yaml</code> JSON schema</a>.</p>
@@ -8816,8 +8830,8 @@ refer to the metrics <a href="reference/metrics/../yaml/index.html">YAML format<
 <h2 id="note-on-data_sensitivity-of-url-metrics"><a class="header" href="#note-on-data_sensitivity-of-url-metrics">Note on <code>data_sensitivity</code> of URL metrics</a></h2>
 <blockquote>
 <p>URL metrics can only either be on categories 3 or 4, namely
-<a href="reference/metrics/../yaml/metrics.html#category-3-web-activity-data-web_activity">&quot;Web activity data&quot;</a> or
-<a href="reference/metrics/../yaml/metrics.html#category-4-highly-sensitive-data-highly_sensitive">&quot;Highly sensitive data&quot;</a>.</p>
+<a href="reference/metrics/../yaml/metrics.html#category-3-stored-content--communications-stored_content">&quot;Stored Content &amp; Communications&quot;</a> or
+<a href="reference/metrics/../yaml/metrics.html#category-4-highly-sensitive-data-or-clearly-identifiable-personal-data-highly_sensitive">&quot;Highly sensitive data&quot;</a>.</p>
 </blockquote>
 <h3 id="extra-metric-parameters-11"><a class="header" href="#extra-metric-parameters-11">Extra metric parameters</a></h3>
 <p>N/A</p>
