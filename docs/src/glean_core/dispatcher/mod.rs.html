@@ -587,6 +587,8 @@
 <a href="#587" id="587">587</a>
 <a href="#588" id="588">588</a>
 <a href="#589" id="589">589</a>
+<a href="#590" id="590">590</a>
+<a href="#591" id="591">591</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -761,8 +763,10 @@
         // Blocking on the queue can only work if it is eventually flushed anyway.
 
         </span><span class="kw">let </span>task = Command::Task(Box::new(<span class="kw">move </span>|| {
-            tx.send(())
-                .expect(<span class="string">&quot;(worker) Can&#39;t send message on single-use channel&quot;</span>);
+            <span class="comment">// In case the calling thread times out waiting for this
+            // the channel will be dropped.
+            // But in case the work continues we don&#39;t want to panic.
+            </span><span class="kw">_ </span>= tx.send(());
         }));
         <span class="self">self</span>.sender
             .send(task)

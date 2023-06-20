@@ -1122,6 +1122,8 @@
 <a href="#1122" id="1122">1122</a>
 <a href="#1123" id="1123">1123</a>
 <a href="#1124" id="1124">1124</a>
+<a href="#1125" id="1125">1125</a>
+<a href="#1126" id="1126">1126</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1129,7 +1131,6 @@
 </span><span class="attr">#![allow(clippy::significant_drop_in_scrutinee)]
 #![allow(clippy::uninlined_format_args)]
 #![deny(rustdoc::broken_intra_doc_links)]
-#![deny(missing_docs)]
 
 </span><span class="doccomment">//! Glean is a modern approach for recording and sending Telemetry data.
 //!
@@ -1161,7 +1162,7 @@
 <span class="kw">mod </span>coverage;
 <span class="kw">mod </span>database;
 <span class="kw">mod </span>debug;
-<span class="kw">mod </span>dispatcher;
+<span class="kw">pub mod </span>dispatcher;
 <span class="kw">mod </span>error;
 <span class="kw">mod </span>error_recording;
 <span class="kw">mod </span>event_database;
@@ -1717,19 +1718,22 @@
             .shutdown_dispatcher_wait
             .start_sync()
     });
-    <span class="kw">if </span>dispatcher::block_on_queue_timeout(Duration::from_secs(<span class="number">10</span>)).is_err() {
-        <span class="macro">log::error!</span>(
-            <span class="string">&quot;Timeout while blocking on the dispatcher. No further shutdown cleanup will happen.&quot;
-        </span>);
-        <span class="kw">return</span>;
-    }
-    <span class="kw">let </span>stop_time = time::precise_time_ns();
+    <span class="kw">let </span>blocked = dispatcher::block_on_queue_timeout(Duration::from_secs(<span class="number">10</span>));
+
+    <span class="comment">// Always record the dispatcher wait, regardless of the timeout.
+    </span><span class="kw">let </span>stop_time = time::precise_time_ns();
     core::with_glean(|glean| {
         glean
             .additional_metrics
             .shutdown_dispatcher_wait
             .set_stop_and_accumulate(glean, timer_id, stop_time);
     });
+    <span class="kw">if </span>blocked.is_err() {
+        <span class="macro">log::error!</span>(
+            <span class="string">&quot;Timeout while blocking on the dispatcher. No further shutdown cleanup will happen.&quot;
+        </span>);
+        <span class="kw">return</span>;
+    }
 
     <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = dispatcher::shutdown() {
         <span class="macro">log::error!</span>(<span class="string">&quot;Can&#39;t shutdown dispatcher thread: {:?}&quot;</span>, e);
