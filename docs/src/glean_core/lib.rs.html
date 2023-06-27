@@ -1124,6 +1124,7 @@
 <a href="#1124" id="1124">1124</a>
 <a href="#1125" id="1125">1125</a>
 <a href="#1126" id="1126">1126</a>
+<a href="#1127" id="1127">1127</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1131,6 +1132,7 @@
 </span><span class="attr">#![allow(clippy::significant_drop_in_scrutinee)]
 #![allow(clippy::uninlined_format_args)]
 #![deny(rustdoc::broken_intra_doc_links)]
+#![deny(missing_docs)]
 
 </span><span class="doccomment">//! Glean is a modern approach for recording and sending Telemetry data.
 //!
@@ -1162,7 +1164,7 @@
 <span class="kw">mod </span>coverage;
 <span class="kw">mod </span>database;
 <span class="kw">mod </span>debug;
-<span class="kw">pub mod </span>dispatcher;
+<span class="kw">mod </span>dispatcher;
 <span class="kw">mod </span>error;
 <span class="kw">mod </span>error_recording;
 <span class="kw">mod </span>event_database;
