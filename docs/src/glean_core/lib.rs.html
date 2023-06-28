@@ -1125,6 +1125,36 @@
 <a href="#1125" id="1125">1125</a>
 <a href="#1126" id="1126">1126</a>
 <a href="#1127" id="1127">1127</a>
+<a href="#1128" id="1128">1128</a>
+<a href="#1129" id="1129">1129</a>
+<a href="#1130" id="1130">1130</a>
+<a href="#1131" id="1131">1131</a>
+<a href="#1132" id="1132">1132</a>
+<a href="#1133" id="1133">1133</a>
+<a href="#1134" id="1134">1134</a>
+<a href="#1135" id="1135">1135</a>
+<a href="#1136" id="1136">1136</a>
+<a href="#1137" id="1137">1137</a>
+<a href="#1138" id="1138">1138</a>
+<a href="#1139" id="1139">1139</a>
+<a href="#1140" id="1140">1140</a>
+<a href="#1141" id="1141">1141</a>
+<a href="#1142" id="1142">1142</a>
+<a href="#1143" id="1143">1143</a>
+<a href="#1144" id="1144">1144</a>
+<a href="#1145" id="1145">1145</a>
+<a href="#1146" id="1146">1146</a>
+<a href="#1147" id="1147">1147</a>
+<a href="#1148" id="1148">1148</a>
+<a href="#1149" id="1149">1149</a>
+<a href="#1150" id="1150">1150</a>
+<a href="#1151" id="1151">1151</a>
+<a href="#1152" id="1152">1152</a>
+<a href="#1153" id="1153">1153</a>
+<a href="#1154" id="1154">1154</a>
+<a href="#1155" id="1155">1155</a>
+<a href="#1156" id="1156">1156</a>
+<a href="#1157" id="1157">1157</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1601,6 +1631,10 @@
             });
 
             <span class="comment">// Signal Dispatcher that init is complete
+            // bug 1839433: It is important that this happens after any init tasks
+            // that shutdown() depends on. At time of writing that&#39;s only setting up
+            // the global Glean, but it is probably best to flush the preinit queue
+            // as late as possible in the glean.init thread.
             </span><span class="kw">match </span>dispatcher::flush_init() {
                 <span class="prelude-val">Ok</span>(task_count) <span class="kw">if </span>task_count &gt; <span class="number">0 </span>=&gt; {
                     core::with_glean(|glean| {
@@ -1690,20 +1724,46 @@
 
 <span class="doccomment">/// Shuts down Glean in an orderly fashion.
 </span><span class="kw">pub fn </span>shutdown() {
-    <span class="comment">// Either init was never called or Glean was not fully initialized
-    // (e.g. due to an error).
-    // There&#39;s the potential that Glean is not initialized _yet_,
-    // but in progress. That&#39;s fine, we shutdown either way before doing any work.
-    </span><span class="kw">if </span>!was_initialize_called() || core::global_glean().is_none() {
+    <span class="comment">// Shutdown might have been called
+    // 1) Before init was called
+    //    * (data loss, oh well. Not enough time to do squat)
+    // 2) After init was called, but before it completed
+    //    * (we&#39;re willing to wait a little bit for init to complete)
+    // 3) After init completed
+    //    * (we can shut down immediately)
+
+    // Case 1: &quot;Before init was called&quot;
+    </span><span class="kw">if </span>!was_initialize_called() {
         <span class="macro">log::warn!</span>(<span class="string">&quot;Shutdown called before Glean is initialized&quot;</span>);
         <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = dispatcher::kill() {
             <span class="macro">log::error!</span>(<span class="string">&quot;Can&#39;t kill dispatcher thread: {:?}&quot;</span>, e);
         }
-
         <span class="kw">return</span>;
     }
 
-    <span class="kw">crate</span>::launch_with_glean_mut(|glean| {
+    <span class="comment">// Case 2: &quot;After init was called, but before it completed&quot;
+    </span><span class="kw">if </span>core::global_glean().is_none() {
+        <span class="macro">log::warn!</span>(<span class="string">&quot;Shutdown called before Glean is initialized. Waiting.&quot;</span>);
+        <span class="comment">// We can&#39;t join on the `glean.init` thread because there&#39;s no (easy) way
+        // to do that with a timeout. Instead, we wait for the preinit queue to
+        // empty, which is the last meaningful thing we do on that thread.
+
+        // TODO: Make the timeout configurable?
+        // We don&#39;t need the return value, as we&#39;re less interested in whether
+        // this times out than we are in whether there&#39;s a Global Glean at the end.
+        </span><span class="kw">let _ </span>= dispatcher::block_on_queue_timeout(Duration::from_secs(<span class="number">10</span>));
+    }
+    <span class="comment">// We can&#39;t shut down Glean if there&#39;s no Glean to shut down.
+    </span><span class="kw">if </span>core::global_glean().is_none() {
+        <span class="macro">log::warn!</span>(<span class="string">&quot;Waiting for Glean initialization timed out. Exiting.&quot;</span>);
+        <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = dispatcher::kill() {
+            <span class="macro">log::error!</span>(<span class="string">&quot;Can&#39;t kill dispatcher thread: {:?}&quot;</span>, e);
+        }
+        <span class="kw">return</span>;
+    }
+
+    <span class="comment">// Case 3: &quot;After init completed&quot;
+    </span><span class="kw">crate</span>::launch_with_glean_mut(|glean| {
         glean.cancel_metrics_ping_scheduler();
         glean.set_dirty_flag(<span class="bool-val">false</span>);
     });
