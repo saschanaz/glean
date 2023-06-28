@@ -205,7 +205,7 @@ Protocol classes can be generic, they are defined as::</p>
         raise RuntimeError(&#34;UploadResult cannot be instantiated directly&#34;)
 
     # Each enum variant is a nested class of the enum itself.
-    class RECOVERABLE_FAILURE(object):
+    class RECOVERABLE_FAILURE:
         def __init__(self,unused):
             
             self.unused = unused
@@ -220,7 +220,7 @@ Protocol classes can be generic, they are defined as::</p>
             if self.unused != other.unused:
                 return False
             return True
-    class UNRECOVERABLE_FAILURE(object):
+    class UNRECOVERABLE_FAILURE:
         def __init__(self,unused):
             
             self.unused = unused
@@ -235,7 +235,7 @@ Protocol classes can be generic, they are defined as::</p>
             if self.unused != other.unused:
                 return False
             return True
-    class HTTP_STATUS(object):
+    class HTTP_STATUS:
         def __init__(self,code):
             
             self.code = code
@@ -250,7 +250,7 @@ Protocol classes can be generic, they are defined as::</p>
             if self.code != other.code:
                 return False
             return True
-    class DONE(object):
+    class DONE:
         def __init__(self,unused):
             
             self.unused = unused
@@ -269,13 +269,13 @@ Protocol classes can be generic, they are defined as::</p>
 
     # For each variant, we have an `is_NAME` method for easily checking
     # whether an instance is that variant.
-    def is_recoverable_failure(self):
+    def is_recoverable_failure(self) -&gt; bool:
         return isinstance(self, UploadResult.RECOVERABLE_FAILURE)
-    def is_unrecoverable_failure(self):
+    def is_unrecoverable_failure(self) -&gt; bool:
         return isinstance(self, UploadResult.UNRECOVERABLE_FAILURE)
-    def is_http_status(self):
+    def is_http_status(self) -&gt; bool:
         return isinstance(self, UploadResult.HTTP_STATUS)
-    def is_done(self):
+    def is_done(self) -&gt; bool:
         return isinstance(self, UploadResult.DONE)</code></pre>
 </details>
 <h3>Subclasses</h3>
@@ -307,7 +307,7 @@ Protocol classes can be generic, they are defined as::</p>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.net.ping_uploader.UploadResult.is_done"><code class="name flex">
-<span>def <span class="ident">is_done</span></span>(<span>self)</span>
+<span>def <span class="ident">is_done</span></span>(<span>self) ‑> bool</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -315,12 +315,12 @@ Protocol classes can be generic, they are defined as::</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def is_done(self):
+<pre><code class="python">def is_done(self) -&gt; bool:
     return isinstance(self, UploadResult.DONE)</code></pre>
 </details>
 </dd>
 <dt id="glean.net.ping_uploader.UploadResult.is_http_status"><code class="name flex">
-<span>def <span class="ident">is_http_status</span></span>(<span>self)</span>
+<span>def <span class="ident">is_http_status</span></span>(<span>self) ‑> bool</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -328,12 +328,12 @@ Protocol classes can be generic, they are defined as::</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def is_http_status(self):
+<pre><code class="python">def is_http_status(self) -&gt; bool:
     return isinstance(self, UploadResult.HTTP_STATUS)</code></pre>
 </details>
 </dd>
 <dt id="glean.net.ping_uploader.UploadResult.is_recoverable_failure"><code class="name flex">
-<span>def <span class="ident">is_recoverable_failure</span></span>(<span>self)</span>
+<span>def <span class="ident">is_recoverable_failure</span></span>(<span>self) ‑> bool</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -341,12 +341,12 @@ Protocol classes can be generic, they are defined as::</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def is_recoverable_failure(self):
+<pre><code class="python">def is_recoverable_failure(self) -&gt; bool:
     return isinstance(self, UploadResult.RECOVERABLE_FAILURE)</code></pre>
 </details>
 </dd>
 <dt id="glean.net.ping_uploader.UploadResult.is_unrecoverable_failure"><code class="name flex">
-<span>def <span class="ident">is_unrecoverable_failure</span></span>(<span>self)</span>
+<span>def <span class="ident">is_unrecoverable_failure</span></span>(<span>self) ‑> bool</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -354,7 +354,7 @@ Protocol classes can be generic, they are defined as::</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def is_unrecoverable_failure(self):
+<pre><code class="python">def is_unrecoverable_failure(self) -&gt; bool:
     return isinstance(self, UploadResult.UNRECOVERABLE_FAILURE)</code></pre>
 </details>
 </dd>

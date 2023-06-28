@@ -64,6 +64,16 @@
 <a href="#64" id="64">64</a>
 <a href="#65" id="65">65</a>
 <a href="#66" id="66">66</a>
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a>
+<a href="#69" id="69">69</a>
+<a href="#70" id="70">70</a>
+<a href="#71" id="71">71</a>
+<a href="#72" id="72">72</a>
+<a href="#73" id="73">73</a>
+<a href="#74" id="74">74</a>
+<a href="#75" id="75">75</a>
+<a href="#76" id="76">76</a>
 </pre><pre class="rust"><code><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -72,7 +82,16 @@
 
 <span class="kw">use </span>anyhow::{bail, Context};
 <span class="kw">use </span>camino::Utf8PathBuf;
-<span class="kw">use </span>uniffi_bindgen::generate_bindings;
+<span class="kw">use </span>uniffi::{generate_bindings, TargetLanguage};
+
+<span class="kw">fn </span>parse_language(lang: <span class="kw-2">&amp;</span>str) -&gt; anyhow::Result&lt;uniffi::TargetLanguage&gt; {
+    <span class="kw">match </span>lang {
+        <span class="string">&quot;kotlin&quot; </span>=&gt; <span class="prelude-val">Ok</span>(TargetLanguage::Kotlin),
+        <span class="string">&quot;python&quot; </span>=&gt; <span class="prelude-val">Ok</span>(TargetLanguage::Python),
+        <span class="string">&quot;swift&quot; </span>=&gt; <span class="prelude-val">Ok</span>(TargetLanguage::Swift),
+        <span class="kw">_ </span>=&gt; <span class="macro">bail!</span>(<span class="string">&quot;Unknown language&quot;</span>),
+    }
+}
 
 <span class="kw">fn </span>main() -&gt; anyhow::Result&lt;()&gt; {
     <span class="kw">let </span><span class="kw-2">mut </span>args = env::args().skip(<span class="number">1</span>);
@@ -89,7 +108,9 @@
         <span class="kw">if let </span><span class="prelude-val">Some</span>(arg) = arg.strip_prefix(<span class="string">&quot;--&quot;</span>) {
             <span class="kw">match </span>arg {
                 <span class="string">&quot;language&quot; </span>=&gt; {
-                    target_languages.push(args.next().context(<span class="string">&quot;--language needs a parameter&quot;</span>)<span class="question-mark">?</span>)
+                    <span class="kw">let </span>lang = args.next().context(<span class="string">&quot;--language needs a parameter&quot;</span>)<span class="question-mark">?</span>;
+                    <span class="kw">let </span>lang = parse_language(<span class="kw-2">&amp;</span>lang)<span class="question-mark">?</span>;
+                    target_languages.push(lang);
                 }
                 <span class="string">&quot;out-dir&quot; </span>=&gt; out_dir = <span class="prelude-val">Some</span>(args.next().context(<span class="string">&quot;--out-dir needs a parameter&quot;</span>)<span class="question-mark">?</span>),
                 <span class="string">&quot;no-format&quot; </span>=&gt; {
@@ -104,7 +125,6 @@
         }
     }
 
-    <span class="kw">let </span>target_languages: Vec&lt;<span class="kw-2">&amp;</span>str&gt; = target_languages.iter().map(|s| <span class="kw-2">&amp;</span>s[..]).collect();
     <span class="kw">let </span>out_dir = out_dir.map(Utf8PathBuf::from);
 
     <span class="kw">if </span>udl_file.is_none() {
