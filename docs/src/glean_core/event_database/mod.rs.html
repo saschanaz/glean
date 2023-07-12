@@ -2193,7 +2193,7 @@
             },
             execution_counter: <span class="prelude-val">None</span>,
         };
-        <span class="kw">let </span>timestamps = <span class="macro">vec!</span>[<span class="number">20</span>, <span class="number">40</span>, <span class="number">200</span>];
+        <span class="kw">let </span>timestamps = [<span class="number">20</span>, <span class="number">40</span>, <span class="number">200</span>];
         <span class="kw">let </span>not_glean_restarted = StoredEvent {
             event: RecordedEvent {
                 timestamp: timestamps[<span class="number">0</span>],
@@ -2269,8 +2269,8 @@
 
         <span class="comment">// This scenario represents a run of three events followed by an hour between runs,
         // followed by one final event.
-        </span><span class="kw">let </span>timestamps = <span class="macro">vec!</span>[<span class="number">20</span>, <span class="number">40</span>, <span class="number">200</span>, <span class="number">12</span>];
-        <span class="kw">let </span>ecs = <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">1</span>];
+        </span><span class="kw">let </span>timestamps = [<span class="number">20</span>, <span class="number">40</span>, <span class="number">200</span>, <span class="number">12</span>];
+        <span class="kw">let </span>ecs = [<span class="number">0</span>, <span class="number">1</span>];
         <span class="kw">let </span>some_hour = <span class="number">16</span>;
         <span class="kw">let </span>startup_date = FixedOffset::east(<span class="number">0</span>)
             .ymd(<span class="number">2022</span>, <span class="number">11</span>, <span class="number">24</span>)
@@ -2394,8 +2394,8 @@
 
         <span class="comment">// This scenario represents a run of two events followed by negative one hours between runs,
         // followed by two more events.
-        </span><span class="kw">let </span>timestamps = <span class="macro">vec!</span>[<span class="number">20</span>, <span class="number">40</span>, <span class="number">12</span>, <span class="number">200</span>];
-        <span class="kw">let </span>ecs = <span class="macro">vec!</span>[<span class="number">0</span>, <span class="number">1</span>];
+        </span><span class="kw">let </span>timestamps = [<span class="number">20</span>, <span class="number">40</span>, <span class="number">12</span>, <span class="number">200</span>];
+        <span class="kw">let </span>ecs = [<span class="number">0</span>, <span class="number">1</span>];
         <span class="kw">let </span>some_hour = <span class="number">10</span>;
         <span class="kw">let </span>startup_date = FixedOffset::east(<span class="number">0</span>)
             .ymd(<span class="number">2022</span>, <span class="number">11</span>, <span class="number">25</span>)

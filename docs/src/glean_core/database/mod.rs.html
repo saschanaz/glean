@@ -2846,7 +2846,7 @@
         <span class="kw">let </span>metric_id_pattern = <span class="string">&quot;telemetry_test.single_metric&quot;</span>;
 
         <span class="comment">// Write sample metrics to the database.
-        </span><span class="kw">let </span>lifetimes = <span class="macro">vec!</span>[Lifetime::User, Lifetime::Ping, Lifetime::Application];
+        </span><span class="kw">let </span>lifetimes = [Lifetime::User, Lifetime::Ping, Lifetime::Application];
 
         <span class="kw">for </span>lifetime <span class="kw">in </span>lifetimes.iter() {
             <span class="kw">for </span>value <span class="kw">in </span><span class="kw-2">&amp;</span>[<span class="string">&quot;retain&quot;</span>, <span class="string">&quot;delete&quot;</span>] {
