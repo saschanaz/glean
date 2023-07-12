@@ -3844,6 +3844,7 @@ let client_info = ClientInfoMetrics {
     app_build: env!(&quot;CARGO_PKG_VERSION&quot;).to_string(),
     app_display_version: env!(&quot;CARGO_PKG_VERSION&quot;).to_string(),
     channel: None,
+    locale: None,
 };
 
 glean::initialize(cfg, client_info);
@@ -11373,6 +11374,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li>Rust
 <ul>
 <li>The Ping Rate Limit type is now accessible in the Rust Language Binding (<a href="https://github.com/mozilla/glean/pull/2528">#2528</a>)</li>
+<li><code>locale</code> now exposed through the RLB so it can be set by consumers (<a href="https://github.com/mozilla/glean/pull/2527">2527</a>)</li>
 </ul>
 </li>
 </ul>

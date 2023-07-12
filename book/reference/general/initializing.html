@@ -340,6 +340,7 @@ let client_info = ClientInfoMetrics {
     app_build: env!(&quot;CARGO_PKG_VERSION&quot;).to_string(),
     app_display_version: env!(&quot;CARGO_PKG_VERSION&quot;).to_string(),
     channel: None,
+    locale: None,
 };
 
 glean::initialize(cfg, client_info);
