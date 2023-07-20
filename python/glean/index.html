@@ -788,7 +788,18 @@ initialized from the application.</p>
         This should be called whenever the consuming product becomes inactive (e.g.
         getting to background).
         &#34;&#34;&#34;
-        _uniffi.glean_handle_client_inactive()</code></pre>
+        _uniffi.glean_handle_client_inactive()
+
+    @classmethod
+    def shutdown(cls):
+        &#34;&#34;&#34;
+        Shuts down Glean in an orderly fashion.
+        &#34;&#34;&#34;
+        _uniffi.glean_shutdown()
+
+        # On top of the Glean shutdown
+        # we also wait for the process dispatcher to finish.
+        ProcessDispatcher._wait_for_last_process()</code></pre>
 </details>
 <h3>Static methods</h3>
 <dl>
@@ -1134,6 +1145,27 @@ def set_upload_enabled(cls, enabled: bool) -&gt; None:
     _uniffi.glean_set_upload_enabled(enabled)</code></pre>
 </details>
 </dd>
+<dt id="glean.Glean.shutdown"><code class="name flex">
+<span>def <span class="ident">shutdown</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Shuts down Glean in an orderly fashion.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def shutdown(cls):
+    &#34;&#34;&#34;
+    Shuts down Glean in an orderly fashion.
+    &#34;&#34;&#34;
+    _uniffi.glean_shutdown()
+
+    # On top of the Glean shutdown
+    # we also wait for the process dispatcher to finish.
+    ProcessDispatcher._wait_for_last_process()</code></pre>
+</details>
+</dd>
 <dt id="glean.Glean.test_get_experiment_data"><code class="name flex">
 <span>def <span class="ident">test_get_experiment_data</span></span>(<span>experiment_id: str) ‑> RecordedExperiment</span>
 </code></dt>
@@ -1264,6 +1296,7 @@ def test_is_experiment_active(cls, experiment_id: str) -&gt; bool:
 <li><code><a title="glean.Glean.set_experiment_active" href="#glean.Glean.set_experiment_active">set_experiment_active</a></code></li>
 <li><code><a title="glean.Glean.set_experiment_inactive" href="#glean.Glean.set_experiment_inactive">set_experiment_inactive</a></code></li>
 <li><code><a title="glean.Glean.set_upload_enabled" href="#glean.Glean.set_upload_enabled">set_upload_enabled</a></code></li>
+<li><code><a title="glean.Glean.shutdown" href="#glean.Glean.shutdown">shutdown</a></code></li>
 <li><code><a title="glean.Glean.test_get_experiment_data" href="#glean.Glean.test_get_experiment_data">test_get_experiment_data</a></code></li>
 <li><code><a title="glean.Glean.test_is_experiment_active" href="#glean.Glean.test_is_experiment_active">test_is_experiment_active</a></code></li>
 </ul>
