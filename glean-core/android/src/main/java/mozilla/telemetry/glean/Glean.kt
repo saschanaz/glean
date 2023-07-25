@@ -59,7 +59,7 @@ internal class OnGleanEventsImpl(val glean: GleanInternalAPI) : OnGleanEvents {
     }
 
     override fun triggerUpload() {
-        PingUploadWorker.enqueueWorker(glean.applicationContext)
+        PingUploadWorker.enqueueWorker(glean.applicationContext, glean.isCustomDataPath)
     }
 
     override fun startMetricsPingScheduler(): Boolean {

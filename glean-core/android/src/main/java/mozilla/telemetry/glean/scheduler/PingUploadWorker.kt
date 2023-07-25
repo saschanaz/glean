@@ -59,17 +59,22 @@ class PingUploadWorker(context: Context, params: WorkerParameters) : Worker(cont
          *
          * @param context the application [Context] to get the [WorkManager] instance for
          */
-        internal fun enqueueWorker(context: Context) {
+        internal fun enqueueWorker(context: Context, isBackgroundTask: Boolean = false) {
+            var tag = PING_WORKER_TAG
+            if (isBackgroundTask) {
+                tag += "_background"
+            }
+
             WorkManager.getInstance(context).enqueueUniqueWork(
-                PING_WORKER_TAG,
+                tag,
                 ExistingWorkPolicy.KEEP,
-                buildWorkRequest<PingUploadWorker>(PING_WORKER_TAG),
+                buildWorkRequest<PingUploadWorker>(tag),
             )
 
             // Only flush pings immediately if sending to a test endpoint,
             // which means we're probably in instrumented tests.
             if (Glean.isSendingToTestEndpoint) {
-                testFlushWorkManagerJob(context, PING_WORKER_TAG)
+                testFlushWorkManagerJob(context, tag)
             }
         }
 
