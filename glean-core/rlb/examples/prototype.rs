@@ -3,12 +3,46 @@
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 use std::env;
+use std::ffi::{c_int, c_void};
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU32, Ordering};
 
 use once_cell::sync::Lazy;
 use tempfile::Builder;
 
 use glean::{private::PingType, ClientInfoMetrics, ConfigurationBuilder};
+
+static ALLOW_THREAD_SPAWNED: AtomicU32 = AtomicU32::new(0);
+
+#[allow(non_camel_case_types)]
+type pthread_ft = extern "C" fn(
+    native: *mut libc::pthread_t,
+    attr: *const libc::pthread_attr_t,
+    f: extern "C" fn(*mut c_void) -> *mut c_void,
+    value: *mut c_void,
+) -> c_int;
+
+#[no_mangle]
+pub unsafe extern "C" fn pthread_create(
+    native: *mut libc::pthread_t,
+    attr: *const libc::pthread_attr_t,
+    f: extern "C" fn(*mut c_void) -> *mut c_void,
+    value: *mut c_void,
+) -> c_int {
+    let name = b"pthread_create\0".as_ptr() as *const i8;
+    let symbol = libc::dlsym(libc::RTLD_NEXT, name);
+    if symbol.is_null() {
+        panic!("oops, error in dlsym.");
+    }
+
+    let real_pthread_create = &*(&symbol as *const *mut _ as *const pthread_ft);
+
+    if ALLOW_THREAD_SPAWNED.fetch_add(1, Ordering::SeqCst) == 4 {
+        return -1;
+    }
+
+    return real_pthread_create(native, attr, f, value);
+}
 
 pub mod glean_metrics {
     use glean::{private::BooleanMetric, CommonMetricData, Lifetime};
