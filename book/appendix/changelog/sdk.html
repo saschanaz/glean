@@ -152,9 +152,15 @@
                         <h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v53.1.0...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>Update <code>glean_parser</code> to v8.0.0 (<a href="https://github.com/mozilla/glean_parser/releases/tag/v8.0.0">release notes</a>)</li>
+</ul>
+</li>
 <li>Rust
 <ul>
 <li>The Ping Rate Limit type is now accessible in the Rust Language Binding (<a href="https://github.com/mozilla/glean/pull/2528">#2528</a>)</li>
+<li>Gracefully handle a failure when starting the upload thread. Glean no longer crashes in that case. (<a href="https://github.com/mozilla/glean/pull/2545">#2545</a>)</li>
 <li><code>locale</code> now exposed through the RLB so it can be set by consumers (<a href="https://github.com/mozilla/glean/pull/2527">2527</a>)</li>
 </ul>
 </li>

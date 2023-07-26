@@ -219,6 +219,23 @@
 <a href="#219" id="219">219</a>
 <a href="#220" id="220">220</a>
 <a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -359,9 +376,26 @@
                     Ordering::SeqCst,
                     Ordering::SeqCst,
                 );
-            })
-            .expect(<span class="string">&quot;Failed to spawn Glean&#39;s uploader thread&quot;</span>);
-        <span class="kw-2">*</span>handle = <span class="prelude-val">Some</span>(thread);
+            });
+
+        <span class="kw">match </span>thread {
+            <span class="prelude-val">Ok</span>(thread) =&gt; <span class="kw-2">*</span>handle = <span class="prelude-val">Some</span>(thread),
+            <span class="prelude-val">Err</span>(err) =&gt; {
+                <span class="macro">log::warn!</span>(<span class="string">&quot;Failed to spawn Glean&#39;s uploader thread. This will be retried on next upload. Error: {err}&quot;</span>);
+                <span class="comment">// Swapping back the thread state. We&#39;re the ones setting it to `Running`, so
+                // should be able to set it back.
+                </span><span class="kw">let </span>state_change = <span class="self">self</span>.inner.thread_running.compare_exchange(
+                    State::Running,
+                    State::Stopped,
+                    Ordering::SeqCst,
+                    Ordering::SeqCst,
+                );
+
+                <span class="kw">if </span>state_change.is_err() {
+                    <span class="macro">log::warn!</span>(<span class="string">&quot;Failed to swap back thread state. Someone else jumped in and changed the state.&quot;</span>);
+                }
+            }
+        };
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>shutdown(<span class="kw-2">&amp;</span><span class="self">self</span>) {
