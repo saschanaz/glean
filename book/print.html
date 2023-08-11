@@ -383,7 +383,7 @@ apply plugin: &quot;org.mozilla.telemetry.glean-gradle-plugin&quot;
 <p>Currently, this SDK only supports the iOS platform.</p>
 <h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
 <ul>
-<li>Python &gt;= 3.6.</li>
+<li>Python &gt;= 3.7.</li>
 </ul>
 <h2 id="setting-up-the-dependency-1"><a class="header" href="#setting-up-the-dependency-1">Setting up the dependency</a></h2>
 <p>The Glean Swift SDK can be consumed as a Swift Package.
@@ -587,7 +587,7 @@ the Glean JavaScript SDK into a JavaScript project.</p>
 <li>Node.js &gt;= 12.20.0</li>
 <li>npm &gt;= 7.0.0</li>
 <li>Webpack &gt;= 5.34.0</li>
-<li>Python &gt;= 3.6
+<li>Python &gt;= 3.7
 <ul>
 <li>The <code>glean</code> command requires Python to download <a href="https://mozilla.github.io/glean_parser/"><code>glean_parser</code></a> which is a Python library</li>
 </ul>
@@ -737,7 +737,7 @@ To run the linter use the <code>glinter</code> command.</p>
 <p>Nevertheless this is just one of the required steps for integrating Glean successfully into a project. Check you the full <a href="user/adding-glean-to-your-project/./index.html">Glean integration checklist</a> for a comprehensive list of all the steps involved in doing so.</p>
 <h2 id="requirements-2"><a class="header" href="#requirements-2">Requirements</a></h2>
 <ul>
-<li>Python &gt;= 3.6</li>
+<li>Python &gt;= 3.7</li>
 <li>Qt &gt;= 5.15.2</li>
 </ul>
 <h2 id="setting-up-the-dependency-5"><a class="header" href="#setting-up-the-dependency-5">Setting up the dependency</a></h2>
@@ -10964,7 +10964,7 @@ When using the expiration by version feature in Android, products must provide t
 <p>To build a Glean-using application in offline mode, do the following:</p>
 <ul>
 <li>
-<p>Install Python 3.6 or later and ensure it's on the <code>PATH</code>.</p>
+<p>Install Python 3.7 or later and ensure it's on the <code>PATH</code>.</p>
 <ul>
 <li>
 <p>On Linux, installing Python from your Linux distribution's package manager is usually sufficient.</p>
@@ -11370,6 +11370,14 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v53.2.0...main">Full changelog</a></p>
+<ul>
+<li>Python
+<ul>
+<li>Switched the build system to maturin. This should not have any effect on consumers. (<a href="https://github.com/mozilla/glean/pull/2345">#2345</a>)</li>
+<li>BREAKING CHANGE: Dropped support for Python 3.6 (<a href="https://github.com/mozilla/glean/pull/2345">#2345</a>)</li>
+</ul>
+</li>
+</ul>
 <h1 id="v5320-2023-08-02"><a class="header" href="#v5320-2023-08-02">v53.2.0 (2023-08-02)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v53.1.0...v53.2.0">Full changelog</a></p>
 <ul>

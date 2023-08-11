@@ -174,7 +174,7 @@ __all__ = [&#34;TimespanMetricType&#34;]</code></pre>
 <dl>
 <dt id="glean.metrics.timespan.TimespanMetricType"><code class="flex name class">
 <span>class <span class="ident">TimespanMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, time_unit: glean._uniffi.TimeUnit)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, time_unit: glean._uniffi.glean.TimeUnit)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording timespan metrics.</p>
@@ -435,7 +435,7 @@ existing value.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.timespan.TimespanMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the number of errors recorded for the given metric.</p>

@@ -149,7 +149,7 @@ Protocol classes can be generic, they are defined as::</p>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.net.ping_uploader.PingUploader.upload"><code class="name flex">
-<span>def <span class="ident">upload</span></span>(<span>self, url: str, data: bytes, headers: Dict[str, str]) ‑> Union[glean._uniffi.UploadResult, glean._uniffi.UploadResult.UNRECOVERABLE_FAILURE, glean._uniffi.UploadResult.RECOVERABLE_FAILURE, glean._uniffi.UploadResult.HTTP_STATUS]</span>
+<span>def <span class="ident">upload</span></span>(<span>self, url: str, data: bytes, headers: Dict[str, str]) ‑> Union[glean._uniffi.glean.UploadResult, glean._uniffi.glean.UploadResult.UNRECOVERABLE_FAILURE, glean._uniffi.glean.UploadResult.RECOVERABLE_FAILURE, glean._uniffi.glean.UploadResult.HTTP_STATUS]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Upload a ping to a server.</p>
@@ -280,10 +280,10 @@ Protocol classes can be generic, they are defined as::</p>
 </details>
 <h3>Subclasses</h3>
 <ul class="hlist">
-<li>glean._uniffi.UploadResult.DONE</li>
-<li>glean._uniffi.UploadResult.HTTP_STATUS</li>
-<li>glean._uniffi.UploadResult.RECOVERABLE_FAILURE</li>
-<li>glean._uniffi.UploadResult.UNRECOVERABLE_FAILURE</li>
+<li>glean._uniffi.glean.UploadResult.DONE</li>
+<li>glean._uniffi.glean.UploadResult.HTTP_STATUS</li>
+<li>glean._uniffi.glean.UploadResult.RECOVERABLE_FAILURE</li>
+<li>glean._uniffi.glean.UploadResult.UNRECOVERABLE_FAILURE</li>
 </ul>
 <h3>Class variables</h3>
 <dl>

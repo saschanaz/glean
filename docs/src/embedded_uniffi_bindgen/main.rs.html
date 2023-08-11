@@ -74,6 +74,11 @@
 <a href="#74" id="74">74</a>
 <a href="#75" id="75">75</a>
 <a href="#76" id="76">76</a>
+<a href="#77" id="77">77</a>
+<a href="#78" id="78">78</a>
+<a href="#79" id="79">79</a>
+<a href="#80" id="80">80</a>
+<a href="#81" id="81">81</a>
 </pre><pre class="rust"><code><span class="comment">/* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -103,6 +108,7 @@
     <span class="kw">let </span><span class="kw-2">mut </span>udl_file = <span class="prelude-val">None</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>target_languages = <span class="macro">vec!</span>[];
     <span class="kw">let </span><span class="kw-2">mut </span>out_dir = <span class="prelude-val">None</span>;
+    <span class="kw">let </span><span class="kw-2">mut </span>config = <span class="prelude-val">None</span>;
 
     <span class="kw">while let </span><span class="prelude-val">Some</span>(arg) = args.next() {
         <span class="kw">if let </span><span class="prelude-val">Some</span>(arg) = arg.strip_prefix(<span class="string">&quot;--&quot;</span>) {
@@ -116,6 +122,9 @@
                 <span class="string">&quot;no-format&quot; </span>=&gt; {
                     <span class="comment">// this is the default anyway.
                 </span>}
+                <span class="string">&quot;config&quot; </span>=&gt; {
+                    config = <span class="prelude-val">Some</span>(args.next().context(<span class="string">&quot;--config needs a parameter&quot;</span>)<span class="question-mark">?</span>);
+                }
                 <span class="kw">_ </span>=&gt; <span class="macro">bail!</span>(<span class="string">&quot;Unsupported option: {arg}&quot;</span>),
             }
         } <span class="kw">else if </span>udl_file.is_some() {
@@ -126,6 +135,7 @@
     }
 
     <span class="kw">let </span>out_dir = out_dir.map(Utf8PathBuf::from);
+    <span class="kw">let </span>config = config.map(Utf8PathBuf::from);
 
     <span class="kw">if </span>udl_file.is_none() {
         <span class="macro">bail!</span>(<span class="string">&quot;Need UDL file&quot;</span>);
@@ -141,7 +151,7 @@
 
     generate_bindings(
         <span class="kw-2">&amp;</span>udl_file.unwrap(),
-        <span class="prelude-val">None</span>,
+        config.as_deref(),
         target_languages,
         out_dir.as_deref(),
         <span class="prelude-val">None</span>,

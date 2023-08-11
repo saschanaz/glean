@@ -431,7 +431,7 @@ __all__ = [
 </dd>
 <dt id="glean.metrics.DatetimeMetricType"><code class="flex name class">
 <span>class <span class="ident">DatetimeMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, time_unit: glean._uniffi.TimeUnit)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, time_unit: glean._uniffi.glean.TimeUnit)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording datetime metrics.</p>
@@ -596,7 +596,7 @@ value to set. If not provided, will record the current time.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.DatetimeMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -737,7 +737,7 @@ This will be automatically implemented for event properties of an [EventMetricTy
 </dd>
 <dt id="glean.metrics.EventMetricType"><code class="flex name class">
 <span>class <span class="ident">EventMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, allowed_extra_keys: List[str])</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, allowed_extra_keys: List[str])</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording events.</p>
@@ -863,7 +863,7 @@ The maximum length for values is 100.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.EventMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the number of errors recorded for the given metric.</p>
@@ -899,7 +899,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.EventMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[List[glean._uniffi.RecordedEvent]]</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[List[glean._uniffi.glean.RecordedEvent]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -943,7 +943,7 @@ of the ping to retrieve the metric for.</dd>
 </dd>
 <dt id="glean.metrics.LabeledBooleanMetricType"><code class="flex name class">
 <span>class <span class="ident">LabeledBooleanMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, labels: Optional[Set[str]] = None)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, labels: Optional[Set[str]] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer-facing API for labeled metrics.</p>
@@ -970,7 +970,7 @@ metric storage and rearrange them correctly in the ping.</p></div>
 </dd>
 <dt id="glean.metrics.LabeledCounterMetricType"><code class="flex name class">
 <span>class <span class="ident">LabeledCounterMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, labels: Optional[Set[str]] = None)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, labels: Optional[Set[str]] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer-facing API for labeled metrics.</p>
@@ -997,7 +997,7 @@ metric storage and rearrange them correctly in the ping.</p></div>
 </dd>
 <dt id="glean.metrics.LabeledStringMetricType"><code class="flex name class">
 <span>class <span class="ident">LabeledStringMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, labels: Optional[Set[str]] = None)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, labels: Optional[Set[str]] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer-facing API for labeled metrics.</p>
@@ -1185,7 +1185,7 @@ metric storage and rearrange them correctly in the ping.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.MemoryDistributionMetric.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: typing.Union[object, typing.Optional[str]] = &lt;object object&gt;) ‑> Optional[glean._uniffi.DistributionData]</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: typing.Union[object, typing.Optional[str]] = &lt;object object&gt;) ‑> Optional[glean._uniffi.glean.DistributionData]</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -1708,7 +1708,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 </dd>
 <dt id="glean.metrics.StringMetricType"><code class="flex name class">
 <span>class <span class="ident">StringMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording string metrics.</p>
@@ -1789,7 +1789,7 @@ the string exceeds the maximum length, it will be truncated.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.StringMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -1897,7 +1897,7 @@ the string exceeds the maximum length, it will be truncated.</dd>
 </dd>
 <dt id="glean.metrics.TimespanMetricType"><code class="flex name class">
 <span>class <span class="ident">TimespanMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, time_unit: glean._uniffi.TimeUnit)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, time_unit: glean._uniffi.glean.TimeUnit)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording timespan metrics.</p>
@@ -2158,7 +2158,7 @@ existing value.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.TimespanMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the number of errors recorded for the given metric.</p>
@@ -2228,7 +2228,7 @@ of the ping to retrieve the metric for.</dd>
 </dd>
 <dt id="glean.metrics.TimingDistributionMetricType"><code class="flex name class">
 <span>class <span class="ident">TimingDistributionMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, time_unit: glean._uniffi.TimeUnit)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, time_unit: glean._uniffi.glean.TimeUnit)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording timing distribution
@@ -2355,7 +2355,7 @@ previously registered in the metrics.yaml file.</p></div>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.metrics.TimingDistributionMetricType.cancel"><code class="name flex">
-<span>def <span class="ident">cancel</span></span>(<span>self, timer_id: glean._uniffi.TimerId) ‑> None</span>
+<span>def <span class="ident">cancel</span></span>(<span>self, timer_id: glean._uniffi.glean.TimerId) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Abort a previous <code>start</code> call. No error is recorded if no <code>start</code> was called.</p>
@@ -2413,7 +2413,7 @@ is not recorded.</p>
 </details>
 </dd>
 <dt id="glean.metrics.TimingDistributionMetricType.start"><code class="name flex">
-<span>def <span class="ident">start</span></span>(<span>self) ‑> glean._uniffi.TimerId</span>
+<span>def <span class="ident">start</span></span>(<span>self) ‑> glean._uniffi.glean.TimerId</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Start tracking time for the provided metric.
@@ -2439,7 +2439,7 @@ Multiple timers can run simultaneously.</p>
 </details>
 </dd>
 <dt id="glean.metrics.TimingDistributionMetricType.stop_and_accumulate"><code class="name flex">
-<span>def <span class="ident">stop_and_accumulate</span></span>(<span>self, timer_id: glean._uniffi.TimerId) ‑> None</span>
+<span>def <span class="ident">stop_and_accumulate</span></span>(<span>self, timer_id: glean._uniffi.glean.TimerId) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Stop tracking time for the provided metric and associated timer id. Add a
@@ -2471,7 +2471,7 @@ the same timespan metric.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.TimingDistributionMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the number of errors recorded for the given metric.</p>
@@ -2507,7 +2507,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.TimingDistributionMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[glean._uniffi.DistributionData]</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[glean._uniffi.glean.DistributionData]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
@@ -2543,7 +2543,7 @@ of the ping to retrieve the metric for.</dd>
 </dd>
 <dt id="glean.metrics.UrlMetricType"><code class="flex name class">
 <span>class <span class="ident">UrlMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording URL metrics.</p>
@@ -2626,7 +2626,7 @@ the URL exceeds the maximum length, it will not be recorded.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.UrlMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -2655,7 +2655,7 @@ the URL exceeds the maximum length, it will not be recorded.</dd>
 </dd>
 <dt id="glean.metrics.UuidMetricType"><code class="flex name class">
 <span>class <span class="ident">UuidMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording UUID metrics.</p>
@@ -2753,7 +2753,7 @@ previously registered in the metrics.yaml file.</p>
 </details>
 </dd>
 <dt id="glean.metrics.UuidMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"></div>

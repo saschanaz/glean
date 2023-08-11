@@ -169,7 +169,7 @@ __all__ = [&#34;TimingDistributionMetricType&#34;]</code></pre>
 <dl>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType"><code class="flex name class">
 <span>class <span class="ident">TimingDistributionMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, time_unit: glean._uniffi.TimeUnit)</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, time_unit: glean._uniffi.glean.TimeUnit)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording timing distribution
@@ -296,7 +296,7 @@ previously registered in the metrics.yaml file.</p></div>
 <h3>Methods</h3>
 <dl>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.cancel"><code class="name flex">
-<span>def <span class="ident">cancel</span></span>(<span>self, timer_id: glean._uniffi.TimerId) ‑> None</span>
+<span>def <span class="ident">cancel</span></span>(<span>self, timer_id: glean._uniffi.glean.TimerId) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Abort a previous <code>start</code> call. No error is recorded if no <code>start</code> was called.</p>
@@ -354,7 +354,7 @@ is not recorded.</p>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.start"><code class="name flex">
-<span>def <span class="ident">start</span></span>(<span>self) ‑> glean._uniffi.TimerId</span>
+<span>def <span class="ident">start</span></span>(<span>self) ‑> glean._uniffi.glean.TimerId</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Start tracking time for the provided metric.
@@ -380,7 +380,7 @@ Multiple timers can run simultaneously.</p>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.stop_and_accumulate"><code class="name flex">
-<span>def <span class="ident">stop_and_accumulate</span></span>(<span>self, timer_id: glean._uniffi.TimerId) ‑> None</span>
+<span>def <span class="ident">stop_and_accumulate</span></span>(<span>self, timer_id: glean._uniffi.glean.TimerId) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Stop tracking time for the provided metric and associated timer id. Add a
@@ -412,7 +412,7 @@ the same timespan metric.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the number of errors recorded for the given metric.</p>
@@ -448,7 +448,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.timing_distribution.TimingDistributionMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[glean._uniffi.DistributionData]</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[glean._uniffi.glean.DistributionData]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>

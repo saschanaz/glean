@@ -185,7 +185,7 @@ This will be automatically implemented for event properties of an [EventMetricTy
 </dd>
 <dt id="glean.metrics.event.EventMetricType"><code class="flex name class">
 <span>class <span class="ident">EventMetricType</span></span>
-<span>(</span><span>common_metric_data: glean._uniffi.CommonMetricData, allowed_extra_keys: List[str])</span>
+<span>(</span><span>common_metric_data: glean._uniffi.glean.CommonMetricData, allowed_extra_keys: List[str])</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This implements the developer facing API for recording events.</p>
@@ -311,7 +311,7 @@ The maximum length for values is 100.</dd>
 </details>
 </dd>
 <dt id="glean.metrics.event.EventMetricType.test_get_num_recorded_errors"><code class="name flex">
-<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.ErrorType) ‑> int</span>
+<span>def <span class="ident">test_get_num_recorded_errors</span></span>(<span>self, error_type: glean._uniffi.glean.ErrorType) ‑> int</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the number of errors recorded for the given metric.</p>
@@ -347,7 +347,7 @@ the given error type.</p></div>
 </details>
 </dd>
 <dt id="glean.metrics.event.EventMetricType.test_get_value"><code class="name flex">
-<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[List[glean._uniffi.RecordedEvent]]</span>
+<span>def <span class="ident">test_get_value</span></span>(<span>self, ping_name: Optional[str] = None) ‑> Optional[List[glean._uniffi.glean.RecordedEvent]]</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns the stored value for testing purposes only.</p>
