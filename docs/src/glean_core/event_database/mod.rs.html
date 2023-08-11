@@ -1297,6 +1297,12 @@
 <a href="#1297" id="1297">1297</a>
 <a href="#1298" id="1298">1298</a>
 <a href="#1299" id="1299">1299</a>
+<a href="#1300" id="1300">1300</a>
+<a href="#1301" id="1301">1301</a>
+<a href="#1302" id="1302">1302</a>
+<a href="#1303" id="1303">1303</a>
+<a href="#1304" id="1304">1304</a>
+<a href="#1305" id="1305">1305</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1312,7 +1318,7 @@
 <span class="kw">use </span>std::path::{Path, PathBuf};
 <span class="kw">use </span>std::sync::RwLock;
 
-<span class="kw">use </span>chrono::{DateTime, FixedOffset};
+<span class="kw">use </span>chrono::{DateTime, FixedOffset, Utc};
 
 <span class="kw">use </span>serde::{Deserialize, Serialize};
 <span class="kw">use </span>serde_json::{json, Value <span class="kw">as </span>JsonValue};
@@ -1487,7 +1493,13 @@
                         ..Default::default()
                     };
                     <span class="kw">let </span>startup = get_iso_time_string(glean.start_time(), TimeUnit::Minute);
-                    <span class="kw">let </span>extra = [(<span class="string">&quot;glean.startup.date&quot;</span>.into(), startup)].into();
+                    <span class="kw">let </span><span class="kw-2">mut </span>extra: HashMap&lt;String, String&gt; =
+                        [(<span class="string">&quot;glean.startup.date&quot;</span>.into(), startup)].into();
+                    <span class="kw">if </span>glean.with_timestamps() {
+                        <span class="kw">let </span>now = Utc::now();
+                        <span class="kw">let </span>precise_timestamp = now.timestamp_millis() <span class="kw">as </span>u64;
+                        extra.insert(<span class="string">&quot;glean_timestamp&quot;</span>.to_string(), precise_timestamp.to_string());
+                    }
                     <span class="self">self</span>.record(
                         glean,
                         <span class="kw-2">&amp;</span>glean_restarted.into(),

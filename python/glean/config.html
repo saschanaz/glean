@@ -62,6 +62,7 @@ class Configuration:
         max_events: int = DEFAULT_MAX_EVENTS,
         ping_uploader: Optional[net.BaseUploader] = None,
         allow_multiprocessing: bool = True,
+        enable_event_timestamps: bool = False,
     ):
         &#34;&#34;&#34;
         Args:
@@ -75,6 +76,8 @@ class Configuration:
                 implementation. Defaults to `glean.net.HttpClientUploader`.
             allow_multiprocessing (bool): When True (default), use a subprocess
                 to offload some work (such as ping uploading).
+            enable_event_timestamps (bool): (Experimental) Whether to add a
+                wallclock timestamp to all events. Default: `false`.
         &#34;&#34;&#34;
         if server_endpoint is None:
             server_endpoint = DEFAULT_TELEMETRY_ENDPOINT
@@ -85,6 +88,7 @@ class Configuration:
             ping_uploader = net.HttpClientUploader()
         self._ping_uploader = ping_uploader
         self._allow_multiprocessing = allow_multiprocessing
+        self._enable_event_timestamps = enable_event_timestamps
 
     @property
     def server_endpoint(self) -&gt; str:
@@ -114,6 +118,11 @@ class Configuration:
         return self._max_events
 
     # max_events can&#39;t be changed after Glean is initialized
+
+    @property
+    def enable_event_timestamps(self) -&gt; bool:
+        &#34;&#34;&#34;(Experimental) Whether to add a wallclock timestamp to all events.&#34;&#34;&#34;
+        return self._enable_event_timestamps
 
     @property
     def ping_uploader(self) -&gt; net.BaseUploader:
@@ -139,7 +148,7 @@ __all__ = [&#34;Configuration&#34;]</code></pre>
 <dl>
 <dt id="glean.config.Configuration"><code class="flex name class">
 <span>class <span class="ident">Configuration</span></span>
-<span>(</span><span>server_endpoint: Optional[str] = None, channel: Optional[str] = None, max_events: int = 500, ping_uploader: Optional[<a title="glean.net.base_uploader.BaseUploader" href="net/base_uploader.html#glean.net.base_uploader.BaseUploader">BaseUploader</a>] = None, allow_multiprocessing: bool = True)</span>
+<span>(</span><span>server_endpoint: Optional[str] = None, channel: Optional[str] = None, max_events: int = 500, ping_uploader: Optional[<a title="glean.net.base_uploader.BaseUploader" href="net/base_uploader.html#glean.net.base_uploader.BaseUploader">BaseUploader</a>] = None, allow_multiprocessing: bool = True, enable_event_timestamps: bool = False)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configuration values for Glean.</p>
@@ -160,6 +169,9 @@ implementation. Defaults to <code><a title="glean.net.HttpClientUploader" href="
 <dt><strong><code>allow_multiprocessing</code></strong> :&ensp;<code>bool</code></dt>
 <dd>When True (default), use a subprocess
 to offload some work (such as ping uploading).</dd>
+<dt><strong><code>enable_event_timestamps</code></strong> :&ensp;<code>bool</code></dt>
+<dd>(Experimental) Whether to add a
+wallclock timestamp to all events. Default: <code>false</code>.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -177,6 +189,7 @@ to offload some work (such as ping uploading).</dd>
         max_events: int = DEFAULT_MAX_EVENTS,
         ping_uploader: Optional[net.BaseUploader] = None,
         allow_multiprocessing: bool = True,
+        enable_event_timestamps: bool = False,
     ):
         &#34;&#34;&#34;
         Args:
@@ -190,6 +203,8 @@ to offload some work (such as ping uploading).</dd>
                 implementation. Defaults to `glean.net.HttpClientUploader`.
             allow_multiprocessing (bool): When True (default), use a subprocess
                 to offload some work (such as ping uploading).
+            enable_event_timestamps (bool): (Experimental) Whether to add a
+                wallclock timestamp to all events. Default: `false`.
         &#34;&#34;&#34;
         if server_endpoint is None:
             server_endpoint = DEFAULT_TELEMETRY_ENDPOINT
@@ -200,6 +215,7 @@ to offload some work (such as ping uploading).</dd>
             ping_uploader = net.HttpClientUploader()
         self._ping_uploader = ping_uploader
         self._allow_multiprocessing = allow_multiprocessing
+        self._enable_event_timestamps = enable_event_timestamps
 
     @property
     def server_endpoint(self) -&gt; str:
@@ -231,6 +247,11 @@ to offload some work (such as ping uploading).</dd>
     # max_events can&#39;t be changed after Glean is initialized
 
     @property
+    def enable_event_timestamps(self) -&gt; bool:
+        &#34;&#34;&#34;(Experimental) Whether to add a wallclock timestamp to all events.&#34;&#34;&#34;
+        return self._enable_event_timestamps
+
+    @property
     def ping_uploader(self) -&gt; net.BaseUploader:
         &#34;&#34;&#34;The ping uploader implementation.&#34;&#34;&#34;
         return self._ping_uploader
@@ -252,6 +273,19 @@ to offload some work (such as ping uploading).</dd>
 def channel(self) -&gt; Optional[str]:
     &#34;&#34;&#34;The release channel the application is on, if known.&#34;&#34;&#34;
     return self._channel</code></pre>
+</details>
+</dd>
+<dt id="glean.config.Configuration.enable_event_timestamps"><code class="name">var <span class="ident">enable_event_timestamps</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>(Experimental) Whether to add a wallclock timestamp to all events.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def enable_event_timestamps(self) -&gt; bool:
+    &#34;&#34;&#34;(Experimental) Whether to add a wallclock timestamp to all events.&#34;&#34;&#34;
+    return self._enable_event_timestamps</code></pre>
 </details>
 </dd>
 <dt id="glean.config.Configuration.max_events"><code class="name">var <span class="ident">max_events</span> : int</code></dt>
@@ -315,6 +349,7 @@ def server_endpoint(self) -&gt; str:
 <h4><code><a title="glean.config.Configuration" href="#glean.config.Configuration">Configuration</a></code></h4>
 <ul class="">
 <li><code><a title="glean.config.Configuration.channel" href="#glean.config.Configuration.channel">channel</a></code></li>
+<li><code><a title="glean.config.Configuration.enable_event_timestamps" href="#glean.config.Configuration.enable_event_timestamps">enable_event_timestamps</a></code></li>
 <li><code><a title="glean.config.Configuration.max_events" href="#glean.config.Configuration.max_events">max_events</a></code></li>
 <li><code><a title="glean.config.Configuration.ping_uploader" href="#glean.config.Configuration.ping_uploader">ping_uploader</a></code></li>
 <li><code><a title="glean.config.Configuration.server_endpoint" href="#glean.config.Configuration.server_endpoint">server_endpoint</a></code></li>

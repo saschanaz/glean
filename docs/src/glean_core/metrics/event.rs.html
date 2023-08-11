@@ -187,6 +187,22 @@
 <a href="#187" id="187">187</a>
 <a href="#188" id="188">188</a>
 <a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -200,6 +216,8 @@
 <span class="kw">use </span><span class="kw">crate</span>::util::truncate_string_at_boundary_with_error;
 <span class="kw">use </span><span class="kw">crate</span>::CommonMetricData;
 <span class="kw">use </span><span class="kw">crate</span>::Glean;
+
+<span class="kw">use </span>chrono::Utc;
 
 <span class="kw">const </span>MAX_LENGTH_EXTRA_KEY_VALUE: usize = <span class="number">500</span>;
 
@@ -257,8 +275,13 @@
     ///             If any key is not allowed, an error is reported and no event is recorded.
     </span><span class="kw">pub fn </span>record_with_time(<span class="kw-2">&amp;</span><span class="self">self</span>, timestamp: u64, extra: HashMap&lt;String, String&gt;) {
         <span class="kw">let </span>metric = <span class="self">self</span>.clone();
+
+        <span class="comment">// Precise timestamp based on wallclock. Will be used if `enable_event_timestamps` is true.
+        </span><span class="kw">let </span>now = Utc::now();
+        <span class="kw">let </span>precise_timestamp = now.timestamp_millis() <span class="kw">as </span>u64;
+
         <span class="kw">crate</span>::launch_with_glean(<span class="kw">move </span>|glean| {
-            <span class="kw">let </span>sent = metric.record_sync(glean, timestamp, extra);
+            <span class="kw">let </span>sent = metric.record_sync(glean, timestamp, extra, precise_timestamp);
             <span class="kw">if </span>sent {
                 <span class="kw">let </span>state = <span class="kw">crate</span>::global_state().lock().unwrap();
                 <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = state.callbacks.trigger_upload() {
@@ -312,15 +335,24 @@
         glean: <span class="kw-2">&amp;</span>Glean,
         timestamp: u64,
         extra: HashMap&lt;String, String&gt;,
+        precise_timestamp: u64,
     ) -&gt; bool {
         <span class="kw">if </span>!<span class="self">self</span>.should_record(glean) {
             <span class="kw">return </span><span class="bool-val">false</span>;
         }
 
-        <span class="kw">let </span>extra_strings = <span class="kw">match </span><span class="self">self</span>.validate_extra(glean, extra) {
+        <span class="kw">let </span><span class="kw-2">mut </span>extra_strings = <span class="kw">match </span><span class="self">self</span>.validate_extra(glean, extra) {
             <span class="prelude-val">Ok</span>(extra) =&gt; extra,
             <span class="prelude-val">Err</span>(()) =&gt; <span class="kw">return </span><span class="bool-val">false</span>,
         };
+
+        <span class="kw">if </span>glean.with_timestamps() {
+            <span class="kw">if </span>extra_strings.is_none() {
+                extra_strings.replace(Default::default());
+            }
+            <span class="kw">let </span>map = extra_strings.get_or_insert(Default::default());
+            map.insert(<span class="string">&quot;glean_timestamp&quot;</span>.to_string(), precise_timestamp.to_string());
+        }
 
         glean
             .event_storage()

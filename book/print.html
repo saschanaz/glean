@@ -11371,10 +11371,20 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v53.2.0...main">Full changelog</a></p>
 <ul>
+<li>General
+<ul>
+<li>Experimental: Add configuration to add a wall clock timestamp to all events (<a href="https://github.com/mozilla/glean/issues/2513">#2513</a>)</li>
+</ul>
+</li>
 <li>Python
 <ul>
 <li>Switched the build system to maturin. This should not have any effect on consumers. (<a href="https://github.com/mozilla/glean/pull/2345">#2345</a>)</li>
 <li>BREAKING CHANGE: Dropped support for Python 3.6 (<a href="https://github.com/mozilla/glean/pull/2345">#2345</a>)</li>
+</ul>
+</li>
+<li>Kotlin
+<ul>
+<li>Update to Gradle v8.2.1 (<a href="https://github.com/mozilla/glean/pull/2516">#2516</a>)</li>
 </ul>
 </li>
 </ul>
@@ -11390,7 +11400,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <ul>
 <li>The Ping Rate Limit type is now accessible in the Rust Language Binding (<a href="https://github.com/mozilla/glean/pull/2528">#2528</a>)</li>
 <li>Gracefully handle a failure when starting the upload thread. Glean no longer crashes in that case. (<a href="https://github.com/mozilla/glean/pull/2545">#2545</a>)</li>
-<li><code>locale</code> now exposed through the RLB so it can be set by consumers (<a href="https://github.com/mozilla/glean/pull/2531">2531</a>)</li>
+<li><code>locale</code> now exposed through the RLB so it can be set by consumers (<a href="https://github.com/mozilla/glean/pull/2531">#2531</a>)</li>
 </ul>
 </li>
 <li>Python
