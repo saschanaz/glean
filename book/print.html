@@ -4948,7 +4948,9 @@ mozilla::glean::flags::a11y_enabled.Set(false);
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given boolean metric.<br />
 Returns <code>true</code> or <code>false</code> if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -5168,7 +5170,9 @@ Unknown labels will be recorded under the special label <code>__other__</code>.<
 <h3 id="testgetvalue-1"><a class="header" href="#testgetvalue-1"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given label in a labeled boolean metric.<br />
 Returns the count if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -5446,7 +5450,9 @@ Glean.controls.refreshPressed.add(5);
 <h3 id="testgetvalue-2"><a class="header" href="#testgetvalue-2"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given counter metric.<br />
 Returns the count if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -5694,7 +5700,9 @@ Unknown labels will be recorded under the special label <code>__other__</code>.<
 <h3 id="testgetvalue-3"><a class="header" href="#testgetvalue-3"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given label in a labeled counter metric.<br />
 Returns the count if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -5979,7 +5987,9 @@ mozilla::glean::search_default::name.Set(&quot;wikipedia&quot;_ns);
 <h3 id="testgetvalue-4"><a class="header" href="#testgetvalue-4"><code>testGetValue</code></a></h3>
 <p>Get the recorded value for a given string metric.<br />
 Returns the string if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <p>The recorded value may have been truncated. See <a href="reference/metrics/string.html#limits">&quot;Limits&quot;</a> section above.</p>
 <div class="tabs">
 <div class="tabbar"></div>
@@ -6231,7 +6241,9 @@ Unknown labels will be recorded under the special label <code>__other__</code>.<
 <h3 id="testgetvalue-5"><a class="header" href="#testgetvalue-5"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given label in a labeled string metric.<br />
 Returns the string if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -6555,7 +6567,9 @@ mozilla::glean::search::engines.Set({&quot;wikipedia&quot;_ns, &quot;duck duck g
 <h3 id="testgetvalue-6"><a class="header" href="#testgetvalue-6"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given string list metric.<br />
 Returns the list of strings if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -7111,7 +7125,9 @@ void AfterLogin(uint32_t aDuration) {
 <h3 id="testgetvalue-7"><a class="header" href="#testgetvalue-7"><code>testGetValue</code></a></h3>
 <p>Get the currently-stored value.<br />
 Returns the timespan as a integer in the metric's time unit if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -7141,7 +7157,7 @@ assert metrics.auth.login_time.test_get_value() &gt; 0
 <div data-lang="Rust" class="tab">
 <pre><code class="language-Rust">use glean_metrics::auth;
 
-assert!(auth::login_time.test_get_value().unwrap() &gt; 0);
+assert!(auth::login_time.test_get_value(None).unwrap() &gt; 0);
 </code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
@@ -7631,7 +7647,9 @@ mozilla::glean::pages::page_load.Cancel(std::move(timerId));
 <h3 id="testgetvalue-8"><a class="header" href="#testgetvalue-8"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given timing distribution metric.<br />
 Returns a struct with counts per buckets and total sum if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -8016,7 +8034,9 @@ mozilla::glean::memory::heap_allocated.Accumulate(bytes / 1024);
 <h3 id="testgetvalue-9"><a class="header" href="#testgetvalue-9"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given memory distribution metric.<br />
 Returns a struct with counts per buckets and total sum if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -8427,7 +8447,9 @@ Glean.user.clientId.set(uuid);
 <h3 id="testgetvalue-10"><a class="header" href="#testgetvalue-10"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given UUID metric.<br />
 Returns a UUID if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -8694,7 +8716,9 @@ search.template.setUrl(new URL(&quot;https://mysearchengine.com/&quot;));
 <h3 id="testgetvalue-11"><a class="header" href="#testgetvalue-11"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given URL metric as a (unencoded) string.<br />
 Returns a URL if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -8936,7 +8960,9 @@ Glean.install.firstRun.set(value.getTime() * 1000);
 <h2 id="testing-api-14"><a class="header" href="#testing-api-14">Testing API</a></h2>
 <h3 id="testgetvalue-12"><a class="header" href="#testgetvalue-12"><code>testGetValue</code></a></h3>
 <p>Get the recorded value for a given datetime metric as a language-specific Datetime object.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -9242,7 +9268,9 @@ if any of the values in the <code>extras</code> object are greater than 500 byte
 <h2 id="testing-api-15"><a class="header" href="#testing-api-15">Testing API</a></h2>
 <h3 id="testgetvalue-13"><a class="header" href="#testgetvalue-13"><code>testGetValue</code></a></h3>
 <p>Get the list of recorded events.
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -9514,7 +9542,9 @@ mozilla::glean::graphics::checkerboard_peak.AccumulateSamples({ 23 });
 <h3 id="testgetvalue-14"><a class="header" href="#testgetvalue-14"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given counter metric.<br />
 Returns a struct with counts per buckets and total sum if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -9865,7 +9895,9 @@ mozilla::glean::display::width.Set(innerWidth);
 <h3 id="testgetvalue-15"><a class="header" href="#testgetvalue-15"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given quantity metric.<br />
 Returns the quantity value if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -10189,7 +10221,9 @@ Glean.network.httpConnectionError.addToDenominator(1);
 <h3 id="testgetvalue-16"><a class="header" href="#testgetvalue-16"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given rate metric.<br />
 Returns the numerator/denominator pair if data is stored.<br />
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
@@ -10448,7 +10482,9 @@ Longer text is truncated. This is measured in the number of bytes when the strin
 <h3 id="testgetvalue-17"><a class="header" href="#testgetvalue-17"><code>testGetValue</code></a></h3>
 <p>Gets the recorded value for a given text metric.<br />
 Returns the string if data is stored.<br />
-Returns <code>null</code> if no data is stored.</p>
+Returns <code>null</code> if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">

@@ -238,7 +238,9 @@ if any of the values in the <code>extras</code> object are greater than 500 byte
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testgetvalue"><a class="header" href="#testgetvalue"><code>testGetValue</code></a></h3>
 <p>Get the list of recorded events.
-Returns a language-specific empty/null value if no data is stored.</p>
+Returns a language-specific empty/null value if no data is stored.
+Has an optional argument to specify the name of the ping you wish to retrieve data from, except
+in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
