@@ -387,8 +387,6 @@
 <a href="#387" id="387">387</a>
 <a href="#388" id="388">388</a>
 <a href="#389" id="389">389</a>
-<a href="#390" id="390">390</a>
-<a href="#391" id="391">391</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -685,9 +683,7 @@
     </span><span class="kw">fn </span>get_pings_dir(<span class="kw-2">&amp;</span><span class="self">self</span>, data_path: <span class="kw-2">&amp;</span>Path, ping_type: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>str&gt;) -&gt; std::io::Result&lt;PathBuf&gt; {
         <span class="comment">// Use a special directory for deletion-request pings
         </span><span class="kw">let </span>pings_dir = <span class="kw">match </span>ping_type {
-            <span class="prelude-val">Some</span>(ping_type) <span class="kw">if </span>ping_type == <span class="string">&quot;deletion-request&quot; </span>=&gt; {
-                data_path.join(DELETION_REQUEST_PINGS_DIRECTORY)
-            }
+            <span class="prelude-val">Some</span>(<span class="string">&quot;deletion-request&quot;</span>) =&gt; data_path.join(DELETION_REQUEST_PINGS_DIRECTORY),
             <span class="kw">_ </span>=&gt; data_path.join(PENDING_PINGS_DIRECTORY),
         };
 

@@ -1590,7 +1590,7 @@
         {
             <span class="kw">let </span><span class="kw-2">mut </span>db = <span class="self">self</span>.event_stores.write().unwrap(); <span class="comment">// safe unwrap, only error case is poisoning
             </span><span class="kw">for </span>store_name <span class="kw">in </span>meta.inner.send_in_pings.iter() {
-                <span class="kw">let </span>store = db.entry(store_name.to_string()).or_insert_with(Vec::new);
+                <span class="kw">let </span>store = db.entry(store_name.to_string()).or_default();
                 <span class="kw">let </span>execution_counter = CounterMetric::new(CommonMetricData {
                     name: <span class="string">&quot;execution_counter&quot;</span>.into(),
                     category: store_name.into(),
