@@ -167,6 +167,9 @@
 <p>Once the instrumentation is landed, it can now be enabled for a subset of the population through a Nimbus rollout or experiment without further code changes.</p>
 <p>Through <a href="https://experimenter.info">Nimbus</a>, we have the ability to sample the population by setting the audience size to a certain percentage of the eligible population. Nimbus also provides the ability to target clients based on the available targeting parameters for a particular application (for instance, Firefox Desktop’s available targeting parameters).</p>
 <p>This can be used to slowly roll out instrumentations to the population in order to validate the data we are collecting before measuring the entire population and potentially avoiding costs and  overhead by collecting data that isn’t useful.</p>
+<blockquote>
+<p><strong>Note:</strong> if planning to use this feature for permanently keeping a data collection on for the whole population, please consider enabling the metrics by default by setting <code>disabled: false</code> in the metrics.yaml. Then you can &quot;down-sample&quot; if necessary (see Scenario 2 below).</p>
+</blockquote>
 <h2 id="scenario-2"><a class="header" href="#scenario-2">Scenario 2</a></h2>
 <blockquote>
 <p><em>Landing a metric that is enabled by default and then disabling it for a segment of the population</em></p>

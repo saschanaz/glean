@@ -152,7 +152,12 @@
                         <h1 id="product-integration"><a class="header" href="#product-integration">Product Integration</a></h1>
 <p>In order to enable sharing of this functionality between multiple Nimbus Features, the implementation is not defined as part of the stand-alone Glean feature defined in the Nimbus Feature Manifest, but instead is intended to be added as a feature variable to other Nimbus Feature definitions for them to make use of.</p>
 <h2 id="desktop-feature-integration"><a class="header" href="#desktop-feature-integration">Desktop Feature Integration</a></h2>
-<p>In order to make use of the remote metric configuration in a Firefox Desktop component, the component must first be defined as a Nimbus Feature. The instructions for defining your component as a feature (or multiple features) can be found in the Nimbus documentation specific to the <a href="https://experimenter.info/desktop-feature-api">Nimbus Desktop Feature API</a>. Once you have defined a feature, you simply need to add a Feature Variable to represent the piece of the Glean configuration that will be provided by this Nimbus Feature. For example:</p>
+<p>In order to make use of the remote metric configuration in a Firefox Desktop component, there are two available options.</p>
+<h3 id="integration-option-1"><a class="header" href="#integration-option-1">Integration Option 1:</a></h3>
+<p>Glean provides a general Nimbus feature that can be used for configuration of metrics named <code>glean</code>. Simply select the <code>glean</code> feature along with your Nimbus feature from the Experimenter UI when configuring the experiment or rollout (see https://experimenter.info for more information on multi-feature experiments).</p>
+<p>The <code>glean</code> Nimbus feature requires the <code>gleanMetricConfiguration</code> variable to be used to provide the require metric configuration. The format of the configuration is a map of the fully qualified metric name (category.name) of the metric to a boolean value representing whether the metric is enabled. If a metric is omitted from this map, it will default to the value found in the metrics.yaml. An example configuration for the <code>glean</code> feature can be found on the <a href="./experimenter-configuration.html">Experimenter Configuration</a> page.</p>
+<h3 id="integration-option-2-advanced-use"><a class="header" href="#integration-option-2-advanced-use">Integration Option 2 (Advanced use):</a></h3>
+<p>A second option that can give you more control over the metric configuration, especially if there are more than one experiments or rollouts that are currently using the <code>glean</code> feature from Option 1 above, is to add a Feature Variable to represent the Glean metric configuration in your own feature. This can be accomplished by modifying the FeatureManifest.yaml file, adding a variable through which to pass metric configurations. Glean will handle merging this configuration with other metrics configurations for you (See <a href="./advanced-topics.html">Advanced Topics</a> for more info on this). An example feature manifest entry would look like the following:</p>
 <pre><code class="language-yaml">variables:
   ... // Definitions of other feature variables
   gleanMetricConfiguration:
@@ -160,22 +165,31 @@
     description: &gt;-
     &quot;Glean metric configuration&quot;
 </code></pre>
-<p>This definition allows for configuration to be set in a Nimbus rollout or experiment and fetched by the client to be applied based on the enrollment. Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Only the latest configuration provided will be applied and any previously configured metrics that are omitted from the new configuration will not be changed. An example call to set a configuration from the “urlbar” Nimbus Feature could look like this:</p>
-<pre><code class="language-JavaScript">let cfg = lazy.NimbusFeatures.urlbar.getVariable(
+<p>This definition allows for configuration to be set in a Nimbus rollout or experiment and fetched by the client to be applied based on the enrollment. Once the Feature Variable has been defined, the final step is to fetch the configuration from Nimbus and supply it to the Glean API. This can be done during initialization and again any time afterwards, such as in response to receiving an updated configuration from Nimbus. Glean will merge this configuration with any other active configurations and enable or disable the metrics accordingly. An example call to set a configuration through your Nimbus Feature could look like this:</p>
+<pre><code class="language-JavaScript">// Fetch the Glean metric configuration from your feature's Nimbus variable
+let cfg = lazy.NimbusFeatures.yourNimbusFeatureName.getVariable(
   &quot;gleanMetricConfiguration&quot;
 );
+// Apply the configuration through the Glean API
 Services.fog.setMetricsFeatureConfig(JSON.stringify(cfg));
 </code></pre>
-<p>It is also recommended to register to listen for updates for the Nimbus Feature and apply new configurations as soon as possible. The following example illustrates how the “urlbar” Nimbus Feature might register and update the metric configuration:</p>
-<pre><code class="language-JavaScript">lazy.NimbusFeatures.urlbar.onUpdate(() =&gt; {
-  let cfg = lazy.NimbusFeatures.urlbar.getVariable(
+<p>It is also recommended to register to listen for updates for the Nimbus Feature and apply new configurations as soon as possible. The following example illustrates how a Nimbus Feature might register and update the metric configuration whenever there is a change to the Nimbus configuration:</p>
+<pre><code class="language-JavaScript">// Register to listen for the `onUpdate` event from Nimbus
+lazy.NimbusFeatures.yourNimbusFeatureName.onUpdate(() =&gt; {
+  // Fetch the Glean metric configuration from your feature's Nimbus variable
+  let cfg = lazy.NimbusFeatures.yourNimbusFeatureName.getVariable(
     &quot;gleanMetricConfiguration&quot;
   );
+  // Apply the configuration through the Glean API
   Services.fog.setMetricsFeatureConfig(JSON.stringify(cfg));
 });
 </code></pre>
 <h2 id="mobile-feature-integration"><a class="header" href="#mobile-feature-integration">Mobile Feature Integration</a></h2>
-<p>In order to make use of the remote metric configuration in a Firefox Mobile application, you must first define a Nimbus Feature or add a variable to an existing Nimbus Feature. The instructions for defining your component as a feature (or multiple features) can be found in the Nimbus documentation specific to the Nimbus Mobile Feature API. Once you have defined a feature, you simply need to add a Feature Variable to represent the piece of the Glean configuration that will be provided by this Nimbus Feature. For example:</p>
+<h3 id="integration-option-1-1"><a class="header" href="#integration-option-1-1">Integration Option 1:</a></h3>
+<p>Glean provides a general Nimbus feature that can be used for configuration of metrics named <code>glean</code>. Simply select the <code>glean</code> feature along with your Nimbus feature from the Experimenter UI when configuring the experiment or rollout (see https://experimenter.info for more information on multi-feature experiments).</p>
+<p>The <code>glean</code> Nimbus feature requires the <code>gleanMetricConfiguration</code> variable to be used to provide the require metric configuration. The format of the configuration is a map of the fully qualified metric name (category.name) of the metric to a boolean value representing whether the metric is enabled. If a metric is omitted from this map, it will default to the value found in the metrics.yaml. An example configuration for the <code>glean</code> feature can be found on the <a href="./experimenter-configuration.html">Experimenter Configuration</a> page.</p>
+<h3 id="integration-option-2-advanced-use-1"><a class="header" href="#integration-option-2-advanced-use-1">Integration Option 2 (Advanced use):</a></h3>
+<p>A second option that can give you more control over the metric configuration, especially if there are more than one experiments or rollouts that are currently using the <code>glean</code> feature from Option 1 above, is to add a Feature Variable to represent the Glean metric configuration in your own feature. This can be accomplished by modifying the Nimbus Feature Manifest file, adding a variable through which to pass metric configurations. Glean will handle merging this configuration with other metrics configurations for you (See <a href="./advanced-topics.html">Advanced Topics</a> for more info on this). An example feature manifest entry would look like the following:</p>
 <pre><code class="language-yaml">features:
   homescreen:
     description: |
