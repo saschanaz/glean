@@ -5455,7 +5455,8 @@ Glean.controls.refreshPressed.add(5);
 </div>
 <h4 id="recorded-errors-3"><a class="header" href="#recorded-errors-3">Recorded errors</a></h4>
 <ul>
-<li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: If the counter is incremented by <code>0</code> or a negative value.</li>
+<li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: If the counter is incremented by a negative value
+(or, in versions up to and including 54.0.0, <code>0</code>).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: If a floating point or non-number value is given.</li>
 </ul>
 <h4 id="limits-5"><a class="header" href="#limits-5">Limits</a></h4>
@@ -5688,7 +5689,8 @@ Glean.stability.crashCount[&quot;native_code_crash&quot;].add(3);
 </div>
 <h4 id="recorded-errors-4"><a class="header" href="#recorded-errors-4">Recorded Errors</a></h4>
 <ul>
-<li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if the counter is incremented by <code>0</code> or a negative value.</li>
+<li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if the counter is incremented by a negative value
+(or, in versions up to and including 54.0.0, <code>0</code>).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a floating point or non-number value is given.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_label</code></a>:
 <ul>
@@ -11429,6 +11431,13 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/appendix/changelog/index.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="unreleased-changes"><a class="header" href="#unreleased-changes">Unreleased changes</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v54.0.0...main">Full changelog</a></p>
+<ul>
+<li>General
+<ul>
+<li>BREAKING CHANGE: Adding <code>0</code> to a <code>counter</code> or <code>labeled_counter</code> metric will be silently ignored instead of raising an <code>invalid_value</code> error (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1762859">bug 1762859</a>)</li>
+</ul>
+</li>
+</ul>
 <h1 id="v5400-2023-09-12"><a class="header" href="#v5400-2023-09-12">v54.0.0 (2023-09-12)</a></h1>
 <p><a href="https://github.com/mozilla/glean/compare/v53.2.0...v54.0.0">Full changelog</a></p>
 <ul>

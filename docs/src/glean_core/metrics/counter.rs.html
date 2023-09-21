@@ -161,11 +161,20 @@
 <a href="#161" id="161">161</a>
 <a href="#162" id="162">162</a>
 <a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-</span><span class="kw">use </span>std::sync::Arc;
+</span><span class="kw">use </span>std::cmp::Ordering;
+<span class="kw">use </span>std::sync::Arc;
 
 <span class="kw">use </span><span class="kw">crate</span>::common_metric_data::CommonMetricDataInternal;
 <span class="kw">use </span><span class="kw">crate</span>::error_recording::{record_error, test_get_num_recorded_errors, ErrorType};
@@ -225,16 +234,23 @@
             <span class="kw">return</span>;
         }
 
-        <span class="kw">if </span>amount &lt;= <span class="number">0 </span>{
-            record_error(
-                glean,
-                <span class="kw-2">&amp;</span><span class="self">self</span>.meta,
-                ErrorType::InvalidValue,
-                <span class="macro">format!</span>(<span class="string">&quot;Added negative or zero value {}&quot;</span>, amount),
-                <span class="prelude-val">None</span>,
-            );
-            <span class="kw">return</span>;
-        }
+        <span class="kw">match </span>amount.cmp(<span class="kw-2">&amp;</span><span class="number">0</span>) {
+            Ordering::Less =&gt; {
+                record_error(
+                    glean,
+                    <span class="kw-2">&amp;</span><span class="self">self</span>.meta,
+                    ErrorType::InvalidValue,
+                    <span class="macro">format!</span>(<span class="string">&quot;Added negative value {}&quot;</span>, amount),
+                    <span class="prelude-val">None</span>,
+                );
+                <span class="kw">return</span>;
+            }
+            Ordering::Equal =&gt; {
+                <span class="comment">// Silently ignore.
+                </span><span class="kw">return</span>;
+            }
+            Ordering::Greater =&gt; (),
+        };
 
         <span class="comment">// Let&#39;s be defensive here:
         // The uploader tries to store a counter metric,

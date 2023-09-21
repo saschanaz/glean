@@ -223,7 +223,8 @@ Glean.stability.crashCount[&quot;native_code_crash&quot;].add(3);
 </div>
 <h4 id="recorded-errors"><a class="header" href="#recorded-errors">Recorded Errors</a></h4>
 <ul>
-<li><a href="../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if the counter is incremented by <code>0</code> or a negative value.</li>
+<li><a href="../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if the counter is incremented by a negative value
+(or, in versions up to and including 54.0.0, <code>0</code>).</li>
 <li><a href="../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a floating point or non-number value is given.</li>
 <li><a href="../../user/metrics/error-reporting.html"><code>invalid_label</code></a>:
 <ul>
