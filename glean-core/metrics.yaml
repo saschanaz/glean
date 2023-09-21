@@ -783,3 +783,26 @@ glean:
       - chutten@mozilla.com
       - glean-team@mozilla.com
     expires: never
+
+crash.stack:
+  threads:
+    type: object
+    description: All threads' frame information.
+    send_in_pings:
+      - baseline
+    bugs:
+      - https://bugzilla.mozilla.org/11137353
+    data_reviews:
+      - http://example.com/reviews
+    notification_emails:
+      - CHANGE-ME@example.com
+    expires: never
+    structure:
+      type: object
+      properties:
+        module_index:
+          type: number
+        ip:
+          type: string
+        trust:
+          type: string
