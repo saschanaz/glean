@@ -241,6 +241,9 @@ if any of the values in the <code>extras</code> object are greater than 500 byte
 Returns a language-specific empty/null value if no data is stored.
 Has an optional argument to specify the name of the ping you wish to retrieve data from, except
 in Rust where it's required. <code>None</code> or no argument will default to the first value found for <code>send_in_pings</code>.</p>
+<blockquote>
+<p><strong>Note</strong>: By default as of <code>v2.0.2</code> Glean.js sets <code>maxEvents=1</code> by default. If you try and call <code>testGetValue()</code> for a recorded event with <code>maxEvents=1</code>, <code>snapshot</code> will not include your event. For your testing instance, you can set <code>maxEvents</code> to a value greater than 1 to test recording events with <code>testGetValue()</code>.</p>
+</blockquote>
 <div class="tabs">
 <div class="tabbar"></div>
 <div class="tabcontents">
