@@ -9212,12 +9212,10 @@ say every time a view was open and from where.</p>
 <li>A set of key-value pairs, where the keys are predefined in the <code>extra_keys</code> metric parameter, and the values are strings.</li>
 </ul>
 <div class="special-quote special-quote-info fa fa-info-circle"></div>
-<h2 id="are-you-sure-you-need-an-event-metric"><a class="header" href="#are-you-sure-you-need-an-event-metric">Are you sure you need an event metric?</a></h2>
+<h2 id="immediate-submission-or-batching"><a class="header" href="#immediate-submission-or-batching">Immediate submission or batching?</a></h2>
 <blockquote>
-<p>Events are best-suited to measuring user behavior, where the frequency of events is relatively low and the order of the events matters. Therefore, events should be the default choice for most user-behavior telemetry.</p>
-<p>For other types of telemetry (e.g. performance or stability), events may be too expensive metric type to record, transmit, store and, most importantly, analyze. In those cases, consider lighter metrics, such as <a href="reference/metrics/counter.html">counters</a>.</p>
-<p>When in doubt, refer to the
-<a href="reference/metrics/../../user/metrics/adding-new-metrics.html">metric type choosing guide</a>.</p>
+<p>In the Glean JavaScript SDK (Glean.js), since version 2.0.2, events are submitted immediately by default.
+In all the other SDKs, events are batched and sent together by default in the <a href="reference/metrics/../../user/pings/events.html">events ping</a>.</p>
 </blockquote>
 <h2 id="recording-api-14"><a class="header" href="#recording-api-14">Recording API</a></h2>
 <h3 id="recordobject"><a class="header" href="#recordobject"><code>record(object)</code></a></h3>
