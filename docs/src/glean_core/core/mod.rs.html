@@ -957,7 +957,34 @@
 <a href="#957" id="957">957</a>
 <a href="#958" id="958">958</a>
 <a href="#959" id="959">959</a>
-</pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashMap;
+<a href="#960" id="960">960</a>
+<a href="#961" id="961">961</a>
+<a href="#962" id="962">962</a>
+<a href="#963" id="963">963</a>
+<a href="#964" id="964">964</a>
+<a href="#965" id="965">965</a>
+<a href="#966" id="966">966</a>
+<a href="#967" id="967">967</a>
+<a href="#968" id="968">968</a>
+<a href="#969" id="969">969</a>
+<a href="#970" id="970">970</a>
+<a href="#971" id="971">971</a>
+<a href="#972" id="972">972</a>
+<a href="#973" id="973">973</a>
+<a href="#974" id="974">974</a>
+<a href="#975" id="975">975</a>
+<a href="#976" id="976">976</a>
+<a href="#977" id="977">977</a>
+<a href="#978" id="978">978</a>
+<a href="#979" id="979">979</a>
+<a href="#980" id="980">980</a>
+<a href="#981" id="981">981</a>
+<a href="#982" id="982">982</a>
+</pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+</span><span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::path::{Path, PathBuf};
 <span class="kw">use </span>std::sync::atomic::{AtomicU8, Ordering};
 <span class="kw">use </span>std::sync::{Arc, Mutex};
@@ -1074,6 +1101,7 @@
 ///     log_level: None,
 ///     rate_limit: None,
 ///     enable_event_timestamps: false,
+///     experimentation_id: None,
 /// };
 /// let mut glean = Glean::new(cfg).unwrap();
 /// let ping = PingType::new(&quot;sample&quot;, true, false, vec![]);
@@ -1202,6 +1230,14 @@
         </span><span class="kw">let </span>data_path = Path::new(<span class="kw-2">&amp;</span>cfg.data_path);
         glean.data_store = <span class="prelude-val">Some</span>(Database::new(data_path, cfg.delay_ping_lifetime_io)<span class="question-mark">?</span>);
 
+        <span class="comment">// Set experimentation identifier (if any)
+        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(experimentation_id) = <span class="kw-2">&amp;</span>cfg.experimentation_id {
+            glean
+                .additional_metrics
+                .experimentation_id
+                .set_sync(<span class="kw-2">&amp;</span>glean, experimentation_id.to_string());
+        }
+
         <span class="comment">// The upload enabled flag may have changed since the last run, for
         // example by the changing of a config file.
         </span><span class="kw">if </span>cfg.upload_enabled {
@@ -1265,6 +1301,7 @@
             log_level: <span class="prelude-val">None</span>,
             rate_limit: <span class="prelude-val">None</span>,
             enable_event_timestamps: <span class="bool-val">false</span>,
+            experimentation_id: <span class="prelude-val">None</span>,
         };
 
         <span class="kw">let </span><span class="kw-2">mut </span>glean = <span class="self">Self</span>::new(cfg).unwrap();
@@ -1677,6 +1714,15 @@
     </span><span class="kw">pub fn </span>test_get_experiment_data(<span class="kw-2">&amp;</span><span class="self">self</span>, experiment_id: String) -&gt; <span class="prelude-ty">Option</span>&lt;RecordedExperiment&gt; {
         <span class="kw">let </span>metric = ExperimentMetric::new(<span class="self">self</span>, experiment_id);
         metric.test_get_value(<span class="self">self</span>)
+    }
+
+    <span class="doccomment">/// **Test-only API (exported for FFI purposes).**
+    ///
+    /// Gets stored experimenation id annotation.
+    </span><span class="kw">pub fn </span>test_get_experimentation_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
+        <span class="self">self</span>.additional_metrics
+            .experimentation_id
+            .get_value(<span class="self">self</span>, <span class="prelude-val">None</span>)
     }
 
     <span class="doccomment">/// Set configuration to override the default metric enabled/disabled state, typically from a

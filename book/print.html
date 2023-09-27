@@ -3724,6 +3724,7 @@ for more information on how and when the use this feature.</li>
 <li><code>rateLimit</code>: Optional.
 Specifies the maximum number of pings that can be uploaded per interval of a specified number of seconds.
 Default is to use the SDK default (presently 15 pings per 60s interval).</li>
+<li><code>experimentationId</code>: Optional. An identifier derived by the application to be sent in all pings for the purpose of experimentation. See the experiments API documentation for more information.</li>
 </ul>
 <p>To learn about SDK specific configuration options available, refer to the <a href="reference/general/initializing.html#reference">Reference</a> section.</p>
 <div class="special-quote special-quote-stop fa fa-ban"></div>
@@ -4310,6 +4311,13 @@ FOG.setExperimentInactive(&quot;blue-button-effective&quot;);
 </div>
 </div>
 </div>
+<h3 id="set-an-experimentation-identifier"><a class="header" href="#set-an-experimentation-identifier">Set an experimentation identifier</a></h3>
+<p>An experimentation enrollment identifier that is derived and provided by the application can be set through the configuration object passed into the <code>initialize</code> function. See the section on <a href="reference/general/initializing.html">Initializing Glean</a> for more information on how to set this within the <code>Configuration</code> object.</p>
+<p>This identifier will be set during initialization and sent along with all pings sent by Glean, unless that ping is has opted out of sending the client_id. This identifier is not persisted by Glean and must be persisted by the application if necessary for it to remain consistent between runs.</p>
+<h4 id="limits-1"><a class="header" href="#limits-1">Limits</a></h4>
+<p>The experimentation ID is subject to the same limitations as a <a href="reference/general/../metrics/string.html#limits">string metric type</a>.</p>
+<h4 id="recorded-errors-1"><a class="header" href="#recorded-errors-1">Recorded errors</a></h4>
+<p>The experimentation ID will produce the same errors as a <a href="reference/general/../metrics/string.html#recorded-errors">string metric type</a>.</p>
 <h2 id="testing-api-1"><a class="header" href="#testing-api-1">Testing API</a></h2>
 <h3 id="testisexperimentactive"><a class="header" href="#testisexperimentactive"><code>testIsExperimentActive</code></a></h3>
 <p>Reveals if the experiment is annotated in Glean pings.</p>
@@ -4392,11 +4400,47 @@ Assert.equals(
 </div>
 </div>
 </div>
+<h3 id="testgetexperimentationid"><a class="header" href="#testgetexperimentationid"><code>testGetExperimentationId</code></a></h3>
+<p>Returns the current Experimentation ID, if any.</p>
+<div class="tabs">
+<div class="tabbar"></div>
+<div class="tabcontents">
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">assertEquals(&quot;alpha-beta-gamma-delta&quot;, Glean.testGetExperimentationId())
+</code></pre>
+</div>
+<div data-lang="Java" class="tab"></div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">XCTAssertEqual(
+  &quot;alpha-beta-gamma-delta&quot;,
+  Glean.shared.testGetExperimentationId()!,
+  &quot;Experimenatation ids must match&quot;
+)
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import Glean
+
+assert &quot;alpha-beta-gamma-delta&quot; == Glean.test_get_experimentation_id()
+</code></pre>
+</div>
+<div data-lang="JavaScript" class="tab" data-bug="1850323"></div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">assert_eq!(
+  &quot;alpha-beta-gamma-delta&quot;.to_string(),
+  glean_test_get_experimentation_id(),
+  &quot;Experimentation id must match&quot;
+);
+</code></pre>
+</div>
+<div data-lang="Firefox Desktop" class="tab" data-bug="1850479"></div>
+</div>
+</div>
 <h2 id="reference-2"><a class="header" href="#reference-2">Reference</a></h2>
 <ul>
-<li><a href="reference/general/../../../swift/Classes/QuantityMetricType.html">Swift API docs</a></li>
-<li><a href="reference/general/../../../python/glean/metrics/quantity.html">Python API docs</a></li>
-<li><a href="reference/general/../../../docs/glean/private/quantity/struct.QuantityMetric.html">Rust API docs</a></li>
+<li><a href="reference/general/../../../swift/Classes/Glean.html#/s:5GleanAAC19setExperimentActive_6branch5extraySS_SSSDyS2SGSgtF">Swift API docs</a></li>
+<li><a href="reference/general/../../../python/glean/index.html#glean.Glean.set_experiment_active">Python API docs</a></li>
+<li><a href="reference/general/../../../docs/glean/fn.set_experiment_active.html">Rust API docs</a></li>
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/experiments-api.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="registering-custom-pings"><a class="header" href="#registering-custom-pings">Registering custom pings</a></h1>
 <p>After defining <a href="reference/general/../../user/pings/custom.html">custom pings</a> <code>glean_parser</code> is able to generate code from
@@ -4575,7 +4619,7 @@ enabled</p>
 See the <a href="reference/debug/./index.html#platform-specific-information">platform-specific instructions</a> for information
 on how to view the logs on the platform you are on.</p>
 </blockquote>
-<h2 id="limits-1"><a class="header" href="#limits-1">Limits</a></h2>
+<h2 id="limits-2"><a class="header" href="#limits-2">Limits</a></h2>
 <ul>
 <li>The accepted values are <code>true</code> or <code>false</code>. Any other value will be ignored.</li>
 </ul>
@@ -4644,7 +4688,7 @@ them to the <a href="reference/debug/../../user/debugging/index.html#glean-debug
 <p>&quot;To tag&quot; a ping with the Debug View Tag means that the ping request
 will contain the <code>X-Debug-Id</code> header with the given tag.</p>
 <p>Once enabled, the only way to disable this feature is to restart or manually reset the application.</p>
-<h2 id="limits-2"><a class="header" href="#limits-2">Limits</a></h2>
+<h2 id="limits-3"><a class="header" href="#limits-3">Limits</a></h2>
 <ul>
 <li>Any valid HTTP header value is a valid debug view tag (e.g. any value that matches the
 regex <code>[a-zA-Z0-9-]{1,20}</code>). Invalid values will be ignored.</li>
@@ -4718,7 +4762,7 @@ It will be checked upon Glean initialization.</p>
 <p>&quot;To tag&quot; a ping with Source Tags means that the ping request
 will contain the <code>X-Source-Tags</code> header with a comma separated list of the given tags.</p>
 <p>Once enabled, the only way to disable this feature is to restart or manually reset the application.</p>
-<h2 id="limits-3"><a class="header" href="#limits-3">Limits</a></h2>
+<h2 id="limits-4"><a class="header" href="#limits-4">Limits</a></h2>
 <ul>
 <li>Any valid HTTP header value is a valid source tag (e.g. any value that matches the
 regex <code>[a-zA-Z0-9-]{1,20}</code>) and values starting with the substring <code>glean</code> are reserved for internal
@@ -4957,7 +5001,7 @@ mozilla::glean::flags::a11y_enabled.Set(false);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-1"><a class="header" href="#recorded-errors-1">Recorded errors</a></h4>
+<h4 id="recorded-errors-2"><a class="header" href="#recorded-errors-2">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-boolean value is given (JavaScript only).</li>
 </ul>
@@ -5159,7 +5203,7 @@ Glean.accessibility.features[&quot;high_contrast&quot;].set(false);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-2"><a class="header" href="#recorded-errors-2">Recorded Errors</a></h4>
+<h4 id="recorded-errors-3"><a class="header" href="#recorded-errors-3">Recorded Errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-boolean value is given.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_label</code></a>:
@@ -5169,7 +5213,7 @@ Glean.accessibility.features[&quot;high_contrast&quot;].set(false);
 </ul>
 </li>
 </ul>
-<h4 id="limits-4"><a class="header" href="#limits-4">Limits</a></h4>
+<h4 id="limits-5"><a class="header" href="#limits-5">Limits</a></h4>
 <ul>
 <li>Labels must conform to the <a href="reference/metrics/index.html#label-format">label format</a>.</li>
 <li>Each label must have a maximum of 71 characters.</li>
@@ -5453,13 +5497,13 @@ Glean.controls.refreshPressed.add(5);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-3"><a class="header" href="#recorded-errors-3">Recorded errors</a></h4>
+<h4 id="recorded-errors-4"><a class="header" href="#recorded-errors-4">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: If the counter is incremented by a negative value
 (or, in versions up to and including 54.0.0, <code>0</code>).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: If a floating point or non-number value is given.</li>
 </ul>
-<h4 id="limits-5"><a class="header" href="#limits-5">Limits</a></h4>
+<h4 id="limits-6"><a class="header" href="#limits-6">Limits</a></h4>
 <ul>
 <li>Only increments;</li>
 <li>Saturates at the largest value that can be represented as a 32-bit signed integer (<code>2147483647</code>).</li>
@@ -5687,7 +5731,7 @@ Glean.stability.crashCount[&quot;native_code_crash&quot;].add(3);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-4"><a class="header" href="#recorded-errors-4">Recorded Errors</a></h4>
+<h4 id="recorded-errors-5"><a class="header" href="#recorded-errors-5">Recorded Errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if the counter is incremented by a negative value
 (or, in versions up to and including 54.0.0, <code>0</code>).</li>
@@ -5699,7 +5743,7 @@ Glean.stability.crashCount[&quot;native_code_crash&quot;].add(3);
 </ul>
 </li>
 </ul>
-<h4 id="limits-6"><a class="header" href="#limits-6">Limits</a></h4>
+<h4 id="limits-7"><a class="header" href="#limits-7">Limits</a></h4>
 <ul>
 <li>Only increments</li>
 <li>Saturates at the largest value that can be represented as a 32-bit signed integer.</li>
@@ -5993,12 +6037,12 @@ mozilla::glean::search_default::name.Set(&quot;wikipedia&quot;_ns);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-5"><a class="header" href="#recorded-errors-5">Recorded errors</a></h4>
+<h4 id="recorded-errors-6"><a class="header" href="#recorded-errors-6">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if the string is too long. (Prior to Glean 31.5.0, this recorded an <code>invalid_value</code>).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string value is given.</li>
 </ul>
-<h4 id="limits-7"><a class="header" href="#limits-7">Limits</a></h4>
+<h4 id="limits-8"><a class="header" href="#limits-8">Limits</a></h4>
 <ul>
 <li>Fixed maximum string length: 100. Longer strings are truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
 </ul>
@@ -6230,7 +6274,7 @@ mozilla::glean::login::errors_by_stage.Get(&quot;server_auth&quot;_ns).Set(&quot
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-6"><a class="header" href="#recorded-errors-6">Recorded Errors</a></h4>
+<h4 id="recorded-errors-7"><a class="header" href="#recorded-errors-7">Recorded Errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if the string is too long, see <a href="reference/metrics/labeled_strings.html#limits">limits below</a>.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string value is given.</li>
@@ -6241,7 +6285,7 @@ mozilla::glean::login::errors_by_stage.Get(&quot;server_auth&quot;_ns).Set(&quot
 </ul>
 </li>
 </ul>
-<h4 id="limits-8"><a class="header" href="#limits-8">Limits</a></h4>
+<h4 id="limits-9"><a class="header" href="#limits-9">Limits</a></h4>
 <ul>
 <li>Fixed maximum string length: 100. Longer strings are truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
 <li>Labels must conform to the <a href="reference/metrics/index.html#label-format">label format</a>.</li>
@@ -6509,13 +6553,13 @@ Glean.search.engines.add(&quot;duck duck go&quot;);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-7"><a class="header" href="#recorded-errors-7">Recorded errors</a></h4>
+<h4 id="recorded-errors-8"><a class="header" href="#recorded-errors-8">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if the string is too long. (Prior to Glean 31.5.0, this recorded an <code>invalid_value</code>).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if the list is too long.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string value is given.</li>
 </ul>
-<h4 id="limits-9"><a class="header" href="#limits-9">Limits</a></h4>
+<h4 id="limits-10"><a class="header" href="#limits-10">Limits</a></h4>
 <ul>
 <li>Fixed maximum string length: 100. Longer strings are truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
 <li>Fixed maximum list length: 100 items. Additional strings are dropped.</li>
@@ -6571,13 +6615,13 @@ mozilla::glean::search::engines.Set({&quot;wikipedia&quot;_ns, &quot;duck duck g
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-8"><a class="header" href="#recorded-errors-8">Recorded errors</a></h4>
+<h4 id="recorded-errors-9"><a class="header" href="#recorded-errors-9">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if any string in the list is too long, see <a href="reference/metrics/string_list.html#limits-1">Limits</a> below. (Prior to Glean 31.5.0, this recorded an <code>invalid_value</code>).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if the list is too long, see <a href="reference/metrics/string_list.html#limits-1">Limits</a> below.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string array is given.</li>
 </ul>
-<h4 id="limits-10"><a class="header" href="#limits-10">Limits</a></h4>
+<h4 id="limits-11"><a class="header" href="#limits-11">Limits</a></h4>
 <ul>
 <li>Fixed maximum string length: 100. Longer strings are truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
 <li>Fixed maximum list length: 100 items. Additional strings are dropped.</li>
@@ -6815,12 +6859,12 @@ void OnShowLogin() {
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-9"><a class="header" href="#recorded-errors-9">Recorded errors</a></h4>
+<h4 id="recorded-errors-10"><a class="header" href="#recorded-errors-10">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_state</code></a>:
 If the metric is already tracking time (<code>start</code> has already been called and not <code>cancel</code>ed).</li>
 </ul>
-<h4 id="limits-11"><a class="header" href="#limits-11">Limits</a></h4>
+<h4 id="limits-12"><a class="header" href="#limits-12">Limits</a></h4>
 <ul>
 <li>The maximum resolution of the elapsed duration is limited by the clock used on each platform.</li>
 <li>This also determines the behavior of a timespan over sleep:
@@ -6919,7 +6963,7 @@ void OnLogin() {
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-10"><a class="header" href="#recorded-errors-10">Recorded errors</a></h4>
+<h4 id="recorded-errors-11"><a class="header" href="#recorded-errors-11">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_state</code></a>:
 Calling <code>stop</code> without calling <code>start</code> first,
@@ -7134,7 +7178,7 @@ void AfterLogin(uint32_t aDuration) {
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-11"><a class="header" href="#recorded-errors-11">Recorded errors</a></h4>
+<h4 id="recorded-errors-12"><a class="header" href="#recorded-errors-12">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if attempting to record a negative elapsed duration.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_state</code></a>: if this method is called after calling <code>start</code> or this method is called multiple times.</li>
@@ -7542,19 +7586,19 @@ function onPageLoaded() {
 <div data-lang="Firefox Desktop" class="tab">
 <p>This API is not currently exposed in Firefox Desktop, see <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1829745">Bug 1829745</a>.</p>
 </div>
-<h4 id="limits-12"><a class="header" href="#limits-12">Limits</a></h4>
+<h4 id="limits-13"><a class="header" href="#limits-13">Limits</a></h4>
 <ul>
 <li>Samples are limited to the maximum value for the given time unit.</li>
 <li>Only non-negative values may be recorded (<code>&gt;= 0</code>).</li>
 </ul>
-<h4 id="recorded-errors-12"><a class="header" href="#recorded-errors-12">Recorded Errors</a></h4>
+<h4 id="recorded-errors-13"><a class="header" href="#recorded-errors-13">Recorded Errors</a></h4>
 <ul>
 <li>Negative values are discarded and an <code>ErrorType::InvalidValue</code> is generated for each instance.</li>
 <li>Samples that are longer than maximum sample time for the given unit generate an <code>ErrorType::InvalidOverflow</code> error for each instance.</li>
 </ul>
 </div>
 </div>
-<h4 id="recorded-errors-13"><a class="header" href="#recorded-errors-13">Recorded errors</a></h4>
+<h4 id="recorded-errors-14"><a class="header" href="#recorded-errors-14">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: If recording a negative timespan.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_state</code></a>: If a non-existing/stopped timer is stopped again.</li>
@@ -7855,7 +7899,7 @@ The allowed values for <code>time_unit</code> are:</p>
 <li><code>hour</code></li>
 <li><code>day</code></li>
 </ul>
-<h2 id="limits-13"><a class="header" href="#limits-13">Limits</a></h2>
+<h2 id="limits-14"><a class="header" href="#limits-14">Limits</a></h2>
 <ul>
 <li>
 <p>Timings are recorded in nanoseconds.</p>
@@ -8044,7 +8088,7 @@ mozilla::glean::memory::heap_allocated.Accumulate(bytes / 1024);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-14"><a class="header" href="#recorded-errors-14">Recorded errors</a></h4>
+<h4 id="recorded-errors-15"><a class="header" href="#recorded-errors-15">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: If recording a negative memory size.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: If recording a size larger than 1 TB.</li>
@@ -8248,7 +8292,7 @@ The allowed values for <code>memory_unit</code> are:</p>
 <li><code>megabyte</code> (<code>= 2^20 = 1,048,576 bytes</code>)</li>
 <li><code>gigabyte</code> (<code>= 2^30 = 1,073,741,824 bytes</code>)</li>
 </ul>
-<h2 id="limits-14"><a class="header" href="#limits-14">Limits</a></h2>
+<h2 id="limits-15"><a class="header" href="#limits-15">Limits</a></h2>
 <ul>
 <li>The maximum memory size that can be recorded is 1 Terabyte (2<sup>40</sup> bytes).
 Larger sizes will be truncated to 1 Terabyte.</li>
@@ -8457,7 +8501,7 @@ Glean.user.clientId.set(uuid);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-15"><a class="header" href="#recorded-errors-15">Recorded errors</a></h4>
+<h4 id="recorded-errors-16"><a class="header" href="#recorded-errors-16">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if the value is set to a string that is not a UUID (only applies for dynamically-typed languages, such as Python).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string or non-UUID value is given.</li>
@@ -8716,7 +8760,7 @@ search.template.setUrl(new URL(&quot;https://mysearchengine.com/&quot;));
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h4 id="recorded-errors-16"><a class="header" href="#recorded-errors-16">Recorded errors</a></h4>
+<h4 id="recorded-errors-17"><a class="header" href="#recorded-errors-17">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>:
 <ul>
@@ -8727,7 +8771,7 @@ search.template.setUrl(new URL(&quot;https://mysearchengine.com/&quot;));
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if the URL passed is longer than 8192 characters (before encoding).</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string value is given.</li>
 </ul>
-<h4 id="limits-15"><a class="header" href="#limits-15">Limits</a></h4>
+<h4 id="limits-16"><a class="header" href="#limits-16">Limits</a></h4>
 <ul>
 <li>Fixed maximum URL length: 8192. Longer URLs are truncated and recorded along with an <code>invalid_overflow</code> error.</li>
 </ul>
@@ -8971,7 +9015,7 @@ Glean.install.firstRun.set(value.getTime() * 1000);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-17"><a class="header" href="#recorded-errors-17">Recorded errors</a></h4>
+<h4 id="recorded-errors-18"><a class="header" href="#recorded-errors-18">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: setting the date time to an invalid value.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-Date object is given.</li>
@@ -9274,7 +9318,7 @@ Glean.views.loginOpened.record(extra);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-18"><a class="header" href="#recorded-errors-18">Recorded errors</a></h4>
+<h4 id="recorded-errors-19"><a class="header" href="#recorded-errors-19">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>:
 if any of the values in the <code>extras</code> object are greater than 500 bytes in length.
@@ -9470,7 +9514,7 @@ A maximum of 15 extra keys is allowed.</p>
 <ul>
 <li>When and from where was the login view opened?</li>
 </ul>
-<h2 id="limits-16"><a class="header" href="#limits-16">Limits</a></h2>
+<h2 id="limits-17"><a class="header" href="#limits-17">Limits</a></h2>
 <ul>
 <li>In Glean.js the default value for <code>maxEvents</code> is 1. In all other SDKs it is 500.</li>
 <li>Once the <code>maxEvents</code> threshold is reached on the client an &quot;events&quot; ping is immediately sent.</li>
@@ -9550,12 +9594,12 @@ mozilla::glean::graphics::checkerboard_peak.AccumulateSamples({ 23 });
 </div>
 </div>
 </div>
-<h4 id="limits-17"><a class="header" href="#limits-17">Limits</a></h4>
+<h4 id="limits-18"><a class="header" href="#limits-18">Limits</a></h4>
 <ul>
 <li>The maximum value of <code>bucket_count</code> is 100.</li>
 <li>Only non-negative values may be recorded (<code>&gt;= 0</code>).</li>
 </ul>
-<h4 id="recorded-errors-19"><a class="header" href="#recorded-errors-19">Recorded errors</a></h4>
+<h4 id="recorded-errors-20"><a class="header" href="#recorded-errors-20">Recorded errors</a></h4>
 <ul>
 <li><code>invalid_value</code>: If recording a negative value.</li>
 </ul>
@@ -9903,11 +9947,11 @@ mozilla::glean::display::width.Set(innerWidth);
 </div>
 </div>
 </div>
-<h4 id="limits-18"><a class="header" href="#limits-18">Limits</a></h4>
+<h4 id="limits-19"><a class="header" href="#limits-19">Limits</a></h4>
 <ul>
 <li>Quantities must be non-negative integers or 0.</li>
 </ul>
-<h4 id="recorded-errors-20"><a class="header" href="#recorded-errors-20">Recorded errors</a></h4>
+<h4 id="recorded-errors-21"><a class="header" href="#recorded-errors-21">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: if a negative value is passed in.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a floating point or non-number value is given.</li>
@@ -10228,12 +10272,12 @@ Glean.network.httpConnectionError.addToDenominator(1);
 </div>
 </div>
 </div>
-<h4 id="recorded-errors-21"><a class="header" href="#recorded-errors-21">Recorded errors</a></h4>
+<h4 id="recorded-errors-22"><a class="header" href="#recorded-errors-22">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_value</code></a>: If either numerator or denominator is incremented by a negative value.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: If a floating point or non-number value is given.</li>
 </ul>
-<h4 id="limits-19"><a class="header" href="#limits-19">Limits</a></h4>
+<h4 id="limits-20"><a class="header" href="#limits-20">Limits</a></h4>
 <ul>
 <li>Numerator and Denominator only increment.</li>
 <li>Numerator and Denominator saturate at the largest value that can be represented as a 32-bit signed integer (<code>2147483647</code>).</li>
@@ -10486,7 +10530,7 @@ article.content.set(extractedText);
 <div data-lang="Firefox Desktop" class="tab"></div>
 </div>
 </div>
-<h4 id="limits-20"><a class="header" href="#limits-20">Limits</a></h4>
+<h4 id="limits-21"><a class="header" href="#limits-21">Limits</a></h4>
 <ul>
 <li>Text metrics can only be sent in <a href="reference/metrics/../../user/pings/custom.html">custom pings</a>.</li>
 <li>Text metrics are always of data collection category 3 (<code>web_activity</code>) or category 4 (<code>highly_sensitive</code>).</li>
@@ -10494,7 +10538,7 @@ article.content.set(extractedText);
 <li>Fixed maximum text length: 200 kilobytes.
 Longer text is truncated. This is measured in the number of bytes when the string is encoded in UTF-8.</li>
 </ul>
-<h4 id="recorded-errors-22"><a class="header" href="#recorded-errors-22">Recorded errors</a></h4>
+<h4 id="recorded-errors-23"><a class="header" href="#recorded-errors-23">Recorded errors</a></h4>
 <ul>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_overflow</code></a>: if the text is too long.</li>
 <li><a href="reference/metrics/../../user/metrics/error-reporting.html"><code>invalid_type</code></a>: if a non-string value is given.</li>
@@ -11445,6 +11489,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li>General
 <ul>
 <li>Experimental: Add configuration to add a wall clock timestamp to all events (<a href="https://github.com/mozilla/glean/issues/2513">#2513</a>)</li>
+<li>Add an API to set an Experimentation ID that will be annotated to all pings (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848201">Bug 1848201</a>)</li>
 </ul>
 </li>
 <li>Python

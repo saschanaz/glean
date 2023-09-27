@@ -1163,6 +1163,17 @@
 <a href="#1163" id="1163">1163</a>
 <a href="#1164" id="1164">1164</a>
 <a href="#1165" id="1165">1165</a>
+<a href="#1166" id="1166">1166</a>
+<a href="#1167" id="1167">1167</a>
+<a href="#1168" id="1168">1168</a>
+<a href="#1169" id="1169">1169</a>
+<a href="#1170" id="1170">1170</a>
+<a href="#1171" id="1171">1171</a>
+<a href="#1172" id="1172">1172</a>
+<a href="#1173" id="1173">1173</a>
+<a href="#1174" id="1174">1174</a>
+<a href="#1175" id="1175">1175</a>
+<a href="#1176" id="1176">1176</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1297,6 +1308,10 @@
     </span><span class="kw">pub </span>rate_limit: <span class="prelude-ty">Option</span>&lt;PingRateLimit&gt;,
     <span class="doccomment">/// (Experimental) Whether to add a wallclock timestamp to all events.
     </span><span class="kw">pub </span>enable_event_timestamps: bool,
+    <span class="doccomment">/// An experimentation identifier derived by the application to be sent with all pings, it should
+    /// be noted that this has an underlying StringMetric and so should conform to the limitations that
+    /// StringMetric places on length, etc.
+    </span><span class="kw">pub </span>experimentation_id: <span class="prelude-ty">Option</span>&lt;String&gt;,
 }
 
 <span class="doccomment">/// How to specify the rate at which pings may be uploaded before they are throttled.
@@ -2018,6 +2033,13 @@
 </span><span class="kw">pub fn </span>glean_test_get_experiment_data(experiment_id: String) -&gt; <span class="prelude-ty">Option</span>&lt;RecordedExperiment&gt; {
     block_on_dispatcher();
     core::with_glean(|glean| glean.test_get_experiment_data(experiment_id.to_owned()))
+}
+
+<span class="doccomment">/// TEST ONLY FUNCTION.
+/// Gets stored experimenation id annotation.
+</span><span class="kw">pub fn </span>glean_test_get_experimentation_id() -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
+    block_on_dispatcher();
+    core::with_glean(|glean| glean.test_get_experimentation_id())
 }
 
 <span class="doccomment">/// Sets a remote configuration to override metrics&#39; default enabled/disabled

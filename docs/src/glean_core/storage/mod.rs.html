@@ -279,6 +279,11 @@
 <a href="#279" id="279">279</a>
 <a href="#280" id="280">280</a>
 <a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -379,6 +384,11 @@
         storage.iter_store_from(Lifetime::Ping, store_name, <span class="prelude-val">None</span>, <span class="kw-2">&amp;mut </span>snapshotter);
         storage.iter_store_from(Lifetime::Application, store_name, <span class="prelude-val">None</span>, <span class="kw-2">&amp;mut </span>snapshotter);
         storage.iter_store_from(Lifetime::User, store_name, <span class="prelude-val">None</span>, <span class="kw-2">&amp;mut </span>snapshotter);
+
+        <span class="comment">// Add send in all pings client.annotations
+        </span><span class="kw">if </span>store_name != <span class="string">&quot;glean_client_info&quot; </span>{
+            storage.iter_store_from(Lifetime::Application, <span class="string">&quot;all-pings&quot;</span>, <span class="prelude-val">None</span>, snapshotter);
+        }
 
         <span class="kw">if </span>clear_store {
             <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = storage.clear_ping_lifetime_storage(store_name) {

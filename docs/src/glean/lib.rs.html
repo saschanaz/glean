@@ -284,6 +284,13 @@
 <a href="#284" id="284">284</a>
 <a href="#285" id="285">285</a>
 <a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -407,6 +414,7 @@
         log_level: cfg.log_level,
         rate_limit: cfg.rate_limit,
         enable_event_timestamps: cfg.enable_event_timestamps,
+        experimentation_id: cfg.experimentation_id,
     };
 
     glean_core::glean_initialize(core_cfg, client_info.into(), callbacks);
@@ -455,6 +463,12 @@
 /// See [`glean_core::Glean::set_experiment_inactive`].
 </span><span class="kw">pub fn </span>set_experiment_inactive(experiment_id: String) {
     glean_core::glean_set_experiment_inactive(experiment_id)
+}
+
+<span class="doccomment">/// TEST ONLY FUNCTION.
+/// Gets stored experimenation id.
+</span><span class="kw">pub fn </span>test_get_experimentation_id() -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
+    glean_core::glean_test_get_experimentation_id()
 }
 
 <span class="doccomment">/// Set the remote configuration values for the metrics&#39; disabled property

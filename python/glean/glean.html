@@ -262,6 +262,7 @@ class Glean:
             log_level=None,
             rate_limit=None,
             enable_event_timestamps=configuration.enable_event_timestamps,
+            experimentation_id=configuration.experimentation_id,
         )
 
         _uniffi.glean_initialize(cfg, client_info, callbacks)
@@ -432,6 +433,20 @@ class Glean:
             return data
         else:
             raise RuntimeError(&#34;Experiment data is not set&#34;)
+
+    @classmethod
+    def test_get_experimentation_id(cls) -&gt; str:
+        &#34;&#34;&#34;
+        Returns the stored experimentation id, for testing purposes only.
+
+        Returns:
+            experimentation_id (str): The experimentation id set by the client.
+        &#34;&#34;&#34;
+        experimentation_id = _uniffi.glean_test_get_experimentation_id()
+        if experimentation_id is not None:
+            return experimentation_id
+        else:
+            raise RuntimeError(&#34;Experimentation id is not set&#34;)
 
     @classmethod
     def handle_client_active(cls):
@@ -667,6 +682,7 @@ initialized from the application.</p>
             log_level=None,
             rate_limit=None,
             enable_event_timestamps=configuration.enable_event_timestamps,
+            experimentation_id=configuration.experimentation_id,
         )
 
         _uniffi.glean_initialize(cfg, client_info, callbacks)
@@ -837,6 +853,20 @@ initialized from the application.</p>
             return data
         else:
             raise RuntimeError(&#34;Experiment data is not set&#34;)
+
+    @classmethod
+    def test_get_experimentation_id(cls) -&gt; str:
+        &#34;&#34;&#34;
+        Returns the stored experimentation id, for testing purposes only.
+
+        Returns:
+            experimentation_id (str): The experimentation id set by the client.
+        &#34;&#34;&#34;
+        experimentation_id = _uniffi.glean_test_get_experimentation_id()
+        if experimentation_id is not None:
+            return experimentation_id
+        else:
+            raise RuntimeError(&#34;Experimentation id is not set&#34;)
 
     @classmethod
     def handle_client_active(cls):
@@ -1084,6 +1114,7 @@ def initialize(
         log_level=None,
         rate_limit=None,
         enable_event_timestamps=configuration.enable_event_timestamps,
+        experimentation_id=configuration.experimentation_id,
     )
 
     _uniffi.glean_initialize(cfg, client_info, callbacks)
@@ -1275,6 +1306,32 @@ def test_get_experiment_data(cls, experiment_id: str) -&gt; &#34;RecordedExperim
         raise RuntimeError(&#34;Experiment data is not set&#34;)</code></pre>
 </details>
 </dd>
+<dt id="glean.glean.Glean.test_get_experimentation_id"><code class="name flex">
+<span>def <span class="ident">test_get_experimentation_id</span></span>(<span>) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the stored experimentation id, for testing purposes only.</p>
+<h2 id="returns">Returns</h2>
+<p>experimentation_id (str): The experimentation id set by the client.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@classmethod
+def test_get_experimentation_id(cls) -&gt; str:
+    &#34;&#34;&#34;
+    Returns the stored experimentation id, for testing purposes only.
+
+    Returns:
+        experimentation_id (str): The experimentation id set by the client.
+    &#34;&#34;&#34;
+    experimentation_id = _uniffi.glean_test_get_experimentation_id()
+    if experimentation_id is not None:
+        return experimentation_id
+    else:
+        raise RuntimeError(&#34;Experimentation id is not set&#34;)</code></pre>
+</details>
+</dd>
 <dt id="glean.glean.Glean.test_is_experiment_active"><code class="name flex">
 <span>def <span class="ident">test_is_experiment_active</span></span>(<span>experiment_id: str) ‑> bool</span>
 </code></dt>
@@ -1352,6 +1409,7 @@ def test_is_experiment_active(cls, experiment_id: str) -&gt; bool:
 <li><code><a title="glean.glean.Glean.set_upload_enabled" href="#glean.glean.Glean.set_upload_enabled">set_upload_enabled</a></code></li>
 <li><code><a title="glean.glean.Glean.shutdown" href="#glean.glean.Glean.shutdown">shutdown</a></code></li>
 <li><code><a title="glean.glean.Glean.test_get_experiment_data" href="#glean.glean.Glean.test_get_experiment_data">test_get_experiment_data</a></code></li>
+<li><code><a title="glean.glean.Glean.test_get_experimentation_id" href="#glean.glean.Glean.test_get_experimentation_id">test_get_experimentation_id</a></code></li>
 <li><code><a title="glean.glean.Glean.test_is_experiment_active" href="#glean.glean.Glean.test_is_experiment_active">test_is_experiment_active</a></code></li>
 </ul>
 </li>

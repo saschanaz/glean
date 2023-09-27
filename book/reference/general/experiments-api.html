@@ -292,6 +292,13 @@ FOG.setExperimentInactive(&quot;blue-button-effective&quot;);
 </div>
 </div>
 </div>
+<h3 id="set-an-experimentation-identifier"><a class="header" href="#set-an-experimentation-identifier">Set an experimentation identifier</a></h3>
+<p>An experimentation enrollment identifier that is derived and provided by the application can be set through the configuration object passed into the <code>initialize</code> function. See the section on <a href="initializing.html">Initializing Glean</a> for more information on how to set this within the <code>Configuration</code> object.</p>
+<p>This identifier will be set during initialization and sent along with all pings sent by Glean, unless that ping is has opted out of sending the client_id. This identifier is not persisted by Glean and must be persisted by the application if necessary for it to remain consistent between runs.</p>
+<h4 id="limits-1"><a class="header" href="#limits-1">Limits</a></h4>
+<p>The experimentation ID is subject to the same limitations as a <a href="../metrics/string.html#limits">string metric type</a>.</p>
+<h4 id="recorded-errors-1"><a class="header" href="#recorded-errors-1">Recorded errors</a></h4>
+<p>The experimentation ID will produce the same errors as a <a href="../metrics/string.html#recorded-errors">string metric type</a>.</p>
 <h2 id="testing-api"><a class="header" href="#testing-api">Testing API</a></h2>
 <h3 id="testisexperimentactive"><a class="header" href="#testisexperimentactive"><code>testIsExperimentActive</code></a></h3>
 <p>Reveals if the experiment is annotated in Glean pings.</p>
@@ -374,11 +381,47 @@ Assert.equals(
 </div>
 </div>
 </div>
+<h3 id="testgetexperimentationid"><a class="header" href="#testgetexperimentationid"><code>testGetExperimentationId</code></a></h3>
+<p>Returns the current Experimentation ID, if any.</p>
+<div class="tabs">
+<div class="tabbar"></div>
+<div class="tabcontents">
+<div data-lang="Kotlin" class="tab">
+<pre><code class="language-Kotlin">assertEquals(&quot;alpha-beta-gamma-delta&quot;, Glean.testGetExperimentationId())
+</code></pre>
+</div>
+<div data-lang="Java" class="tab"></div>
+<div data-lang="Swift" class="tab">
+<pre><code class="language-Swift">XCTAssertEqual(
+  &quot;alpha-beta-gamma-delta&quot;,
+  Glean.shared.testGetExperimentationId()!,
+  &quot;Experimenatation ids must match&quot;
+)
+</code></pre>
+</div>
+<div data-lang="Python" class="tab">
+<pre><code class="language-Python">from glean import Glean
+
+assert &quot;alpha-beta-gamma-delta&quot; == Glean.test_get_experimentation_id()
+</code></pre>
+</div>
+<div data-lang="JavaScript" class="tab" data-bug="1850323"></div>
+<div data-lang="Rust" class="tab">
+<pre><code class="language-Rust">assert_eq!(
+  &quot;alpha-beta-gamma-delta&quot;.to_string(),
+  glean_test_get_experimentation_id(),
+  &quot;Experimentation id must match&quot;
+);
+</code></pre>
+</div>
+<div data-lang="Firefox Desktop" class="tab" data-bug="1850479"></div>
+</div>
+</div>
 <h2 id="reference"><a class="header" href="#reference">Reference</a></h2>
 <ul>
-<li><a href="../../../swift/Classes/QuantityMetricType.html">Swift API docs</a></li>
-<li><a href="../../../python/glean/metrics/quantity.html">Python API docs</a></li>
-<li><a href="../../../docs/glean/private/quantity/struct.QuantityMetric.html">Rust API docs</a></li>
+<li><a href="../../../swift/Classes/Glean.html#/s:5GleanAAC19setExperimentActive_6branch5extraySS_SSSDyS2SGSgtF">Swift API docs</a></li>
+<li><a href="../../../python/glean/index.html#glean.Glean.set_experiment_active">Python API docs</a></li>
+<li><a href="../../../docs/glean/fn.set_experiment_active.html">Rust API docs</a></li>
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/general/experiments-api.md">Edit this page on GitHub.</a></footer>
                     </main>

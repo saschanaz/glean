@@ -63,6 +63,7 @@ class Configuration:
         ping_uploader: Optional[net.BaseUploader] = None,
         allow_multiprocessing: bool = True,
         enable_event_timestamps: bool = False,
+        experimentation_id: Optional[str] = None,
     ):
         &#34;&#34;&#34;
         Args:
@@ -89,6 +90,7 @@ class Configuration:
         self._ping_uploader = ping_uploader
         self._allow_multiprocessing = allow_multiprocessing
         self._enable_event_timestamps = enable_event_timestamps
+        self._experimentation_id = experimentation_id
 
     @property
     def server_endpoint(self) -&gt; str:
@@ -125,6 +127,11 @@ class Configuration:
         return self._enable_event_timestamps
 
     @property
+    def experimentation_id(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;An experimentation id that will be sent in all pings&#34;&#34;&#34;
+        return self._experimentation_id
+
+    @property
     def ping_uploader(self) -&gt; net.BaseUploader:
         &#34;&#34;&#34;The ping uploader implementation.&#34;&#34;&#34;
         return self._ping_uploader
@@ -148,7 +155,7 @@ __all__ = [&#34;Configuration&#34;]</code></pre>
 <dl>
 <dt id="glean.config.Configuration"><code class="flex name class">
 <span>class <span class="ident">Configuration</span></span>
-<span>(</span><span>server_endpoint: Optional[str] = None, channel: Optional[str] = None, max_events: int = 500, ping_uploader: Optional[<a title="glean.net.base_uploader.BaseUploader" href="net/base_uploader.html#glean.net.base_uploader.BaseUploader">BaseUploader</a>] = None, allow_multiprocessing: bool = True, enable_event_timestamps: bool = False)</span>
+<span>(</span><span>server_endpoint: Optional[str] = None, channel: Optional[str] = None, max_events: int = 500, ping_uploader: Optional[<a title="glean.net.base_uploader.BaseUploader" href="net/base_uploader.html#glean.net.base_uploader.BaseUploader">BaseUploader</a>] = None, allow_multiprocessing: bool = True, enable_event_timestamps: bool = False, experimentation_id: Optional[str] = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Configuration values for Glean.</p>
@@ -190,6 +197,7 @@ wallclock timestamp to all events. Default: <code>false</code>.</dd>
         ping_uploader: Optional[net.BaseUploader] = None,
         allow_multiprocessing: bool = True,
         enable_event_timestamps: bool = False,
+        experimentation_id: Optional[str] = None,
     ):
         &#34;&#34;&#34;
         Args:
@@ -216,6 +224,7 @@ wallclock timestamp to all events. Default: <code>false</code>.</dd>
         self._ping_uploader = ping_uploader
         self._allow_multiprocessing = allow_multiprocessing
         self._enable_event_timestamps = enable_event_timestamps
+        self._experimentation_id = experimentation_id
 
     @property
     def server_endpoint(self) -&gt; str:
@@ -252,6 +261,11 @@ wallclock timestamp to all events. Default: <code>false</code>.</dd>
         return self._enable_event_timestamps
 
     @property
+    def experimentation_id(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;An experimentation id that will be sent in all pings&#34;&#34;&#34;
+        return self._experimentation_id
+
+    @property
     def ping_uploader(self) -&gt; net.BaseUploader:
         &#34;&#34;&#34;The ping uploader implementation.&#34;&#34;&#34;
         return self._ping_uploader
@@ -286,6 +300,19 @@ def channel(self) -&gt; Optional[str]:
 def enable_event_timestamps(self) -&gt; bool:
     &#34;&#34;&#34;(Experimental) Whether to add a wallclock timestamp to all events.&#34;&#34;&#34;
     return self._enable_event_timestamps</code></pre>
+</details>
+</dd>
+<dt id="glean.config.Configuration.experimentation_id"><code class="name">var <span class="ident">experimentation_id</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"><p>An experimentation id that will be sent in all pings</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def experimentation_id(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;An experimentation id that will be sent in all pings&#34;&#34;&#34;
+    return self._experimentation_id</code></pre>
 </details>
 </dd>
 <dt id="glean.config.Configuration.max_events"><code class="name">var <span class="ident">max_events</span> : int</code></dt>
@@ -350,6 +377,7 @@ def server_endpoint(self) -&gt; str:
 <ul class="">
 <li><code><a title="glean.config.Configuration.channel" href="#glean.config.Configuration.channel">channel</a></code></li>
 <li><code><a title="glean.config.Configuration.enable_event_timestamps" href="#glean.config.Configuration.enable_event_timestamps">enable_event_timestamps</a></code></li>
+<li><code><a title="glean.config.Configuration.experimentation_id" href="#glean.config.Configuration.experimentation_id">experimentation_id</a></code></li>
 <li><code><a title="glean.config.Configuration.max_events" href="#glean.config.Configuration.max_events">max_events</a></code></li>
 <li><code><a title="glean.config.Configuration.ping_uploader" href="#glean.config.Configuration.ping_uploader">ping_uploader</a></code></li>
 <li><code><a title="glean.config.Configuration.server_endpoint" href="#glean.config.Configuration.server_endpoint">server_endpoint</a></code></li>
