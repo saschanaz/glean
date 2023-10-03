@@ -255,6 +255,7 @@ val snapshot = Views.loginOpened.testGetValue()
 assertEquals(2, snapshot.size)
 val first = snapshot.single()
 assertEquals(&quot;login_opened&quot;, first.name)
+assertEquals(&quot;toolbar&quot;, first.extra?.getValue(&quot;source_of_login&quot;))
 </code></pre>
 </div>
 <div data-lang="Java" class="tab">
@@ -268,6 +269,7 @@ assertEquals(Views.INSTANCE.loginOpened().testGetValue().size)
 XCTAssertEqual(2, snapshot.size)
 val first = snapshot[0]
 XCTAssertEqual(&quot;login_opened&quot;, first.name)
+XCTAssertEqual(&quot;toolbar&quot;, first.extra?[&quot;source_of_login&quot;])
 </code></pre>
 </div>
 <div data-lang="Python" class="tab">
@@ -278,6 +280,7 @@ snapshot = metrics.views.login_opened.test_get_value()
 assert 2 == len(snapshot)
 first = snapshot[0]
 assert &quot;login_opened&quot; == first.name
+assert &quot;toolbar&quot; == first.extra[&quot;source_of_login&quot;]
 </code></pre>
 </div>
 <div data-lang="Rust" class="tab">
@@ -287,6 +290,9 @@ var snapshot = views::login_opened.test_get_value(None).unwrap();
 assert_eq!(2, snapshot.len());
 let first = &amp;snapshot[0];
 assert_eq!(&quot;login_opened&quot;, first.name);
+
+let extra = event.extra.unwrap();
+assert_eq!(Some(&amp;&quot;toolbar&quot;.to_string()), extra.get(&quot;source_of_login&quot;));
 </code></pre>
 </div>
 <div data-lang="JavaScript" class="tab">
@@ -294,8 +300,9 @@ assert_eq!(&quot;login_opened&quot;, first.name);
 
 const snapshot = await views.loginOpened.testGetValue();
 assert.strictEqual(2, snapshot.length);
-const first = snapshot[0]
-assert.strictEqual(&quot;login_opened&quot;, first.name)
+const first = snapshot[0];
+assert.strictEqual(&quot;login_opened&quot;, first.name);
+assert.strictEqual(&quot;toolbar&quot;, first.extra.source_of_login);
 </code></pre>
 </div>
 <div data-lang="Firefox Desktop" class="tab">
@@ -306,11 +313,24 @@ auto optEvents = mozilla::glean::views::login_opened.TestGetValue();
 auto events = optEvents.extract();
 ASSERT_EQ(2UL, events.Length());
 ASSERT_STREQ(&quot;login_opened&quot;, events[0].mName.get());
+
+// Note that the list of extra key/value pairs can be in any order.
+ASSERT_EQ(1UL, events[0].mExtra.Length());
+auto extra = events[0].mExtra[0];
+
+auto key = std::get&lt;0&gt;(extra);
+auto value = std::get&lt;1&gt;(extra);
+
+ASSERT_STREQ(&quot;source_of_login&quot;_ns, key.get())
+ASSERT_STREQ(&quot;toolbar&quot;, value.get());
+}
 </code></pre>
 <p><strong>JavaScript</strong></p>
 <pre><code class="language-js">var events = Glean.views.loginOpened.testGetValue();
 Assert.equal(2, events.length);
 Assert.equal(&quot;login_opened&quot;, events[0].name);
+
+Assert.equal(&quot;toolbar&quot;, events[0].extra.source_of_login);
 </code></pre>
 </div>
 </div>
