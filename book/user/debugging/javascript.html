@@ -156,6 +156,13 @@
 <p>Debugging features in JavaScript can be enabled through APIs exposed on the Glean object.
 For more information on the available features and how to enable them,
 see the <a href="../../reference/debug/index.html">Debugging API reference</a>.</p>
+<h2 id="debugging-in-the-browser"><a class="header" href="#debugging-in-the-browser">Debugging in the browser</a></h2>
+<p>Websites running Glean allow you to debug at runtime using the <code>window.Glean</code> object in the browser console. You can start debugging by simply:</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools#the_javascript_console">Opening the browser console</a></li>
+<li>Calling one of the <code>window.Glean</code> APIs: <code>window.Glean.setLogPings</code>, <code>window.Glean.setDebugViewTag</code>, <code>window.Glean.setSourceTags</code>.</li>
+</ol>
+<p>These debugging options will persist for the length of the current page session. Once the tab is closed, you will need to make those API calls again.</p>
 <h2 id="sending-pings"><a class="header" href="#sending-pings">Sending pings</a></h2>
 <p>Unlike other platforms, JavaScript doesn't expose convenience methods to send pings on demand.</p>
 <p>In case that is necessary, calling the <code>submit</code> function for a given ping,

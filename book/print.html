@@ -3253,6 +3253,13 @@ logging.basicConfig(level=logging.DEBUG)
 <p>Debugging features in JavaScript can be enabled through APIs exposed on the Glean object.
 For more information on the available features and how to enable them,
 see the <a href="user/debugging/../../reference/debug/index.html">Debugging API reference</a>.</p>
+<h2 id="debugging-in-the-browser"><a class="header" href="#debugging-in-the-browser">Debugging in the browser</a></h2>
+<p>Websites running Glean allow you to debug at runtime using the <code>window.Glean</code> object in the browser console. You can start debugging by simply:</p>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools#the_javascript_console">Opening the browser console</a></li>
+<li>Calling one of the <code>window.Glean</code> APIs: <code>window.Glean.setLogPings</code>, <code>window.Glean.setDebugViewTag</code>, <code>window.Glean.setSourceTags</code>.</li>
+</ol>
+<p>These debugging options will persist for the length of the current page session. Once the tab is closed, you will need to make those API calls again.</p>
 <h2 id="sending-pings-1"><a class="header" href="#sending-pings-1">Sending pings</a></h2>
 <p>Unlike other platforms, JavaScript doesn't expose convenience methods to send pings on demand.</p>
 <p>In case that is necessary, calling the <code>submit</code> function for a given ping,
@@ -14077,6 +14084,7 @@ This is a major milestone in using a cross-platform implementation of Glean on t
 <p><a href="https://github.com/mozilla/glean.js/compare/v2.0.3...main">Full changelog</a></p>
 <ul>
 <li><a href="https://github.com/mozilla/glean.js/pull/1772">#1772</a>: Fix bug where <code>window.Glean</code> functions were getting set on non-browser properties.</li>
+<li><a href="https://github.com/mozilla/glean.js/pull/1784">#1784</a>: Store <code>window.Glean</code> debugging values in <code>sessionStorage</code>. This will set debug options on page init while the current session is still active.</li>
 </ul>
 <h1 id="v203-2023-09-27"><a class="header" href="#v203-2023-09-27">v2.0.3 (2023-09-27)</a></h1>
 <p><a href="https://github.com/mozilla/glean.js/compare/v2.0.2...v2.0.3">Full changelog</a></p>
