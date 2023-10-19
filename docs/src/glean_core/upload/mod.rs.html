@@ -1681,6 +1681,25 @@
 <a href="#1681" id="1681">1681</a>
 <a href="#1682" id="1682">1682</a>
 <a href="#1683" id="1683">1683</a>
+<a href="#1684" id="1684">1684</a>
+<a href="#1685" id="1685">1685</a>
+<a href="#1686" id="1686">1686</a>
+<a href="#1687" id="1687">1687</a>
+<a href="#1688" id="1688">1688</a>
+<a href="#1689" id="1689">1689</a>
+<a href="#1690" id="1690">1690</a>
+<a href="#1691" id="1691">1691</a>
+<a href="#1692" id="1692">1692</a>
+<a href="#1693" id="1693">1693</a>
+<a href="#1694" id="1694">1694</a>
+<a href="#1695" id="1695">1695</a>
+<a href="#1696" id="1696">1696</a>
+<a href="#1697" id="1697">1697</a>
+<a href="#1698" id="1698">1698</a>
+<a href="#1699" id="1699">1699</a>
+<a href="#1700" id="1700">1700</a>
+<a href="#1701" id="1701">1701</a>
+<a href="#1702" id="1702">1702</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1931,18 +1950,37 @@
     /// # Returns
     ///
     /// The `JoinHandle` to the spawned thread
-    </span><span class="kw">pub fn </span>scan_pending_pings_directories(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; std::thread::JoinHandle&lt;()&gt; {
+    </span><span class="kw">pub fn </span>scan_pending_pings_directories(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        trigger_upload: bool,
+    ) -&gt; std::thread::JoinHandle&lt;()&gt; {
         <span class="kw">let </span>local_manager = <span class="self">self</span>.directory_manager.clone();
         <span class="kw">let </span>local_cached_pings = <span class="self">self</span>.cached_pings.clone();
         <span class="kw">let </span>local_flag = <span class="self">self</span>.processed_pending_pings.clone();
         thread::Builder::new()
             .name(<span class="string">&quot;glean.ping_directory_manager.process_dir&quot;</span>.to_string())
             .spawn(<span class="kw">move </span>|| {
-                <span class="kw">let </span><span class="kw-2">mut </span>local_cached_pings = local_cached_pings
-                    .write()
-                    .expect(<span class="string">&quot;Can&#39;t write to pending pings cache.&quot;</span>);
-                local_cached_pings.extend(local_manager.process_dirs());
-                local_flag.store(<span class="bool-val">true</span>, Ordering::SeqCst);
+                {
+                    <span class="comment">// Be sure to drop local_cached_pings lock before triggering upload.
+                    </span><span class="kw">let </span><span class="kw-2">mut </span>local_cached_pings = local_cached_pings
+                        .write()
+                        .expect(<span class="string">&quot;Can&#39;t write to pending pings cache.&quot;</span>);
+                    local_cached_pings.extend(local_manager.process_dirs());
+                    local_flag.store(<span class="bool-val">true</span>, Ordering::SeqCst);
+                }
+                <span class="kw">if </span>trigger_upload {
+                    <span class="kw">crate</span>::dispatcher::launch(|| {
+                        <span class="kw">if let </span><span class="prelude-val">Some</span>(state) = <span class="kw">crate</span>::maybe_global_state().and_then(|s| s.lock().ok())
+                        {
+                            <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = state.callbacks.trigger_upload() {
+                                <span class="macro">log::error!</span>(
+                                    <span class="string">&quot;Triggering upload after pending ping scan failed. Error: {}&quot;</span>,
+                                    e
+                                );
+                            }
+                        }
+                    });
+                }
             })
             .expect(<span class="string">&quot;Unable to spawn thread to process pings directories.&quot;</span>)
     }
@@ -1963,7 +2001,7 @@
 
         <span class="comment">// When building for tests, always scan the pending pings directories and do it sync.
         </span>upload_manager
-            .scan_pending_pings_directories()
+            .scan_pending_pings_directories(<span class="bool-val">false</span>)
             .join()
             .unwrap();
 
@@ -2643,7 +2681,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, _t) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// Submit the ping multiple times
@@ -2675,7 +2713,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, dir) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// Submit the ping multiple times
@@ -2705,7 +2743,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, dir) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// Submit a ping
@@ -2735,7 +2773,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, dir) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// Submit a ping
@@ -2765,7 +2803,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, _t) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// Submit a ping
@@ -2797,7 +2835,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, dir) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// Submit a ping
@@ -2885,7 +2923,7 @@
         glean.set_debug_view_tag(<span class="string">&quot;valid-tag&quot;</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// Submit a ping
@@ -2931,7 +2969,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, dir) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// Submit the ping multiple times
@@ -2981,7 +3019,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, dir) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// Submit the ping multiple times
@@ -3049,7 +3087,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, dir) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="comment">// How many pings we allow at maximum
@@ -3121,7 +3159,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, dir) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="kw">let </span>expected_number_of_pings = <span class="number">3</span>;
@@ -3147,11 +3185,11 @@
         <span class="comment">// Create a new upload manager pointing to the same data_path as the glean instance.
         </span><span class="kw">let </span><span class="kw-2">mut </span>upload_manager = PingUploadManager::no_policy(dir.path());
 
-        <span class="comment">// From manual testing we figured out an empty ping file is 324bytes,
-        // so this allows 3 pings.
+        <span class="comment">// From manual testing we figured out a basically empty ping file is 399 bytes,
+        // so this allows 3 pings with some headroom in case of future changes.
         </span>upload_manager
             .policy
-            .set_max_pending_pings_directory_size(<span class="prelude-val">Some</span>(<span class="number">1000</span>));
+            .set_max_pending_pings_directory_size(<span class="prelude-val">Some</span>(<span class="number">1300</span>));
         upload_manager.policy.set_max_pending_pings_count(<span class="prelude-val">Some</span>(<span class="number">5</span>));
 
         <span class="comment">// Get a task once
@@ -3195,7 +3233,7 @@
         <span class="kw">let </span>(<span class="kw-2">mut </span>glean, dir) = new_glean(<span class="prelude-val">None</span>);
 
         <span class="comment">// Register a ping for testing
-        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
+        </span><span class="kw">let </span>ping_type = PingType::new(<span class="string">&quot;test&quot;</span>, <span class="bool-val">true</span>, <span class="comment">/* send_if_empty */ </span><span class="bool-val">true</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
         glean.register_ping_type(<span class="kw-2">&amp;</span>ping_type);
 
         <span class="kw">let </span>expected_number_of_pings = <span class="number">2</span>;

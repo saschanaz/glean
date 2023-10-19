@@ -1104,7 +1104,7 @@
 ///     experimentation_id: None,
 /// };
 /// let mut glean = Glean::new(cfg).unwrap();
-/// let ping = PingType::new(&quot;sample&quot;, true, false, vec![]);
+/// let ping = PingType::new(&quot;sample&quot;, true, false, true, vec![]);
 /// glean.register_ping_type(&amp;ping);
 ///
 /// let call_counter: CounterMetric = CounterMetric::new(CommonMetricData {
@@ -1177,7 +1177,7 @@
         <span class="comment">// We only scan the pending ping directories when calling this from a subprocess,
         // when calling this from ::new we need to scan the directories after dealing with the upload state.
         </span><span class="kw">if </span>scan_directories {
-            <span class="kw">let </span>_scanning_thread = upload_manager.scan_pending_pings_directories();
+            <span class="kw">let </span>_scanning_thread = upload_manager.scan_pending_pings_directories(<span class="bool-val">false</span>);
         }
 
         <span class="kw">let </span>start_time = local_now_with_offset();
@@ -1276,7 +1276,7 @@
         // If upload is disabled, we delete all pending pings files
         // and we need to do that **before** scanning the pending pings folder
         // to ensure we don&#39;t enqueue pings before their files are deleted.
-        </span><span class="kw">let </span>_scanning_thread = glean.upload_manager.scan_pending_pings_directories();
+        </span><span class="kw">let </span>_scanning_thread = glean.upload_manager.scan_pending_pings_directories(<span class="bool-val">true</span>);
 
         <span class="prelude-val">Ok</span>(glean)
     }
@@ -1718,7 +1718,7 @@
 
     <span class="doccomment">/// **Test-only API (exported for FFI purposes).**
     ///
-    /// Gets stored experimenation id annotation.
+    /// Gets stored experimentation id annotation.
     </span><span class="kw">pub fn </span>test_get_experimentation_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
         <span class="self">self</span>.additional_metrics
             .experimentation_id

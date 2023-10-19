@@ -19,7 +19,7 @@ ping.</p>
     experimentation_id: <span class="prelude-val">None</span>,
 };
 <span class="kw">let </span><span class="kw-2">mut </span>glean = Glean::new(cfg).unwrap();
-<span class="kw">let </span>ping = PingType::new(<span class="string">&quot;sample&quot;</span>, <span class="bool-val">true</span>, <span class="bool-val">false</span>, <span class="macro">vec!</span>[]);
+<span class="kw">let </span>ping = PingType::new(<span class="string">&quot;sample&quot;</span>, <span class="bool-val">true</span>, <span class="bool-val">false</span>, <span class="bool-val">true</span>, <span class="macro">vec!</span>[]);
 glean.register_ping_type(<span class="kw-2">&amp;</span>ping);
 
 <span class="kw">let </span>call_counter: CounterMetric = CounterMetric::new(CommonMetricData {
@@ -142,7 +142,7 @@ which is sent with pings. This information is not persisted between runs.</p>
 <li><code>experiment_id</code> - The id of the active experiment (maximum 30 bytes).</li>
 </ul>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.test_get_experimentation_id" class="method has-srclink"><a class="srclink rightside" href="../src/glean_core/core/mod.rs.html#740">source</a><h4 class="code-header">pub fn <a href="#method.test_get_experimentation_id" class="fn">test_get_experimentation_id</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/1.67.1/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/1.67.1/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</h4></section></summary><div class="docblock"><p><strong>Test-only API (exported for FFI purposes).</strong></p>
-<p>Gets stored experimenation id annotation.</p>
+<p>Gets stored experimentation id annotation.</p>
 </div></details><details class="rustdoc-toggle method-toggle" open><summary><section id="method.set_metrics_enabled_config" class="method has-srclink"><a class="srclink rightside" href="../src/glean_core/core/mod.rs.html#752">source</a><h4 class="code-header">pub fn <a href="#method.set_metrics_enabled_config" class="fn">set_metrics_enabled_config</a>(&amp;self, cfg: <a class="struct" href="../glean_core/metrics/metrics_enabled_config/struct.MetricsEnabledConfig.html" title="struct glean_core::metrics::metrics_enabled_config::MetricsEnabledConfig">MetricsEnabledConfig</a>)</h4></section></summary><div class="docblock"><p>Set configuration to override the default metric enabled/disabled state, typically from a
 remote_settings experiment or rollout</p>
 <h5 id="arguments-8"><a href="#arguments-8">Arguments</a></h5>

@@ -316,7 +316,7 @@
 //! let cfg = ConfigurationBuilder::new(true, &quot;/tmp/data&quot;, &quot;org.mozilla.glean_core.example&quot;).build();
 //! glean::initialize(cfg, ClientInfoMetrics::unknown());
 //!
-//! let prototype_ping = PingType::new(&quot;prototype&quot;, true, true, vec!());
+//! let prototype_ping = PingType::new(&quot;prototype&quot;, true, true, true, vec!());
 //!
 //! prototype_ping.submit(None);
 //! ```
@@ -466,7 +466,7 @@
 }
 
 <span class="doccomment">/// TEST ONLY FUNCTION.
-/// Gets stored experimenation id.
+/// Gets stored experimentation id.
 </span><span class="kw">pub fn </span>test_get_experimentation_id() -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
     glean_core::glean_test_get_experimentation_id()
 }

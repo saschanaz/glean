@@ -254,13 +254,15 @@ Lifetime: <a href="../../reference/yaml/metrics.html#user">User</a></em></p>
 <p><em>Type: <a href="../../reference/metrics/datetime.html">Datetime</a>,
 Lifetime: <a href="../../reference/yaml/metrics.html#user">User</a></em></p>
 <p>The time of the start of collection of the data in the ping, in local time
-and with minute precision, including timezone information.</p>
+and with millisecond precision (by default), including timezone information.
+(<em>Note</em>: Custom pings can opt-out of precise timestamps and use minute precision.)</p>
 <h4 id="end_time"><a class="header" href="#end_time"><code>end_time</code></a></h4>
 <p><em>Type: <a href="../../reference/metrics/datetime.html">Datetime</a>,
 Lifetime: <a href="../../reference/yaml/metrics.html#ping-default">Ping</a></em></p>
-<p>The time of the end of collection of the data in the ping, in local time and with minute precision,
-including timezone information. This is also the time this ping was generated
-and is likely well before ping transmission time.</p>
+<p>The time of the end of collection of the data in the ping, in local time
+and with millisecond precision (by default), including timezone information.
+This is also the time this ping was generated and is likely well before ping transmission time.
+(<em>Note</em>: Custom pings can opt-out of precise timestamps and use minute precision.)</p>
 <h4 id="reason-optional"><a class="header" href="#reason-optional"><code>reason</code> <em>(optional)</em></a></h4>
 <p>The reason the ping was submitted. The specific set of values
 and their meanings are defined for each metric type in the <a href="../../reference/yaml/pings.html#reasons"><code>reasons</code></a>

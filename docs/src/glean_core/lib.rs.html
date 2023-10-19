@@ -1174,6 +1174,14 @@
 <a href="#1174" id="1174">1174</a>
 <a href="#1175" id="1175">1175</a>
 <a href="#1176" id="1176">1176</a>
+<a href="#1177" id="1177">1177</a>
+<a href="#1178" id="1178">1178</a>
+<a href="#1179" id="1179">1179</a>
+<a href="#1180" id="1180">1180</a>
+<a href="#1181" id="1181">1181</a>
+<a href="#1182" id="1182">1182</a>
+<a href="#1183" id="1183">1183</a>
+<a href="#1184" id="1184">1184</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1369,6 +1377,14 @@
 </span><span class="attr">#[track_caller] </span><span class="comment">// If this fails we&#39;re interested in the caller.
 </span><span class="kw">fn </span>global_state() -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Mutex&lt;State&gt; {
     STATE.get().unwrap()
+}
+
+<span class="doccomment">/// Attempt to get a reference to the global state object.
+///
+/// If it hasn&#39;t been set yet, we return None.
+</span><span class="attr">#[track_caller] </span><span class="comment">// If this fails we&#39;re interested in the caller.
+</span><span class="kw">fn </span>maybe_global_state() -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>Mutex&lt;State&gt;&gt; {
+    STATE.get()
 }
 
 <span class="doccomment">/// Set or replace the global bindings State object.
@@ -2036,7 +2052,7 @@
 }
 
 <span class="doccomment">/// TEST ONLY FUNCTION.
-/// Gets stored experimenation id annotation.
+/// Gets stored experimentation id annotation.
 </span><span class="kw">pub fn </span>glean_test_get_experimentation_id() -&gt; <span class="prelude-ty">Option</span>&lt;String&gt; {
     block_on_dispatcher();
     core::with_glean(|glean| glean.test_get_experimentation_id())

@@ -199,6 +199,15 @@
 <a href="#199" id="199">199</a>
 <a href="#200" id="200">200</a>
 <a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -225,6 +234,8 @@
     </span><span class="kw">pub </span>include_client_id: bool,
     <span class="doccomment">/// Whether the ping should be sent if it is empty
     </span><span class="kw">pub </span>send_if_empty: bool,
+    <span class="doccomment">/// Whether to use millisecond-precise start/end times.
+    </span><span class="kw">pub </span>precise_timestamps: bool,
     <span class="doccomment">/// The &quot;reason&quot; codes that this ping can send
     </span><span class="kw">pub </span>reason_codes: Vec&lt;String&gt;,
 }
@@ -235,6 +246,7 @@
             .field(<span class="string">&quot;name&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.name)
             .field(<span class="string">&quot;include_client_id&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.include_client_id)
             .field(<span class="string">&quot;send_if_empty&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.send_if_empty)
+            .field(<span class="string">&quot;precise_timestamps&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.precise_timestamps)
             .field(<span class="string">&quot;reason_codes&quot;</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="number">0</span>.reason_codes)
             .finish()
     }
@@ -258,12 +270,14 @@
         name: A,
         include_client_id: bool,
         send_if_empty: bool,
+        precise_timestamps: bool,
         reason_codes: Vec&lt;String&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>this = <span class="self">Self</span>(Arc::new(InnerPing {
             name: name.into(),
             include_client_id,
             send_if_empty,
+            precise_timestamps,
             reason_codes,
         }));
 
@@ -284,6 +298,10 @@
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>send_if_empty(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
         <span class="self">self</span>.<span class="number">0</span>.send_if_empty
+    }
+
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>precise_timestamps(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
+        <span class="self">self</span>.<span class="number">0</span>.precise_timestamps
     }
 
     <span class="doccomment">/// Submits the ping for eventual uploading.

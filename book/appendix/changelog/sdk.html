@@ -158,6 +158,9 @@
 <li>General
 <ul>
 <li>BREAKING CHANGE: Adding <code>0</code> to a <code>counter</code> or <code>labeled_counter</code> metric will be silently ignored instead of raising an <code>invalid_value</code> error (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1762859">bug 1762859</a>)</li>
+<li>Trigger the uploader thread after scanning the pending pings directory (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1847950">bug 1847950</a>)</li>
+<li>Extend start/stop time of a ping to millisecond precision. Custom pings can opt-out using <code>precise_timestamps: false</code> (<a href="https://github.com/mozilla/glean/pull/2456">#2456</a>)</li>
+<li>Update <code>glean_parser</code> to v10.0.0. Disallow <code>unit</code> field for anything but quantity, disallows <code>ping</code> lifetime metrics on the events ping, allows to configure precise timestamps in pings (<a href="https://github.com/mozilla/glean_parser/releases/tag/v10.0.0">release notes</a>)</li>
 </ul>
 </li>
 </ul>

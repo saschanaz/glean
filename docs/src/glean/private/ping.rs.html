@@ -84,6 +84,8 @@
 <a href="#84" id="84">84</a>
 <a href="#85" id="85">85</a>
 <a href="#86" id="86">86</a>
+<a href="#87" id="87">87</a>
+<a href="#88" id="88">88</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -118,12 +120,14 @@
         name: A,
         include_client_id: bool,
         send_if_empty: bool,
+        precise_timestamps: bool,
         reason_codes: Vec&lt;String&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>inner = glean_core::metrics::PingType::new(
             name.into(),
             include_client_id,
             send_if_empty,
+            precise_timestamps,
             reason_codes,
         );
 
