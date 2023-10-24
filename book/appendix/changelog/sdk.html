@@ -163,6 +163,7 @@
 <li>Trigger the uploader thread after scanning the pending pings directory (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1847950">bug 1847950</a>)</li>
 <li>Extend start/stop time of a ping to millisecond precision. Custom pings can opt-out using <code>precise_timestamps: false</code> (<a href="https://github.com/mozilla/glean/pull/2456">#2456</a>)</li>
 <li>Update <code>glean_parser</code> to v10.0.0. Disallow <code>unit</code> field for anything but quantity, disallows <code>ping</code> lifetime metrics on the events ping, allows to configure precise timestamps in pings (<a href="https://github.com/mozilla/glean_parser/releases/tag/v10.0.0">release notes</a>)</li>
+<li>Add an API to set an Experimentation ID that will be annotated to all pings (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848201">Bug 1848201</a>)</li>
 </ul>
 </li>
 </ul>
@@ -172,7 +173,6 @@
 <li>General
 <ul>
 <li>Experimental: Add configuration to add a wall clock timestamp to all events (<a href="https://github.com/mozilla/glean/issues/2513">#2513</a>)</li>
-<li>Add an API to set an Experimentation ID that will be annotated to all pings (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1848201">Bug 1848201</a>)</li>
 </ul>
 </li>
 <li>Python
