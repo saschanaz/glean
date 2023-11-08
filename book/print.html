@@ -2175,7 +2175,7 @@ where we don't want to connect client information with the other metrics in the 
 <ul>
 <li>
 <p>The <code>metrics</code> section contains the submitted values for all metric types
-except for <a href="user/pings/../metrics/event.html">events</a>. It has keys for each of the metric types,
+except for <a href="user/pings/../../reference/metrics/event.html">events</a>. It has keys for each of the metric types,
 under which is data for each metric.</p>
 </li>
 <li>
@@ -2474,7 +2474,7 @@ timestamps are always increasing.</p>
 <div class="special-quote special-quote-info fa fa-info-circle"></div>
 <h5 id="checking-for-decreasing-time-offsets-between-restarts"><a class="header" href="#checking-for-decreasing-time-offsets-between-restarts">Checking for decreasing time offsets between restarts</a></h5>
 <blockquote>
-<p>When this edge case is hit, Glean records an <a href="user/pings/../error-reporting.html"><code>InvalidValue</code> error</a>
+<p>When this edge case is hit, Glean records an <a href="user/pings/../metrics/error-reporting.html"><code>InvalidValue</code> error</a>
 for the <code>glean.restarted</code> metric. This metric may be consulted at analysis time.
 It is sent in the same ping where the error happened.</p>
 </blockquote>
@@ -2543,10 +2543,10 @@ Is not sent when there are no events recorded, even if there are other metrics w
 </tbody></table>
 </div>
 <div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
-<p>Not sent automatically. Use the <a href="user/pings/../../../python/glean/#glean.Glean.handle_client_active"><code>handle_client_active</code></a> and <a href="user/pings/../../../python/glean/#glean.Glean.handle_client_inactive"><code>handle_client_inactive</code></a> API.</p>
+<p>Not sent automatically. Use the <a href="user/pings/../../../python/glean/index.html#glean.Glean.handle_client_active"><code>handle_client_active</code></a> and <a href="user/pings/../../../python/glean/index.html#glean.Glean.handle_client_inactive"><code>handle_client_inactive</code></a> API.</p>
 </div>
 <div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
-<p>Sent on startup when pending events are stored. Additionally sent when <a href="user/pings/../../../python/glean/#glean.Glean.handle_client_inactive"><code>handle_client_inactive</code></a> is called.</p>
+<p>Sent on startup when pending events are stored. Additionally sent when <a href="user/pings/../../../python/glean/index.html#glean.Glean.handle_client_inactive"><code>handle_client_inactive</code></a> is called.</p>
 </div>
 <h2 id="defining-foreground-and-background-state"><a class="header" href="#defining-foreground-and-background-state">Defining foreground and background state</a></h2>
 <p>These docs refer to application 'foreground' and 'background' state in several places.</p>
@@ -2721,7 +2721,7 @@ option can be changed at <a href="user/pings/../../reference/general/initializin
 <blockquote>
 <p>Since the Glean Python and JavaScript SDKs don't have a generic concept of &quot;inactivity&quot;,
 case (1) above cannot be handled automatically.</p>
-<p>On Python, users can call the <a href="user/pings/../../../python/glean/#glean.Glean.handle_client_inactive"><code>handle_client_inactive</code></a>
+<p>On Python, users can call the <a href="user/pings/../../../python/glean/index.html#glean.Glean.handle_client_inactive"><code>handle_client_inactive</code></a>
 API to let Glean know the app is inactive and that will trigger submission of the <code>events</code> ping.</p>
 <p>On JavaScript there is no such API and only cases (2) and (3) apply.</p>
 </blockquote>
@@ -5152,7 +5152,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <h2 id="reference-4"><a class="header" href="#reference-4">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/BooleanMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/boolean.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.BooleanMetric">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/boolean/struct.BooleanMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_boolean.default.html">JavaScript API docs</a></li>
 </ul>
@@ -5432,7 +5432,7 @@ index of the labels is used to report Gecko data through the Glean SDK.</p>
 <h2 id="reference-5"><a class="header" href="#reference-5">Reference</a></h2>
 <ul>
 <li>Swift API docs: <a href="reference/metrics/../../../swift/Classes/LabeledMetricType.html"><code>LabeledMetricType</code></a>, <a href="reference/metrics/../../../swift/Classes/BooleanMetricType.html"><code>BooleanMetricType</code></a></li>
-<li>Python API docs: <a href="reference/metrics/../../../python/glean/metrics/labeled.html"><code>LabeledMetricBase</code></a>, <a href="reference/metrics/../../../python/glean/metrics/boolean.html"><code>BooleanMetricType</code></a></li>
+<li>Python API docs: <a href="reference/metrics/../../../python/glean/metrics/labeled.html#glean.metrics.labeled.LabeledBooleanMetricType"><code>LabeledBooleanMetricType</code></a>, <a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.BooleanMetric"><code>BooleanMetricType</code></a></li>
 <li>Rust API docs: <a href="reference/metrics/../../../docs/glean/private/struct.LabeledMetric.html"><code>LabeledMetric</code></a>, <a href="reference/metrics/../../../docs/glean/private/struct.BooleanMetric.html"><code>BooleanMetricType</code></a></li>
 <li>JavaScript API docs: <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_labeled.default.html"><code>LabeledMetricType</code></a>, <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_boolean.default.html"><code>BooleanMetricType</code></a></li>
 </ul>
@@ -5671,7 +5671,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <h2 id="reference-6"><a class="header" href="#reference-6">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/CounterMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/counter.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.CounterMetric">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/counter/struct.CounterMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_counter.default.html">JavaScript API docs</a></li>
 </ul>
@@ -5967,7 +5967,7 @@ index of the labels is used to report Gecko data through the Glean SDK.</p>
 <h2 id="reference-7"><a class="header" href="#reference-7">Reference</a></h2>
 <ul>
 <li>Swift API docs: <a href="reference/metrics/../../../swift/Classes/LabeledMetricType.html"><code>LabeledMetricType</code></a>, <a href="reference/metrics/../../../swift/Classes/CounterMetricType.html"><code>CounterMetricType</code></a></li>
-<li>Python API docs: <a href="reference/metrics/../../../python/glean/metrics/labeled.html"><code>LabeledMetricBase</code></a>, <a href="reference/metrics/../../../python/glean/metrics/counter.html"><code>CounterMetricType</code></a></li>
+<li>Python API docs: <a href="reference/metrics/../../../python/glean/metrics/labeled.html#glean.metrics.labeled.LabeledCounterMetricType"><code>LabeledCounterMetricType</code></a>, <a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.CounterMetric"><code>CounterMetricType</code></a></li>
 <li>Rust API docs: <a href="reference/metrics/../../../docs/glean/private/struct.LabeledMetric.html"><code>LabeledMetric</code></a>, <a href="reference/metrics/../../../docs/glean/private/struct.CounterMetric.html"><code>CounterMetricType</code></a></li>
 <li>JavaScript API docs: <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_labeled.default.html"><code>LabeledMetricType</code></a>, <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_counter.default.html"><code>CounterMetricType</code></a></li>
 </ul>
@@ -6499,7 +6499,7 @@ index of the labels is used to report Gecko data through the Glean SDK.</p>
 <h2 id="reference-9"><a class="header" href="#reference-9">Reference</a></h2>
 <ul>
 <li>Swift API docs: <a href="reference/metrics/../../../swift/Classes/LabeledMetricType.html"><code>LabeledMetricType</code></a>, <a href="reference/metrics/../../../swift/Classes/StringMetricType.html"><code>StringMetricType</code></a></li>
-<li>Python API docs: <a href="reference/metrics/../../../python/glean/metrics/labeled.html"><code>LabeledMetricBase</code></a>, <a href="reference/metrics/../../../python/glean/metrics/string.html"><code>StringMetricType</code></a></li>
+<li>Python API docs: <a href="reference/metrics/../../../python/glean/metrics/labeled.html#glean.metrics.labeled.LabeledStringMetricType"><code>LabeledStringMetricType</code></a>, <a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.StringMetricType"><code>StringMetricType</code></a></li>
 <li>Rust API docs: <a href="reference/metrics/../../../docs/glean/private/struct.LabeledMetric.html"><code>LabeledMetric</code></a>, <a href="reference/metrics/../../../docs/glean/private/struct.StringMetric.html"><code>StringMetricType</code></a></li>
 <li>JavaScript API docs: <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_labeled.default.html"><code>LabeledMetricType</code></a>, <a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_string.default.html"><code>StringMetricType</code></a></li>
 </ul>
@@ -6789,7 +6789,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <h2 id="reference-10"><a class="header" href="#reference-10">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/StringListMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/string_list.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.StringListMetric">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/struct.StringListMetric.html">Rust API docs</a></li>
 </ul>
 <footer id="open-on-gh">Found a bug? <a href="https://github.com/mozilla/glean/edit/main/docs/user/reference/metrics/string_list.md">Edit this page on GitHub.</a></footer><div style="break-before: page; page-break-before: always;"></div><h1 id="timespan"><a class="header" href="#timespan">Timespan</a></h1>
@@ -7362,7 +7362,7 @@ Therefore, a measurement of 500 nanoseconds will be truncated to 0 microseconds.
 <h2 id="reference-11"><a class="header" href="#reference-11">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/TimespanMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/timespan.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.TimespanMetricType">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/struct.TimespanMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_timespan.default.html">JavaScript API docs</a></li>
 </ul>
@@ -7956,7 +7956,7 @@ which is not guaranteed to have nanosecond resolution.</p>
 <h2 id="reference-12"><a class="header" href="#reference-12">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/TimingDistributionMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/timing_distribution.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.TimingDistributionMetricType">Python API docs</a></li>
 </ul>
 <h2 id="simulator"><a class="header" href="#simulator">Simulator</a></h2>
 <div id="custom-data-modal-overlay">
@@ -8320,7 +8320,7 @@ Larger sizes will be truncated to 1 Terabyte.</li>
 <h2 id="reference-13"><a class="header" href="#reference-13">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/MemoryDistributionMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/timing_distribution.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.TimingDistributionMetricType">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/struct.MemoryDistributionMetric.html">Rust API docs</a></li>
 </ul>
 <h2 id="simulator-1"><a class="header" href="#simulator-1">Simulator</a></h2>
@@ -8682,7 +8682,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <h2 id="reference-14"><a class="header" href="#reference-14">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/UuidMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/uuid.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.UuidMetricType">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/uuid/struct.UuidMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_uuid.default.html#set">JavaScript API docs</a></li>
 </ul>
@@ -9254,7 +9254,7 @@ The allowed values for <code>time_unit</code> are:</p>
 <h2 id="reference-16"><a class="header" href="#reference-16">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/DatetimeMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/datetime.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.DatetimeMetricType">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/struct.DatetimeMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_datetime.default.html">Datetime API docs</a></li>
 </ul>
@@ -9562,7 +9562,7 @@ Longer values are truncated, and an <code>invalid_overflow</code> error is recor
 <h2 id="reference-17"><a class="header" href="#reference-17">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/EventMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/event.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.EventMetricType">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/event/struct.EventMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_event.default.html">JavaScript API docs</a></li>
 </ul>
@@ -10148,7 +10148,7 @@ refer to the <a href="reference/metrics/../yaml/metrics.html">metrics YAML regis
 <h2 id="reference-19"><a class="header" href="#reference-19">Reference</a></h2>
 <ul>
 <li><a href="reference/metrics/../../../swift/Classes/QuantityMetricType.html">Swift API docs</a></li>
-<li><a href="reference/metrics/../../../python/glean/metrics/quantity.html">Python API docs</a></li>
+<li><a href="reference/metrics/../../../python/glean/metrics/index.html#glean.metrics.QuantityMetric">Python API docs</a></li>
 <li><a href="reference/metrics/../../../docs/glean/private/quantity/struct.QuantityMetric.html">Rust API docs</a></li>
 <li><a href="https://mozilla.github.io/glean.js/classes/core_metrics_types_quantity.default.html#set">JavaScript API docs</a></li>
 </ul>
@@ -11174,7 +11174,7 @@ Glean in an Android project.</p>
 <h3 id="add-a-custom-metric"><a class="header" href="#add-a-custom-metric">Add A Custom Metric</a></h3>
 <p>Since crashes will be instrumented with some custom metrics, the next step will be to add a <code>metrics.yaml</code> file to define the
 metrics used to record the crash information and a <code>pings.yaml</code> file to define a custom ping which will give some control over
-the scheduling of the uploading.  See <a href="language-bindings/android/../../user/adding-new-metrics.html">&quot;Adding new metrics&quot;</a> for more information about adding metrics.</p>
+the scheduling of the uploading.  See <a href="language-bindings/android/../../user/metrics/adding-new-metrics.html">&quot;Adding new metrics&quot;</a> for more information about adding metrics.</p>
 <p>What metric type should be used to represent the crash data?  While this could be implemented several ways, an <a href="language-bindings/android/../../reference/metrics/event.html">event</a> is an
 excellent choice, simply because events capture information in a nice concise way and they have a built-in way of passing
 additional information using the <code>extras</code> field.  If it is necessary to pass along the cause of the exception or a few lines of

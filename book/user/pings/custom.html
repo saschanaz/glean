@@ -252,7 +252,7 @@ timestamps are always increasing.</p>
 <div class="special-quote special-quote-info fa fa-info-circle"></div>
 <h5 id="checking-for-decreasing-time-offsets-between-restarts"><a class="header" href="#checking-for-decreasing-time-offsets-between-restarts">Checking for decreasing time offsets between restarts</a></h5>
 <blockquote>
-<p>When this edge case is hit, Glean records an <a href="../error-reporting.html"><code>InvalidValue</code> error</a>
+<p>When this edge case is hit, Glean records an <a href="../metrics/error-reporting.html"><code>InvalidValue</code> error</a>
 for the <code>glean.restarted</code> metric. This metric may be consulted at analysis time.
 It is sent in the same ping where the error happened.</p>
 </blockquote>

@@ -170,7 +170,7 @@ Glean in an Android project.</p>
 <h3 id="add-a-custom-metric"><a class="header" href="#add-a-custom-metric">Add A Custom Metric</a></h3>
 <p>Since crashes will be instrumented with some custom metrics, the next step will be to add a <code>metrics.yaml</code> file to define the
 metrics used to record the crash information and a <code>pings.yaml</code> file to define a custom ping which will give some control over
-the scheduling of the uploading.  See <a href="../../user/adding-new-metrics.html">&quot;Adding new metrics&quot;</a> for more information about adding metrics.</p>
+the scheduling of the uploading.  See <a href="../../user/metrics/adding-new-metrics.html">&quot;Adding new metrics&quot;</a> for more information about adding metrics.</p>
 <p>What metric type should be used to represent the crash data?  While this could be implemented several ways, an <a href="../../reference/metrics/event.html">event</a> is an
 excellent choice, simply because events capture information in a nice concise way and they have a built-in way of passing
 additional information using the <code>extras</code> field.  If it is necessary to pass along the cause of the exception or a few lines of
