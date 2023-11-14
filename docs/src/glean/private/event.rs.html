@@ -219,8 +219,6 @@
 <a href="#219" id="219">219</a>
 <a href="#220" id="220">220</a>
 <a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -231,8 +229,6 @@
 <span class="kw">use </span>glean_core::traits;
 
 <span class="kw">use crate</span>::{ErrorType, RecordedEvent};
-
-<span class="kw">pub use </span>glean_core::traits::NoExtraKeys;
 
 <span class="comment">// We need to wrap the glean-core type: otherwise if we try to implement
 // the trait for the metric in `glean_core::metrics` we hit error[E0117]:
@@ -282,6 +278,31 @@
     }
 }
 
+<span class="attr">#[inherent]
+</span><span class="kw">impl</span>&lt;K: traits::ExtraKeys&gt; traits::Event <span class="kw">for </span>EventMetric&lt;K&gt; {
+    <span class="kw">type </span>Extra = K;
+
+    <span class="kw">pub fn </span>record&lt;M: Into&lt;<span class="prelude-ty">Option</span>&lt;&lt;<span class="self">Self </span><span class="kw">as </span>traits::Event&gt;::Extra&gt;&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, extra: M) {
+        <span class="kw">let </span>extra = extra
+            .into()
+            .map(|e| e.into_ffi_extra())
+            .unwrap_or_else(HashMap::new);
+        <span class="self">self</span>.inner.record(extra);
+    }
+
+    <span class="kw">pub fn </span>test_get_value&lt;<span class="lifetime">&#39;a</span>, S: Into&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;&gt;&gt;(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        ping_name: S,
+    ) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;RecordedEvent&gt;&gt; {
+        <span class="kw">let </span>ping_name = ping_name.into().map(|s| s.to_string());
+        <span class="self">self</span>.inner.test_get_value(ping_name)
+    }
+
+    <span class="kw">pub fn </span>test_get_num_recorded_errors(<span class="kw-2">&amp;</span><span class="self">self</span>, error: ErrorType) -&gt; i32 {
+        <span class="self">self</span>.inner.test_get_num_recorded_errors(error)
+    }
+}
+
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>test {
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
@@ -293,7 +314,7 @@
         <span class="kw">let </span>_lock = lock_test();
         <span class="kw">let </span>_t = new_glean(<span class="prelude-val">None</span>, <span class="bool-val">true</span>);
 
-        <span class="kw">let </span>metric: EventMetric&lt;NoExtraKeys&gt; = EventMetric::new(CommonMetricData {
+        <span class="kw">let </span>metric: EventMetric&lt;traits::NoExtraKeys&gt; = EventMetric::new(CommonMetricData {
             name: <span class="string">&quot;event&quot;</span>.into(),
             category: <span class="string">&quot;test&quot;</span>.into(),
             send_in_pings: <span class="macro">vec!</span>[<span class="string">&quot;test1&quot;</span>.into()],
@@ -417,31 +438,6 @@
         <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(map), data[<span class="number">1</span>].extra);
 
         <span class="macro">assert_eq!</span>(<span class="prelude-val">None</span>, data[<span class="number">2</span>].extra);
-    }
-}
-
-<span class="attr">#[inherent]
-</span><span class="kw">impl</span>&lt;K: traits::ExtraKeys&gt; traits::Event <span class="kw">for </span>EventMetric&lt;K&gt; {
-    <span class="kw">type </span>Extra = K;
-
-    <span class="kw">pub fn </span>record&lt;M: Into&lt;<span class="prelude-ty">Option</span>&lt;&lt;<span class="self">Self </span><span class="kw">as </span>traits::Event&gt;::Extra&gt;&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, extra: M) {
-        <span class="kw">let </span>extra = extra
-            .into()
-            .map(|e| e.into_ffi_extra())
-            .unwrap_or_else(HashMap::new);
-        <span class="self">self</span>.inner.record(extra);
-    }
-
-    <span class="kw">pub fn </span>test_get_value&lt;<span class="lifetime">&#39;a</span>, S: Into&lt;<span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str&gt;&gt;&gt;(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        ping_name: S,
-    ) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;RecordedEvent&gt;&gt; {
-        <span class="kw">let </span>ping_name = ping_name.into().map(|s| s.to_string());
-        <span class="self">self</span>.inner.test_get_value(ping_name)
-    }
-
-    <span class="kw">pub fn </span>test_get_num_recorded_errors(<span class="kw-2">&amp;</span><span class="self">self</span>, error: ErrorType) -&gt; i32 {
-        <span class="self">self</span>.inner.test_get_num_recorded_errors(error)
     }
 }
 </code></pre></div>
