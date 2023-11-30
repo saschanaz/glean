@@ -214,6 +214,12 @@
                 <a href="Functions.html#/s:5Glean35FfiConverterTypeCounterMetric_lowerySvAA0eF0CF">FfiConverterTypeCounterMetric_lower(_:)</a>
               </li>
               <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean30FfiConverterTypeCowString_liftySSSo10RustBufferVKF">FfiConverterTypeCowString_lift(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:5Glean31FfiConverterTypeCowString_lowerySo10RustBufferVSSF">FfiConverterTypeCowString_lower(_:)</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Functions.html#/s:5Glean45FfiConverterTypeCustomDistributionMetric_liftyAA0efG0CSvKF">FfiConverterTypeCustomDistributionMetric_lift(_:)</a>
               </li>
               <li class="nav-group-task">
@@ -3032,6 +3038,60 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:5Glean30FfiConverterTypeCowString_liftySSSo10RustBufferVKF"></a>
+                    <a name="//apple_ref/swift/Function/FfiConverterTypeCowString_lift(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean30FfiConverterTypeCowString_liftySSSo10RustBufferVKF">FfiConverterTypeCowString_lift(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="kt">FfiConverterTypeCowString_lift</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">RustBuffer</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="Typealiases.html#/s:5Glean9CowStringa">CowString</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean31FfiConverterTypeCowString_lowerySo10RustBufferVSSF"></a>
+                    <a name="//apple_ref/swift/Function/FfiConverterTypeCowString_lower(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean31FfiConverterTypeCowString_lowerySo10RustBufferVSSF">FfiConverterTypeCowString_lower(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="kt">FfiConverterTypeCowString_lower</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:5Glean9CowStringa">CowString</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">RustBuffer</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:5Glean18gleanEnableLoggingyyF"></a>
                     <a name="//apple_ref/swift/Function/gleanEnableLogging()" class="dashAnchor"></a>
                     <a class="token" href="#/s:5Glean18gleanEnableLoggingyyF">gleanEnableLogging()</a>
@@ -3086,9 +3146,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5Glean15gleanInitializeyyAA21InternalConfigurationV_AA17ClientInfoMetricsVAA02OnA6Events_ptF"></a>
-                    <a name="//apple_ref/swift/Function/gleanInitialize(_:_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean15gleanInitializeyyAA21InternalConfigurationV_AA17ClientInfoMetricsVAA02OnA6Events_ptF">gleanInitialize(_:<wbr>_:<wbr>_:<wbr>)</a>
+                    <a name="/s:5Glean18gleanGetUploadTaskAA04PingdE0OyF"></a>
+                    <a name="//apple_ref/swift/Function/gleanGetUploadTask()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean18gleanGetUploadTaskAA04PingdE0OyF">gleanGetUploadTask()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -3103,304 +3163,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanInitialize</span><span class="p">(</span><span class="n">_</span> <span class="nv">cfg</span><span class="p">:</span> <span class="kt"><a href="Structs/InternalConfiguration.html">InternalConfiguration</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">clientInfo</span><span class="p">:</span> <span class="kt"><a href="Structs/ClientInfoMetrics.html">ClientInfoMetrics</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">callbacks</span><span class="p">:</span> <span class="kt"><a href="Protocols/OnGleanEvents.html">OnGleanEvents</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean13gleanShutdownyyF"></a>
-                    <a name="//apple_ref/swift/Function/gleanShutdown()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean13gleanShutdownyyF">gleanShutdown()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanShutdown</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean28gleanInitializeForSubprocessySbAA21InternalConfigurationVF"></a>
-                    <a name="//apple_ref/swift/Function/gleanInitializeForSubprocess(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean28gleanInitializeForSubprocessySbAA21InternalConfigurationVF">gleanInitializeForSubprocess(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanInitializeForSubprocess</span><span class="p">(</span><span class="n">_</span> <span class="nv">cfg</span><span class="p">:</span> <span class="kt"><a href="Structs/InternalConfiguration.html">InternalConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean21gleanSetUploadEnabledyySbF"></a>
-                    <a name="//apple_ref/swift/Function/gleanSetUploadEnabled(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean21gleanSetUploadEnabledyySbF">gleanSetUploadEnabled(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetUploadEnabled</span><span class="p">(</span><span class="n">_</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean24gleanSetExperimentActiveyySS_SSSDyS2SGtF"></a>
-                    <a name="//apple_ref/swift/Function/gleanSetExperimentActive(_:_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean24gleanSetExperimentActiveyySS_SSSDyS2SGtF">gleanSetExperimentActive(_:<wbr>_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetExperimentActive</span><span class="p">(</span><span class="n">_</span> <span class="nv">experimentId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">branch</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">extra</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">])</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean26gleanSetExperimentInactiveyySSF"></a>
-                    <a name="//apple_ref/swift/Function/gleanSetExperimentInactive(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean26gleanSetExperimentInactiveyySSF">gleanSetExperimentInactive(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetExperimentInactive</span><span class="p">(</span><span class="n">_</span> <span class="nv">experimentId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean26gleanTestGetExperimentDatayAA08RecordedE0VSgSSF"></a>
-                    <a name="//apple_ref/swift/Function/gleanTestGetExperimentData(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean26gleanTestGetExperimentDatayAA08RecordedE0VSgSSF">gleanTestGetExperimentData(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanTestGetExperimentData</span><span class="p">(</span><span class="n">_</span> <span class="nv">experimentId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Structs/RecordedExperiment.html">RecordedExperiment</a></span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean29gleanTestGetExperimentationIdSSSgyF"></a>
-                    <a name="//apple_ref/swift/Function/gleanTestGetExperimentationId()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean29gleanTestGetExperimentationIdSSSgyF">gleanTestGetExperimentationId()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanTestGetExperimentationId</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean28gleanSetMetricsEnabledConfigyySSF"></a>
-                    <a name="//apple_ref/swift/Function/gleanSetMetricsEnabledConfig(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean28gleanSetMetricsEnabledConfigyySSF">gleanSetMetricsEnabledConfig(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetMetricsEnabledConfig</span><span class="p">(</span><span class="n">_</span> <span class="nv">json</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean20gleanSetDebugViewTagySbSSF"></a>
-                    <a name="//apple_ref/swift/Function/gleanSetDebugViewTag(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean20gleanSetDebugViewTagySbSSF">gleanSetDebugViewTag(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetDebugViewTag</span><span class="p">(</span><span class="n">_</span> <span class="nv">tag</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean18gleanSetSourceTagsySbSaySSGF"></a>
-                    <a name="//apple_ref/swift/Function/gleanSetSourceTags(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean18gleanSetSourceTagsySbSaySSGF">gleanSetSourceTags(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetSourceTags</span><span class="p">(</span><span class="n">_</span> <span class="nv">tags</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean16gleanSetLogPingsyySbF"></a>
-                    <a name="//apple_ref/swift/Function/gleanSetLogPings(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean16gleanSetLogPingsyySbF">gleanSetLogPings(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetLogPings</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanGetUploadTask</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="Enums/PingUploadTask.html">PingUploadTask</a></span></code></pre>
 
                         </div>
                       </div>
@@ -3464,6 +3227,357 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:5Glean15gleanInitializeyyAA21InternalConfigurationV_AA17ClientInfoMetricsVAA02OnA6Events_ptF"></a>
+                    <a name="//apple_ref/swift/Function/gleanInitialize(_:_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean15gleanInitializeyyAA21InternalConfigurationV_AA17ClientInfoMetricsVAA02OnA6Events_ptF">gleanInitialize(_:<wbr>_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanInitialize</span><span class="p">(</span><span class="n">_</span> <span class="nv">cfg</span><span class="p">:</span> <span class="kt"><a href="Structs/InternalConfiguration.html">InternalConfiguration</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">clientInfo</span><span class="p">:</span> <span class="kt"><a href="Structs/ClientInfoMetrics.html">ClientInfoMetrics</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">callbacks</span><span class="p">:</span> <span class="kt"><a href="Protocols/OnGleanEvents.html">OnGleanEvents</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean28gleanInitializeForSubprocessySbAA21InternalConfigurationVF"></a>
+                    <a name="//apple_ref/swift/Function/gleanInitializeForSubprocess(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean28gleanInitializeForSubprocessySbAA21InternalConfigurationVF">gleanInitializeForSubprocess(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanInitializeForSubprocess</span><span class="p">(</span><span class="n">_</span> <span class="nv">cfg</span><span class="p">:</span> <span class="kt"><a href="Structs/InternalConfiguration.html">InternalConfiguration</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean30gleanProcessPingUploadResponseyAA0E10TaskActionOSS_AA0E6ResultOtF"></a>
+                    <a name="//apple_ref/swift/Function/gleanProcessPingUploadResponse(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean30gleanProcessPingUploadResponseyAA0E10TaskActionOSS_AA0E6ResultOtF">gleanProcessPingUploadResponse(_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanProcessPingUploadResponse</span><span class="p">(</span><span class="n">_</span> <span class="nv">uuid</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="Enums/UploadResult.html">UploadResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Enums/UploadTaskAction.html">UploadTaskAction</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean20gleanSetDebugViewTagySbSSF"></a>
+                    <a name="//apple_ref/swift/Function/gleanSetDebugViewTag(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean20gleanSetDebugViewTagySbSSF">gleanSetDebugViewTag(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetDebugViewTag</span><span class="p">(</span><span class="n">_</span> <span class="nv">tag</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean17gleanSetDirtyFlagyySbF"></a>
+                    <a name="//apple_ref/swift/Function/gleanSetDirtyFlag(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean17gleanSetDirtyFlagyySbF">gleanSetDirtyFlag(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetDirtyFlag</span><span class="p">(</span><span class="n">_</span> <span class="nv">flag</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean24gleanSetExperimentActiveyySS_SSSDyS2SGtF"></a>
+                    <a name="//apple_ref/swift/Function/gleanSetExperimentActive(_:_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean24gleanSetExperimentActiveyySS_SSSDyS2SGtF">gleanSetExperimentActive(_:<wbr>_:<wbr>_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetExperimentActive</span><span class="p">(</span><span class="n">_</span> <span class="nv">experimentId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">branch</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">extra</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">String</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean26gleanSetExperimentInactiveyySSF"></a>
+                    <a name="//apple_ref/swift/Function/gleanSetExperimentInactive(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean26gleanSetExperimentInactiveyySSF">gleanSetExperimentInactive(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetExperimentInactive</span><span class="p">(</span><span class="n">_</span> <span class="nv">experimentId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean16gleanSetLogPingsyySbF"></a>
+                    <a name="//apple_ref/swift/Function/gleanSetLogPings(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean16gleanSetLogPingsyySbF">gleanSetLogPings(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetLogPings</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean28gleanSetMetricsEnabledConfigyySSF"></a>
+                    <a name="//apple_ref/swift/Function/gleanSetMetricsEnabledConfig(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean28gleanSetMetricsEnabledConfigyySSF">gleanSetMetricsEnabledConfig(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetMetricsEnabledConfig</span><span class="p">(</span><span class="n">_</span> <span class="nv">json</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean18gleanSetSourceTagsySbSaySSGF"></a>
+                    <a name="//apple_ref/swift/Function/gleanSetSourceTags(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean18gleanSetSourceTagsySbSaySSGF">gleanSetSourceTags(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetSourceTags</span><span class="p">(</span><span class="n">_</span> <span class="nv">tags</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean16gleanSetTestModeyySbF"></a>
+                    <a name="//apple_ref/swift/Function/gleanSetTestMode(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean16gleanSetTestModeyySbF">gleanSetTestMode(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetTestMode</span><span class="p">(</span><span class="n">_</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean21gleanSetUploadEnabledyySbF"></a>
+                    <a name="//apple_ref/swift/Function/gleanSetUploadEnabled(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean21gleanSetUploadEnabledyySbF">gleanSetUploadEnabled(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetUploadEnabled</span><span class="p">(</span><span class="n">_</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:5Glean13gleanShutdownyyF"></a>
+                    <a name="//apple_ref/swift/Function/gleanShutdown()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean13gleanShutdownyyF">gleanShutdown()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanShutdown</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:5Glean21gleanSubmitPingByNameyySS_SSSgtF"></a>
                     <a name="//apple_ref/swift/Function/gleanSubmitPingByName(_:_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:5Glean21gleanSubmitPingByNameyySS_SSSgtF">gleanSubmitPingByName(_:<wbr>_:<wbr>)</a>
@@ -3518,33 +3632,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5Glean16gleanSetTestModeyySbF"></a>
-                    <a name="//apple_ref/swift/Function/gleanSetTestMode(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean16gleanSetTestModeyySbF">gleanSetTestMode(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetTestMode</span><span class="p">(</span><span class="n">_</span> <span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:5Glean016gleanTestDestroyA0yySb_SSSgtF"></a>
                     <a name="//apple_ref/swift/Function/gleanTestDestroyGlean(_:_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:5Glean016gleanTestDestroyA0yySb_SSSgtF">gleanTestDestroyGlean(_:<wbr>_:<wbr>)</a>
@@ -3572,9 +3659,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5Glean17gleanSetDirtyFlagyySbF"></a>
-                    <a name="//apple_ref/swift/Function/gleanSetDirtyFlag(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean17gleanSetDirtyFlagyySbF">gleanSetDirtyFlag(_:<wbr>)</a>
+                    <a name="/s:5Glean26gleanTestGetExperimentDatayAA08RecordedE0VSgSSF"></a>
+                    <a name="//apple_ref/swift/Function/gleanTestGetExperimentData(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean26gleanTestGetExperimentDatayAA08RecordedE0VSgSSF">gleanTestGetExperimentData(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -3589,7 +3676,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanSetDirtyFlag</span><span class="p">(</span><span class="n">_</span> <span class="nv">flag</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanTestGetExperimentData</span><span class="p">(</span><span class="n">_</span> <span class="nv">experimentId</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Structs/RecordedExperiment.html">RecordedExperiment</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -3599,9 +3686,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:5Glean18gleanGetUploadTaskAA04PingdE0OyF"></a>
-                    <a name="//apple_ref/swift/Function/gleanGetUploadTask()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean18gleanGetUploadTaskAA04PingdE0OyF">gleanGetUploadTask()</a>
+                    <a name="/s:5Glean29gleanTestGetExperimentationIdSSSgyF"></a>
+                    <a name="//apple_ref/swift/Function/gleanTestGetExperimentationId()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:5Glean29gleanTestGetExperimentationIdSSSgyF">gleanTestGetExperimentationId()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -3616,34 +3703,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanGetUploadTask</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="Enums/PingUploadTask.html">PingUploadTask</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:5Glean30gleanProcessPingUploadResponseyAA0E10TaskActionOSS_AA0E6ResultOtF"></a>
-                    <a name="//apple_ref/swift/Function/gleanProcessPingUploadResponse(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:5Glean30gleanProcessPingUploadResponseyAA0E10TaskActionOSS_AA0E6ResultOtF">gleanProcessPingUploadResponse(_:<wbr>_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanProcessPingUploadResponse</span><span class="p">(</span><span class="n">_</span> <span class="nv">uuid</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">result</span><span class="p">:</span> <span class="kt"><a href="Enums/UploadResult.html">UploadResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Enums/UploadTaskAction.html">UploadTaskAction</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">gleanTestGetExperimentationId</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -3655,7 +3715,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://mozilla.github.com/glean" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-11-28)</p>
+          <p>&copy; 2023 <a class="link" href="https://mozilla.github.com/glean" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2023-11-30)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

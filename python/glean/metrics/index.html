@@ -157,14 +157,14 @@ __all__ = [
     _pointer: ctypes.c_void_p
     def __init__(self, meta: &#34;CommonMetricData&#34;):
         
-        self._pointer = rust_call(_UniFFILib.uniffi_glean_fn_constructor_booleanmetric_new,
-        FfiConverterTypeCommonMetricData.lower(meta))
+        self._pointer = _rust_call(_UniffiLib.uniffi_glean_core_fn_constructor_booleanmetric_new,
+        _UniffiConverterTypeCommonMetricData.lower(meta))
 
     def __del__(self):
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.uniffi_glean_fn_free_booleanmetric, pointer)
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_free_booleanmetric, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -178,23 +178,9 @@ __all__ = [
 
     def set(self, value: &#34;bool&#34;):
         
-        rust_call(_UniFFILib.uniffi_glean_fn_method_booleanmetric_set,self._pointer,
-        FfiConverterBool.lower(value))
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_booleanmetric_set,self._pointer,
+        _UniffiConverterBool.lower(value))
 
-
-
-
-
-
-
-    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[bool]&#34;:
-        if ping_name is DEFAULT:
-            ping_name = None
-        
-        return FfiConverterOptionalBool.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_booleanmetric_test_get_value,self._pointer,
-        FfiConverterOptionalString.lower(ping_name))
-        )
 
 
 
@@ -203,9 +189,23 @@ __all__ = [
 
     def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
         
-        return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_booleanmetric_test_get_num_recorded_errors,self._pointer,
-        FfiConverterTypeErrorType.lower(error))
+        return _UniffiConverterInt32.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_booleanmetric_test_get_num_recorded_errors,self._pointer,
+        _UniffiConverterTypeErrorType.lower(error))
+        )
+
+
+
+
+
+
+    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[bool]&#34;:
+        if ping_name is _DEFAULT:
+            ping_name = None
+        
+        return _UniffiConverterOptionalBool.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_booleanmetric_test_get_value,self._pointer,
+        _UniffiConverterOptionalString.lower(ping_name))
         )</code></pre>
 </details>
 <h3>Methods</h3>
@@ -221,8 +221,8 @@ __all__ = [
 </summary>
 <pre><code class="python">def set(self, value: &#34;bool&#34;):
     
-    rust_call(_UniFFILib.uniffi_glean_fn_method_booleanmetric_set,self._pointer,
-    FfiConverterBool.lower(value))</code></pre>
+    _rust_call(_UniffiLib.uniffi_glean_core_fn_method_booleanmetric_set,self._pointer,
+    _UniffiConverterBool.lower(value))</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.BooleanMetric.test_get_num_recorded_errors"><code class="name flex">
@@ -236,9 +236,9 @@ __all__ = [
 </summary>
 <pre><code class="python">def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
     
-    return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_booleanmetric_test_get_num_recorded_errors,self._pointer,
-    FfiConverterTypeErrorType.lower(error))
+    return _UniffiConverterInt32.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_booleanmetric_test_get_num_recorded_errors,self._pointer,
+    _UniffiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
 </dd>
@@ -251,13 +251,13 @@ __all__ = [
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[bool]&#34;:
-    if ping_name is DEFAULT:
+<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[bool]&#34;:
+    if ping_name is _DEFAULT:
         ping_name = None
     
-    return FfiConverterOptionalBool.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_booleanmetric_test_get_value,self._pointer,
-    FfiConverterOptionalString.lower(ping_name))
+    return _UniffiConverterOptionalBool.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_booleanmetric_test_get_value,self._pointer,
+    _UniffiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
 </dd>
@@ -265,7 +265,7 @@ __all__ = [
 </dd>
 <dt id="glean.metrics.CommonMetricData"><code class="flex name class">
 <span>class <span class="ident">CommonMetricData</span></span>
-<span>(</span><span>category, name, send_in_pings, lifetime, disabled, dynamic_label=&lt;object object&gt;)</span>
+<span>(</span><span>category: str, name: str, send_in_pings: typing.List[str], lifetime: <a title="glean.metrics.Lifetime" href="#glean.metrics.Lifetime">Lifetime</a>, disabled: bool, dynamic_label: typing.Optional[str] = &lt;object object&gt;)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -274,14 +274,16 @@ __all__ = [
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class CommonMetricData:
+    category: &#34;str&#34;;name: &#34;str&#34;;send_in_pings: &#34;typing.List[str]&#34;;lifetime: &#34;Lifetime&#34;;disabled: &#34;bool&#34;;dynamic_label: &#34;typing.Optional[str]&#34;;
 
-    def __init__(self, category, name, send_in_pings, lifetime, disabled, dynamic_label = DEFAULT):
+    @typing.no_type_check
+    def __init__(self, category: &#34;str&#34;, name: &#34;str&#34;, send_in_pings: &#34;typing.List[str]&#34;, lifetime: &#34;Lifetime&#34;, disabled: &#34;bool&#34;, dynamic_label: &#34;typing.Optional[str]&#34; = _DEFAULT):
         self.category = category
         self.name = name
         self.send_in_pings = send_in_pings
         self.lifetime = lifetime
         self.disabled = disabled
-        if dynamic_label is DEFAULT:
+        if dynamic_label is _DEFAULT:
             self.dynamic_label = None
         else:
             self.dynamic_label = dynamic_label
@@ -304,6 +306,33 @@ __all__ = [
             return False
         return True</code></pre>
 </details>
+<h3>Class variables</h3>
+<dl>
+<dt id="glean.metrics.CommonMetricData.category"><code class="name">var <span class="ident">category</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.metrics.CommonMetricData.disabled"><code class="name">var <span class="ident">disabled</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.metrics.CommonMetricData.dynamic_label"><code class="name">var <span class="ident">dynamic_label</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.metrics.CommonMetricData.lifetime"><code class="name">var <span class="ident">lifetime</span> : glean._uniffi.glean.Lifetime</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.metrics.CommonMetricData.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.metrics.CommonMetricData.send_in_pings"><code class="name">var <span class="ident">send_in_pings</span> : List[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
 </dd>
 <dt id="glean.metrics.CounterMetric"><code class="flex name class">
 <span>class <span class="ident">CounterMetricType</span></span>
@@ -319,14 +348,14 @@ __all__ = [
     _pointer: ctypes.c_void_p
     def __init__(self, meta: &#34;CommonMetricData&#34;):
         
-        self._pointer = rust_call(_UniFFILib.uniffi_glean_fn_constructor_countermetric_new,
-        FfiConverterTypeCommonMetricData.lower(meta))
+        self._pointer = _rust_call(_UniffiLib.uniffi_glean_core_fn_constructor_countermetric_new,
+        _UniffiConverterTypeCommonMetricData.lower(meta))
 
     def __del__(self):
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.uniffi_glean_fn_free_countermetric, pointer)
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_free_countermetric, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -338,27 +367,13 @@ __all__ = [
         return inst
 
 
-    def add(self, amount: &#34;typing.Union[object, int]&#34; = DEFAULT):
-        if amount is DEFAULT:
+    def add(self, amount: &#34;typing.Union[object, int]&#34; = _DEFAULT):
+        if amount is _DEFAULT:
             amount = 1
         
-        rust_call(_UniFFILib.uniffi_glean_fn_method_countermetric_add,self._pointer,
-        FfiConverterInt32.lower(amount))
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_countermetric_add,self._pointer,
+        _UniffiConverterInt32.lower(amount))
 
-
-
-
-
-
-
-    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[int]&#34;:
-        if ping_name is DEFAULT:
-            ping_name = None
-        
-        return FfiConverterOptionalInt32.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_countermetric_test_get_value,self._pointer,
-        FfiConverterOptionalString.lower(ping_name))
-        )
 
 
 
@@ -367,9 +382,23 @@ __all__ = [
 
     def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
         
-        return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_countermetric_test_get_num_recorded_errors,self._pointer,
-        FfiConverterTypeErrorType.lower(error))
+        return _UniffiConverterInt32.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_countermetric_test_get_num_recorded_errors,self._pointer,
+        _UniffiConverterTypeErrorType.lower(error))
+        )
+
+
+
+
+
+
+    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[int]&#34;:
+        if ping_name is _DEFAULT:
+            ping_name = None
+        
+        return _UniffiConverterOptionalInt32.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_countermetric_test_get_value,self._pointer,
+        _UniffiConverterOptionalString.lower(ping_name))
         )</code></pre>
 </details>
 <h3>Methods</h3>
@@ -383,12 +412,12 @@ __all__ = [
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def add(self, amount: &#34;typing.Union[object, int]&#34; = DEFAULT):
-    if amount is DEFAULT:
+<pre><code class="python">def add(self, amount: &#34;typing.Union[object, int]&#34; = _DEFAULT):
+    if amount is _DEFAULT:
         amount = 1
     
-    rust_call(_UniFFILib.uniffi_glean_fn_method_countermetric_add,self._pointer,
-    FfiConverterInt32.lower(amount))</code></pre>
+    _rust_call(_UniffiLib.uniffi_glean_core_fn_method_countermetric_add,self._pointer,
+    _UniffiConverterInt32.lower(amount))</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.CounterMetric.test_get_num_recorded_errors"><code class="name flex">
@@ -402,9 +431,9 @@ __all__ = [
 </summary>
 <pre><code class="python">def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
     
-    return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_countermetric_test_get_num_recorded_errors,self._pointer,
-    FfiConverterTypeErrorType.lower(error))
+    return _UniffiConverterInt32.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_countermetric_test_get_num_recorded_errors,self._pointer,
+    _UniffiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
 </dd>
@@ -417,13 +446,13 @@ __all__ = [
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[int]&#34;:
-    if ping_name is DEFAULT:
+<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[int]&#34;:
+    if ping_name is _DEFAULT:
         ping_name = None
     
-    return FfiConverterOptionalInt32.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_countermetric_test_get_value,self._pointer,
-    FfiConverterOptionalString.lower(ping_name))
+    return _UniffiConverterOptionalInt32.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_countermetric_test_get_value,self._pointer,
+    _UniffiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
 </dd>
@@ -1072,15 +1101,15 @@ metric storage and rearrange them correctly in the ping.</p></div>
     def __init__(self, meta: &#34;CommonMetricData&#34;,memory_unit: &#34;MemoryUnit&#34;):
         
         
-        self._pointer = rust_call(_UniFFILib.uniffi_glean_fn_constructor_memorydistributionmetric_new,
-        FfiConverterTypeCommonMetricData.lower(meta),
-        FfiConverterTypeMemoryUnit.lower(memory_unit))
+        self._pointer = _rust_call(_UniffiLib.uniffi_glean_core_fn_constructor_memorydistributionmetric_new,
+        _UniffiConverterTypeCommonMetricData.lower(meta),
+        _UniffiConverterTypeMemoryUnit.lower(memory_unit))
 
     def __del__(self):
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.uniffi_glean_fn_free_memorydistributionmetric, pointer)
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_free_memorydistributionmetric, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -1094,8 +1123,8 @@ metric storage and rearrange them correctly in the ping.</p></div>
 
     def accumulate(self, sample: &#34;int&#34;):
         
-        rust_call(_UniFFILib.uniffi_glean_fn_method_memorydistributionmetric_accumulate,self._pointer,
-        FfiConverterInt64.lower(sample))
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_memorydistributionmetric_accumulate,self._pointer,
+        _UniffiConverterInt64.lower(sample))
 
 
 
@@ -1105,23 +1134,9 @@ metric storage and rearrange them correctly in the ping.</p></div>
 
     def accumulate_samples(self, samples: &#34;typing.List[int]&#34;):
         
-        rust_call(_UniFFILib.uniffi_glean_fn_method_memorydistributionmetric_accumulate_samples,self._pointer,
-        FfiConverterSequenceInt64.lower(samples))
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_memorydistributionmetric_accumulate_samples,self._pointer,
+        _UniffiConverterSequenceInt64.lower(samples))
 
-
-
-
-
-
-
-    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[DistributionData]&#34;:
-        if ping_name is DEFAULT:
-            ping_name = None
-        
-        return FfiConverterOptionalTypeDistributionData.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_memorydistributionmetric_test_get_value,self._pointer,
-        FfiConverterOptionalString.lower(ping_name))
-        )
 
 
 
@@ -1130,9 +1145,23 @@ metric storage and rearrange them correctly in the ping.</p></div>
 
     def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
         
-        return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_memorydistributionmetric_test_get_num_recorded_errors,self._pointer,
-        FfiConverterTypeErrorType.lower(error))
+        return _UniffiConverterInt32.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_memorydistributionmetric_test_get_num_recorded_errors,self._pointer,
+        _UniffiConverterTypeErrorType.lower(error))
+        )
+
+
+
+
+
+
+    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[DistributionData]&#34;:
+        if ping_name is _DEFAULT:
+            ping_name = None
+        
+        return _UniffiConverterOptionalTypeDistributionData.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_memorydistributionmetric_test_get_value,self._pointer,
+        _UniffiConverterOptionalString.lower(ping_name))
         )</code></pre>
 </details>
 <h3>Methods</h3>
@@ -1148,8 +1177,8 @@ metric storage and rearrange them correctly in the ping.</p></div>
 </summary>
 <pre><code class="python">def accumulate(self, sample: &#34;int&#34;):
     
-    rust_call(_UniFFILib.uniffi_glean_fn_method_memorydistributionmetric_accumulate,self._pointer,
-    FfiConverterInt64.lower(sample))</code></pre>
+    _rust_call(_UniffiLib.uniffi_glean_core_fn_method_memorydistributionmetric_accumulate,self._pointer,
+    _UniffiConverterInt64.lower(sample))</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.MemoryDistributionMetric.accumulate_samples"><code class="name flex">
@@ -1163,8 +1192,8 @@ metric storage and rearrange them correctly in the ping.</p></div>
 </summary>
 <pre><code class="python">def accumulate_samples(self, samples: &#34;typing.List[int]&#34;):
     
-    rust_call(_UniFFILib.uniffi_glean_fn_method_memorydistributionmetric_accumulate_samples,self._pointer,
-    FfiConverterSequenceInt64.lower(samples))</code></pre>
+    _rust_call(_UniffiLib.uniffi_glean_core_fn_method_memorydistributionmetric_accumulate_samples,self._pointer,
+    _UniffiConverterSequenceInt64.lower(samples))</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.MemoryDistributionMetric.test_get_num_recorded_errors"><code class="name flex">
@@ -1178,9 +1207,9 @@ metric storage and rearrange them correctly in the ping.</p></div>
 </summary>
 <pre><code class="python">def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
     
-    return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_memorydistributionmetric_test_get_num_recorded_errors,self._pointer,
-    FfiConverterTypeErrorType.lower(error))
+    return _UniffiConverterInt32.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_memorydistributionmetric_test_get_num_recorded_errors,self._pointer,
+    _UniffiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
 </dd>
@@ -1193,13 +1222,13 @@ metric storage and rearrange them correctly in the ping.</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[DistributionData]&#34;:
-    if ping_name is DEFAULT:
+<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[DistributionData]&#34;:
+    if ping_name is _DEFAULT:
         ping_name = None
     
-    return FfiConverterOptionalTypeDistributionData.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_memorydistributionmetric_test_get_value,self._pointer,
-    FfiConverterOptionalString.lower(ping_name))
+    return _UniffiConverterOptionalTypeDistributionData.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_memorydistributionmetric_test_get_value,self._pointer,
+    _UniffiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
 </dd>
@@ -1395,14 +1424,14 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     _pointer: ctypes.c_void_p
     def __init__(self, meta: &#34;CommonMetricData&#34;):
         
-        self._pointer = rust_call(_UniFFILib.uniffi_glean_fn_constructor_quantitymetric_new,
-        FfiConverterTypeCommonMetricData.lower(meta))
+        self._pointer = _rust_call(_UniffiLib.uniffi_glean_core_fn_constructor_quantitymetric_new,
+        _UniffiConverterTypeCommonMetricData.lower(meta))
 
     def __del__(self):
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.uniffi_glean_fn_free_quantitymetric, pointer)
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_free_quantitymetric, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -1416,23 +1445,9 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 
     def set(self, value: &#34;int&#34;):
         
-        rust_call(_UniFFILib.uniffi_glean_fn_method_quantitymetric_set,self._pointer,
-        FfiConverterInt64.lower(value))
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_quantitymetric_set,self._pointer,
+        _UniffiConverterInt64.lower(value))
 
-
-
-
-
-
-
-    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[int]&#34;:
-        if ping_name is DEFAULT:
-            ping_name = None
-        
-        return FfiConverterOptionalInt64.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_quantitymetric_test_get_value,self._pointer,
-        FfiConverterOptionalString.lower(ping_name))
-        )
 
 
 
@@ -1441,9 +1456,23 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 
     def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
         
-        return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_quantitymetric_test_get_num_recorded_errors,self._pointer,
-        FfiConverterTypeErrorType.lower(error))
+        return _UniffiConverterInt32.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_quantitymetric_test_get_num_recorded_errors,self._pointer,
+        _UniffiConverterTypeErrorType.lower(error))
+        )
+
+
+
+
+
+
+    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[int]&#34;:
+        if ping_name is _DEFAULT:
+            ping_name = None
+        
+        return _UniffiConverterOptionalInt64.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_quantitymetric_test_get_value,self._pointer,
+        _UniffiConverterOptionalString.lower(ping_name))
         )</code></pre>
 </details>
 <h3>Methods</h3>
@@ -1459,8 +1488,8 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 </summary>
 <pre><code class="python">def set(self, value: &#34;int&#34;):
     
-    rust_call(_UniFFILib.uniffi_glean_fn_method_quantitymetric_set,self._pointer,
-    FfiConverterInt64.lower(value))</code></pre>
+    _rust_call(_UniffiLib.uniffi_glean_core_fn_method_quantitymetric_set,self._pointer,
+    _UniffiConverterInt64.lower(value))</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.QuantityMetric.test_get_num_recorded_errors"><code class="name flex">
@@ -1474,9 +1503,9 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 </summary>
 <pre><code class="python">def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
     
-    return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_quantitymetric_test_get_num_recorded_errors,self._pointer,
-    FfiConverterTypeErrorType.lower(error))
+    return _UniffiConverterInt32.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_quantitymetric_test_get_num_recorded_errors,self._pointer,
+    _UniffiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
 </dd>
@@ -1489,13 +1518,13 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[int]&#34;:
-    if ping_name is DEFAULT:
+<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[int]&#34;:
+    if ping_name is _DEFAULT:
         ping_name = None
     
-    return FfiConverterOptionalInt64.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_quantitymetric_test_get_value,self._pointer,
-    FfiConverterOptionalString.lower(ping_name))
+    return _UniffiConverterOptionalInt64.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_quantitymetric_test_get_value,self._pointer,
+    _UniffiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
 </dd>
@@ -1503,7 +1532,7 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 </dd>
 <dt id="glean.metrics.RecordedEvent"><code class="flex name class">
 <span>class <span class="ident">RecordedEvent</span></span>
-<span>(</span><span>timestamp, category, name, extra)</span>
+<span>(</span><span>timestamp: int, category: str, name: str, extra: typing.Optional[dict])</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -1512,8 +1541,10 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class RecordedEvent:
+    timestamp: &#34;int&#34;;category: &#34;str&#34;;name: &#34;str&#34;;extra: &#34;typing.Optional[dict]&#34;;
 
-    def __init__(self, timestamp, category, name, extra):
+    @typing.no_type_check
+    def __init__(self, timestamp: &#34;int&#34;, category: &#34;str&#34;, name: &#34;str&#34;, extra: &#34;typing.Optional[dict]&#34;):
         self.timestamp = timestamp
         self.category = category
         self.name = name
@@ -1533,10 +1564,29 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
             return False
         return True</code></pre>
 </details>
+<h3>Class variables</h3>
+<dl>
+<dt id="glean.metrics.RecordedEvent.category"><code class="name">var <span class="ident">category</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.metrics.RecordedEvent.extra"><code class="name">var <span class="ident">extra</span> : Optional[dict]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.metrics.RecordedEvent.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.metrics.RecordedEvent.timestamp"><code class="name">var <span class="ident">timestamp</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
 </dd>
 <dt id="glean.metrics.RecordedExperiment"><code class="flex name class">
 <span>class <span class="ident">RecordedExperiment</span></span>
-<span>(</span><span>branch, extra)</span>
+<span>(</span><span>branch: str, extra: typing.Optional[dict])</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -1545,8 +1595,10 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class RecordedExperiment:
+    branch: &#34;str&#34;;extra: &#34;typing.Optional[dict]&#34;;
 
-    def __init__(self, branch, extra):
+    @typing.no_type_check
+    def __init__(self, branch: &#34;str&#34;, extra: &#34;typing.Optional[dict]&#34;):
         self.branch = branch
         self.extra = extra
 
@@ -1560,6 +1612,17 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
             return False
         return True</code></pre>
 </details>
+<h3>Class variables</h3>
+<dl>
+<dt id="glean.metrics.RecordedExperiment.branch"><code class="name">var <span class="ident">branch</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="glean.metrics.RecordedExperiment.extra"><code class="name">var <span class="ident">extra</span> : Optional[dict]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
 </dd>
 <dt id="glean.metrics.StringListMetric"><code class="flex name class">
 <span>class <span class="ident">StringListMetricType</span></span>
@@ -1575,14 +1638,14 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
     _pointer: ctypes.c_void_p
     def __init__(self, meta: &#34;CommonMetricData&#34;):
         
-        self._pointer = rust_call(_UniFFILib.uniffi_glean_fn_constructor_stringlistmetric_new,
-        FfiConverterTypeCommonMetricData.lower(meta))
+        self._pointer = _rust_call(_UniffiLib.uniffi_glean_core_fn_constructor_stringlistmetric_new,
+        _UniffiConverterTypeCommonMetricData.lower(meta))
 
     def __del__(self):
         # In case of partial initialization of instances.
         pointer = getattr(self, &#34;_pointer&#34;, None)
         if pointer is not None:
-            rust_call(_UniFFILib.uniffi_glean_fn_free_stringlistmetric, pointer)
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_free_stringlistmetric, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -1596,8 +1659,8 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 
     def add(self, value: &#34;str&#34;):
         
-        rust_call(_UniFFILib.uniffi_glean_fn_method_stringlistmetric_add,self._pointer,
-        FfiConverterString.lower(value))
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_stringlistmetric_add,self._pointer,
+        _UniffiConverterString.lower(value))
 
 
 
@@ -1607,23 +1670,9 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 
     def set(self, value: &#34;typing.List[str]&#34;):
         
-        rust_call(_UniFFILib.uniffi_glean_fn_method_stringlistmetric_set,self._pointer,
-        FfiConverterSequenceString.lower(value))
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_stringlistmetric_set,self._pointer,
+        _UniffiConverterSequenceString.lower(value))
 
-
-
-
-
-
-
-    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[typing.List[str]]&#34;:
-        if ping_name is DEFAULT:
-            ping_name = None
-        
-        return FfiConverterOptionalSequenceString.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_stringlistmetric_test_get_value,self._pointer,
-        FfiConverterOptionalString.lower(ping_name))
-        )
 
 
 
@@ -1632,9 +1681,23 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 
     def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
         
-        return FfiConverterInt32.lift(
-            rust_call(_UniFFILib.uniffi_glean_fn_method_stringlistmetric_test_get_num_recorded_errors,self._pointer,
-        FfiConverterTypeErrorType.lower(error))
+        return _UniffiConverterInt32.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_stringlistmetric_test_get_num_recorded_errors,self._pointer,
+        _UniffiConverterTypeErrorType.lower(error))
+        )
+
+
+
+
+
+
+    def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[typing.List[str]]&#34;:
+        if ping_name is _DEFAULT:
+            ping_name = None
+        
+        return _UniffiConverterOptionalSequenceString.lift(
+            _rust_call(_UniffiLib.uniffi_glean_core_fn_method_stringlistmetric_test_get_value,self._pointer,
+        _UniffiConverterOptionalString.lower(ping_name))
         )</code></pre>
 </details>
 <h3>Methods</h3>
@@ -1650,8 +1713,8 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 </summary>
 <pre><code class="python">def add(self, value: &#34;str&#34;):
     
-    rust_call(_UniFFILib.uniffi_glean_fn_method_stringlistmetric_add,self._pointer,
-    FfiConverterString.lower(value))</code></pre>
+    _rust_call(_UniffiLib.uniffi_glean_core_fn_method_stringlistmetric_add,self._pointer,
+    _UniffiConverterString.lower(value))</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.StringListMetric.set"><code class="name flex">
@@ -1665,8 +1728,8 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 </summary>
 <pre><code class="python">def set(self, value: &#34;typing.List[str]&#34;):
     
-    rust_call(_UniFFILib.uniffi_glean_fn_method_stringlistmetric_set,self._pointer,
-    FfiConverterSequenceString.lower(value))</code></pre>
+    _rust_call(_UniffiLib.uniffi_glean_core_fn_method_stringlistmetric_set,self._pointer,
+    _UniffiConverterSequenceString.lower(value))</code></pre>
 </details>
 </dd>
 <dt id="glean.metrics.StringListMetric.test_get_num_recorded_errors"><code class="name flex">
@@ -1680,9 +1743,9 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 </summary>
 <pre><code class="python">def test_get_num_recorded_errors(self, error: &#34;ErrorType&#34;) -&gt; &#34;int&#34;:
     
-    return FfiConverterInt32.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_stringlistmetric_test_get_num_recorded_errors,self._pointer,
-    FfiConverterTypeErrorType.lower(error))
+    return _UniffiConverterInt32.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_stringlistmetric_test_get_num_recorded_errors,self._pointer,
+    _UniffiConverterTypeErrorType.lower(error))
     )</code></pre>
 </details>
 </dd>
@@ -1695,13 +1758,13 @@ A ping might not be sent afterwards, e.g. if the ping is otherwise empty (and
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = DEFAULT) -&gt; &#34;typing.Optional[typing.List[str]]&#34;:
-    if ping_name is DEFAULT:
+<pre><code class="python">def test_get_value(self, ping_name: &#34;typing.Union[object, typing.Optional[str]]&#34; = _DEFAULT) -&gt; &#34;typing.Optional[typing.List[str]]&#34;:
+    if ping_name is _DEFAULT:
         ping_name = None
     
-    return FfiConverterOptionalSequenceString.lift(
-        rust_call(_UniFFILib.uniffi_glean_fn_method_stringlistmetric_test_get_value,self._pointer,
-    FfiConverterOptionalString.lower(ping_name))
+    return _UniffiConverterOptionalSequenceString.lift(
+        _rust_call(_UniffiLib.uniffi_glean_core_fn_method_stringlistmetric_test_get_value,self._pointer,
+    _UniffiConverterOptionalString.lower(ping_name))
     )</code></pre>
 </details>
 </dd>
@@ -1874,7 +1937,7 @@ the string exceeds the maximum length, it will be truncated.</dd>
 </dd>
 <dt id="glean.metrics.TimerId"><code class="flex name class">
 <span>class <span class="ident">TimerId</span></span>
-<span>(</span><span>id)</span>
+<span>(</span><span>id: int)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -1883,8 +1946,10 @@ the string exceeds the maximum length, it will be truncated.</dd>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class TimerId:
+    id: &#34;int&#34;;
 
-    def __init__(self, id):
+    @typing.no_type_check
+    def __init__(self, id: &#34;int&#34;):
         self.id = id
 
     def __str__(self):
@@ -1895,6 +1960,13 @@ the string exceeds the maximum length, it will be truncated.</dd>
             return False
         return True</code></pre>
 </details>
+<h3>Class variables</h3>
+<dl>
+<dt id="glean.metrics.TimerId.id"><code class="name">var <span class="ident">id</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
 </dd>
 <dt id="glean.metrics.TimespanMetricType"><code class="flex name class">
 <span>class <span class="ident">TimespanMetricType</span></span>
@@ -2824,6 +2896,14 @@ previously registered in the metrics.yaml file.</p>
 </li>
 <li>
 <h4><code><a title="glean.metrics.CommonMetricData" href="#glean.metrics.CommonMetricData">CommonMetricData</a></code></h4>
+<ul class="two-column">
+<li><code><a title="glean.metrics.CommonMetricData.category" href="#glean.metrics.CommonMetricData.category">category</a></code></li>
+<li><code><a title="glean.metrics.CommonMetricData.disabled" href="#glean.metrics.CommonMetricData.disabled">disabled</a></code></li>
+<li><code><a title="glean.metrics.CommonMetricData.dynamic_label" href="#glean.metrics.CommonMetricData.dynamic_label">dynamic_label</a></code></li>
+<li><code><a title="glean.metrics.CommonMetricData.lifetime" href="#glean.metrics.CommonMetricData.lifetime">lifetime</a></code></li>
+<li><code><a title="glean.metrics.CommonMetricData.name" href="#glean.metrics.CommonMetricData.name">name</a></code></li>
+<li><code><a title="glean.metrics.CommonMetricData.send_in_pings" href="#glean.metrics.CommonMetricData.send_in_pings">send_in_pings</a></code></li>
+</ul>
 </li>
 <li>
 <h4><code><a title="glean.metrics.CounterMetric" href="#glean.metrics.CounterMetric">CounterMetric</a></code></h4>
@@ -2908,9 +2988,19 @@ previously registered in the metrics.yaml file.</p>
 </li>
 <li>
 <h4><code><a title="glean.metrics.RecordedEvent" href="#glean.metrics.RecordedEvent">RecordedEvent</a></code></h4>
+<ul class="">
+<li><code><a title="glean.metrics.RecordedEvent.category" href="#glean.metrics.RecordedEvent.category">category</a></code></li>
+<li><code><a title="glean.metrics.RecordedEvent.extra" href="#glean.metrics.RecordedEvent.extra">extra</a></code></li>
+<li><code><a title="glean.metrics.RecordedEvent.name" href="#glean.metrics.RecordedEvent.name">name</a></code></li>
+<li><code><a title="glean.metrics.RecordedEvent.timestamp" href="#glean.metrics.RecordedEvent.timestamp">timestamp</a></code></li>
+</ul>
 </li>
 <li>
 <h4><code><a title="glean.metrics.RecordedExperiment" href="#glean.metrics.RecordedExperiment">RecordedExperiment</a></code></h4>
+<ul class="">
+<li><code><a title="glean.metrics.RecordedExperiment.branch" href="#glean.metrics.RecordedExperiment.branch">branch</a></code></li>
+<li><code><a title="glean.metrics.RecordedExperiment.extra" href="#glean.metrics.RecordedExperiment.extra">extra</a></code></li>
+</ul>
 </li>
 <li>
 <h4><code><a title="glean.metrics.StringListMetric" href="#glean.metrics.StringListMetric">StringListMetric</a></code></h4>
@@ -2943,6 +3033,9 @@ previously registered in the metrics.yaml file.</p>
 </li>
 <li>
 <h4><code><a title="glean.metrics.TimerId" href="#glean.metrics.TimerId">TimerId</a></code></h4>
+<ul class="">
+<li><code><a title="glean.metrics.TimerId.id" href="#glean.metrics.TimerId.id">id</a></code></li>
+</ul>
 </li>
 <li>
 <h4><code><a title="glean.metrics.TimespanMetricType" href="#glean.metrics.TimespanMetricType">TimespanMetricType</a></code></h4>

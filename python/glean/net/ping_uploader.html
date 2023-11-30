@@ -206,7 +206,10 @@ Protocol classes can be generic, they are defined as::</p>
 
     # Each enum variant is a nested class of the enum itself.
     class RECOVERABLE_FAILURE:
-        def __init__(self,unused):
+        unused: &#34;int&#34;;
+
+        @typing.no_type_check
+        def __init__(self,unused: &#34;int&#34;):
             
             self.unused = unused
             
@@ -221,7 +224,10 @@ Protocol classes can be generic, they are defined as::</p>
                 return False
             return True
     class UNRECOVERABLE_FAILURE:
-        def __init__(self,unused):
+        unused: &#34;int&#34;;
+
+        @typing.no_type_check
+        def __init__(self,unused: &#34;int&#34;):
             
             self.unused = unused
             
@@ -236,7 +242,10 @@ Protocol classes can be generic, they are defined as::</p>
                 return False
             return True
     class HTTP_STATUS:
-        def __init__(self,code):
+        code: &#34;int&#34;;
+
+        @typing.no_type_check
+        def __init__(self,code: &#34;int&#34;):
             
             self.code = code
             
@@ -251,7 +260,10 @@ Protocol classes can be generic, they are defined as::</p>
                 return False
             return True
     class DONE:
-        def __init__(self,unused):
+        unused: &#34;int&#34;;
+
+        @typing.no_type_check
+        def __init__(self,unused: &#34;int&#34;):
             
             self.unused = unused
             
