@@ -120,6 +120,11 @@ afterEvaluate {
     }
 }
 
+tasks.matching { it.name.matches(/merge.*JniLibFolders/) }.configureEach {
+    it.inputs.dir(new File(buildDir, "rustJniLibs/android"))
+    it.dependsOn("cargoBuild")
+}
+
 apply from: "$projectDir/publish.gradle"
 // If using jnaForTestConfiguration
 // please also update the corresponding .buildconfig-android.yml
