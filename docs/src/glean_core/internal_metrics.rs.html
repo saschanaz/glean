@@ -280,6 +280,18 @@
 <a href="#280" id="280">280</a>
 <a href="#281" id="281">281</a>
 <a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+<a href="#285" id="285">285</a>
+<a href="#286" id="286">286</a>
+<a href="#287" id="287">287</a>
+<a href="#288" id="288">288</a>
+<a href="#289" id="289">289</a>
+<a href="#290" id="290">290</a>
+<a href="#291" id="291">291</a>
+<a href="#292" id="292">292</a>
+<a href="#293" id="293">293</a>
+<a href="#294" id="294">294</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -543,6 +555,9 @@
 <span class="attr">#[derive(Debug)]
 </span><span class="kw">pub struct </span>DatabaseMetrics {
     <span class="kw">pub </span>size: MemoryDistributionMetric,
+
+    <span class="doccomment">/// RKV&#39;s load result, indicating success or relaying the detected error.
+    </span><span class="kw">pub </span>rkv_load_error: StringMetric,
 }
 
 <span class="kw">impl </span>DatabaseMetrics {
@@ -559,6 +574,15 @@
                 },
                 MemoryUnit::Byte,
             ),
+
+            rkv_load_error: StringMetric::new(CommonMetricData {
+                name: <span class="string">&quot;rkv_load_error&quot;</span>.into(),
+                category: <span class="string">&quot;glean.error&quot;</span>.into(),
+                send_in_pings: <span class="macro">vec!</span>[<span class="string">&quot;metrics&quot;</span>.into()],
+                lifetime: Lifetime::Ping,
+                disabled: <span class="bool-val">false</span>,
+                dynamic_label: <span class="prelude-val">None</span>,
+            }),
         }
     }
 }

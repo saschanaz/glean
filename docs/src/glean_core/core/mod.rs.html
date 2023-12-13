@@ -980,6 +980,16 @@
 <a href="#980" id="980">980</a>
 <a href="#981" id="981">981</a>
 <a href="#982" id="982">982</a>
+<a href="#983" id="983">983</a>
+<a href="#984" id="984">984</a>
+<a href="#985" id="985">985</a>
+<a href="#986" id="986">986</a>
+<a href="#987" id="987">987</a>
+<a href="#988" id="988">988</a>
+<a href="#989" id="989">989</a>
+<a href="#990" id="990">990</a>
+<a href="#991" id="991">991</a>
+<a href="#992" id="992">992</a>
 </pre><pre class="rust"><code><span class="comment">// This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -1362,6 +1372,16 @@
             <span class="self">self</span>.database_metrics
                 .size
                 .accumulate_sync(<span class="self">self</span>, size.get() <span class="kw">as </span>i64)
+        }
+
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(rkv_load_state) = <span class="self">self
+            </span>.data_store
+            .as_ref()
+            .and_then(|database| database.rkv_load_state())
+        {
+            <span class="self">self</span>.database_metrics
+                .rkv_load_error
+                .set_sync(<span class="self">self</span>, rkv_load_state)
         }
     }
 
