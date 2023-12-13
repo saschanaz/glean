@@ -383,7 +383,7 @@ apply plugin: &quot;org.mozilla.telemetry.glean-gradle-plugin&quot;
 <p>Currently, this SDK only supports the iOS platform.</p>
 <h2 id="requirements"><a class="header" href="#requirements">Requirements</a></h2>
 <ul>
-<li>Python &gt;= 3.7.</li>
+<li>Python &gt;= 3.8.</li>
 </ul>
 <h2 id="setting-up-the-dependency-1"><a class="header" href="#setting-up-the-dependency-1">Setting up the dependency</a></h2>
 <p>The Glean Swift SDK can be consumed as a Swift Package.
@@ -587,7 +587,7 @@ the Glean JavaScript SDK into a JavaScript project.</p>
 <li>Node.js &gt;= 12.20.0</li>
 <li>npm &gt;= 7.0.0</li>
 <li>Webpack &gt;= 5.34.0</li>
-<li>Python &gt;= 3.7
+<li>Python &gt;= 3.8
 <ul>
 <li>The <code>glean</code> command requires Python to download <a href="https://mozilla.github.io/glean_parser/"><code>glean_parser</code></a> which is a Python library</li>
 </ul>
@@ -11111,7 +11111,7 @@ When using the expiration by version feature in Android, products must provide t
 <p>To build a Glean-using application in offline mode, do the following:</p>
 <ul>
 <li>
-<p>Install Python 3.7 or later and ensure it's on the <code>PATH</code>.</p>
+<p>Install Python 3.8 or later and ensure it's on the <code>PATH</code>.</p>
 <ul>
 <li>
 <p>On Linux, installing Python from your Linux distribution's package manager is usually sufficient.</p>
@@ -11530,6 +11530,7 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 <li>General
 <ul>
 <li>Errors are now recorded in cases where we had to create a new data store for Glean due to a failure (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1815253">bug 1815253</a>)</li>
+<li>Update <code>glean_parser</code> to v11.0.0 (<a href="https://github.com/mozilla/glean_parser/releases/tag/v11.0.0">release notes</a>)</li>
 </ul>
 </li>
 <li>iOS
@@ -11553,6 +11554,13 @@ Each ping has its own schedule to gather all its locally saved metrics and creat
 </li>
 </ul>
 <h1 id="v5500-2023-10-23"><a class="header" href="#v5500-2023-10-23">v55.0.0 (2023-10-23)</a></h1>
+<ul>
+<li>Python
+<ul>
+<li>BREAKING CHANGE: Dropped support for Python 3.7 (<a href="appendix/changelog/">#</a>)</li>
+</ul>
+</li>
+</ul>
 <p><a href="https://github.com/mozilla/glean/compare/v54.0.0...v55.0.0">Full changelog</a></p>
 <ul>
 <li>General
