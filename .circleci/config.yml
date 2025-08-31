@@ -204,6 +204,20 @@ commands:
           command: |
             make build-python-wheel GLEAN_BUILD_TARGET=x86_64-pc-windows-gnu
 
+  build-windows-arm64-wheel:
+    steps:
+      - install-rustup
+      - setup-rust-toolchain
+      - install-mingw
+      - run:
+          name: Install Python development tools for host
+          command:
+            make setup-python
+      - run:
+          name: Build Windows wheel
+          command: |
+            make build-python-wheel GLEAN_BUILD_TARGET=aarch64-pc-windows-gnu
+
   install-python-windows-deps:
     steps:
       - run:
@@ -938,6 +952,25 @@ jobs:
     steps:
       - checkout
       - build-windows-x86_64-wheel
+      - run:
+          name: Upload to PyPI
+          command: |
+            # Requires that the TWINE_USERNAME and TWINE_PASSWORD environment
+            # variables are configured in CircleCI's environment variables.
+            .venv3.9/bin/python3 -m twine upload target/wheels/*
+      - install-ghr-linux
+      - run:
+          name: Publish to GitHub
+          command: |
+            # Upload to GitHub
+            ./ghr -replace ${CIRCLE_TAG} target/wheels
+
+  pypi-windows-arm64-release:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - build-windows-arm64-wheel
       - run:
           name: Upload to PyPI
           command: |
